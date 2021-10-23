@@ -1,16 +1,51 @@
-# Econ Plaza Backend
+# EconPlaza backend (Django)
+## Getting started
 
-**Python: 3.7+**
+Set up and activate a virtual environment:
 
-The Econ Plaza backend is written in Python using Django.
-The database that will be used alongside the Django api
-will be a postgres database.
+```bash
+$ python -m venv '.env'
 
-## Setup
+$ source .env/bin/activate          # Linux
+$ source .env/Scripts/activate      # Windows
+```
 
-_TODO_
+Install the required packages to your environment.:
 
-## How To Run
+```bash
+$ pip install -r requirements.txt
+```
 
-_TODO_
+Navigate to the project directory, where `manage.py` is located.
 
+```bash
+$ cd backend
+```
+
+Set up your local database by running migrations:
+
+```bash
+$ python manage.py migrate
+```
+
+Finally, run the server:
+
+```bash
+$ python manage.py runserver
+```
+
+You can visit it at `http://localhost:8000/` (`http://127.0.0.1:8000/`).
+
+## Testing
+
+Use [Coverage.py](https://coverage.readthedocs.io/en/6.0.2/) to run the test suite:
+
+```bash
+$ coverage run manage.py test
+```
+
+You can print a report of the results to your console:
+
+```bash
+$ coverage report -m
+```
