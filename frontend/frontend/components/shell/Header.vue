@@ -1,6 +1,6 @@
 <template>
   <header>
-    <nav id="navbar" class="bg-gray-100">
+    <nav id="navbar" class="bg-blue-100">
       <div class="container mx-auto px-5">
         <div id="links" class="flex items-center space-x-8 py-3">
           <ul class="flex flex-1">
