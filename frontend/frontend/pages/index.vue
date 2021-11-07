@@ -1,7 +1,23 @@
 <template>
-  <div class="container mx-auto">
-    <posts-placeholder />
-  </div>
+  <main>
+    <div class="container mx-auto">
+      <div class="bg-gray-50 px-5">
+        <div id="title">
+          <div class="flex pt-8">
+            <h1 class="text-xl font-semibold">General</h1>
+          </div>
+        </div>
+        <div id="content" class="flex pt-5 pb-8">
+          <div id="content-left" class="w-2/3 mr-2">
+            <post-table />
+          </div>
+          <div id="content-left" class="w-1/3 ml-2">
+            <about-box />
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
 </template>
 
 <script></script>
