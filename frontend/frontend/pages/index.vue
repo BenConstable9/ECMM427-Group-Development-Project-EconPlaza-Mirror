@@ -1,7 +1,9 @@
 <template>
-  <Tutorial/>
+  <div class="container mx-auto">
+    <posts-placeholder />
+  </div>
 </template>
 
-<script>
-export default {}
-</script>
+<script></script>
+
+<style></style>
