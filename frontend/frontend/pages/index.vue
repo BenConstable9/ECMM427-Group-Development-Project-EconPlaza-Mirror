@@ -11,8 +11,9 @@
           <div id="content-left" class="w-2/3 mr-2">
             <post-table />
           </div>
-          <div id="content-left" class="w-1/3 ml-2">
+          <div id="content-left" class="w-1/3 flex flex-col space-y-3 ml-2">
             <about-box />
+            <rules-box />
           </div>
         </div>
       </div>

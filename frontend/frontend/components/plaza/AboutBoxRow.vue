@@ -1,9 +1,9 @@
 <template>
-  <div id="post" class="flex bg-gray-100 px-3 py-1.5">
-    <h1 class="text-sm text-gray-900">
+  <div id="about-info" class="flex bg-gray-100 px-3 py-2">
+    <p class="text-sm text-gray-900">
       A safe forum for economics job market rumors, and related discussion of
       economics and finance academia and industry.
-    </h1>
+    </p>
   </div>
 </template>
 
