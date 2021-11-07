@@ -1,10 +1,10 @@
 <template>
   <div id="post-info" class="flex items-center px-3 py-2">
-    <div class="mr-3">
+    <div class="mr-2">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         class="h-7 w-7 text-gray-300 hover:text-gray-400 cursor-pointer"
-        viewBox="0 0 20 20"
+        viewBox="2 -1 20 20"
         fill="currentColor"
       >
         <path
