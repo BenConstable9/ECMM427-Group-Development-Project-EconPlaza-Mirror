@@ -1,44 +1,23 @@
 variables:
-  DOCKER_REPO: "europe-west2-docker.pkg.dev"
-
-stages:
-  - build
-  - staging
-  - production
+  DOCKER_REPO: "https://europe-west2-docker.pkg.dev"
 
 build-docker-image:
-  image: google/cloud-sdk:latest 
-  stage: build
+  image: google/cloud-sdk:latest
+  stage: Build
   script:
-    - gcloud auth activate-service-account --key-file=$GCP_SERVICE_KEY
-    - gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://$DOCKER_REPO
+    - echo $GCP_SERVICE_KEY > gcloud-service-key.json
+    - docker login -u _json_key_base64 --password-stdin https://$DOCKER_REPO < gcloud-service-key.json
     - cd backend
-    - docker build -t $DOCKER_REPO/$GCP_PROJECT_ID/econplaza/app:$CI_PIPELINE_ID .
+    - docker build -t $DOCKER_REPO/$GCP_PROJECT_ID/econplaza/app:$CI_PIPELINE_ID
     - docker push $DOCKER_REPO/$GCP_PROJECT_ID/econplaza/app:$CI_PIPELINE_ID
 
-deploy-staging:
+deploy-service:
   image: google/cloud-sdk:latest
-  stage: staging
+  stage: Deploy
   script:
-    - curl -i http://192.168.0.15:9999/blue-green/econplaza-api-staging/$CI_PIPELINE_ID
-  only:
-    - master
-
-deploy-production:
-  image: google/cloud-sdk:latest
-  stage: production
-  script:
-    - curl -i http://192.168.0.15:9999/blue-green/econplaza-api-production/$CI_PIPELINE_ID
-  when: manual
-  only:
-    - master
-
-deploy-frontend-production:
-  image: alpine/curl:3.14
-  stage: production
-  script:
-    - curl -i http://192.168.0.15:9999/blue-green/econplaza-frontend-production/$CI_PIPELINE_ID
-  when: manual
-  only:
-    - master
-
+    - cd backend
+    - echo $GCP_SERVICE_KEY > gcloud-service-key.json
+    - gcloud auth activate-service-account --key-file gcloud-service-key.json
+    - gcloud config set project $GCP_PROJECT_ID
+    - sed -i 's+{DOCKER_IMAGE}+$DOCKER_REPO/econplaza/app:$CI_PIPELINE_ID+/g' google.yaml
+    - kubectl apply -f google.yaml
