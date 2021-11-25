@@ -8,7 +8,7 @@ build-docker-image:
     - gcloud auth activate-service-account --key-file=$GCP_SERVICE_KEY
     - gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://$DOCKER_REPO
     - cd backend
-    - docker build -t $DOCKER_REPO/$GCP_PROJECT_ID/econplaza/app:$CI_PIPELINE_ID
+    - docker build -t $DOCKER_REPO/$GCP_PROJECT_ID/econplaza/app:$CI_PIPELINE_ID .
     - docker push $DOCKER_REPO/$GCP_PROJECT_ID/econplaza/app:$CI_PIPELINE_ID
 
 deploy-service:
