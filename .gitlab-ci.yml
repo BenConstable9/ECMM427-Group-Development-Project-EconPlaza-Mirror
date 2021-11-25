@@ -4,8 +4,10 @@ variables:
 build-docker-image:
   image: google/cloud-sdk:latest
   stage: build
+  services:
+    - docker
   script:
-    - systemctl start docker
+    - service docker start
     - gcloud auth activate-service-account --key-file=$GCP_SERVICE_KEY
     - gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://$DOCKER_REPO
     - cd backend
