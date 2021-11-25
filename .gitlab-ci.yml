@@ -6,7 +6,7 @@ build-docker-image:
   stage: build
   script:
     - echo $GCP_SERVICE_KEY > gcloud-service-key.json
-    - docker login -u _json_key_base64 --password-stdin https://$DOCKER_REPO < gcloud-service-key.json
+    - cat gcloud-service-key.json | docker login -u _json_key_base64 --password-stdin https://$DOCKER_REPO
     - cd backend
     - docker build -t $DOCKER_REPO/$GCP_PROJECT_ID/econplaza/app:$CI_PIPELINE_ID
     - docker push $DOCKER_REPO/$GCP_PROJECT_ID/econplaza/app:$CI_PIPELINE_ID
