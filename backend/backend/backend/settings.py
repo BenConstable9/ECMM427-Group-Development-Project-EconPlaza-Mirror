@@ -11,6 +11,17 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+from os import environ
+
+
+# Determine Environment
+
+DEVELOPMENT = environ.get("DEVELOPMENT", "false").lower() == "true"
+CLOUD = not DEVELOPMENT
+DEBUG = DEVELOPMENT or environ.get("DEBUG", "false").lower() == "true"
+STAGING = CLOUD and DEBUG
+PRODUCTION = CLOUD and not DEBUG
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -22,10 +33,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = "django-insecure-p2aniflccfqo1)fyiph$g_sw9v6h2i$-h2uho2qr+7&7v%5@a1"
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
 ALLOWED_HOSTS = []
+
+if CLOUD:
+    if environ.get("INSTANCE_IP", None) is not None:
+        ALLOWED_HOSTS.append(environ.get("INSTANCE_IP"))
+
+    if environ.get("HOSTNAMES", None) is not None:
+        ALLOWED_HOSTS += environ.get("HOSTNAMES").split(",")
+
+if DEVELOPMENT:
+    ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -47,6 +65,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -86,6 +105,18 @@ DATABASES = {
     }
 }
 
+if CLOUD:
+    DATABASES = {
+                "default": {
+                    "ENGINE": "django.db.backends.postgresql",
+                    "NAME": environ.get("DB_NAME", ""),
+                    "USER": environ.get("DB_USERNAME", ""),
+                    "PASSWORD": environ.get("DB_PASSWORD", ""),
+                    "HOST": environ.get("DB_HOST", ""),
+                    "PORT": environ.get("DB_PORT", "5432"),
+                }
+            }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -124,6 +155,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = "/static/"
+STATIC_ROOT = BASE_DIR / "static"
 
 
 # Django user authentication settings

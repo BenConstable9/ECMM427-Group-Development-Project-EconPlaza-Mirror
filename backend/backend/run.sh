@@ -1,7 +1,3 @@
-# Change into django directory
-
-cd backend
-
 # Run Migrations
 
 python manage.py migrate
