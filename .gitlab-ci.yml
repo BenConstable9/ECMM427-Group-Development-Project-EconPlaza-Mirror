@@ -3,7 +3,7 @@ variables:
 
 build-docker-image:
   image: google/cloud-sdk:latest
-  stage: Build
+  stage: build
   script:
     - echo $GCP_SERVICE_KEY > gcloud-service-key.json
     - docker login -u _json_key_base64 --password-stdin https://$DOCKER_REPO < gcloud-service-key.json
@@ -13,7 +13,7 @@ build-docker-image:
 
 deploy-service:
   image: google/cloud-sdk:latest
-  stage: Deploy
+  stage: deploy
   script:
     - cd backend
     - echo $GCP_SERVICE_KEY > gcloud-service-key.json
