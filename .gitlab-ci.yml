@@ -5,19 +5,18 @@ build-docker-image:
   image: google/cloud-sdk:latest
   stage: build
   script:
-    - echo $(GCP_SERVICE_KEY) > gcloud-service-key.json
-    - cat gcloud-service-key.json | docker login -u _json_key_base64 --password-stdin https://$(DOCKER_REPO)
+    - echo $GCP_SERVICE_KEY | docker login -u _json_key_base64 --password-stdin https://${DOCKER_REPO}
     - cd backend
-    - docker build -t $(DOCKER_REPO)/$(GCP_PROJECT_ID)/econplaza/app:$(CI_PIPELINE_ID)
-    - docker push $(DOCKER_REPO)/$(GCP_PROJECT_ID)/econplaza/app:$(CI_PIPELINE_ID)
+    - docker build -t ${DOCKER_REPO}/${GCP_PROJECT_ID}/econplaza/app:${CI_PIPELINE_ID}
+    - docker push ${DOCKER_REPO}/$}GCP_PROJECT_ID}/econplaza/app:${CI_PIPELINE_ID}
 
 deploy-service:
   image: google/cloud-sdk:latest
   stage: deploy
   script:
     - cd backend
-    - echo $(GCP_SERVICE_KEY) > gcloud-service-key.json
+    - echo ${GCP_SERVICE_KEY} > gcloud-service-key.json
     - gcloud auth activate-service-account --key-file gcloud-service-key.json
     - gcloud config set project $(GCP_PROJECT_ID)
-    - sed -i 's+{DOCKER_IMAGE}+$(DOCKER_REPO)/econplaza/app:$(CI_PIPELINE_ID)+/g' google.yaml
+    - sed -i 's+{DOCKER_IMAGE}+${DOCKER_REPO}/econplaza/app:${CI_PIPELINE_ID}+/g' google.yaml
     - kubectl apply -f google.yaml
