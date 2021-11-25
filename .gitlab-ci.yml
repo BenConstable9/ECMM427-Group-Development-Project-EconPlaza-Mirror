@@ -5,7 +5,9 @@ build-docker-image:
   image: google/cloud-sdk:latest
   stage: build
   script:
-    - docker login -u _json_key_base64 -p "${GCP_SERVICE_KEY}" https://$(echo ${DOCKER_REPO})
+    - echo $GCP_SERVICE_KEY > gcloud-service-key.json
+    - gcloud auth activate-service-account --key-file=gcloud-service-key.json
+    - gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://$(echo ${DOCKER_REPO})
     - cd backend
     - docker build -t ${DOCKER_REPO}/${GCP_PROJECT_ID}/econplaza/app:${CI_PIPELINE_ID}
     - docker push ${DOCKER_REPO}/$}GCP_PROJECT_ID}/econplaza/app:${CI_PIPELINE_ID}
