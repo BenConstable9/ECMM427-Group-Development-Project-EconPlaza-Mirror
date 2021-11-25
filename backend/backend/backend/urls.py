@@ -14,24 +14,15 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.urls import path
 from django.http import HttpResponse
-from django.urls import path, re_path, include
-
-from rest_framework_simplejwt.views import (
-    TokenObtainPairView,
-    TokenRefreshView,
-)
 
 urlpatterns = [
     path("v1/users/", include("accounts.urls")),
     path("v1/plazas/", include("plazas.urls")),
     path("admin/", admin.site.urls),
-    path("v1/auth/login/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
-    path("v1/auth/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
     path("", lambda _: HttpResponse(
-        "<div style=\"max-width: 400px;font-family: Helvetica, Sans-Serif;font-size: 1.2em;margin: 20vh "
-        "auto;\"><p>\"Programming today is a race between software engineers striving to build bigger and better "
-        "idiot-proof programs, and the Universe trying to produce bigger and better idiots. So far, the Universe is "
-        "winning.\"</p><p>- <em>Rick Cook, The Wizardry Compiled</em></p></div>",
-        headers={'content-type': 'text/html'}, status=200))
+        "EconPlaza API", headers={"content-type": "text/plain"},
+        status=200
+    )),  # This root path is for Health Checks and must return a 200 response
 ]

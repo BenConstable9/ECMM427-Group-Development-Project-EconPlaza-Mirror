@@ -12,11 +12,14 @@ RUN python -c 'import random; print("".join([random.choice("abcdefghijklmnopqrst
 
 # Install requirements and dependencies
 
-RUN apk add --no-cache libev \
+RUN apk add --no-cache libev postgresql-dev \
  && apk add --no-cache --virtual .dependencies musl-dev gcc libev-dev \
- && pip install -r requirements.txt -r requirements-deployment.txt
+ && pip install -r requirements.txt -r requirements-deployment.txt \
+ && apk del .dependencies
 
 # Set up run script
+
+WORKDIR /app/backend
 
 RUN chmod +x run.sh
 EXPOSE 80
