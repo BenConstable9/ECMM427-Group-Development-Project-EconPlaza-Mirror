@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from pathlib import Path
 from os import environ
 
+
 # Determine Environment
 
 DEVELOPMENT = environ.get("DEVELOPMENT", "false").lower() == "true"
@@ -20,6 +21,7 @@ CLOUD = not DEVELOPMENT
 DEBUG = DEVELOPMENT or environ.get("DEBUG", "false").lower() == "true"
 STAGING = CLOUD and DEBUG
 PRODUCTION = CLOUD and not DEBUG
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -42,21 +44,6 @@ if CLOUD:
 if DEVELOPMENT:
     ALLOWED_HOSTS = ["*"]
 
-CORS_ALLOWED_ORIGINS = []
-
-if PRODUCTION:
-    CORS_ALLOWED_ORIGINS = [
-        "https://econplaza.bebbo.link",
-        "https://api.econplaza.bebbo.link",
-    ]
-elif STAGING:
-    CORS_ALLOWED_ORIGINS = [
-        "https://staging.econplaza.bebbo.link",
-        "https://api.staging.econplaza.bebbo.link",
-    ]
-
-if DEVELOPMENT:
-    CORS_ALLOW_ALL_ORIGINS = True
 
 # Application definition
 
@@ -120,15 +107,16 @@ DATABASES = {
 
 if CLOUD:
     DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.postgresql",
-            "NAME": environ.get("DB_NAME", ""),
-            "USER": environ.get("DB_USERNAME", ""),
-            "PASSWORD": environ.get("DB_PASSWORD", ""),
-            "HOST": environ.get("DB_HOST", ""),
-            "PORT": environ.get("DB_PORT", "5432"),
-        }
-    }
+                "default": {
+                    "ENGINE": "django.db.backends.postgresql",
+                    "NAME": environ.get("DB_NAME", ""),
+                    "USER": environ.get("DB_USERNAME", ""),
+                    "PASSWORD": environ.get("DB_PASSWORD", ""),
+                    "HOST": environ.get("DB_HOST", ""),
+                    "PORT": environ.get("DB_PORT", "5432"),
+                }
+            }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -166,6 +154,7 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / "static"
+
 
 # Django user authentication settings
 # https://docs.djangoproject.com/en/3.2/topics/auth/customizing/#auth-custom-user
