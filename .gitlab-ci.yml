@@ -9,7 +9,7 @@ stages:
   - production
 
 build-backend-docker-image:
-  image: docker:19.03.12 
+  image: docker:19.03.12
   stage: build
   script:
     - cd backend
