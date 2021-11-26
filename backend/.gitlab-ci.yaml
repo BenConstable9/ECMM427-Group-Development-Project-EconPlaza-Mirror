@@ -1,5 +1,6 @@
 variables:
   DOCKER_REPO: "https://europe-west2-docker.pkg.dev"
+  DOCKER_TLS_CERTDIR: ""
 
 build-docker-image:
   image: docker:20.10.11-dind
