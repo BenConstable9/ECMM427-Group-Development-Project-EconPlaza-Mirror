@@ -3,10 +3,11 @@ variables:
   DOCKER_DRIVER: overlay2
   DOCKER_TLS_CERTDIR: "/certs"
 
+services:
+  - docker:20.10.11-dind
+
 build-docker-image:
   image: google/cloud-sdk:latest
-  services:
-    - docker:20.10.11-dind
   stage: Build
   script:
     - echo $GCP_SERVICE_KEY > gcloud-service-key.json
