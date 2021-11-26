@@ -2,23 +2,20 @@ variables:
   DOCKER_REPO: "europe-west2-docker.pkg.dev"
 
 build-docker-image:
-  image: google/cloud-sdk:latest
-  stage: build
-  services:
-    - docker
+  image: docker:20.10.11
+  stage: Build
   script:
-    - gcloud auth activate-service-account --key-file=$GCP_SERVICE_KEY
-    - gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://$DOCKER_REPO
+    - docker login -u _json_key_base64 --password-stdin https://$DOCKER_REPO < gcloud-service-key.json
     - cd backend
-    - docker build -t $DOCKER_REPO/$GCP_PROJECT_ID/econplaza/app:$CI_PIPELINE_ID .
+    - docker build -t $DOCKER_REPO/$GCP_PROJECT_ID/econplaza/app:$CI_PIPELINE_ID
     - docker push $DOCKER_REPO/$GCP_PROJECT_ID/econplaza/app:$CI_PIPELINE_ID
 
 deploy-service:
   image: google/cloud-sdk:latest
-  stage: deploy
+  stage: Deploy
   script:
     - cd backend
-    - gcloud auth activate-service-account --key-file=$GCP_SERVICE_KEY
-    - gcloud config set project $GCP_PROJECT_ID
-    - sed -i 's+{DOCKER_IMAGE}+${DOCKER_REPO}/econplaza/app:${CI_PIPELINE_ID}+/g' google.yaml
+    - gcloud auth activate-service-account --key-file gcloud-service-key.json
+    #    - gcloud config set project $GCP_PROJECT_ID
+    - sed -i 's+<<DOCKER_IMAGE>>+$DOCKER_REPO/econplaza/app:$CI_PIPELINE_ID+g' google.yaml
     - kubectl apply -f google.yaml
