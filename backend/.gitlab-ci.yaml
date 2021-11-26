@@ -1,5 +1,6 @@
 variables:
   DOCKER_REPO: "https://europe-west2-docker.pkg.dev"
+  DOCKER_HOST: tcp://localhost:2375
   DOCKER_DRIVER: overlay2
   DOCKER_TLS_CERTDIR: "/certs"
 
@@ -10,6 +11,7 @@ build-docker-image:
   image: google/cloud-sdk:latest
   stage: Build
   script:
+    - service docker start
     - echo $GCP_SERVICE_KEY > gcloud-service-key.json
     - docker login -u _json_key_base64 --password-stdin https://$DOCKER_REPO < gcloud-service-key.json
     - cd backend
