@@ -1,5 +1,7 @@
 variables:
   DOCKER_REPO: "https://europe-west2-docker.pkg.dev"
+  DOCKER_DRIVER: overlay2
+  DOCKER_TLS_CERTDIR: "/certs"
 
 build-docker-image:
   image: google/cloud-sdk:latest
