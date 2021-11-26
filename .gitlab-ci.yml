@@ -18,4 +18,5 @@ deploy-service:
     - cd backend
     - gcloud auth activate-service-account --key-file=$GCP_SERVICE_KEY
     - sed -i 's+<<DOCKER_IMAGE>>+$DOCKER_REPO/econplaza/app:$CI_PIPELINE_ID+g' google.yaml
+    - gcloud container clusters get-credentials econplaza
     - kubectl apply -f google.yaml
