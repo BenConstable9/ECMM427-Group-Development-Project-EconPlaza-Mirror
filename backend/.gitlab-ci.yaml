@@ -2,7 +2,7 @@ variables:
   DOCKER_REPO: "https://europe-west2-docker.pkg.dev"
 
 build-docker-image:
-        image: docker:20.10.11
+  image: docker:20.10.11-dind
   stage: Build
   script:
     - service docker start
