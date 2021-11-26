@@ -5,6 +5,7 @@ build-docker-image:
   image: docker:20.10.11
   stage: build
   script:
+    - echo $GCP_SERVICE_KEY > gcloud-service-key.json
     - docker login -u _json_key_base64 --password-stdin https://$DOCKER_REPO < gcloud-service-key.json
     - cd backend
     - docker build -t $DOCKER_REPO/$GCP_PROJECT_ID/econplaza/app:$CI_PIPELINE_ID
@@ -15,6 +16,7 @@ deploy-service:
   stage: deploy
   script:
     - cd backend
+    - echo $GCP_SERVICE_KEY > gcloud-service-key.json
     - gcloud auth activate-service-account --key-file gcloud-service-key.json
     #    - gcloud config set project $GCP_PROJECT_ID
     - sed -i 's+<<DOCKER_IMAGE>>+$DOCKER_REPO/econplaza/app:$CI_PIPELINE_ID+g' google.yaml
