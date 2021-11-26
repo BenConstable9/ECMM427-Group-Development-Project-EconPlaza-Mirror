@@ -53,3 +53,4 @@ You can print a report of the results to your console:
 ```bash
 $ coverage report -m
 ```
+
