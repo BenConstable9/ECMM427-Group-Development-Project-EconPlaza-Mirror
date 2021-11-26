@@ -2,7 +2,7 @@ variables:
   DOCKER_REPO: "europe-west2-docker.pkg.dev"
 
 build-docker-image:
-        image: google/cloud-sdk:latest 
+  image: google/cloud-sdk:latest 
   stage: build
   script:
     - docker login -u _json_key_base64 --password-stdin https://$DOCKER_REPO < gcloud-service-key.json
