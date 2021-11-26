@@ -4,7 +4,7 @@ variables:
   DOCKER_TLS_CERTDIR: "/certs"
 
 services:
-  - docker:20.10.11-dind
+  - docker:19.03.0-dind
 
 build-docker-image:
   image: google/cloud-sdk:latest
