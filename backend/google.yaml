@@ -28,7 +28,7 @@ spec:
     spec:
       containers:
       - name: "app-sha256-1"
-        image: "{DOCKER_IMAGE}"
+        image: "<<DOCKER_IMAGE>>"
         ports:
         - containerPort: 80
         env:

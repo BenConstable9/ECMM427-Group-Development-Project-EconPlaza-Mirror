@@ -1,5 +1,5 @@
 variables:
-  DOCKER_REPO: "https://europe-west2-docker.pkg.dev"
+  DOCKER_REPO: "europe-west2-docker.pkg.dev"
 
 build-docker-image:
   image: docker:20.10.11-dind
@@ -20,5 +20,5 @@ deploy-service:
     - echo $GCP_SERVICE_KEY > gcloud-service-key.json
     - gcloud auth activate-service-account --key-file gcloud-service-key.json
     #    - gcloud config set project $GCP_PROJECT_ID
-    - sed -i 's+{DOCKER_IMAGE}+$DOCKER_REPO/econplaza/app:$CI_PIPELINE_ID+/g' google.yaml
+    - sed -i 's+<<DOCKER_IMAGE>>+$DOCKER_REPO/econplaza/app:$CI_PIPELINE_ID+g' google.yaml
     - kubectl apply -f google.yaml
