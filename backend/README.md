@@ -12,6 +12,7 @@ $ python -m venv '.env'
 
 $ source .env/bin/activate          # Linux
 $ source .env/Scripts/activate      # Windows
+$ .env/Scripts/activate             # Windows if the following error occurs: The term 'source' is not recognized.
 ```
 
 Install the required packages to your environment.:
