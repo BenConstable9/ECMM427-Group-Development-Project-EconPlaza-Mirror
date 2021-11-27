@@ -3,18 +3,15 @@ from django.utils.translation import gettext_lazy as _
 
 from . import Report
 
-
 class Response(models.Model):
     report = models.ForeignKey(
-        Report,
+        'Report',
         on_delete=models.CASCADE,
-        verbose_name="Response's Report",
     )
 
     reviewer = models.ForeignKey(
-        "accounts.User",
+        'accounts.User',
         on_delete=models.CASCADE,
-        verbose_name="Response's User",
     )
 
     verdict = models.BooleanField("Review's Verdict", default=0)
