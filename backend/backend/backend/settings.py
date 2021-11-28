@@ -56,6 +56,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "accounts.apps.AccountsConfig",
     "reports.apps.ReportsConfig",
+    "plazas.apps.PlazasConfig",
+    "labels.apps.LabelsConfig",
 ]
 
 MIDDLEWARE = [

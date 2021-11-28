@@ -10,225 +10,62 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ("accounts", "0001_initial"),
+        ('accounts', '0001_initial'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.CreateModel(
-            name="Plaza",
+            name='Plaza',
             fields=[
-                (
-                    "id",
-                    models.BigAutoField(
-                        auto_created=True,
-                        primary_key=True,
-                        serialize=False,
-                        verbose_name="ID",
-                    ),
-                ),
-                ("slug", models.SlugField(max_length=32, verbose_name="Plaza's Slug")),
-                ("name", models.CharField(max_length=32, verbose_name="Plaza's Name")),
-                (
-                    "description",
-                    models.TextField(blank=True, verbose_name="Plaza's Message"),
-                ),
-                (
-                    "permissions",
-                    models.TextField(
-                        blank=True,
-                        verbose_name="Plaza's Permissions which is a serialised object",
-                    ),
-                ),
-                (
-                    "created_at",
-                    models.DateTimeField(
-                        auto_now_add=True, verbose_name="Created at timestamp"
-                    ),
-                ),
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('slug', models.SlugField(max_length=32, verbose_name="Plaza's Slug")),
+                ('name', models.CharField(max_length=32, verbose_name="Plaza's Name")),
+                ('description', models.TextField(blank=True, verbose_name="Plaza's Message")),
+                ('permissions', models.TextField(blank=True, verbose_name="Plaza's Permissions which is a serialised object")),
+                ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='Created at timestamp')),
             ],
         ),
         migrations.CreateModel(
-            name="Post",
+            name='Post',
             fields=[
-                (
-                    "id",
-                    models.BigAutoField(
-                        auto_created=True,
-                        primary_key=True,
-                        serialize=False,
-                        verbose_name="ID",
-                    ),
-                ),
-                (
-                    "title",
-                    models.CharField(max_length=128, verbose_name="Post's Title"),
-                ),
-                (
-                    "content",
-                    models.TextField(blank=True, verbose_name="Post's Content"),
-                ),
-                (
-                    "permissions",
-                    models.TextField(
-                        blank=True,
-                        verbose_name="Post's Permissions which is a serialised object",
-                    ),
-                ),
-                (
-                    "reactions",
-                    models.TextField(
-                        blank=True,
-                        verbose_name="Post's Reactions which is a serialised object (Computed)",
-                    ),
-                ),
-                (
-                    "hidden",
-                    models.BooleanField(default=0, verbose_name="Post's Hidden Flag"),
-                ),
-                (
-                    "deleted",
-                    models.BooleanField(default=0, verbose_name="Post's Deleted Flag"),
-                ),
-                (
-                    "created_at",
-                    models.DateTimeField(
-                        auto_now_add=True, verbose_name="Created at timestamp"
-                    ),
-                ),
-                (
-                    "last_computed",
-                    models.DateTimeField(verbose_name="Last modified timestamp"),
-                ),
-                (
-                    "plaza",
-                    models.ForeignKey(
-                        on_delete=django.db.models.deletion.CASCADE, to="plazas.plaza"
-                    ),
-                ),
-                (
-                    "profile",
-                    models.ForeignKey(
-                        on_delete=django.db.models.deletion.CASCADE,
-                        to="accounts.profile",
-                    ),
-                ),
-                (
-                    "user",
-                    models.ForeignKey(
-                        on_delete=django.db.models.deletion.CASCADE,
-                        to=settings.AUTH_USER_MODEL,
-                    ),
-                ),
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('title', models.CharField(max_length=128, verbose_name="Post's Title")),
+                ('content', models.TextField(blank=True, verbose_name="Post's Content")),
+                ('permissions', models.TextField(blank=True, verbose_name="Post's Permissions which is a serialised object")),
+                ('reactions', models.TextField(blank=True, verbose_name="Post's Reactions which is a serialised object (Computed)")),
+                ('hidden', models.BooleanField(default=0, verbose_name="Post's Hidden Flag")),
+                ('deleted', models.BooleanField(default=0, verbose_name="Post's Deleted Flag")),
+                ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='Created at timestamp')),
+                ('last_computed', models.DateTimeField(verbose_name='Last modified timestamp')),
+                ('plaza', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='plazas.plaza')),
+                ('profile', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='accounts.profile')),
+                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
         ),
         migrations.CreateModel(
-            name="Member",
+            name='Member',
             fields=[
-                (
-                    "id",
-                    models.BigAutoField(
-                        auto_created=True,
-                        primary_key=True,
-                        serialize=False,
-                        verbose_name="ID",
-                    ),
-                ),
-                (
-                    "member_type",
-                    models.CharField(
-                        choices=[("OP", "Owner"), ("AD", "Admin"), ("MB", "Member")],
-                        default="MB",
-                        max_length=2,
-                        verbose_name="Report's Type",
-                    ),
-                ),
-                (
-                    "created_at",
-                    models.DateTimeField(
-                        auto_now_add=True, verbose_name="Created at timestamp"
-                    ),
-                ),
-                (
-                    "plaza",
-                    models.ForeignKey(
-                        on_delete=django.db.models.deletion.CASCADE, to="plazas.plaza"
-                    ),
-                ),
-                (
-                    "user",
-                    models.ForeignKey(
-                        on_delete=django.db.models.deletion.CASCADE,
-                        to=settings.AUTH_USER_MODEL,
-                    ),
-                ),
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('member_type', models.CharField(choices=[('OP', 'Owner'), ('AD', 'Admin'), ('MB', 'Member')], default='MB', max_length=2, verbose_name="Report's Type")),
+                ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='Created at timestamp')),
+                ('plaza', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='plazas.plaza')),
+                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
         ),
         migrations.CreateModel(
-            name="Comment",
+            name='Comment',
             fields=[
-                (
-                    "id",
-                    models.BigAutoField(
-                        auto_created=True,
-                        primary_key=True,
-                        serialize=False,
-                        verbose_name="ID",
-                    ),
-                ),
-                (
-                    "content",
-                    models.TextField(blank=True, verbose_name="Comment's Content"),
-                ),
-                (
-                    "reactions",
-                    models.TextField(
-                        blank=True,
-                        verbose_name="Comment's Reactions which is a serialised object (Computed)",
-                    ),
-                ),
-                (
-                    "hidden",
-                    models.BooleanField(
-                        default=0, verbose_name="Comment's Hidden Flag"
-                    ),
-                ),
-                (
-                    "deleted",
-                    models.BooleanField(
-                        default=0, verbose_name="Comment's Deleted Flag"
-                    ),
-                ),
-                (
-                    "created_at",
-                    models.DateTimeField(
-                        auto_now_add=True, verbose_name="Created at timestamp"
-                    ),
-                ),
-                (
-                    "last_computed",
-                    models.DateTimeField(verbose_name="Last modified timestamp"),
-                ),
-                (
-                    "post",
-                    models.ForeignKey(
-                        on_delete=django.db.models.deletion.CASCADE, to="plazas.post"
-                    ),
-                ),
-                (
-                    "profile",
-                    models.ForeignKey(
-                        on_delete=django.db.models.deletion.CASCADE,
-                        to="accounts.profile",
-                    ),
-                ),
-                (
-                    "user",
-                    models.ForeignKey(
-                        on_delete=django.db.models.deletion.CASCADE,
-                        to=settings.AUTH_USER_MODEL,
-                    ),
-                ),
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('content', models.TextField(blank=True, verbose_name="Comment's Content")),
+                ('reactions', models.TextField(blank=True, verbose_name="Comment's Reactions which is a serialised object (Computed)")),
+                ('hidden', models.BooleanField(default=0, verbose_name="Comment's Hidden Flag")),
+                ('deleted', models.BooleanField(default=0, verbose_name="Comment's Deleted Flag")),
+                ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='Created at timestamp')),
+                ('last_computed', models.DateTimeField(verbose_name='Last modified timestamp')),
+                ('post', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='plazas.post')),
+                ('profile', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='accounts.profile')),
+                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
         ),
     ]

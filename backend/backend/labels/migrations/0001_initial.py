@@ -15,112 +15,32 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name="Label",
+            name='Label',
             fields=[
-                (
-                    "id",
-                    models.BigAutoField(
-                        auto_created=True,
-                        primary_key=True,
-                        serialize=False,
-                        verbose_name="ID",
-                    ),
-                ),
-                (
-                    "title",
-                    models.CharField(max_length=64, verbose_name="Label's Title"),
-                ),
-                (
-                    "label_type",
-                    models.CharField(
-                        choices=[("SL", "Skill"), ("GP", "Group")],
-                        default="SL",
-                        max_length=2,
-                        verbose_name="Label's Type",
-                    ),
-                ),
-                (
-                    "created_at",
-                    models.DateTimeField(
-                        auto_now_add=True, verbose_name="Created at timestamp"
-                    ),
-                ),
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('title', models.CharField(max_length=64, verbose_name="Label's Title")),
+                ('label_type', models.CharField(choices=[('SL', 'Skill'), ('GP', 'Group')], default='SL', max_length=2, verbose_name="Label's Type")),
+                ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='Created at timestamp')),
             ],
         ),
         migrations.CreateModel(
-            name="User",
+            name='User',
             fields=[
-                (
-                    "id",
-                    models.BigAutoField(
-                        auto_created=True,
-                        primary_key=True,
-                        serialize=False,
-                        verbose_name="ID",
-                    ),
-                ),
-                (
-                    "endorsements",
-                    models.PositiveBigIntegerField(
-                        default=0, verbose_name="Label's endorsements (Computed)"
-                    ),
-                ),
-                (
-                    "created_at",
-                    models.DateTimeField(
-                        auto_now_add=True, verbose_name="Created at timestamp"
-                    ),
-                ),
-                (
-                    "endorser",
-                    models.ForeignKey(
-                        on_delete=django.db.models.deletion.CASCADE,
-                        to=settings.AUTH_USER_MODEL,
-                    ),
-                ),
-                (
-                    "label",
-                    models.ForeignKey(
-                        on_delete=django.db.models.deletion.CASCADE, to="labels.label"
-                    ),
-                ),
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('endorsements', models.PositiveBigIntegerField(default=0, verbose_name="Label's endorsements (Computed)")),
+                ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='Created at timestamp')),
+                ('endorser', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                ('label', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='labels.label')),
             ],
         ),
         migrations.CreateModel(
-            name="Endorsement",
+            name='Endorsement',
             fields=[
-                (
-                    "id",
-                    models.BigAutoField(
-                        auto_created=True,
-                        primary_key=True,
-                        serialize=False,
-                        verbose_name="ID",
-                    ),
-                ),
-                (
-                    "created_at",
-                    models.DateTimeField(
-                        auto_now_add=True, verbose_name="Created at timestamp"
-                    ),
-                ),
-                (
-                    "last_computed",
-                    models.DateTimeField(verbose_name="Last modified timestamp"),
-                ),
-                (
-                    "endorser",
-                    models.ForeignKey(
-                        on_delete=django.db.models.deletion.CASCADE,
-                        to=settings.AUTH_USER_MODEL,
-                    ),
-                ),
-                (
-                    "label",
-                    models.ForeignKey(
-                        on_delete=django.db.models.deletion.CASCADE, to="labels.label"
-                    ),
-                ),
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='Created at timestamp')),
+                ('last_computed', models.DateTimeField(verbose_name='Last modified timestamp')),
+                ('endorser', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                ('label', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='labels.label')),
             ],
         ),
     ]

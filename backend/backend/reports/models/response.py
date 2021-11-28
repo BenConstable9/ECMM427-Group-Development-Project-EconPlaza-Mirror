@@ -5,13 +5,15 @@ from . import Report
 
 class Response(models.Model):
     report = models.ForeignKey(
-        'Report',
+        Report,
         on_delete=models.CASCADE,
+        verbose_name="Response's Report",
     )
 
     reviewer = models.ForeignKey(
         'accounts.User',
         on_delete=models.CASCADE,
+        verbose_name="Response's User",
     )
 
     verdict = models.BooleanField("Review's Verdict", default=0)

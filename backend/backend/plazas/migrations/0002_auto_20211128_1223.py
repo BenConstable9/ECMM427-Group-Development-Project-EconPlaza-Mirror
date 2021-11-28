@@ -9,81 +9,49 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ("accounts", "0002_alter_profile_user"),
-        ("plazas", "0001_initial"),
+        ('accounts', '0002_alter_profile_user'),
+        ('plazas', '0001_initial'),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name="comment",
-            name="post",
-            field=models.ForeignKey(
-                on_delete=django.db.models.deletion.CASCADE,
-                to="plazas.post",
-                verbose_name="Comment's Post",
-            ),
+            model_name='comment',
+            name='post',
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='plazas.post', verbose_name="Comment's Post"),
         ),
         migrations.AlterField(
-            model_name="comment",
-            name="profile",
-            field=models.ForeignKey(
-                on_delete=django.db.models.deletion.CASCADE,
-                to="accounts.profile",
-                verbose_name="Comment's User Profile",
-            ),
+            model_name='comment',
+            name='profile',
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='accounts.profile', verbose_name="Comment's User Profile"),
         ),
         migrations.AlterField(
-            model_name="comment",
-            name="user",
-            field=models.ForeignKey(
-                on_delete=django.db.models.deletion.CASCADE,
-                to=settings.AUTH_USER_MODEL,
-                verbose_name="Comment's User",
-            ),
+            model_name='comment',
+            name='user',
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL, verbose_name="Comment's User"),
         ),
         migrations.AlterField(
-            model_name="member",
-            name="plaza",
-            field=models.ForeignKey(
-                on_delete=django.db.models.deletion.CASCADE,
-                to="plazas.plaza",
-                verbose_name="Plaza Memberhip's Plaza",
-            ),
+            model_name='member',
+            name='plaza',
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='plazas.plaza', verbose_name="Plaza Memberhip's Plaza"),
         ),
         migrations.AlterField(
-            model_name="member",
-            name="user",
-            field=models.ForeignKey(
-                on_delete=django.db.models.deletion.CASCADE,
-                to=settings.AUTH_USER_MODEL,
-                verbose_name="Plaza Membership's Profile",
-            ),
+            model_name='member',
+            name='user',
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL, verbose_name="Plaza Membership's Profile"),
         ),
         migrations.AlterField(
-            model_name="post",
-            name="plaza",
-            field=models.ForeignKey(
-                on_delete=django.db.models.deletion.CASCADE,
-                to="plazas.plaza",
-                verbose_name="Post's Plaza",
-            ),
+            model_name='post',
+            name='plaza',
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='plazas.plaza', verbose_name="Post's Plaza"),
         ),
         migrations.AlterField(
-            model_name="post",
-            name="profile",
-            field=models.ForeignKey(
-                on_delete=django.db.models.deletion.CASCADE,
-                to="accounts.profile",
-                verbose_name="Post's User Profile",
-            ),
+            model_name='post',
+            name='profile',
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='accounts.profile', verbose_name="Post's User Profile"),
         ),
         migrations.AlterField(
-            model_name="post",
-            name="user",
-            field=models.ForeignKey(
-                on_delete=django.db.models.deletion.CASCADE,
-                to=settings.AUTH_USER_MODEL,
-                verbose_name="Post's User",
-            ),
+            model_name='post',
+            name='user',
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL, verbose_name="Post's User"),
         ),
     ]

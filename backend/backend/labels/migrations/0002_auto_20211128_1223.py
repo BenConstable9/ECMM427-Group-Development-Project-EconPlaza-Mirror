@@ -9,63 +9,30 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ("labels", "0001_initial"),
+        ('labels', '0001_initial'),
     ]
 
     operations = [
         migrations.CreateModel(
-            name="UserLabel",
+            name='UserLabel',
             fields=[
-                (
-                    "id",
-                    models.BigAutoField(
-                        auto_created=True,
-                        primary_key=True,
-                        serialize=False,
-                        verbose_name="ID",
-                    ),
-                ),
-                (
-                    "endorsements",
-                    models.PositiveBigIntegerField(
-                        default=0, verbose_name="User's endorsements (Computed)"
-                    ),
-                ),
-                (
-                    "created_at",
-                    models.DateTimeField(
-                        auto_now_add=True, verbose_name="Created at timestamp"
-                    ),
-                ),
-                (
-                    "label",
-                    models.ForeignKey(
-                        on_delete=django.db.models.deletion.CASCADE,
-                        to="labels.label",
-                        verbose_name="User's label",
-                    ),
-                ),
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('endorsements', models.PositiveBigIntegerField(default=0, verbose_name="User's endorsements (Computed)")),
+                ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='Created at timestamp')),
+                ('label', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='labels.label', verbose_name="User's label")),
             ],
         ),
         migrations.AlterField(
-            model_name="endorsement",
-            name="endorser",
-            field=models.ForeignKey(
-                on_delete=django.db.models.deletion.CASCADE,
-                to=settings.AUTH_USER_MODEL,
-                verbose_name="Endorsement's endorser",
-            ),
+            model_name='endorsement',
+            name='endorser',
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL, verbose_name="Endorsement's endorser"),
         ),
         migrations.AlterField(
-            model_name="endorsement",
-            name="label",
-            field=models.ForeignKey(
-                on_delete=django.db.models.deletion.CASCADE,
-                to="labels.label",
-                verbose_name="Endorsement's label",
-            ),
+            model_name='endorsement',
+            name='label',
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='labels.label', verbose_name="Endorsement's label"),
         ),
         migrations.DeleteModel(
-            name="User",
+            name='User',
         ),
     ]

@@ -3,7 +3,6 @@ from django.utils.translation import gettext_lazy as _
 
 from . import Label
 
-
 class UserLabel(models.Model):
 
     label = models.ForeignKey(
@@ -13,9 +12,7 @@ class UserLabel(models.Model):
     )
 
     # Assumes endorsements can never be negative
-    endorsements = models.PositiveBigIntegerField(
-        "User's endorsements (Computed)", default=0
-    )
+    endorsements = models.PositiveBigIntegerField("User's endorsements (Computed)", default=0)
 
     created_at = models.DateTimeField("Created at timestamp", auto_now_add=True)
 
