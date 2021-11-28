@@ -1,24 +1,25 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-from . import Report
+from . import Label
 
-class Response(models.Model):
-    report = models.ForeignKey(
-        Report,
+class Endorsement(models.Model):
+
+    label = models.ForeignKey(
+        Label,
         on_delete=models.CASCADE,
-        verbose_name="Response's Report",
+        verbose_name="Endorsement's label",
     )
 
-    reviewer = models.ForeignKey(
+    endorser = models.ForeignKey(
         'accounts.User',
         on_delete=models.CASCADE,
-        verbose_name="Response's User",
+        verbose_name="Endorsement's endorser",
     )
 
-    verdict = models.BooleanField("Review's Verdict", default=0)
-
     created_at = models.DateTimeField("Created at timestamp", auto_now_add=True)
+
+    last_computed = models.DateTimeField("Last modified timestamp")
 
     def __str__(self):
         return f"{self.report}"
