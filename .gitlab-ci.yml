@@ -1,6 +1,11 @@
 variables:
   DOCKER_REPO: "europe-west2-docker.pkg.dev"
 
+stages:
+  - build
+  - staging
+  - production
+
 build-docker-image:
   image: google/cloud-sdk:latest 
   stage: build
@@ -11,13 +16,24 @@ build-docker-image:
     - docker build -t $DOCKER_REPO/$GCP_PROJECT_ID/econplaza/app:$CI_PIPELINE_ID .
     - docker push $DOCKER_REPO/$GCP_PROJECT_ID/econplaza/app:$CI_PIPELINE_ID
 
-deploy-service:
+deploy-staging:
   image: google/cloud-sdk:latest
-  stage: deploy
+  stage: staging
   script:
     - cd backend
     - gcloud auth activate-service-account --key-file=$GCP_SERVICE_KEY
-    - sed -i 's+<<DOCKER_IMAGE>>+$DOCKER_REPO/econplaza/app:$CI_PIPELINE_ID+g' google.yaml
+    - sed -i 's+<<DOCKER_IMAGE>>+${DOCKER_REPO}/econplaza/app:${CI_PIPELINE_ID}+g' google.yaml
+    - gcloud config set project $GCP_PROJECT_ID
+    - gcloud container clusters get-credentials econplaza --zone europe-west2-a
+    - kubectl apply -f google.yaml
+
+deploy-production:
+  image: google/cloud-sdk:latest
+  stage: production
+  script:
+    - cd backend
+    - gcloud auth activate-service-account --key-file=$GCP_SERVICE_KEY
+    - sed -i 's+<<DOCKER_IMAGE>>+${DOCKER_REPO}/econplaza/app:${CI_PIPELINE_ID}+g' google.yaml
     - gcloud config set project $GCP_PROJECT_ID
     - gcloud container clusters get-credentials econplaza --zone europe-west2-a
     - kubectl apply -f google.yaml
