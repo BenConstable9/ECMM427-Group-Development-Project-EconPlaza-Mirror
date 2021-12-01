@@ -1,0 +1,193 @@
+---
+apiVersion: "v1"
+kind: "ConfigMap"
+metadata:
+  name: "staging-econplaza-config-map"
+  namespace: "default"
+  labels:
+    app: "econplaza"
+data:
+  HOSTNAMES: "staging.econplaza.bebbo.link"
+---
+apiVersion: "apps/v1"
+kind: "Deployment"
+metadata:
+  name: "staging-econplaza"
+  namespace: "default"
+  labels:
+    app: "staging-econplaza"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: "staging-econplaza"
+  template:
+    metadata:
+      labels:
+        app: "staging-econplaza"
+    spec:
+      containers:
+      - name: "staging-app"
+        image: "europe-west2-docker.pkg.dev/primeval-truth-332416/econplaza/app:5053"
+        ports:
+        - containerPort: 80
+        env:
+        - name: "DB_PASSWORD"
+          valueFrom:
+            secretKeyRef:
+              name: db.secret
+              key: password
+        - name: "DB_USERNAME"
+          valueFrom:
+            secretKeyRef:
+              name: db.secret
+              key: username
+        - name: "DB_HOST"
+          valueFrom:
+            secretKeyRef:
+              name: db.secret
+              key: host
+        - name: "DB_PORT"
+          valueFrom:
+            secretKeyRef:
+              name: db.secret
+              key: port
+        - name: "DB_NAME"
+          valueFrom:
+            secretKeyRef:
+              name: db.secret
+              key: name
+        - name: "HOSTNAMES"
+          valueFrom:
+            configMapKeyRef:
+              key: "HOSTNAMES"
+              name: "staging-econplaza-config-map"
+        - name: "INSTANCE_IP"
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIP
+---
+apiVersion: "autoscaling/v2beta1"
+kind: "HorizontalPodAutoscaler"
+metadata:
+  name: "econplaza-hpa-dtlm"
+  namespace: "default"
+  labels:
+    app: "econplaza"
+spec:
+  scaleTargetRef:
+    kind: "Deployment"
+    name: "econplaza"
+    apiVersion: "apps/v1"
+  minReplicas: 1
+  maxReplicas: 5
+  metrics:
+  - type: "Resource"
+    resource:
+      name: "cpu"
+      targetAverageUtilization: 80
+---
+apiVersion: "autoscaling/v2beta1"
+kind: "HorizontalPodAutoscaler"
+metadata:
+  name: "staging-econplaza-hpa-dtlm"
+  namespace: "default"
+  labels:
+    app: "staging-econplaza"
+spec:
+  scaleTargetRef:
+    kind: "Deployment"
+    name: "staging-econplaza"
+    apiVersion: "apps/v1"
+  minReplicas: 1
+  maxReplicas: 5
+  metrics:
+    - type: "Resource"
+      resource:
+        name: "cpu"
+        targetAverageUtilization: 80
+---
+apiVersion: "v1"
+kind: "Service"
+metadata:
+  name: "econplaza-svc"
+spec:
+  ports:
+    - port: 80
+      targetPort: 80
+      protocol: "TCP"
+      name: "http"
+  selector:
+    app: "econplaza"
+  type: "NodePort"
+---
+apiVersion: "v1"
+kind: "Service"
+metadata:
+  name: "staging-econplaza-svc"
+spec:
+  ports:
+  - port: 80
+    targetPort: 80
+    protocol: "TCP"
+    name: "http"
+  selector:
+    app: "staging-econplaza"
+  type: "NodePort"
+---
+apiVersion: "networking.k8s.io/v1"
+kind: Ingress
+metadata:
+  name: "econplaza-ingress"
+  annotations:
+    kubernetes.io/ingress.global-static-ip-name: "econplaza-ip"
+    networking.gke.io/managed-certificates: "econplaza-managed-cert,staging-econplaza-managed-cert"
+    kubernetes.io/ingress.class: "gce"
+    networking.gke.io/v1beta1.FrontendConfig: "econplaza-frontend-config"
+spec:
+  rules:
+  - host: "econplaza.bebbo.link"
+    http:
+      paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: econplaza-svc
+              port:
+                number: 80
+  - host: "staging.econplaza.bebbo.link"
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: staging-econplaza-svc
+            port:
+              number: 80
+---
+apiVersion: networking.gke.io/v1
+kind: ManagedCertificate
+metadata:
+  name: econplaza-managed-cert
+spec:
+  domains:
+    - "econplaza.bebbo.link"
+---
+apiVersion: networking.gke.io/v1
+kind: ManagedCertificate
+metadata:
+  name: staging-econplaza-managed-cert
+spec:
+  domains:
+    - "staging.econplaza.bebbo.link"
+---
+apiVersion: networking.gke.io/v1beta1
+kind: FrontendConfig
+metadata:
+  name: econplaza-frontend-config
+spec:
+  redirectToHttps:
+    enabled: true
+    responseCodeName: MOVED_PERMANENTLY_DEFAULT
