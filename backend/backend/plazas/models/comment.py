@@ -35,7 +35,7 @@ class Comment(models.Model):
 
     created_at = models.DateTimeField("Created at timestamp", auto_now_add=True)
 
-    last_computed = models.DateTimeField("Last modified timestamp")
+    last_computed = models.DateTimeField("Last modified timestamp", auto_now_add=True)
 
     def __str__(self):
         return f"{self.report}"
