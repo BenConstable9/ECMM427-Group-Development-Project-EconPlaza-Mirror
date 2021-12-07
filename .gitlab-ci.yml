@@ -6,7 +6,7 @@ stages:
   - staging
   - production
 
-build-docker-image:
+build-backend-docker-image:
   image: google/cloud-sdk:latest 
   stage: build
   script:
@@ -15,6 +15,16 @@ build-docker-image:
     - cd backend
     - docker build -t $DOCKER_REPO/$GCP_PROJECT_ID/econplaza/app:$CI_PIPELINE_ID .
     - docker push $DOCKER_REPO/$GCP_PROJECT_ID/econplaza/app:$CI_PIPELINE_ID
+
+build-frontend-docker-image:
+  image: google/cloud-sdk:latest
+  stage: build
+  script:
+    - gcloud auth activate-service-account --key-file=$GCP_SERVICE_KEY
+    - gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://$DOCKER_REPO
+    - cd frontend
+    - docker build -t $DOCKER_REPO/$GCP_PROJECT_ID/econplaza/frontend:$CI_PIPELINE_ID .
+    - docker push $DOCKER_REPO/$GCP_PROJECT_ID/econplaza/frontend:$CI_PIPELINE_ID
 
 deploy-staging:
   image: google/cloud-sdk:latest
@@ -25,7 +35,22 @@ deploy-staging:
     - sed -i 's+<<DOCKER_IMAGE>>+${DOCKER_REPO}/econplaza/app:${CI_PIPELINE_ID}+g' .google/staging.yaml
     - gcloud config set project $GCP_PROJECT_ID
     - gcloud container clusters get-credentials econplaza --zone europe-west2-a
-    - kubectl apply -f .google/certificates.yaml -f .google/network.yaml -f .google/services.yaml -f .google/staging.yaml
+    - kubectl apply -f .google/certificates.yaml -f .google/services.yaml -f .google/staging.yaml
+    - cd ../
+    - kubectl apply -f .google/network.yaml
+
+deploy-frontend-staging:
+  image: google/cloud-sdk:latest
+  stage: staging
+  script:
+    - cd frontend
+    - gcloud auth activate-service-account --key-file=$GCP_SERVICE_KEY
+    - sed -i 's+<<DOCKER_IMAGE>>+${DOCKER_REPO}/econplaza/frontend:${CI_PIPELINE_ID}+g' .google/staging.yaml
+    - gcloud config set project $GCP_PROJECT_ID
+    - gcloud container clusters get-credentials econplaza --zone europe-west2-a
+    - kubectl apply -f .google/certificates.yaml -f .google/services.yaml -f .google/staging.yaml
+    - cd ../
+    - kubectl apply -f .google/network.yaml
 
 deploy-production:
   image: google/cloud-sdk:latest
@@ -36,4 +61,20 @@ deploy-production:
     - sed -i 's+<<DOCKER_IMAGE>>+${DOCKER_REPO}/econplaza/app:${CI_PIPELINE_ID}+g' .google/production.yaml
     - gcloud config set project $GCP_PROJECT_ID
     - gcloud container clusters get-credentials econplaza --zone europe-west2-a
-    - kubectl apply -f .google/certificates.yaml -f .google/network.yaml -f .google/services.yaml -f .google/production.yaml
+    - kubectl apply -f .google/certificates.yaml -f .google/services.yaml -f .google/production.yaml
+    - cd ../
+    - kubectl apply -f .google/network.yaml
+
+deploy-frontend-production:
+  image: google/cloud-sdk:latest
+  stage: production
+  script:
+    - cd frontend
+    - gcloud auth activate-service-account --key-file=$GCP_SERVICE_KEY
+    - sed -i 's+<<DOCKER_IMAGE>>+${DOCKER_REPO}/econplaza/frontend:${CI_PIPELINE_ID}+g' .google/production.yaml
+    - gcloud config set project $GCP_PROJECT_ID
+    - gcloud container clusters get-credentials econplaza --zone europe-west2-a
+    - kubectl apply -f .google/certificates.yaml -f .google/services.yaml -f .google/production.yaml
+    - cd ../
+    - kubectl apply -f .google/network.yaml
+
