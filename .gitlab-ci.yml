@@ -32,7 +32,7 @@ deploy-staging:
   script:
     - cd backend
     - gcloud auth activate-service-account --key-file=$GCP_SERVICE_KEY
-    - sed -i "s+<<DOCKER_IMAGE>>+${DOCKER_REPO}/econplaza/app:${CI_PIPELINE_ID}+g" .google/staging.yaml
+    - sed -i "s+<<DOCKER_IMAGE>>+${DOCKER_REPO}/${GCP_PROJECT_ID}/econplaza/app:${CI_PIPELINE_ID}+g" .google/staging.yaml
     - gcloud config set project $GCP_PROJECT_ID
     - gcloud container clusters get-credentials econplaza --zone europe-west2-a
     - kubectl apply -f .google/certificates.yaml -f .google/services.yaml -f .google/staging.yaml
@@ -45,7 +45,7 @@ deploy-frontend-staging:
   script:
     - cd frontend
     - gcloud auth activate-service-account --key-file=$GCP_SERVICE_KEY
-    - sed -i "s+<<DOCKER_IMAGE>>+${DOCKER_REPO}/econplaza/frontend:${CI_PIPELINE_ID}+g" .google/staging.yaml
+    - sed -i "s+<<DOCKER_IMAGE>>+${DOCKER_REPO}/${GCP_PROJECT_ID}/econplaza/frontend:${CI_PIPELINE_ID}+g" .google/staging.yaml
     - gcloud config set project $GCP_PROJECT_ID
     - gcloud container clusters get-credentials econplaza --zone europe-west2-a
     - kubectl apply -f .google/certificates.yaml -f .google/services.yaml -f .google/staging.yaml
@@ -58,7 +58,7 @@ deploy-production:
   script:
     - cd backend
     - gcloud auth activate-service-account --key-file=$GCP_SERVICE_KEY
-    - sed -i "s+<<DOCKER_IMAGE>>+${DOCKER_REPO}/econplaza/app:${CI_PIPELINE_ID}+g" .google/production.yaml
+    - sed -i "s+<<DOCKER_IMAGE>>+${DOCKER_REPO}/${GCP_PROJECT_ID}/econplaza/app:${CI_PIPELINE_ID}+g" .google/production.yaml
     - gcloud config set project $GCP_PROJECT_ID
     - gcloud container clusters get-credentials econplaza --zone europe-west2-a
     - kubectl apply -f .google/certificates.yaml -f .google/services.yaml -f .google/production.yaml
@@ -71,7 +71,7 @@ deploy-frontend-production:
   script:
     - cd frontend
     - gcloud auth activate-service-account --key-file=$GCP_SERVICE_KEY
-    - sed -i "s+<<DOCKER_IMAGE>>+${DOCKER_REPO}/econplaza/frontend:${CI_PIPELINE_ID}+g" .google/production.yaml
+    - sed -i "s+<<DOCKER_IMAGE>>+${DOCKER_REPO}/${GCP_PROJECT_ID}/econplaza/frontend:${CI_PIPELINE_ID}+g" .google/production.yaml
     - gcloud config set project $GCP_PROJECT_ID
     - gcloud container clusters get-credentials econplaza --zone europe-west2-a
     - kubectl apply -f .google/certificates.yaml -f .google/services.yaml -f .google/production.yaml
