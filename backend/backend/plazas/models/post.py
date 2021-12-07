@@ -34,6 +34,8 @@ class Post(models.Model):
 
     deleted = models.BooleanField("Post's Deleted Flag", default=0)
 
+    views = models.PositiveIntegerField("Post's Total Views (Computed)", default=0)
+
     created_at = models.DateTimeField("Created at timestamp", auto_now_add=True)
 
     last_computed = models.DateTimeField("Last modified timestamp")
