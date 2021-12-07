@@ -1,0 +1,41 @@
+---
+apiVersion: "networking.k8s.io/v1"
+kind: Ingress
+metadata:
+  name: "econplaza-ingress"
+  annotations:
+    kubernetes.io/ingress.global-static-ip-name: "econplaza-ip"
+    networking.gke.io/managed-certificates: "econplaza-managed-cert,staging-econplaza-managed-cert"
+    kubernetes.io/ingress.class: "gce"
+    networking.gke.io/v1beta1.FrontendConfig: "econplaza-frontend-config"
+spec:
+  rules:
+  - host: "econplaza.bebbo.link"
+    http:
+      paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: econplaza-svc
+              port:
+                number: 80
+  - host: "staging.econplaza.bebbo.link"
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: staging-econplaza-svc
+            port:
+              number: 80
+---
+apiVersion: networking.gke.io/v1beta1
+kind: FrontendConfig
+metadata:
+  name: econplaza-frontend-config
+spec:
+  redirectToHttps:
+    enabled: true
+    responseCodeName: MOVED_PERMANENTLY_DEFAULT
