@@ -3,6 +3,7 @@ from django.utils.translation import gettext_lazy as _
 
 from . import Label
 
+
 class Endorsement(models.Model):
 
     label = models.ForeignKey(
@@ -12,7 +13,7 @@ class Endorsement(models.Model):
     )
 
     endorser = models.ForeignKey(
-        'accounts.User',
+        "accounts.User",
         on_delete=models.CASCADE,
         verbose_name="Endorsement's endorser",
     )

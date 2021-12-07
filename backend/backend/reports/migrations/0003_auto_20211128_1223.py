@@ -9,23 +9,35 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('reports', '0002_auto_20211128_1218'),
+        ("reports", "0002_auto_20211128_1218"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='report',
-            name='reporter',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL, verbose_name="Report's User"),
+            model_name="report",
+            name="reporter",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                to=settings.AUTH_USER_MODEL,
+                verbose_name="Report's User",
+            ),
         ),
         migrations.AlterField(
-            model_name='response',
-            name='report',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='reports.report', verbose_name="Response's Report"),
+            model_name="response",
+            name="report",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                to="reports.report",
+                verbose_name="Response's Report",
+            ),
         ),
         migrations.AlterField(
-            model_name='response',
-            name='reviewer',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL, verbose_name="Response's User"),
+            model_name="response",
+            name="reviewer",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                to=settings.AUTH_USER_MODEL,
+                verbose_name="Response's User",
+            ),
         ),
     ]
