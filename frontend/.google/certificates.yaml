@@ -2,15 +2,15 @@
 apiVersion: networking.gke.io/v1
 kind: ManagedCertificate
 metadata:
-  name: econplaza-managed-cert
+  name: econplaza-frontend-managed-cert
 spec:
   domains:
-    - "api.econplaza.bebbo.link"
+    - "econplaza.bebbo.link"
 ---
 apiVersion: networking.gke.io/v1
 kind: ManagedCertificate
 metadata:
-  name: staging-econplaza-managed-cert
+  name: staging-econplaza-frontend-managed-cert
 spec:
   domains:
-    - "staging.api.econplaza.bebbo.link"
+    - "staging.econplaza.bebbo.link"
