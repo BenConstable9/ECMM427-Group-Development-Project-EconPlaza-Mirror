@@ -3,10 +3,11 @@ from django.utils.translation import gettext_lazy as _
 
 from . import Plaza
 
+
 class Member(models.Model):
 
     user = models.ForeignKey(
-        'accounts.User',
+        "accounts.User",
         on_delete=models.CASCADE,
         verbose_name="Plaza Membership's Profile",
     )
@@ -18,12 +19,14 @@ class Member(models.Model):
     )
 
     MEMBER_TYPE_CHOICES = [
-        ('OP', 'Owner'),
-        ('AD', 'Admin'), 
-        ('MB', 'Member'), 
+        ("OP", "Owner"),
+        ("AD", "Admin"),
+        ("MB", "Member"),
     ]
 
-    member_type = models.CharField("Report's Type", max_length=2, choices=MEMBER_TYPE_CHOICES, default='MB')
+    member_type = models.CharField(
+        "Report's Type", max_length=2, choices=MEMBER_TYPE_CHOICES, default="MB"
+    )
 
     created_at = models.DateTimeField("Created at timestamp", auto_now_add=True)
 

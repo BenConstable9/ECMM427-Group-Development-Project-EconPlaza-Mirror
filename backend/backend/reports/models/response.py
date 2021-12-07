@@ -3,6 +3,7 @@ from django.utils.translation import gettext_lazy as _
 
 from . import Report
 
+
 class Response(models.Model):
     report = models.ForeignKey(
         Report,
@@ -11,7 +12,7 @@ class Response(models.Model):
     )
 
     reviewer = models.ForeignKey(
-        'accounts.User',
+        "accounts.User",
         on_delete=models.CASCADE,
         verbose_name="Response's User",
     )

@@ -17,7 +17,9 @@ class Profile(models.Model):
     global_anonymous = models.BooleanField("Profile's Annoymous Flag", default=0)
 
     # Assumes reputation can never be negative
-    reputation = models.PositiveBigIntegerField("Profile's reputation (Computed)", default=0)
+    reputation = models.PositiveBigIntegerField(
+        "Profile's reputation (Computed)", default=0
+    )
 
     created_at = models.DateTimeField("Created at timestamp", auto_now_add=True)
 
