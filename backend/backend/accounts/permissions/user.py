@@ -3,7 +3,7 @@ from rest_framework.permissions import SAFE_METHODS
 
 from ..models import User
 
-class IsVerified(permissions.BasePermission):
+class IsAdminOrVerified(permissions.BasePermission):
     """
     Custom permission to only allow verified users to vouch.
     """

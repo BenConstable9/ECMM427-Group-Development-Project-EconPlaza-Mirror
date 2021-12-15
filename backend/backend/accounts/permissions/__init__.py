@@ -1,1 +1,1 @@
-from .user import IsVerified
+from .user import IsAdminOrVerified
