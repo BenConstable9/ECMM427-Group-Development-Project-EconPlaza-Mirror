@@ -1,6 +1,6 @@
 from rest_framework import viewsets, mixins, permissions
 
-from ..permissions import IsVerified
+from ..permissions import IsAdminOrVerified
 from ..serializers import VouchSerializer
 from ..models import Vouch
 
@@ -12,7 +12,7 @@ class VouchViewSet(mixins.CreateModelMixin, mixins.RetrieveModelMixin, mixins.Li
 
     queryset = Vouch.objects.all()
     serializer_class = VouchSerializer
-    permission_classes = [permissions.IsAuthenticated, IsVerified]
+    permission_classes = [permissions.IsAuthenticated, IsAdminOrVerified]
 
     # Ensures we look up against the vouchee field on a retrieve mixin
     lookup_field = 'vouchee'
