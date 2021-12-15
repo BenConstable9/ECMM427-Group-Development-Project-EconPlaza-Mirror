@@ -6,12 +6,12 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("accounts", "0005_add_no_duplicate_constraint"),
+        ('accounts', '0005_auto_20211215_1510'),
     ]
 
     operations = [
         migrations.RemoveConstraint(
-            model_name="vouch",
-            name="voucher_and_vouchee_cannot_be_same",
+            model_name='vouch',
+            name='voucher_and_vouchee_cannot_be_same',
         ),
     ]
