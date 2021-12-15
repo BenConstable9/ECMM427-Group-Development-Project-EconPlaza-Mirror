@@ -1,0 +1,1 @@
+from .vouch import VouchViewSet

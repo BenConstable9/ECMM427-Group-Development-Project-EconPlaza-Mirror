@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "reports.apps.ReportsConfig",
     "plazas.apps.PlazasConfig",
     "labels.apps.LabelsConfig",
+    "rest_framework",
 ]
 
 MIDDLEWARE = [
@@ -134,3 +135,8 @@ AUTH_USER_MODEL = "accounts.User"
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# All settings related to Econplaza
+ECONPLAZA = {
+    'QUANTITY_VOUCHES_FOR_VERIFICATION': 5
+}
