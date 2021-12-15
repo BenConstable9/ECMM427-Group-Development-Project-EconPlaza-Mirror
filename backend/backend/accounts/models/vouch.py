@@ -26,7 +26,7 @@ class Vouch(models.Model):
 
     class Meta:
         constraints = [
-            models.UniqueConstraint(fields=['voucher', 'vouchee'], name='unique_vouch'),
+            models.UniqueConstraint(fields=['voucher', 'vouchee'], name='no_duplicate_vouches'),
         ]
 
     def clean(self):
