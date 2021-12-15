@@ -1,7 +1,9 @@
 from django.contrib import admin
-from django.contrib.auth import get_user_model
 from django.contrib.auth.admin import UserAdmin
+from ..models import User
 
+fields = list(UserAdmin.fieldsets)
+fields[0] = (None, {'fields': ('banned', 'verified')})
+UserAdmin.fieldsets = tuple(fields)
 
-User = get_user_model()
 admin.site.register(User, UserAdmin)
