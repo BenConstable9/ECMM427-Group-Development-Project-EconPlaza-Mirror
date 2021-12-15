@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     "reports.apps.ReportsConfig",
     "plazas.apps.PlazasConfig",
     "labels.apps.LabelsConfig",
+    "rest_framework",
 ]
 
 MIDDLEWARE = [
@@ -174,4 +175,6 @@ REST_FRAMEWORK = {
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # All settings related to Econplaza
-ECONPLAZA = {"QUANTITY_VOUCHES_FOR_VERIFICATION": 5}
+ECONPLAZA = {
+    'QUANTITY_VOUCHES_FOR_VERIFICATION': 5
+}

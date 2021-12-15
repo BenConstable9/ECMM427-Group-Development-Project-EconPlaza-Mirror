@@ -1,27 +1,13 @@
 from django.contrib import admin
 from django.urls import path
 
-from rest_framework.routers import SimpleRouter
-from rest_framework_nested import routers
+from rest_framework.routers import DefaultRouter
 
-from .viewsets import VouchViewSet, UserViewSet, ProfileViewSet
+from .viewsets import VouchViewSet
 
-from .views import AuthenticatedUserView
 
-urlpatterns = [
-    path("me/", AuthenticatedUserView.as_view()),
-]
+urlpatterns = []
 
-router = SimpleRouter()
-
-router.register(r"", UserViewSet, basename="users")
-
-profile_router = routers.NestedSimpleRouter(router, r"", lookup="users")
-profile_router.register(r"profiles", ProfileViewSet, basename="users-profiles")
-
-vouch_router = routers.NestedSimpleRouter(router, r"", lookup="users")
-vouch_router.register(r"vouches", VouchViewSet, basename="users-vouches")
-
+router = DefaultRouter()
+router.register(r"vouches", VouchViewSet)
 urlpatterns += router.urls
-urlpatterns += profile_router.urls
-urlpatterns += vouch_router.urls

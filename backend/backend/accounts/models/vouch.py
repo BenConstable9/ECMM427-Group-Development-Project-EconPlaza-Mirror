@@ -1,6 +1,8 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
+from django.core.exceptions import ValidationError
+
 from . import User
 
 
@@ -22,5 +24,14 @@ class Vouch(models.Model):
 
     created_at = models.DateTimeField("Created at timestamp", auto_now_add=True)
 
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['voucher', 'vouchee'], name='unique_vouch'),
+        ]
+
+    def clean(self):
+        if self.voucher == self.vouchee:
+            raise ValidationError('Voucher and vouchee cannot be the same user.')
+
     def __str__(self):
-        return f"{self.report}"
+        return f"{self.voucher}"
