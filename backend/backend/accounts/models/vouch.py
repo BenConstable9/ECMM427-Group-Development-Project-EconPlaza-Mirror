@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models.constraints import CheckConstraint
 from django.utils.translation import gettext_lazy as _
 
 from django.core.exceptions import ValidationError
@@ -27,6 +28,7 @@ class Vouch(models.Model):
     class Meta:
         constraints = [
             models.UniqueConstraint(fields=['voucher', 'vouchee'], name='no_duplicate_vouches'),
+            CheckConstraint(name='not_same', check=~models.Q(voucher=models.F('vouchee'))),
         ]
 
     def clean(self):
