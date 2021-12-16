@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "reports.apps.ReportsConfig",
     "plazas.apps.PlazasConfig",
     "labels.apps.LabelsConfig",
+    "rest_framework",
 ]
 
 MIDDLEWARE = [
