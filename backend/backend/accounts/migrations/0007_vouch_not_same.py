@@ -7,18 +7,12 @@ import django.db.models.expressions
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("accounts", "0006_remove_vouch_voucher_and_vouchee_cannot_be_same"),
+        ('accounts', '0006_remove_vouch_voucher_and_vouchee_cannot_be_same'),
     ]
 
     operations = [
         migrations.AddConstraint(
-            model_name="vouch",
-            constraint=models.CheckConstraint(
-                check=models.Q(
-                    ("voucher", django.db.models.expressions.F("vouchee")),
-                    _negated=True,
-                ),
-                name="not_same",
-            ),
+            model_name='vouch',
+            constraint=models.CheckConstraint(check=models.Q(('voucher', django.db.models.expressions.F('vouchee')), _negated=True), name='not_same'),
         ),
     ]
