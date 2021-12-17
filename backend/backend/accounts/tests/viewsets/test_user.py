@@ -2,7 +2,7 @@ from rest_framework.request import Request
 from rest_framework.test import APIRequestFactory, APITestCase, force_authenticate, APIClient
 from rest_framework import status
 
-from ...models import User
+from ...models import User, Profile
 from ...serializers import UserSerializer
 from ...viewsets import UserViewSet
 
@@ -65,6 +65,36 @@ class UserViewsetTest(APITestCase):
         self.assertEqual(response.data["count"], 1)
         self.assertEqual(response.data["results"][0]["username"], self.user_1.username)
         self.assertEqual(response.data["results"][0]["id"], self.user_1.id)
+
+    def test_get_users_invalid_search(self):
+        """Test we get a HTTP 200 response when looking at list view."""
+
+        # Get some data
+        self.client.force_authenticate(self.user_1)
+        response = self.client.get('/accounts/users/?search=no')
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data["count"], 0)
+        self.assertEqual(len(response.data["results"]), 0)
+
+    def test_get_users_valid_search(self):
+        """Test we get a HTTP 200 response when looking at list view."""
+
+        # Add additional user
+        user_2 = User.objects.create(username="user_2")
+
+        # Get some data
+        self.client.force_authenticate(self.user_1)
+        response = self.client.get('/accounts/users/?search=user_2')
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data["count"], 1)
+        self.assertEqual(response.data["results"][0]["username"], user_2.username)
+        self.assertEqual(response.data["results"][0]["id"], user_2.id)
+
+        # Now delete them
+        Profile.objects.filter(user_id=user_2.id).delete()
+        User.objects.filter(id=user_2.id).delete()
 
     def test_delete_user(self):
         """Test we get a HTTP 405 response when attempting to delete data."""
