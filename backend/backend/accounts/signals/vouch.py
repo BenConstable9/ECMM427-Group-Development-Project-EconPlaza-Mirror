@@ -5,6 +5,24 @@ from django.conf import settings
 
 from ..models import Vouch, User
 
+def should_be_verified(user_id):
+    """Function to determine if we should verify a user."""
+
+    # Count the total vouches
+    total_vouchers_for_user = Vouch.objects.filter(vouchee=user_id).count()
+
+    if total_vouchers_for_user >= settings.ECONPLAZA["QUANTITY_VOUCHES_FOR_VERIFICATION"]:
+        return 1
+    else:
+        # Check if they are verified by a staff member as this overrides the limit for vouches
+        staff = User.objects.filter(is_staff=True)
+        total_vouchers_by_staff = Vouch.objects.filter(vouchee=user_id, voucher__in=staff.values('id')).count()
+
+        if total_vouchers_by_staff >= 1:
+            return 1
+        else:
+            return 0
+
 @receiver(post_save, sender=User)
 def verify_staff(sender, instance, created, **kwargs):
     """Function to automatically verify staff members."""
@@ -16,15 +34,9 @@ def verify_staff(sender, instance, created, **kwargs):
         verified = 1
     else:
         # The user could have been unstaffed but still have enough verifications
-        total_vouchers_for_modified_user = Vouch.objects.filter(vouchee=instance.id).count()
+        verified = should_be_verified(instance.id)
 
-        # See if we should now be verified
-        if total_vouchers_for_modified_user >= settings.ECONPLAZA["QUANTITY_VOUCHES_FOR_VERIFICATION"]:
-            # Verify the user
-            verified = 1
-        else:
-            verified = 0
-
+    # Use update to stop recursion by calling this signal again
     User.objects.filter(id=instance.id).update(verified=verified)
 
 @receiver(post_save, sender=Vouch)
@@ -40,13 +52,8 @@ def verify_user(sender, instance, created, **kwargs):
         # Don't modify the verification for staff
         if not vouchee_user.is_staff:
 
-            total_vouchers_for_vouchee = Vouch.objects.filter(vouchee=received_vouchee.id).count()
-
-            # See if we should now be verified
-            if total_vouchers_for_vouchee >= settings.ECONPLAZA["QUANTITY_VOUCHES_FOR_VERIFICATION"]:
-                # Verify the user
-                vouchee_user.verified = 1
-                vouchee_user.save()
+            vouchee_user.verified = should_be_verified(received_vouchee.id)
+            vouchee_user.save()
 
 @receiver(post_delete, sender=Vouch)
 def unverify_user(sender, instance, **kwargs):
@@ -60,11 +67,5 @@ def unverify_user(sender, instance, **kwargs):
     # Don't modify the verification for staff
     if not vouchee_user.is_staff:
 
-        total_vouchers_for_vouchee = Vouch.objects.filter(vouchee=received_vouchee.id).count()
-
-        # See if we should now be unverified
-        if total_vouchers_for_vouchee < settings.ECONPLAZA["QUANTITY_VOUCHES_FOR_VERIFICATION"]:
-            # Unverify the user
-            vouchee_user.verified = 0
-            vouchee_user.save()
-
+        vouchee_user.verified = should_be_verified(received_vouchee.id)
+        vouchee_user.save()
