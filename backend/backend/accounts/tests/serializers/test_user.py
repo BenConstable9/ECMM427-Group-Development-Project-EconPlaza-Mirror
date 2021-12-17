@@ -7,7 +7,7 @@ from ...serializers import UserSerializer
 
 class UserSerializerTest(APITestCase):
     def setUp(self):
-        """Initalise a series of users and a vouching."""
+        """Initalise a user."""
 
         self.user_1 = User.objects.create(username="user_1", first_name="Test", last_name="User", email="admin@test.com", is_staff=False)
 
@@ -29,6 +29,10 @@ class UserSerializerTest(APITestCase):
         data = self.serializer.data
 
         self.assertEqual(set(data.keys()), set(["id", "url", "username", "email", "verified", "is_staff", "first_name", "last_name", "date_joined"]))
+
+        # Check we aren't exposing fields we don't want to
+        self.assertNotIn("password", data.keys())
+        self.assertNotIn("twitter_oauth", data.keys())
 
     def test_equal_data(self):
         """Test the serialiser returns the expected values."""
