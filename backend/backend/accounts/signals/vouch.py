@@ -16,16 +16,16 @@ def should_be_verified(user_id):
     total_vouchers_for_user = Vouch.objects.filter(vouchee=user_id).count()
 
     if total_vouchers_for_user >= settings.ECONPLAZA["QUANTITY_VOUCHES_FOR_VERIFICATION"]:
-        return 1
+        return True
     else:
         # Check if they are verified by a staff member as this overrides the limit for vouches
         staff = User.objects.filter(is_staff=True)
         total_vouchers_by_staff = Vouch.objects.filter(vouchee=user_id, voucher__in=staff.values('id')).count()
 
         if total_vouchers_by_staff >= 1:
-            return 1
+            return True
         else:
-            return 0
+            return False
 
 @receiver(post_save, sender=User)
 def verify_staff(sender, instance, created, **kwargs):
@@ -35,7 +35,7 @@ def verify_staff(sender, instance, created, **kwargs):
 
     # If they have been set to staff then verify them
     if modified_user.is_staff:
-        verified = 1
+        verified = False
     else:
         # The user could have been unstaffed but still have enough verifications
         verified = should_be_verified(instance.id)
