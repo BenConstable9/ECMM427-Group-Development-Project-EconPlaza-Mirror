@@ -13,6 +13,5 @@ class IsAdminOrVerified(AllowAny):
             return True
         else:
             # Check if verified
-            verified_status = User.objects.get(id=request.user.id).verified
 
-            return request.user.is_staff or verified_status
+            return request.user.is_staff or request.user.verified
