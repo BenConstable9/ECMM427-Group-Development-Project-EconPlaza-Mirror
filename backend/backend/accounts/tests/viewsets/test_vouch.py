@@ -1,13 +1,15 @@
 from rest_framework.test import APIRequestFactory, APITestCase, force_authenticate, APIClient
 from rest_framework import status
-
-from ...models import Vouch, User
+from django.contrib.auth import get_user_model
+from ...models import Vouch
 from ...serializers import VouchSerializer
 from ...viewsets import VouchViewSet
 
 class VouchViewsetTest(APITestCase):
     def setUp(self):
         """Initialise user instance, which creates a profile instance."""
+        User = get_user_model()
+        
         self.user_1 = User.objects.create(username="user_1")
         self.user_1.set_password("password_1")
         self.user_1.save()

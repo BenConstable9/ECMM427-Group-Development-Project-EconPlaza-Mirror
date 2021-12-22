@@ -1,14 +1,15 @@
 from django.contrib.auth import get_user_model
-from django.contrib.auth.forms import UserCreationForm
 
 from django.db import IntegrityError
 from django.test import TestCase
 
-from ...models import Vouch, User
+from ...models import Vouch
 
 class VouchCreationTest(TestCase):
     def setUp(self):
         """Initialise user instance, which creates a profile instance."""
+
+        User = get_user_model()
         
         self.user_1 = User.objects.create(username="user_1")
 
