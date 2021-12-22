@@ -3,7 +3,11 @@ from django.dispatch import receiver
 
 from django.conf import settings
 
-from ..models import Vouch, User
+from ..models import Vouch
+
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
 
 def should_be_verified(user_id):
     """Function to determine if we should verify a user."""

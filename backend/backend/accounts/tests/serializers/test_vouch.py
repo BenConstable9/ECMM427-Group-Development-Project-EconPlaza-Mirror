@@ -1,12 +1,15 @@
+from django.contrib.auth import get_user_model
 from rest_framework.test import APITestCase
-
-from ...models import Vouch, User
+from django.contrib.auth import get_user_model
+from ...models import Vouch
 
 from ...serializers import VouchSerializer
 
 class VouchSerializerTest(APITestCase):
     def setUp(self):
         """Initalise a series of users and a vouching."""
+
+        User = get_user_model()
 
         self.user_1 = User.objects.create(username="user_1")
 
