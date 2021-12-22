@@ -10,7 +10,8 @@ class User(AbstractUser):
 
     twitter_oauth = models.CharField("User's Twitter OAuth", max_length=16)
 
-    created_at = models.DateTimeField("Created at timestamp", auto_now_add=True)
+    created_at = models.DateTimeField(
+        "Created at timestamp", auto_now_add=True)
 
     def __str__(self):
         return f"{self.username}"

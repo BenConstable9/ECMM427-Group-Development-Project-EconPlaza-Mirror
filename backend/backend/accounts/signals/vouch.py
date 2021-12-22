@@ -9,6 +9,7 @@ from django.contrib.auth import get_user_model
 
 User = get_user_model()
 
+
 def should_be_verified(user_id):
     """Function to determine if we should verify a user."""
 
@@ -20,12 +21,14 @@ def should_be_verified(user_id):
     else:
         # Check if they are verified by a staff member as this overrides the limit for vouches
         staff = User.objects.filter(is_staff=True)
-        total_vouchers_by_staff = Vouch.objects.filter(vouchee=user_id, voucher__in=staff.values('id')).count()
+        total_vouchers_by_staff = Vouch.objects.filter(
+            vouchee=user_id, voucher__in=staff.values('id')).count()
 
         if total_vouchers_by_staff >= 1:
             return True
         else:
             return False
+
 
 @receiver(post_save, sender=User)
 def verify_staff(sender, instance, created, **kwargs):
@@ -43,6 +46,7 @@ def verify_staff(sender, instance, created, **kwargs):
     # Use update to stop recursion by calling this signal again
     User.objects.filter(id=instance.id).update(verified=verified)
 
+
 @receiver(post_save, sender=Vouch)
 def verify_user(sender, instance, created, **kwargs):
     """Function to automatically verify the user if the vouches reaches the required level."""
@@ -58,6 +62,7 @@ def verify_user(sender, instance, created, **kwargs):
 
             vouchee_user.verified = should_be_verified(received_vouchee.id)
             vouchee_user.save()
+
 
 @receiver(post_delete, sender=Vouch)
 def unverify_user(sender, instance, **kwargs):
