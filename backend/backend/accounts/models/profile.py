@@ -6,7 +6,7 @@ from django.contrib.auth import get_user_model
 class Profile(models.Model):
     User = get_user_model()
 
-    user = models.ForeignKey(
+    user = models.OneToOneField(
         User,
         models.CASCADE,
         verbose_name="Profile's related user",
