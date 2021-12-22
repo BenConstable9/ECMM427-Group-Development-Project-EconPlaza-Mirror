@@ -1,11 +1,16 @@
+from django.contrib.auth import get_user_model
 from django.test import RequestFactory, TestCase
-from ...permissions import IsAdminOrVerified
+from django.contrib.auth import get_user_model
+from time import sleep
 
-from ...models import User, Vouch
+from ...permissions import IsAdminOrVerified
+from ...models import Vouch
 
 class IsAdminOrVerifiedTest(TestCase):
     def setUp(self):
         """Set up a series of test users"""
+        User = get_user_model()
+
         self.admin_user = User.objects.create(username='admin_user', is_staff=True)
         self.non_admin_non_verified_user = User.objects.create(username='non_admin_non_verified_user')
 
@@ -77,8 +82,12 @@ class IsAdminOrVerifiedTest(TestCase):
     def test_non_admin_verified_user_returns_true(self):
         """Test that a verified user will pass the permissions test."""
 
+        # To get around the signal delay in verification, force verification
+        self.non_admin_non_verified_user.verified = True
+        self.non_admin_non_verified_user.save()
+
         request = self.factory.post('/')
-        request.user = self.non_admin_verified_user
+        request.user = self.non_admin_non_verified_user
 
         permission_check = IsAdminOrVerified()
 
