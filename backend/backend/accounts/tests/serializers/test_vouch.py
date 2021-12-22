@@ -5,6 +5,7 @@ from ...models import Vouch
 
 from ...serializers import VouchSerializer
 
+
 class VouchSerializerTest(APITestCase):
     def setUp(self):
         """Initalise a series of users and a vouching."""
@@ -15,7 +16,8 @@ class VouchSerializerTest(APITestCase):
 
         self.user_2 = User.objects.create(username="user_2")
 
-        self.vouch = Vouch.objects.create(voucher=self.user_1, vouchee=self.user_2)
+        self.vouch = Vouch.objects.create(
+            voucher=self.user_1, vouchee=self.user_2)
 
         # Serialise the data
         self.serializer = VouchSerializer(instance=self.vouch)

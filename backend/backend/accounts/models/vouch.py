@@ -23,17 +23,21 @@ class Vouch(models.Model):
         verbose_name="Vouch's vouchee",
     )
 
-    created_at = models.DateTimeField("Created at timestamp", auto_now_add=True)
+    created_at = models.DateTimeField(
+        "Created at timestamp", auto_now_add=True)
 
     class Meta:
         constraints = [
-            models.UniqueConstraint(fields=['voucher', 'vouchee'], name='no_duplicate_vouches'),
-            CheckConstraint(name='not_same', check=~models.Q(voucher=models.F('vouchee'))),
+            models.UniqueConstraint(
+                fields=['voucher', 'vouchee'], name='no_duplicate_vouches'),
+            CheckConstraint(name='not_same', check=~
+                            models.Q(voucher=models.F('vouchee'))),
         ]
 
     def clean(self):
         if self.voucher == self.vouchee:
-            raise ValidationError('Voucher and vouchee cannot be the same user.')
+            raise ValidationError(
+                'Voucher and vouchee cannot be the same user.')
 
     def __str__(self):
         return f"{self.voucher}"

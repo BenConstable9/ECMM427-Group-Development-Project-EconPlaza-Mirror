@@ -8,6 +8,8 @@ from ..serializers import VouchSerializer
 from ..models import Vouch
 
 # Only allow POST, GET, HEAD and OPTIONS requests
+
+
 class VouchViewSet(mixins.CreateModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
     """
     API endpoint that allows users to vouch for someone.
