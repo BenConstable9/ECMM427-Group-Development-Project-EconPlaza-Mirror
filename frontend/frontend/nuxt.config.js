@@ -1,6 +1,6 @@
 export default {
   // Target: https://go.nuxtjs.dev/config-target
-  target: 'static',
+  target: 'server',
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -37,10 +37,17 @@ export default {
     '@nuxtjs/axios',
     // https://go.nuxtjs.dev/pwa
     '@nuxtjs/pwa',
+    '@nuxtjs/auth-next',
+    // Proxy is needed for the API calls
+    '@nuxtjs/proxy',
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
-  axios: {},
+  axios: {
+    retry: { retries: 3 },
+    prefix: '/api',
+    debug: true,
+  },
 
   // PWA module configuration: https://go.nuxtjs.dev/pwa
   pwa: {
@@ -51,4 +58,47 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
+
+  // Force all pages to go through authentication
+  router: {
+    middleware: ['auth'],
+  },
+
+  proxy: {
+    '/api/': 'http://127.0.0.1:8000/',
+  },
+
+  auth: {
+    redirect: {
+      login: '/login',
+      logout: '/login',
+      home: '/',
+    },
+    strategies: {
+      local: {
+        scheme: 'refresh',
+        token: {
+          property: 'access',
+          maxAge: 60 * 5,
+          global: true,
+          type: 'Bearer',
+        },
+        refreshToken: {
+          property: 'refresh',
+          data: 'refresh',
+          maxAge: 60 * 60 * 24,
+        },
+        user: {
+          property: false,
+          autoFetch: true,
+        },
+        endpoints: {
+          login: { url: '/auth/login/', method: 'post' },
+          logout: false,
+          user: { url: '/accounts/user/', method: 'get' },
+          refresh: { url: '/auth/refresh/', method: 'post' },
+        },
+      },
+    },
+  },
 }

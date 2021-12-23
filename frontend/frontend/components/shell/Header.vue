@@ -4,16 +4,14 @@
       <div class="container mx-auto px-5">
         <div id="links" class="flex items-center space-x-8 py-3">
           <ul class="flex flex-1">
-            <li class="text-xl text-gray-900">EconPlaza</li>
-          </ul>
-          <ul class="flex space-x-8">
-            <li>
-              <a class="text-gray-900 hover:underline" href="#">Log in</a>
-            </li>
-            <li>
-              <a class="text-gray-900 hover:underline" href="#">Sign up</a>
+            <li class="text-xl text-gray-900">
+              <nuxt-link to="/">EconPlaza</nuxt-link>
             </li>
           </ul>
+          <div v-if="isAuthenticated">
+            {{ authenticatedUser.email }}
+            <a href="" @click="$auth.logout()">Logout</a>
+          </div>
         </div>
       </div>
     </nav>
@@ -31,9 +29,13 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import HeaderPlazaButton from './HeaderPlazaButton.vue'
 export default {
   components: { HeaderPlazaButton },
+  computed: {
+    ...mapGetters(['isAuthenticated', 'authenticatedUser']),
+  },
 }
 </script>
 
