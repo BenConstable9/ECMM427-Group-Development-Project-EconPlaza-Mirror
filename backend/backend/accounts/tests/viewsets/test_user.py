@@ -27,12 +27,12 @@ class UserViewsetTest(APITestCase):
         # Now test the actual data is the same
         self.client.force_authenticate(self.user_1)
         response = self.client.get(
-            '/accounts/users/{}/'.format(self.user_1.id))
+            '/api/accounts/users/{}/'.format(self.user_1.id))
 
         user = User.objects.get(id=self.user_1.id)
 
         factory = APIRequestFactory()
-        request = factory.get('/accounts/users')
+        request = factory.get('/api/accounts/users')
 
         serializer_context = {
             'request': Request(request),
@@ -45,28 +45,28 @@ class UserViewsetTest(APITestCase):
         self.assertEqual(response.data, serializer.data)
 
     def test_get_users_unauth(self):
-        """Test we get a HTTP 403 response when looking at detailed view."""
+        """Test we get a HTTP 401 response when looking at detailed view."""
 
         # Get some data
-        response = self.client.get('/accounts/users/')
+        response = self.client.get('/api/accounts/users/')
 
-        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
     def test_get_user_unauth(self):
-        """Test we get a HTTP 403 response when looking at list view."""
+        """Test we get a HTTP 401 response when looking at list view."""
 
         # Get some data
         response = self.client.get(
-            '/accounts/users/{}/'.format(self.user_1.id))
+            '/api/accounts/users/{}/'.format(self.user_1.id))
 
-        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
     def test_get_users(self):
         """Test we get a HTTP 200 response when looking at list view."""
 
         # Get some data
         self.client.force_authenticate(self.user_1)
-        response = self.client.get('/accounts/users/')
+        response = self.client.get('/api/accounts/users/')
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data["count"], 1)
@@ -79,7 +79,7 @@ class UserViewsetTest(APITestCase):
 
         # Get some data
         self.client.force_authenticate(self.user_1)
-        response = self.client.get('/accounts/users/?search=no')
+        response = self.client.get('/api/accounts/users/?search=no')
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data["count"], 0)
@@ -94,7 +94,7 @@ class UserViewsetTest(APITestCase):
 
         # Get some data
         self.client.force_authenticate(self.user_1)
-        response = self.client.get('/accounts/users/?search=user_2')
+        response = self.client.get('/api/accounts/users/?search=user_2')
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data["count"], 1)
@@ -112,19 +112,19 @@ class UserViewsetTest(APITestCase):
 
         # Set the delete type
         response = self.client.delete(
-            '/accounts/users/{}/'.format(self.user_1.id))
+            '/api/accounts/users/{}/'.format(self.user_1.id))
 
         self.assertEqual(response.status_code,
                          status.HTTP_405_METHOD_NOT_ALLOWED)
 
     def test_delete_user_unauth(self):
-        """Test we get a HTTP 403 response when attempting to delete data and we aren't authorised."""
+        """Test we get a HTTP 401 response when attempting to delete data and we aren't authorised."""
 
         # Set the delete type
         response = self.client.delete(
-            '/accounts/users/{}/'.format(self.user_1.id))
+            '/api/accounts/users/{}/'.format(self.user_1.id))
 
-        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
     def test_put_user(self):
         """Test we get a HTTP 405 response when attempting to update data."""
@@ -133,19 +133,19 @@ class UserViewsetTest(APITestCase):
         # Set the payload
         payload = {'first_name': 'test2'}
         response = self.client.put(
-            '/accounts/users/{}/'.format(self.user_1.id), payload)
+            '/api/accounts/users/{}/'.format(self.user_1.id), payload)
 
         self.assertEqual(response.status_code,
                          status.HTTP_405_METHOD_NOT_ALLOWED)
 
     def test_put_user_unauth(self):
-        """Test we get a HTTP 403 response when attempting to update data and we aren't authorised."""
+        """Test we get a HTTP 401 response when attempting to update data and we aren't authorised."""
         # Set the payload
         payload = {'first_name': 'test2'}
         response = self.client.put(
-            '/accounts/users/{}/'.format(self.user_1.id), payload)
+            '/api/accounts/users/{}/'.format(self.user_1.id), payload)
 
-        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
     def test_post_user(self):
         """Test we get a HTTP 405 response when attempting to add data."""
@@ -153,19 +153,19 @@ class UserViewsetTest(APITestCase):
 
         # Set the payload
         payload = {'first_name': 'tester', 'username': 'test'}
-        response = self.client.post('/accounts/users/', payload)
+        response = self.client.post('/api/accounts/users/', payload)
 
         self.assertEqual(response.status_code,
                          status.HTTP_405_METHOD_NOT_ALLOWED)
 
     def test_post_vouch_with_unauth(self):
-        """Test we get a HTTP 403 response when attempting to add data as we are not authorised."""
+        """Test we get a HTTP 401 response when attempting to add data as we are not authorised."""
 
         # Set the payload
         payload = {'first_name': 'tester', 'username': 'test'}
-        response = self.client.post('/accounts/users/', payload)
+        response = self.client.post('/api/accounts/users/', payload)
 
-        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
     def test_get_invalid_user(self):
         """Test we get a HTTP 404 response when looking at the detailed view."""
@@ -173,7 +173,7 @@ class UserViewsetTest(APITestCase):
         view = UserViewSet.as_view({'get': 'retrieve'})
 
         # Make an authenticated request to the view...
-        request = factory.get('/accounts/users/')
+        request = factory.get('/api/accounts/users/')
         force_authenticate(request, user=self.user_1)
 
         # Use an invalid id

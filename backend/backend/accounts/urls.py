@@ -5,10 +5,15 @@ from rest_framework.routers import DefaultRouter
 
 from .viewsets import UserViewSet, VouchViewSet
 
+from .views import AuthenticatedUserView
 
-urlpatterns = []
+urlpatterns = [
+    path('user/', AuthenticatedUserView.as_view()),
+]
 
 router = DefaultRouter()
-router.register(r"users", UserViewSet)
+
 router.register(r"vouches", VouchViewSet)
+router.register(r"users", UserViewSet)
+
 urlpatterns += router.urls
