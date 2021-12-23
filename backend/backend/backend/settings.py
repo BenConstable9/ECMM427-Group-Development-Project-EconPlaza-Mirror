@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "plazas.apps.PlazasConfig",
     "labels.apps.LabelsConfig",
     "rest_framework",
+    "rest_framework.authtoken",
 ]
 
 MIDDLEWARE = [
@@ -129,6 +130,16 @@ STATIC_URL = "/static/"
 # https://docs.djangoproject.com/en/3.2/topics/auth/customizing/#auth-custom-user
 
 AUTH_USER_MODEL = "accounts.User"
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ]
+}
 
 
 # Default primary key field type

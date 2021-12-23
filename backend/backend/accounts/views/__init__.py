@@ -1,0 +1,1 @@
+from .authenticateduser import AuthenticatedUserView
