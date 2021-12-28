@@ -8,6 +8,7 @@
       text-m
       font-bold
       text-white
+      shadow
     "
   >
     Error: {{ message }}
