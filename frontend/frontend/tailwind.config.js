@@ -12,6 +12,9 @@ module.exports = {
     extend: {},
   },
   variants: {
+    backgroundColor: ({ after }) => after(['disabled']),
+    textColor: ({ after }) => after(['disabled']),
+    borderColor: ({ after }) => after(['disabled']),
     extend: {},
   },
   plugins: [],
