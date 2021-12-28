@@ -64,7 +64,10 @@ export default {
   },
 
   proxy: {
-    '/api/': 'http://127.0.0.1:8000/',
+    '/api/v1/': {
+      target: 'http://127.0.0.1:8000/v1/',
+      pathRewrite: { '^/api/v1/': '' },
+    },
   },
 
   auth: {
@@ -92,10 +95,10 @@ export default {
           autoFetch: true,
         },
         endpoints: {
-          login: { url: '/auth/login/', method: 'post' },
+          login: { url: '/v1/auth/login/', method: 'post' },
           logout: false,
-          user: { url: '/accounts/user/', method: 'get' },
-          refresh: { url: '/auth/refresh/', method: 'post' },
+          user: { url: '/v1/accounts/user/', method: 'get' },
+          refresh: { url: '/v1/auth/refresh/', method: 'post' },
         },
       },
     },

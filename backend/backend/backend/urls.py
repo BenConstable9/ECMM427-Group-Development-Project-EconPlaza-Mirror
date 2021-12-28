@@ -23,11 +23,11 @@ from rest_framework_simplejwt.views import (
 )
 
 urlpatterns = [
-    path('api/accounts/', include("accounts.urls")),
+    path('v1/accounts/', include("accounts.urls")),
     path("admin/", admin.site.urls),
-    path('api/auth/login/', TokenObtainPairView.as_view(),
+    path('v1/auth/login/', TokenObtainPairView.as_view(),
          name='token_obtain_pair'),
-    path('api/auth/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('v1/auth/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path("", lambda _: HttpResponse(
         "EconPlaza API", headers={"content-type": "text/plain"},
         status=200

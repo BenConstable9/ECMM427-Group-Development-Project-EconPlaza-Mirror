@@ -48,7 +48,7 @@ class VouchViewsetTest(APITestCase):
         # Now test the actual data is the same
         self.client.force_authenticate(self.user_1)
         response = self.client.get(
-            '/api/accounts/vouches/{}/'.format(self.user_2.id))
+            '/v1/accounts/vouches/{}/'.format(self.user_2.id))
 
         vouches = Vouch.objects.get(vouchee=self.user_2)
         serializer = VouchSerializer(vouches)
@@ -62,7 +62,7 @@ class VouchViewsetTest(APITestCase):
 
         # Get some data
         response = self.client.get(
-            '/api/accounts/vouches/{}/'.format(self.user_2.id))
+            '/v1/accounts/vouches/{}/'.format(self.user_2.id))
 
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
@@ -70,7 +70,7 @@ class VouchViewsetTest(APITestCase):
         """Test we get a HTTP 401 response when looking at list view."""
 
         # Get some data
-        response = self.client.get('/api/accounts/vouches/')
+        response = self.client.get('/v1/accounts/vouches/')
 
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
@@ -79,7 +79,7 @@ class VouchViewsetTest(APITestCase):
 
         # Get some data
         self.client.force_authenticate(self.user_1)
-        response = self.client.get('/api/accounts/vouches/')
+        response = self.client.get('/v1/accounts/vouches/')
 
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
@@ -89,7 +89,7 @@ class VouchViewsetTest(APITestCase):
 
         # Set the delete type
         response = self.client.delete(
-            '/api/accounts/vouches/{}/'.format(self.user_2.id))
+            '/v1/accounts/vouches/{}/'.format(self.user_2.id))
 
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
@@ -98,7 +98,7 @@ class VouchViewsetTest(APITestCase):
 
         # Set the delete type
         response = self.client.delete(
-            '/api/accounts/vouches/{}/'.format(self.user_2.id))
+            '/v1/accounts/vouches/{}/'.format(self.user_2.id))
 
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
@@ -109,7 +109,7 @@ class VouchViewsetTest(APITestCase):
         # Set the payload
         payload = {'vouchee': self.user_3.id, 'voucher': self.user_2.id}
         response = self.client.put(
-            '/api/accounts/vouches/{}/'.format(self.user_3.id), payload)
+            '/v1/accounts/vouches/{}/'.format(self.user_3.id), payload)
 
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
@@ -118,7 +118,7 @@ class VouchViewsetTest(APITestCase):
         # Set the payload
         payload = {'vouchee': self.user_3.id, 'voucher': self.user_2.id}
         response = self.client.put(
-            '/api/accounts/vouches/{}/'.format(self.user_3.id), payload)
+            '/v1/accounts/vouches/{}/'.format(self.user_3.id), payload)
 
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
@@ -128,7 +128,7 @@ class VouchViewsetTest(APITestCase):
 
         # Set the payload
         payload = {'vouchee': self.user_2.id, 'voucher': self.user_3.id}
-        response = self.client.post('/api/accounts/vouches/', payload)
+        response = self.client.post('/v1/accounts/vouches/', payload)
 
         exists = Vouch.objects.filter(
             vouchee=self.user_2,
@@ -144,7 +144,7 @@ class VouchViewsetTest(APITestCase):
 
         # Set the payload
         payload = {'vouchee': self.user_2.id, 'voucher': self.staff_user.id}
-        response = self.client.post('/api/accounts/vouches/', payload)
+        response = self.client.post('/v1/accounts/vouches/', payload)
 
         exists = Vouch.objects.filter(
             vouchee=self.user_2,
@@ -160,7 +160,7 @@ class VouchViewsetTest(APITestCase):
 
         # Set the payload
         payload = {'vouchee': self.user_1.id, 'voucher': self.user_3.id}
-        response = self.client.post('/api/accounts/vouches/', payload)
+        response = self.client.post('/v1/accounts/vouches/', payload)
 
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
@@ -170,7 +170,7 @@ class VouchViewsetTest(APITestCase):
         view = VouchViewSet.as_view({'get': 'retrieve'})
 
         # Don't authenticate this request
-        request = factory.get('/api/accounts/vouches/')
+        request = factory.get('/v1/accounts/vouches/')
         response = view(request, vouchee=self.user_1.id)
 
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
@@ -181,7 +181,7 @@ class VouchViewsetTest(APITestCase):
         view = VouchViewSet.as_view({'get': 'retrieve'})
 
         # Make an authenticated request to the view...
-        request = factory.get('/api/accounts/vouches/')
+        request = factory.get('/v1/accounts/vouches/')
         force_authenticate(request, user=self.user_1)
 
         # Use an invalid id
