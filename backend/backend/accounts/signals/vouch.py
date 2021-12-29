@@ -38,7 +38,7 @@ def verify_staff(sender, instance, created, **kwargs):
 
     # If they have been set to staff then verify them
     if modified_user.is_staff:
-        verified = False
+        verified = True
     else:
         # The user could have been unstaffed but still have enough verifications
         verified = should_be_verified(instance.id)
