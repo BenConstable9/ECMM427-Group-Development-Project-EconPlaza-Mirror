@@ -2,7 +2,6 @@
   <div>
     <ul
       class="
-        flex flex-col
         w-full
         border
         rounded-r-2xl rounded-b-2xl
@@ -17,6 +16,7 @@
       />
       <user-box-details
         :email="user.email"
+        :username="user.username"
         :date-joined="new Date(user.date_joined)"
         :verified="user.verified"
       />
