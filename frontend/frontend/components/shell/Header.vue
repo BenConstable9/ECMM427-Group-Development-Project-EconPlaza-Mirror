@@ -8,6 +8,7 @@
               <nuxt-link to="/">EconPlaza</nuxt-link>
             </li>
           </ul>
+          <NuxtLink :to="`users`">All Users</NuxtLink>
           <div v-if="isAuthenticated">
             {{ authenticatedUser.email }}
             <a href="" @click="$auth.logout()">Logout</a>
