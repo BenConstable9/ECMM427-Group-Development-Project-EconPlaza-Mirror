@@ -1,9 +1,9 @@
 <template>
-  <div class="flex flex-row bg-blue-600 px-4 py-2">
-    <h3 class="basis-3/4 text-lg font-semibold text-white">
+  <div class="flex items-start bg-blue-600 px-4 py-2">
+    <h3 class="flex-1 md:flex-none lg:flex-1 text-lg font-semibold text-white">
       {{ firstName }} {{ lastName }}
     </h3>
-    <staff v-if="isStaff" class="basis-1/4" />
+    <staff v-if="isStaff" class="flex-initial md:flex-none lg:flex-initial" />
   </div>
 </template>
 
