@@ -16,7 +16,7 @@
         <div class="mb-4">
           <h2 class="text-xl font-bold">Login to EconPlaza</h2>
         </div>
-        <Notification v-if="error" :message="error" />
+        <Error v-if="error" :message="error" />
         <form class="space-y-4" @submit.prevent="userLogin">
           <div>
             <input
@@ -94,11 +94,11 @@
 </template>
 
 <script>
-import Notification from '~/components/helpers/Notification'
+import Error from '~/components/helpers/Error'
 
 export default {
   components: {
-    Notification,
+    Error,
   },
   data() {
     return {
