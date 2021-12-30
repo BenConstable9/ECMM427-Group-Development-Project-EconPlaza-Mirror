@@ -64,7 +64,8 @@ class VouchViewsetTest(APITestCase):
 
         # Check with the data direct from model
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data, serializer.data)
+        self.assertEqual(response.data[0], serializer.data)
+        self.assertIsInstance(response.data, list)
 
     def test_get_vouch_unauth(self):
         """Test we get a HTTP 401 response when looking at detailed view."""
