@@ -1,4 +1,5 @@
 from rest_framework.test import APIRequestFactory, APITestCase, force_authenticate, APIClient
+from rest_framework.request import Request
 from rest_framework import status
 from django.contrib.auth import get_user_model
 from ...models import Vouch
@@ -50,8 +51,16 @@ class VouchViewsetTest(APITestCase):
         response = self.client.get(
             '/v1/accounts/vouches/{}/'.format(self.user_2.id))
 
+        factory = APIRequestFactory()
+        request = factory.get(
+            '/v1/accounts/vouches/{}/'.format(self.user_2.id))
+
+        serializer_context = {
+            'request': Request(request),
+        }
+
         vouches = Vouch.objects.get(vouchee=self.user_2)
-        serializer = VouchSerializer(vouches)
+        serializer = VouchSerializer(vouches, context=serializer_context)
 
         # Check with the data direct from model
         self.assertEqual(response.status_code, status.HTTP_200_OK)
