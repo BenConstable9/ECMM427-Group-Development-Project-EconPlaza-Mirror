@@ -11,10 +11,7 @@
     >
       <vouch-box-header :first-name="firstName" />
       <vouch-box-details :vouches="vouches" />
-      <vouch-box-verify
-        v-if="authenticatedUser.is_staff || authenticatedUser.verified"
-        :vouches="vouches"
-      />
+      <vouch-box-footer :vouches="vouches" />
     </ul>
   </div>
 </template>
@@ -24,14 +21,14 @@ import { mapGetters } from 'vuex'
 
 import VouchBoxDetails from '~/components/vouch/vouch-box-details'
 import VouchBoxHeader from '~/components/vouch/vouch-box-header'
-import VouchBoxVerify from '~/components/vouch/vouch-box-verify'
+import VouchBoxFooter from '~/components/vouch/vouch-box-footer'
 
 export default {
   name: 'VouchBox',
   components: {
     VouchBoxDetails,
     VouchBoxHeader,
-    VouchBoxVerify,
+    VouchBoxFooter,
   },
   props: {
     firstName: { type: String, default: null },
