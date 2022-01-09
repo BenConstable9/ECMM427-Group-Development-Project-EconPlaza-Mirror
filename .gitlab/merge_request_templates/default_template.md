@@ -1,4 +1,4 @@
-# US#### User Story Title
+# User Story Title
 
 ## Description
 
