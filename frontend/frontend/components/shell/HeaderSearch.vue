@@ -20,11 +20,11 @@
     />
     <button type="submit" class="absolute right-0 top-0 mt-2 mr-4">
       <svg
+        id="Capa_1"
         class="text-gray-600 h-4 w-4 fill-current"
         xmlns="http://www.w3.org/2000/svg"
         xmlns:xlink="http://www.w3.org/1999/xlink"
         version="1.1"
-        id="Capa_1"
         x="0px"
         y="0px"
         viewBox="0 0 56.966 56.966"
