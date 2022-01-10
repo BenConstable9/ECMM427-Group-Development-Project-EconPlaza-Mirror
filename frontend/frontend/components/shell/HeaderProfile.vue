@@ -190,13 +190,13 @@
 <script>
 import { mapGetters } from 'vuex'
 export default {
-  computed: {
-    ...mapGetters(['isAuthenticated', 'authenticatedUser']),
-  },
   data() {
     return {
       showMenu: false,
     }
+  },
+  computed: {
+    ...mapGetters(['isAuthenticated', 'authenticatedUser']),
   },
 }
 </script>
