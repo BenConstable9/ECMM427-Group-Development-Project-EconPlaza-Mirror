@@ -9,7 +9,9 @@ module.exports = {
   purge: [],
   darkMode: false, // or 'media' or 'class'
   theme: {
-    extend: {},
+    extend: {
+      colors: { primary: '#46B1C9', secondary: '#84C0C6' },
+    },
   },
   variants: {
     backgroundColor: ({ after }) => after(['disabled']),
