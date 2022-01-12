@@ -31,15 +31,16 @@
                 </li>
               </ul>
             </div>
-            <voucher v-if="canVouch" :first-name="user.first_name" />
+            <voucher
+              v-if="canVouch"
+              :id="user.id"
+              :first-name="user.first_name"
+            />
             <vouch-box :first-name="user.first_name" :vouches="vouches" />
           </div>
         </div>
       </div>
     </div>
-    {{ vouches }}
-
-    {{ canVouch }}
   </main>
 </template>
 
@@ -114,6 +115,15 @@ export default {
   },
   computed: {
     ...mapGetters(['authenticatedUser']),
+  },
+  created() {
+    this.$nuxt.$on('user-vouched', () => {
+      // They might now be verified so refresh the data
+      this.$nuxt.refresh()
+    })
+  },
+  beforeDestroy() {
+    this.$nuxt.$off('user-vouched')
   },
 }
 </script>
