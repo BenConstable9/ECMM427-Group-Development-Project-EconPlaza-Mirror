@@ -17,8 +17,6 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-
 import VouchBoxDetails from '~/components/vouch/vouch-box-details'
 import VouchBoxHeader from '~/components/vouch/vouch-box-header'
 import VouchBoxFooter from '~/components/vouch/vouch-box-footer'
@@ -33,9 +31,6 @@ export default {
   props: {
     firstName: { type: String, default: null },
     vouches: { type: Array, default: null },
-  },
-  computed: {
-    ...mapGetters(['authenticatedUser']),
   },
 }
 </script>
