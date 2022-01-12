@@ -47,6 +47,7 @@
             />
           </div>
           <div v-if="voucher.name && voucher.email && voucher.institution">
+            <p>Your vouch will be displayed publicly in this user's profile</p>
             <button
               type="submit"
               :disabled="voucher.isDisabled"
