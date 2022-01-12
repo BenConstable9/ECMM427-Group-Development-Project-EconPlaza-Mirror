@@ -31,16 +31,23 @@
                 </li>
               </ul>
             </div>
+            <voucher v-if="canVouch" :first-name="user.first_name" />
             <vouch-box :first-name="user.first_name" :vouches="vouches" />
           </div>
         </div>
       </div>
     </div>
+    {{ vouches }}
+
+    {{ canVouch }}
   </main>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 import VouchBox from '~/components/vouch/vouch-box'
+import Voucher from '~/components/vouch/voucher'
 import Staff from '~/components/labels/staff'
 import Verified from '~/components/labels/verified'
 
@@ -49,21 +56,32 @@ export default {
     VouchBox,
     Staff,
     Verified,
+    Voucher,
   },
-  async asyncData({ $axios, params }) {
+  async asyncData({ $axios, params, store }) {
     try {
       const user = await $axios.$get(`/v1/accounts/users/${params.id}/`)
       try {
         const vouches = await $axios.$get(`/v1/accounts/vouches/${params.id}/`)
 
-        return { user, vouches }
+        const alreadyVouched =
+          vouches.filter(
+            (item) => item.voucher.id === store.getters.authenticatedUser.id
+          ).length > 0
+
+        const canVouch =
+          store.getters.authenticatedUser.verified &&
+          store.getters.authenticatedUser.id !== Number(params.id) &&
+          !alreadyVouched
+
+        return { user, vouches, canVouch }
       } catch (e) {
         const vouches = []
 
-        return { user, vouches }
+        return { user, vouches, canVouch: false }
       }
     } catch (e) {
-      return { user: [] }
+      return { user: [], vouches: [], canVouch: false }
     }
   },
   data() {
@@ -93,6 +111,9 @@ export default {
         this.user.last_name +
         ' | EconPlaza',
     }
+  },
+  computed: {
+    ...mapGetters(['authenticatedUser']),
   },
 }
 </script>
