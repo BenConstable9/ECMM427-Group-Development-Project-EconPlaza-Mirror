@@ -41,6 +41,9 @@
         </div>
       </div>
     </div>
+    {{ vouches }}
+
+    {{ canVouch }}
   </main>
 </template>
 
