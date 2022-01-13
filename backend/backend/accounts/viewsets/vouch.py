@@ -4,8 +4,8 @@ from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
 
 from utils import ActionBasedPermission
+from utils import IsVerified
 
-from ..permissions import IsAdminOrVerified
 from ..serializers import VouchSerializer
 from ..models import Vouch
 
@@ -25,7 +25,7 @@ class VouchViewSet(mixins.CreateModelMixin, mixins.ListModelMixin, mixins.Retrie
     # Taken from https://stackoverflow.com/questions/39392007/django-rest-framework-viewset-permissions-create-without-list
     permission_classes = (ActionBasedPermission,)
     action_permissions = {
-        IsAdminOrVerified: ['create'],
+        IsVerified: ['create'],
         IsAuthenticated: ['retrieve']
     }
 
