@@ -1,8 +1,8 @@
 <template>
   <div id="about" class="flex">
-    <ul class="flex flex-col w-full border rounded overflow-hidden">
+    <ul class="flex flex-col w-full border rounded-lg overflow-hidden">
       <about-box-header />
-      <about-box-row />
+      <about-box-stats />
     </ul>
   </div>
 </template>
