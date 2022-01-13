@@ -28,14 +28,10 @@ class VouchViewsetTest(APITestCase):
         user_4 = User.objects.create(username="user_4")
         user_5 = User.objects.create(username="user_5")
 
-        self.staff_user = User.objects.create(
-            username="staff_user", is_staff=True)
-
         Vouch.objects.create(voucher=self.user_1, vouchee=self.user_3)
         Vouch.objects.create(voucher=self.user_2, vouchee=self.user_3)
         Vouch.objects.create(voucher=user_4, vouchee=self.user_3)
         Vouch.objects.create(voucher=user_5, vouchee=self.user_3)
-        Vouch.objects.create(voucher=self.staff_user, vouchee=self.user_3)
 
         # Add some verifications for starting
         Vouch.objects.create(voucher=self.user_1, vouchee=self.user_2)
@@ -143,22 +139,6 @@ class VouchViewsetTest(APITestCase):
         exists = Vouch.objects.filter(
             vouchee=self.user_2,
             voucher=self.user_3,
-        ).exists()
-
-        self.assertTrue(exists)
-        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-
-    def test_post_vouch_with_staff(self):
-        """Test we get a HTTP 201 response when attempting to add data as we are staff."""
-        self.client.force_authenticate(self.staff_user)
-
-        # Set the payload
-        payload = {'vouchee': self.user_2.id, 'voucher': self.staff_user.id}
-        response = self.client.post('/v1/accounts/vouches/', payload)
-
-        exists = Vouch.objects.filter(
-            vouchee=self.user_2,
-            voucher=self.staff_user,
         ).exists()
 
         self.assertTrue(exists)

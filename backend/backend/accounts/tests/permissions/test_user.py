@@ -1,19 +1,17 @@
 from django.contrib.auth import get_user_model
 from django.test import RequestFactory, TestCase
 from django.contrib.auth import get_user_model
-from time import sleep
+from rest_framework.test import force_authenticate
 
-from ...permissions import IsAdminOrVerified
+from utils import IsVerified
 from ...models import Vouch
 
 
-class IsAdminOrVerifiedTest(TestCase):
+class IsVerifiedTest(TestCase):
     def setUp(self):
         """Set up a series of test users"""
         User = get_user_model()
 
-        self.admin_user = User.objects.create(
-            username='admin_user', is_staff=True)
         self.non_admin_non_verified_user = User.objects.create(
             username='non_admin_non_verified_user')
 
@@ -25,10 +23,9 @@ class IsAdminOrVerifiedTest(TestCase):
         user_1 = User.objects.create(username="permission_user_1")
         user_2 = User.objects.create(username="permission_user_2")
         user_3 = User.objects.create(username="permission_user_3")
+        user_4 = User.objects.create(username="permission_user_4")
 
         # Now add our vouches. This only works as the the restriction on vouching when verified is on the API.
-        Vouch.objects.create(voucher=self.admin_user,
-                             vouchee=self.non_admin_verified_user)
         Vouch.objects.create(
             voucher=self.non_admin_non_verified_user, vouchee=self.non_admin_verified_user)
         Vouch.objects.create(
@@ -37,40 +34,19 @@ class IsAdminOrVerifiedTest(TestCase):
             voucher=user_2, vouchee=self.non_admin_verified_user)
         Vouch.objects.create(
             voucher=user_3, vouchee=self.non_admin_verified_user)
+        Vouch.objects.create(
+            voucher=user_4, vouchee=self.non_admin_verified_user)
 
         self.factory = RequestFactory()
-
-    def test_admin_user_returns_true(self):
-        """Check an admin can override the permission."""
-
-        request = self.factory.post('/')
-        request.user = self.admin_user
-
-        permission_check = IsAdminOrVerified()
-
-        permission = permission_check.has_permission(request, None)
-
-        self.assertTrue(permission)
-
-    def test_admin_user_returns_true_on_safe_method(self):
-        """Check we can pass on a safe method."""
-
-        request = self.factory.get('/')
-        request.user = self.admin_user
-
-        permission_check = IsAdminOrVerified()
-
-        permission = permission_check.has_permission(request, None)
-
-        self.assertTrue(permission)
 
     def test_non_admin_non_verified_user_returns_false(self):
         """Test that a non verified and non admin will fail the check."""
 
         request = self.factory.post('/')
+        force_authenticate(request, user=self.non_admin_non_verified_user)
         request.user = self.non_admin_non_verified_user
 
-        permission_check = IsAdminOrVerified()
+        permission_check = IsVerified()
 
         permission = permission_check.has_permission(request, None)
 
@@ -80,9 +56,10 @@ class IsAdminOrVerifiedTest(TestCase):
         """Check we can pass on a safe method."""
 
         request = self.factory.get('/')
+        force_authenticate(request, user=self.non_admin_non_verified_user)
         request.user = self.non_admin_non_verified_user
 
-        permission_check = IsAdminOrVerified()
+        permission_check = IsVerified()
 
         permission = permission_check.has_permission(request, None)
 
@@ -96,9 +73,10 @@ class IsAdminOrVerifiedTest(TestCase):
         self.non_admin_non_verified_user.save()
 
         request = self.factory.post('/')
+        force_authenticate(request, user=self.non_admin_non_verified_user)
         request.user = self.non_admin_non_verified_user
 
-        permission_check = IsAdminOrVerified()
+        permission_check = IsVerified()
 
         permission = permission_check.has_permission(request, None)
 
@@ -108,9 +86,10 @@ class IsAdminOrVerifiedTest(TestCase):
         """Check we can pass on a safe method."""
 
         request = self.factory.get('/')
+        force_authenticate(request, user=self.non_admin_verified_user)
         request.user = self.non_admin_verified_user
 
-        permission_check = IsAdminOrVerified()
+        permission_check = IsVerified()
 
         permission = permission_check.has_permission(request, None)
 
