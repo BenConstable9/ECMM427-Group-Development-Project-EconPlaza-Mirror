@@ -1,14 +1,14 @@
 <template>
   <div
     v-if="isAuthenticated"
-    class="hidden sm:block relative mx-auto text-gray-600"
+    class="relative flex-1 max-w-lg mx-auto text-gray-600"
   >
     <input
       class="
+        min-w-full
         border-2 border-gray-300
         bg-white
         h-8
-        w-64
         px-4
         rounded-full
         text-sm
