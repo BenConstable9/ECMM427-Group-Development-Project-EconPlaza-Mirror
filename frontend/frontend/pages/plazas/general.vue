@@ -1,19 +1,14 @@
 <template>
   <main>
     <div class="container mx-auto">
-      <div class="bg-gray-50 px-5 mx-auto">
-        <div id="title">
-          <div class="flex pt-8">
-            <h1 class="text-xl font-semibold">General</h1>
-          </div>
-        </div>
-        <div id="content" class="flex pt-5 pb-8">
-          <div id="content-left" class="w-full lg:w-2/3 mr-2">
+      <div class="bg-gray-100 px-5 mt-5 mb-5 mx-auto">
+        <div id="content" class="flex space-x-5 pt-5 pb-8">
+          <div id="content-left" class="w-full lg:w-3/4">
             <post-table />
           </div>
           <div
             id="content-left"
-            class="hidden lg:flex lg:w-1/3 flex-col space-y-3 ml-2"
+            class="hidden lg:flex lg:w-1/4 flex-col space-y-5"
           >
             <about-box />
             <rules-box />
