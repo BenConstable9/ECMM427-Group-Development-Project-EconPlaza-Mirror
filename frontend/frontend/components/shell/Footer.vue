@@ -1,6 +1,6 @@
 <template>
   <footer>
-    <div id="navbar" class="bg-gray-50">
+    <div id="footer" class="bg-gray-50">
       <div class="container mx-auto px-5">
         <div id="links" class="flex space-x-8 py-5">
           <ul class="flex">
