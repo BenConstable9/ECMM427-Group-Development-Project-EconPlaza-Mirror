@@ -1,6 +1,13 @@
 <template>
-  <div id="rules-heading" class="flex bg-gray-900 px-3 py-2">
-    <h1 class="text-sm text-gray-50">Rules</h1>
+  <div
+    id="rules-heading"
+    class="flex space-x-3 items-center bg-primary px-5 py-3"
+  >
+    <div id="title" class="flex-1">
+      <div class="flex flex-col space-y-1">
+        <h1 class="text-gray-50 text-lg font-semibold">Rules</h1>
+      </div>
+    </div>
   </div>
 </template>
 
