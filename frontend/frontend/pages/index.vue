@@ -10,8 +10,9 @@
             id="content-left"
             class="hidden lg:flex lg:w-1/4 flex-col space-y-5"
           >
-            <about-box />
-            <rules-box />
+            <my-plazas />
+            <my-bookmarks />
+            <popular-plazas />
           </div>
         </div>
       </div>
