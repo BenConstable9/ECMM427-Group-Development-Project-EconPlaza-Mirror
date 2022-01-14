@@ -17,4 +17,4 @@ class Plaza(models.Model):
     created_at = models.DateTimeField("Created at timestamp", auto_now_add=True)
 
     def __str__(self):
-        return f"{self.report}"
+        return f"{self.name}"
