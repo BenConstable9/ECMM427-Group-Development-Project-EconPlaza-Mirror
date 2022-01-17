@@ -5,17 +5,16 @@ from rest_framework_nested import routers
 
 from .viewsets import PlazaViewSet, PostViewSet
 
-post_create = PostViewSet.as_view({'post': 'create'})
+post_create = PostViewSet.as_view({"post": "create"})
 
-urlpatterns = [
-]
+urlpatterns = []
 
 router = DefaultRouter()
 
 router.register(r"", PlazaViewSet)
 
-post_router = routers.NestedSimpleRouter(router, r'', lookup='plazas')
-post_router.register(r'posts', PostViewSet, basename='plaza-post')
+post_router = routers.NestedSimpleRouter(router, r"", lookup="plazas")
+post_router.register(r"posts", PostViewSet, basename="plaza-post")
 
 urlpatterns += router.urls
 urlpatterns += post_router.urls

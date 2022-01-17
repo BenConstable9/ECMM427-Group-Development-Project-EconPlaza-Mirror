@@ -1,6 +1,5 @@
 from django.contrib import admin
 from django import forms
-from django.core.exceptions import ValidationError
 import json
 
 from ..models import Post
@@ -13,7 +12,6 @@ class PostAdminForm(forms.ModelForm):
             json.loads(self.cleaned_data["permissions"])
         except ValueError as e:
             self.add_error("permissions", "Not valid JSON: " + str(e))
-
         try:
             json.loads(self.cleaned_data["reactions"])
         except ValueError as e:
@@ -23,16 +21,13 @@ class PostAdminForm(forms.ModelForm):
 
 class PostAdmin(admin.ModelAdmin):
     fields = [
-        "profile",
         "user",
-        "plaza",
+        "profile",
         "title",
         "content",
+        "plaza",
         "permissions",
         "reactions",
-        "hidden",
-        "deleted",
-        "views"
     ]
     form = PostAdminForm
 

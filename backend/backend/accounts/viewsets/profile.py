@@ -5,8 +5,10 @@ from ..serializers import ProfileSerializer
 from ..models import Profile
 
 
-class ProfileViewSet(mixins.RetrieveModelMixin,
-                     viewsets.GenericViewSet,):
+class ProfileViewSet(
+    mixins.RetrieveModelMixin,
+    viewsets.GenericViewSet,
+):
     """
     API endpoint that allows the viewing of a specific plaza
     """

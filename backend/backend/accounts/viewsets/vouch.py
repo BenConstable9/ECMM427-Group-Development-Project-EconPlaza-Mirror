@@ -29,8 +29,7 @@ class VouchViewSet(
     # Allow different permissions based on the action
     # Taken from https://stackoverflow.com/questions/39392007/django-rest-framework-viewset-permissions-create-without-list
     permission_classes = (ActionBasedPermission,)
-    action_permissions = {IsVerified: [
-        "create"], IsAuthenticated: ["retrieve"]}
+    action_permissions = {IsVerified: ["create"], IsAuthenticated: ["retrieve"]}
 
     # Ensures we look up against the vouchee field on a retrieve mixin
     lookup_field = "vouchee"
