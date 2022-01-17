@@ -8,11 +8,30 @@ export default {
     }
     // Make API Call to get plazas
     await this.$axios
-      .get(PLAZAS.ALL)
+      .get(PLAZAS.ALL())
       .then(({ data }) => {
         // Mutate value
         commit('setPlazaList', data)
       })
       .catch(() => {})
+  },
+  async getCurrentPlaza({ getters, commit }, plazaSlug) {
+    // Check if already current
+    if (getters.current.slug === plazaSlug) {
+      return
+    }
+    // If plaza already in all, use that
+    try {
+      const current = getters.all.find(({ slug }) => slug === plazaSlug)
+      commit('setCurrentPlaza', current)
+    } catch {
+      // Otherwise load fresh
+      await this.$axios
+        .get(PLAZAS.ONE(plazaSlug))
+        .then(({ data }) => {
+          commit('setCurrentPlaza', data)
+        })
+        .catch(() => {})
+    }
   },
 }
