@@ -11,7 +11,7 @@ export default {
             .get(PLAZAS.POSTS(plazaSlug))
             .then(({ data }) => {
                 // Mutate value
-                commit('setPosts', data.results)
+                commit('setPosts', data)
                 commit('setCurrentPlaza', plazaSlug)
             })
             .catch(() => {})
