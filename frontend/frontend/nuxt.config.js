@@ -47,6 +47,7 @@ export default {
     retry: { retries: 3 },
     prefix: '/api',
     debug: true,
+    proxy: true,
   },
 
   // PWA module configuration: https://go.nuxtjs.dev/pwa
