@@ -6,13 +6,15 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('accounts', '0007_vouch_not_same'),
+        ("accounts", "0007_vouch_not_same"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='profile',
-            name='global_anonymous',
-            field=models.BooleanField(default=0, verbose_name="Profile's Anonymous Flag"),
+            model_name="profile",
+            name="global_anonymous",
+            field=models.BooleanField(
+                default=0, verbose_name="Profile's Anonymous Flag"
+            ),
         ),
     ]
