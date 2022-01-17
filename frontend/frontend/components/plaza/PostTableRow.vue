@@ -4,7 +4,7 @@
             <h2>
                 <a
                     class="font-semibold text-primary hover:underline"
-                    href="#"
+                    :href="postLink"
                     >{{ title }}</a
                 >
             </h2>
@@ -88,6 +88,11 @@ export default {
         authorProfileLink() {
             return this.post ? `/profiles/${this.post.profile.id}` : '#'
         },
+        postLink() {
+            return this.post
+                ? `/plazas/${this.$route.params.plazas}/${this.post.id}`
+                : '#'
+        },
         time() {
             if (this.post === undefined) {
                 return '...'
@@ -119,10 +124,10 @@ export default {
             return `Posted ${time} ${unit}${time === 1 ? '' : 's'} ago`
         },
         views() {
-            return this.post ? `${this.rand} views` : ''
+            return this.post ? `${this.post.views} views` : ''
         },
         replies() {
-            return this.post ? `${this.rand} replies` : ''
+            return this.post ? `${this.post.replies} replies` : ''
         },
     },
 }

@@ -9,6 +9,10 @@ export default {
                 slug: 'undefined',
                 description: '',
                 id: 0,
+                stats: {
+                    members: 0,
+                    posts: 0,
+                },
             }
         )
     },
