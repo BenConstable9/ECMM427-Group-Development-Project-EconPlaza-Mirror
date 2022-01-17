@@ -42,7 +42,7 @@
                 }}</span>
             </div>
         </div>
-        <div id="views" class="flex flex-col w-20">
+        <div id="views" class="sm:flex flex-col w-20 hidden">
             <div>
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
