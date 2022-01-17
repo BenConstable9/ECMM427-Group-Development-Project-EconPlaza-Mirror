@@ -87,6 +87,7 @@
 </template>
 
 <script>
+import { USERS } from '../../api-routes'
 import VoucherHeader from '~/components/vouch/voucher-header'
 
 export default {
@@ -116,7 +117,7 @@ export default {
 
             // Send to server
             await this.$axios
-                .post('/v1/accounts/vouches/', {
+                .post(USERS.VOUCHES(this.id), {
                     vouchee: this.id,
                     voucher: this.$store.getters.authenticatedUser.id,
                 })
