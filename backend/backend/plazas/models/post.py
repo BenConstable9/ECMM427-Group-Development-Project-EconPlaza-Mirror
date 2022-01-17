@@ -49,4 +49,4 @@ class Post(models.Model):
         "Last modified timestamp", auto_now_add=True)
 
     def __str__(self):
-        return f"{self.report}"
+        return f"{self.title}"

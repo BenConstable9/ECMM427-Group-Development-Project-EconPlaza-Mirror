@@ -15,7 +15,7 @@ class Profile(models.Model):
     display_name = models.CharField("Profile's Display Name", max_length=30)
 
     global_anonymous = models.BooleanField(
-        "Profile's Anoymous Flag", default=0)
+        "Profile's Anonymous Flag", default=0)
 
     # Assumes reputation can never be negative
     reputation = models.PositiveBigIntegerField(
