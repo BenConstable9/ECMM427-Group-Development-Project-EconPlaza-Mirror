@@ -49,10 +49,10 @@ class VouchViewsetTest(APITestCase):
 
         # Now test the actual data is the same
         self.client.force_authenticate(self.user_1)
-        response = self.client.get("/v1/accounts/vouches/{}/".format(self.user_2.id))
+        response = self.client.get("/v1/users/{}/vouches/".format(self.user_2.id))
 
         factory = APIRequestFactory()
-        request = factory.get("/v1/accounts/vouches/{}/".format(self.user_2.id))
+        request = factory.get("/v1/users/{}/vouches/".format(self.user_2.id))
 
         serializer_context = {
             "request": Request(request),
@@ -70,7 +70,7 @@ class VouchViewsetTest(APITestCase):
         """Test we get a HTTP 401 response when looking at detailed view."""
 
         # Get some data
-        response = self.client.get("/v1/accounts/vouches/{}/".format(self.user_2.id))
+        response = self.client.get("/v1/users/{}/vouches/".format(self.user_2.id))
 
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
@@ -78,7 +78,7 @@ class VouchViewsetTest(APITestCase):
         """Test we get a HTTP 401 response when looking at list view."""
 
         # Get some data
-        response = self.client.get("/v1/accounts/vouches/")
+        response = self.client.get("/v1/users/vouches/")
 
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
