@@ -11,7 +11,7 @@ class PostSerializer(serializers.ModelSerializer):
     permissions = serializers.JSONField()
     reactions = serializers.JSONField()
     profile = ProfileSerializer()
-    replies = serializers.SerializerMethodField('count_comments')
+    replies = serializers.SerializerMethodField("count_comments")
 
     class Meta:
         model = Post
@@ -22,6 +22,7 @@ class PostSerializer(serializers.ModelSerializer):
             "content",
             "permissions",
             "reactions",
+            "hidden",
             "views",
             "replies",
             "created_at",
