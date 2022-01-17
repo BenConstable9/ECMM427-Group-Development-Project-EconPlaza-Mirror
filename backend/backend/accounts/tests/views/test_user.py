@@ -30,12 +30,12 @@ class AuthenticatedUserViewTest(APITestCase):
 
         # Now test the actual data is the same
         self.client.force_authenticate(self.user_1)
-        response = self.client.get("/v1/accounts/user/")
+        response = self.client.get("/v1/users/me/")
 
         user = User.objects.get(id=self.user_1.id)
 
         factory = APIRequestFactory()
-        request = factory.get("/v1/accounts/user/")
+        request = factory.get("/v1/users/me/")
 
         serializer_context = {
             "request": Request(request),
@@ -51,6 +51,6 @@ class AuthenticatedUserViewTest(APITestCase):
         """Test we get a HTTP 401 response when looking at the view."""
 
         # Get some data
-        response = self.client.get("/v1/accounts/user/")
+        response = self.client.get("/v1/users/me/")
 
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
