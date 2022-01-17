@@ -7,20 +7,25 @@ import django.db.models.expressions
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('accounts', '0004_vouch_unique_vouch'),
+        ("accounts", "0004_vouch_unique_vouch"),
     ]
 
     operations = [
         migrations.RemoveConstraint(
-            model_name='vouch',
-            name='unique_vouch',
+            model_name="vouch",
+            name="unique_vouch",
         ),
         migrations.AddConstraint(
-            model_name='vouch',
-            constraint=models.UniqueConstraint(fields=('voucher', 'vouchee'), name='no_duplicate_vouches'),
+            model_name="vouch",
+            constraint=models.UniqueConstraint(
+                fields=("voucher", "vouchee"), name="no_duplicate_vouches"
+            ),
         ),
         migrations.AddConstraint(
-            model_name='vouch',
-            constraint=models.CheckConstraint(check=models.Q(('vouchee', django.db.models.expressions.F('voucher'))), name='voucher_and_vouchee_cannot_be_same'),
+            model_name="vouch",
+            constraint=models.CheckConstraint(
+                check=models.Q(("vouchee", django.db.models.expressions.F("voucher"))),
+                name="voucher_and_vouchee_cannot_be_same",
+            ),
         ),
     ]

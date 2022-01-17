@@ -13,11 +13,13 @@ class IsVerifiedTest(TestCase):
         User = get_user_model()
 
         self.non_admin_non_verified_user = User.objects.create(
-            username='non_admin_non_verified_user')
+            username="non_admin_non_verified_user"
+        )
 
         # This user needs to be vouched for all the signal runs and the user becomes unverified
         self.non_admin_verified_user = User.objects.create(
-            username='non_admin_verified_user')
+            username="non_admin_verified_user"
+        )
 
         # Create three spare users
         user_1 = User.objects.create(username="permission_user_1")
@@ -27,22 +29,20 @@ class IsVerifiedTest(TestCase):
 
         # Now add our vouches. This only works as the the restriction on vouching when verified is on the API.
         Vouch.objects.create(
-            voucher=self.non_admin_non_verified_user, vouchee=self.non_admin_verified_user)
-        Vouch.objects.create(
-            voucher=user_1, vouchee=self.non_admin_verified_user)
-        Vouch.objects.create(
-            voucher=user_2, vouchee=self.non_admin_verified_user)
-        Vouch.objects.create(
-            voucher=user_3, vouchee=self.non_admin_verified_user)
-        Vouch.objects.create(
-            voucher=user_4, vouchee=self.non_admin_verified_user)
+            voucher=self.non_admin_non_verified_user,
+            vouchee=self.non_admin_verified_user,
+        )
+        Vouch.objects.create(voucher=user_1, vouchee=self.non_admin_verified_user)
+        Vouch.objects.create(voucher=user_2, vouchee=self.non_admin_verified_user)
+        Vouch.objects.create(voucher=user_3, vouchee=self.non_admin_verified_user)
+        Vouch.objects.create(voucher=user_4, vouchee=self.non_admin_verified_user)
 
         self.factory = RequestFactory()
 
     def test_non_admin_non_verified_user_returns_false(self):
         """Test that a non verified and non admin will fail the check."""
 
-        request = self.factory.post('/')
+        request = self.factory.post("/")
         force_authenticate(request, user=self.non_admin_non_verified_user)
         request.user = self.non_admin_non_verified_user
 
@@ -55,7 +55,7 @@ class IsVerifiedTest(TestCase):
     def test_non_admin_non_verified_user_returns_true_on_safe_method(self):
         """Check we can pass on a safe method."""
 
-        request = self.factory.get('/')
+        request = self.factory.get("/")
         force_authenticate(request, user=self.non_admin_non_verified_user)
         request.user = self.non_admin_non_verified_user
 
@@ -72,7 +72,7 @@ class IsVerifiedTest(TestCase):
         self.non_admin_non_verified_user.verified = True
         self.non_admin_non_verified_user.save()
 
-        request = self.factory.post('/')
+        request = self.factory.post("/")
         force_authenticate(request, user=self.non_admin_non_verified_user)
         request.user = self.non_admin_non_verified_user
 
@@ -85,7 +85,7 @@ class IsVerifiedTest(TestCase):
     def test_non_admin_verified_user_returns_true_on_safe_method(self):
         """Check we can pass on a safe method."""
 
-        request = self.factory.get('/')
+        request = self.factory.get("/")
         force_authenticate(request, user=self.non_admin_verified_user)
         request.user = self.non_admin_verified_user
 

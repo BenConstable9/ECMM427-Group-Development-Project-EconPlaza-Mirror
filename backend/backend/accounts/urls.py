@@ -8,7 +8,7 @@ from .viewsets import UserViewSet, VouchViewSet
 from .views import AuthenticatedUserView
 
 urlpatterns = [
-    path('user/', AuthenticatedUserView.as_view()),
+    path("user/", AuthenticatedUserView.as_view()),
 ]
 
 router = DefaultRouter()

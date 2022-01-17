@@ -1,5 +1,10 @@
 from rest_framework.request import Request
-from rest_framework.test import APIRequestFactory, APITestCase, force_authenticate, APIClient
+from rest_framework.test import (
+    APIRequestFactory,
+    APITestCase,
+    force_authenticate,
+    APIClient,
+)
 from rest_framework import status
 from django.contrib.auth import get_user_model
 
@@ -25,16 +30,15 @@ class AuthenticatedUserViewTest(APITestCase):
 
         # Now test the actual data is the same
         self.client.force_authenticate(self.user_1)
-        response = self.client.get(
-            '/v1/accounts/user/')
+        response = self.client.get("/v1/accounts/user/")
 
         user = User.objects.get(id=self.user_1.id)
 
         factory = APIRequestFactory()
-        request = factory.get('/v1/accounts/user/')
+        request = factory.get("/v1/accounts/user/")
 
         serializer_context = {
-            'request': Request(request),
+            "request": Request(request),
         }
 
         serializer = UserSerializer(instance=user, context=serializer_context)
@@ -47,6 +51,6 @@ class AuthenticatedUserViewTest(APITestCase):
         """Test we get a HTTP 401 response when looking at the view."""
 
         # Get some data
-        response = self.client.get('/v1/accounts/user/')
+        response = self.client.get("/v1/accounts/user/")
 
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
