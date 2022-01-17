@@ -14,7 +14,8 @@ class Plaza(models.Model):
         "Plaza's Permissions which is a serialised object", blank=True
     )
 
-    created_at = models.DateTimeField("Created at timestamp", auto_now_add=True)
+    created_at = models.DateTimeField(
+        "Created at timestamp", auto_now_add=True)
 
     def __str__(self):
         return f"{self.name}"
