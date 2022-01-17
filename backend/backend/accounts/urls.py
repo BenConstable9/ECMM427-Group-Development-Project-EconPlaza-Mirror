@@ -3,8 +3,7 @@ from django.urls import path
 
 from rest_framework.routers import DefaultRouter
 
-from .viewsets import VouchViewSet
-from .viewsets import UserViewSet
+from .viewsets import VouchViewSet, UserViewSet, ProfileViewSet
 
 from .views import AuthenticatedUserView
 
@@ -16,5 +15,6 @@ router = DefaultRouter()
 
 router.register(r"vouches", VouchViewSet)
 router.register(r"users", UserViewSet)
+router.register(r"profiles", ProfileViewSet)
 
 urlpatterns += router.urls
