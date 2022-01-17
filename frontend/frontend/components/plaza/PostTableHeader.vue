@@ -11,7 +11,7 @@
         </h2>
       </div>
     </div>
-    <div id="write">
+    <div v-if="authenticatedUser.verified" id="write">
       <div class="rounded-full bg-gray-50 p-3">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -51,13 +51,18 @@
 import { mapGetters, mapActions } from 'vuex'
 export default {
   computed: {
-    ...mapGetters({ plaza: 'plazas/current' }),
+    ...mapGetters({
+      plaza: 'plazas/current',
+      authenticatedUser: 'authenticatedUser',
+    }),
   },
   async created() {
     await this.getCurrentPlaza(this.$route.params.plazas)
   },
   methods: {
-    ...mapActions({ getCurrentPlaza: 'plazas/getCurrentPlaza' }),
+    ...mapActions({
+      getCurrentPlaza: 'plazas/getCurrentPlaza',
+    }),
   },
 }
 </script>
