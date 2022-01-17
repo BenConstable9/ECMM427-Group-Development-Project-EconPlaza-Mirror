@@ -1,6 +1,7 @@
 from rest_framework.permissions import SAFE_METHODS, AllowAny
 from rest_framework.permissions import AllowAny
 
+
 # Taken form https://stackoverflow.com/questions/39392007/django-rest-framework-viewset-permissions-create-without-list
 
 
