@@ -5,9 +5,9 @@
   >
     <div id="title" class="flex-1">
       <div class="flex flex-col space-y-1">
-        <h1 class="text-gray-50 text-xl font-semibold">General</h1>
+        <h1 class="text-gray-50 text-xl font-semibold">{{ plaza.name }}</h1>
         <h2 class="italic text-gray-100">
-          For all discussions surrounding EconPlaza.
+          {{ plaza.description }}
         </h2>
       </div>
     </div>
@@ -49,28 +49,15 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
-
 export default {
-    data() {
-        return {
-            loading: false,
-        }
-    },
-    computed: {
-        ...mapGetters({
-            plaza: 'plazas/current',
-            authenticatedUser: 'authenticatedUser',
-        }),
-    },
-    async created() {
-        this.loading = true
-        await this.getCurrentPlaza(this.$route.params.plazas)
-        this.loading = false
-    },
-    methods: {
-        ...mapActions({
-            getCurrentPlaza: 'plazas/getCurrentPlaza',
-        }),
-    },
+  computed: {
+    ...mapGetters({ plaza: 'plazas/current' }),
+  },
+  async created() {
+    await this.getCurrentPlaza(this.$route.params.plazas)
+  },
+  methods: {
+    ...mapActions({ getCurrentPlaza: 'plazas/getCurrentPlaza' }),
+  },
 }
 </script>

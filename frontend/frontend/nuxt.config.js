@@ -40,6 +40,8 @@ export default {
     '@nuxtjs/auth-next',
     // Proxy is needed for the API calls
     '@nuxtjs/proxy',
+    // Sync router to vuex
+    'nuxt-vuex-router-sync',
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
