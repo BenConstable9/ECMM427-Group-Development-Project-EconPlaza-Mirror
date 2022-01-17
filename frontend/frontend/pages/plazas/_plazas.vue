@@ -23,10 +23,7 @@
 import { mapGetters, mapActions } from 'vuex'
 export default {
   computed: {
-    ...mapGetters({ plazas: 'plazas/all' }),
-    plaza() {
-      return this.plazas.find(({ slug }) => slug === this.$route.params.plazas)
-    },
+    ...mapGetters({ plaza: 'plazas/current' }),
   },
   async created() {
     await this.loadPlazas()
