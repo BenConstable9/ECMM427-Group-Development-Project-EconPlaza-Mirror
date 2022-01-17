@@ -1,16 +1,16 @@
 <template>
-  <div id="rules" class="flex">
-    <ul class="flex flex-col w-full border rounded-lg overflow-hidden">
-      <my-plazas-header />
-      <ol class="list-decimal list-inside">
-        <my-plazas-row
-          v-for="i in 3"
-          :key="i"
-          :class="{ 'bg-gray-50': i % 2 }"
-        />
-      </ol>
-    </ul>
-  </div>
+    <div id="rules" class="flex">
+        <ul class="flex flex-col w-full border rounded-lg overflow-hidden">
+            <my-plazas-header />
+            <ol class="list-decimal list-inside">
+                <my-plazas-row
+                    v-for="i in 3"
+                    :key="i"
+                    :class="{ 'bg-gray-50': i % 2 }"
+                />
+            </ol>
+        </ul>
+    </div>
 </template>
 
 <script></script>

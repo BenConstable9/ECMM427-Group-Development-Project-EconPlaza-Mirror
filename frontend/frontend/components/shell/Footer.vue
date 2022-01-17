@@ -1,24 +1,26 @@
 <template>
-  <footer>
-    <div id="footer" class="bg-gray-50">
-      <div class="container mx-auto px-5">
-        <div id="links" class="flex space-x-8 py-5">
-          <ul class="flex">
-            <li class="text-sm text-gray-500">EconPlaza &copy; {{ date }}</li>
-          </ul>
+    <footer>
+        <div id="footer" class="bg-gray-50">
+            <div class="container mx-auto px-5">
+                <div id="links" class="flex space-x-8 py-5">
+                    <ul class="flex">
+                        <li class="text-sm text-gray-500">
+                            EconPlaza &copy; {{ date }}
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </footer>
+    </footer>
 </template>
 
 <script>
 export default {
-  data() {
-    return {
-      date: new Date().getFullYear(),
-    }
-  },
+    data() {
+        return {
+            date: new Date().getFullYear(),
+        }
+    },
 }
 </script>
 
