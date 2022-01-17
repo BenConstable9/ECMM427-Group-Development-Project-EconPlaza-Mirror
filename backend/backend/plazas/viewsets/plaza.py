@@ -6,7 +6,7 @@ from ..models import Plaza
 
 class PlazaViewSet(viewsets.ReadOnlyModelViewSet):
     """
-    API endpoint that allows users to vouch for someone.
+    API endpoint that allows users to view Plazas
     """
 
     queryset = Plaza.objects.all()
