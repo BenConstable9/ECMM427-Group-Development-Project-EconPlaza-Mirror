@@ -40,7 +40,7 @@
         </div>
         <div v-else id="content" class="flex space-x-5 pt-5 pb-8">
           <div id="content-left" class="w-full lg:w-3/4">
-            <post-table />
+            <post-form />
           </div>
           <div
             id="content-left"
@@ -65,7 +65,7 @@ export default {
   },
   head() {
     return {
-      title: `${this.plaza.name} | EconPlaza`,
+      title: `New Post | ${this.plaza.name} | EconPlaza`,
     }
   },
   computed: {
