@@ -10,9 +10,9 @@ class PlazaAdminForm(forms.ModelForm):
     def clean(self):
         cleaned_data = super().clean()
         try:
-            json.loads(self.cleaned_data['permissions'])
+            json.loads(self.cleaned_data["permissions"])
         except ValueError as e:
-            self.add_error('permissions', 'Not valid JSON: ' + str(e))
+            self.add_error("permissions", "Not valid JSON: " + str(e))
         return cleaned_data
 
 
@@ -24,5 +24,6 @@ class PlazaAdmin(admin.ModelAdmin):
         "permissions",
     ]
     form = PlazaAdminForm
+
 
 admin.site.register(Plaza, PlazaAdmin)

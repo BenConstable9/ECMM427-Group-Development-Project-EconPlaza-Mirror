@@ -26,5 +26,8 @@ class VouchCreationTest(TestCase):
         """Check that you can only vouch for a single user once"""
 
         Vouch.objects.create(voucher=self.user_1, vouchee=self.user_2)
-        with self.assertRaisesMessage(IntegrityError, "UNIQUE constraint failed: accounts_vouch.voucher_id, accounts_vouch.vouchee_id"):
+        with self.assertRaisesMessage(
+            IntegrityError,
+            "UNIQUE constraint failed: accounts_vouch.voucher_id, accounts_vouch.vouchee_id",
+        ):
             Vouch.objects.create(voucher=self.user_1, vouchee=self.user_2)
