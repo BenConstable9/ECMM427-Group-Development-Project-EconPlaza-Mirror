@@ -59,6 +59,7 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
+
 export default {
     data() {
         return {
@@ -71,7 +72,7 @@ export default {
         }
     },
     computed: {
-        ...mapGetters({ plaza: 'plazas/current' }),
+        ...mapGetters({ plaza: 'plazas/current', posts: 'plazas/posts/posts' }),
         plazaNotFound() {
             // Determine if plaza exists if the ID is 0 (the undefined plaza)
             return this.plaza && this.plaza.id === 0
@@ -80,10 +81,14 @@ export default {
     async created() {
         this.loading = true
         await this.getCurrentPlaza(this.$route.params.plazas)
+        await this.getAllPlazaPosts(this.$route.params.plazas)
         this.loading = false
     },
     methods: {
-        ...mapActions({ getCurrentPlaza: 'plazas/getCurrentPlaza' }),
+        ...mapActions({
+            getCurrentPlaza: 'plazas/getCurrentPlaza',
+            getAllPlazaPosts: 'plazas/posts/getAllPlazaPosts',
+        }),
     },
 }
 </script>

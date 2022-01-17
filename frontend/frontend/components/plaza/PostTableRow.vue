@@ -2,24 +2,25 @@
     <div id="post-info" class="flex items-center px-5 py-4">
         <div class="flex flex-1 flex-col space-y-1">
             <h2>
-                <a class="font-semibold text-primary hover:underline" href="#"
-                    >Summarizing every industry job interview I have had so
-                    far</a
+                <a
+                    class="font-semibold text-primary hover:underline"
+                    href="#"
+                    >{{ title }}</a
                 >
             </h2>
-            <p class="flex space-x-1">
+            <p v-if="post" class="flex space-x-1">
                 <span class="text-sm text-gray-700"
                     >By
-                    <a class="font-semibold hover:underline" href="#"
-                        >LloydTao</a
+                    <a
+                        class="font-semibold hover:underline"
+                        :href="authorProfileLink"
+                        >{{ author }}</a
                     ></span
                 >
                 <span class="text-sm text-gray-700 font-semibold"
                     >&middot;</span
                 >
-                <span class="text-sm text-gray-700"
-                    >Posted {{ rand }} hours ago</span
-                >
+                <span class="text-sm text-gray-700">{{ time }}</span>
             </p>
         </div>
         <div id="replies" class="flex flex-col w-20">
@@ -36,9 +37,9 @@
                         clip-rule="evenodd"
                     />
                 </svg>
-                <span class="flex text-xs text-gray-500 justify-center mt-1"
-                    >{{ rand }} replies</span
-                >
+                <span class="flex text-xs text-gray-500 justify-center mt-1">{{
+                    replies
+                }}</span>
             </div>
         </div>
         <div id="views" class="flex flex-col w-20">
@@ -56,9 +57,9 @@
                         clip-rule="evenodd"
                     />
                 </svg>
-                <span class="flex text-xs text-gray-500 justify-center mt-1"
-                    >{{ rand }} views</span
-                >
+                <span class="flex text-xs text-gray-500 justify-center mt-1">{{
+                    views
+                }}</span>
             </div>
         </div>
     </div>
@@ -66,10 +67,63 @@
 
 <script>
 export default {
+    props: {
+        post: {
+            type: Object,
+            default: undefined,
+        },
+    },
     data() {
         return {
             rand: Math.ceil(Math.random() * 24) - 1,
         }
+    },
+    computed: {
+        title() {
+            return this.post ? this.post.title : '...'
+        },
+        author() {
+            return this.post ? `${this.post.profile.display_name}` : '...'
+        },
+        authorProfileLink() {
+            return this.post ? `/profiles/${this.post.profile.id}` : '#'
+        },
+        time() {
+            if (this.post === undefined) {
+                return '...'
+            }
+            const secondsAgo = Math.floor(
+                (new Date() - new Date(this.post.created_at)) / 1000
+            )
+            let time = secondsAgo
+            let unit = 'second'
+            if (secondsAgo > 31536000) {
+                time = Math.floor(secondsAgo / 31536000)
+                unit = 'year'
+            } else if (secondsAgo > 2592000) {
+                time = Math.floor(secondsAgo / 2592000)
+                unit = 'month'
+            } else if (secondsAgo > 604800) {
+                time = Math.floor(secondsAgo / 604800)
+                unit = 'week'
+            } else if (secondsAgo > 86400) {
+                time = Math.floor(secondsAgo / 86400)
+                unit = 'day'
+            } else if (secondsAgo > 3600) {
+                time = Math.floor(secondsAgo / 3600)
+                unit = 'hour'
+            } else if (secondsAgo > 60) {
+                time = Math.floor(secondsAgo / 60)
+                unit = 'minutes'
+            }
+            return `Posted ${time} ${unit}${time === 1 ? '' : 's'} ago`
+        },
+        views() {
+            return this.post ? `${this.rand} views` : ''
+        },
+        replies() {
+            return this.post ? `${this.rand} replies` : ''
+        },
     },
 }
 </script>
