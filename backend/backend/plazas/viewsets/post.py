@@ -26,7 +26,7 @@ class PostViewSet(mixins.CreateModelMixin,
     action_permissions = {IsVerified: [
         "create"], IsAuthenticated: ["retrieve", "list"]}
 
-    lookup_field = "slug"
+    lookup_field = "id"
 
     def perform_create(self, serializer):
         plaza = Plaza.objects.get(slug=self.kwargs['plazas_slug'])

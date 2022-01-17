@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from rest_framework.exceptions import APIException
 from ..models import Post
+from accounts.serializers import ProfileSerializer
 import json
 
 
@@ -8,6 +9,8 @@ class PostSerializer(serializers.HyperlinkedModelSerializer):
 
     permissions = serializers.JSONField()
     reactions = serializers.JSONField()
+
+    profile = ProfileSerializer()
 
     class Meta:
         model = Post
