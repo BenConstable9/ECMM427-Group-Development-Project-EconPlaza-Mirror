@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from rest_framework.exceptions import APIException
 from ..models import Post
+from accounts.serializers import ProfileSerializer
 import json
 
 from accounts.serializers import ProfileSerializer
@@ -11,6 +12,8 @@ class PostSerializer(serializers.ModelSerializer):
     permissions = serializers.JSONField()
     reactions = serializers.JSONField()
     replies = serializers.SerializerMethodField("count_comments")
+
+    profile = ProfileSerializer()
 
     class Meta:
         model = Post
