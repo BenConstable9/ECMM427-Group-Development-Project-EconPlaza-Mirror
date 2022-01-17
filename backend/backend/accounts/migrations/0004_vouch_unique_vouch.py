@@ -6,12 +6,14 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('accounts', '0003_alter_profile_last_computed'),
+        ("accounts", "0003_alter_profile_last_computed"),
     ]
 
     operations = [
         migrations.AddConstraint(
-            model_name='vouch',
-            constraint=models.UniqueConstraint(fields=('voucher', 'vouchee'), name='unique_vouch'),
+            model_name="vouch",
+            constraint=models.UniqueConstraint(
+                fields=("voucher", "vouchee"), name="unique_vouch"
+            ),
         ),
     ]

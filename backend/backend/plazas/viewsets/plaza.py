@@ -11,4 +11,4 @@ class PlazaViewSet(viewsets.ReadOnlyModelViewSet):
 
     queryset = Plaza.objects.all()
     serializer_class = PlazaSerializer
-    lookup_field = 'slug'
+    lookup_field = "slug"

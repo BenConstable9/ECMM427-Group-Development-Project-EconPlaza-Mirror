@@ -7,7 +7,7 @@ from ..serializers import UserSerializer
 
 
 class VouchSerializer(serializers.ModelSerializer):
-    #voucher = serializers.ReadOnlyField(source='voucher.id')
+    # voucher = serializers.ReadOnlyField(source='voucher.id')
 
     voucher = UserSerializer(many=False, read_only=True)
 
