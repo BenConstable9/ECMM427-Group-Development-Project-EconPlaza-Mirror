@@ -5,6 +5,8 @@ from django.contrib.auth import get_user_model
 from ..serializers import ProfileSerializer
 from ..models import Profile
 
+from utils import IsSelf
+
 
 class ProfileViewSet(
     mixins.RetrieveModelMixin,
@@ -16,8 +18,9 @@ class ProfileViewSet(
     """
 
     def get_queryset(self):
+        # If we aren't looking at ones self
         user = get_user_model().objects.get(id=self.kwargs["users_pk"])
         return Profile.objects.filter(user=user)
 
     serializer_class = ProfileSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, IsSelf]
