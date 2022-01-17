@@ -4,12 +4,14 @@ from ..models import Post
 import json
 
 from accounts.serializers import ProfileSerializer
+from ..models import Comment
 
 
 class PostSerializer(serializers.ModelSerializer):
     permissions = serializers.JSONField()
     reactions = serializers.JSONField()
     profile = ProfileSerializer()
+    replies = serializers.SerializerMethodField('count_comments')
 
     class Meta:
         model = Post
@@ -21,9 +23,13 @@ class PostSerializer(serializers.ModelSerializer):
             "permissions",
             "reactions",
             "views",
+            "replies",
             "created_at",
         ]
         lookup_field = "slug"
+
+    def count_comments(self, instance):
+        return Comment.objects.all().filter(post=instance).count()
 
     def to_representation(self, instance):
         # Convert Permissions JSON into a dictionary to be combined into the JSON response
