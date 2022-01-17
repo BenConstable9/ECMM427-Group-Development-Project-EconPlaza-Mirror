@@ -11,6 +11,7 @@ class PlazaSerializer(serializers.HyperlinkedModelSerializer):
         model = Plaza
         fields = ["id", "slug", "name", "description",
                   "created_at", "permissions"]
+        lookup_field = 'slug'
 
     def to_representation(self, instance):
         # Convert Permissions JSON into a dictionary to be combined into the JSON response
