@@ -26,7 +26,7 @@
             </div>
             <div>
                 <textarea
-                    v-model="post.description"
+                    v-model="post.content"
                     :disabled="post.isDisabled"
                     class="
                         w-full
@@ -43,13 +43,20 @@
                         disabled:border-gray-400
                     "
                     type="text"
-                    placeholder="Post Description"
+                    placeholder="Post Content"
                     rows="5"
                     maxlength="2800"
                 >
                 </textarea>
             </div>
-            <div>
+            <div
+                v-if="
+                    post.title.length > 0 &&
+                    post.title.length <= 140 &&
+                    post.content.length > 0 &&
+                    post.content.length <= 2800
+                "
+            >
                 <button
                     type="submit"
                     :disabled="post.isDisabled"
@@ -79,16 +86,45 @@
 </template>
 
 <script>
+import { PLAZAS } from '../../api-routes'
 export default {
     data() {
         return {
             post: {
                 title: '',
-                description: '',
+                content: '',
                 isDisabled: false,
             },
             error: null,
         }
+    },
+    methods: {
+        async postNew() {
+            this.post.isDisabled = true
+
+            // Send to server
+            await this.$axios
+                .post(PLAZAS.POSTS(this.$route.params.plazas), {
+                    title: this.post.title,
+                    content: this.post.content,
+                    user: this.$store.getters.authenticatedUser.id,
+                })
+                .then(this.$nuxt.$emit('user-vouched'))
+                .catch((response) => {
+                    if (
+                        typeof response === 'string' ||
+                        response instanceof String
+                    ) {
+                        this.error = response
+                    } else if ('detail' in response) {
+                        this.error = response.detail
+                    } else {
+                        this.error = 'Unable to process request.'
+                    }
+
+                    this.post.isDisabled = false
+                })
+        },
     },
 }
 </script>
