@@ -2,6 +2,35 @@
     <div id="post-heading" class="flex space-x-3 items-center px-5 py-3">
         <form class="space-y-4 w-full" @submit.prevent="postNew">
             <div>
+                Post as:
+                <select
+                    v-model="post.profile"
+                    :disabled="post.isDisabled"
+                    class="
+                        w-full
+                        p-4
+                        text-m
+                        bg-white
+                        focus:outline-none
+                        border border-gray-200
+                        rounded-r-2xl rounded-b-2xl
+                        text-blue-600
+                        shadow
+                        disabled:bg-gray-100
+                        disabled:text-gray-500
+                        disabled:border-gray-400
+                    "
+                >
+                    <option
+                        v-for="item in profiles"
+                        :key="item.id"
+                        :value="item.id"
+                    >
+                        {{ item.display_name }}
+                    </option>
+                </select>
+            </div>
+            <div>
                 <input
                     v-model="post.title"
                     :disabled="post.isDisabled"
@@ -82,10 +111,13 @@
                 </button>
             </div>
         </form>
+        {{ profiles }}
+        {{ profile }}
     </div>
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
 import { PLAZAS } from '../../api-routes'
 export default {
     data() {
@@ -93,12 +125,27 @@ export default {
             post: {
                 title: '',
                 content: '',
+                profile: 0,
                 isDisabled: false,
             },
             error: null,
         }
     },
+    computed: {
+        ...mapGetters({
+            profile: 'profiles/current',
+            profiles: 'profiles/all',
+            authenticatedUser: 'authenticatedUser',
+        }),
+    },
+    async created() {
+        await this.getAllProfiles()
+    },
     methods: {
+        ...mapActions({
+            getCurrentProfile: 'profiles/getCurrentProfile',
+            getAllProfiles: 'profiles/getAllProfiles',
+        }),
         async postNew() {
             this.post.isDisabled = true
 
