@@ -2,16 +2,13 @@ from django.contrib import admin
 from django import forms
 import json
 
-from ..models import Post
+from ..models import Comment
 
 
-class PostAdminForm(forms.ModelForm):
+class CommentAdminForm(forms.ModelForm):
     def clean(self):
         cleaned_data = super().clean()
-        try:
-            json.loads(self.cleaned_data["permissions"])
-        except ValueError as e:
-            self.add_error("permissions", "Not valid JSON: " + str(e))
+
         try:
             json.loads(self.cleaned_data["reactions"])
         except ValueError as e:
@@ -19,19 +16,17 @@ class PostAdminForm(forms.ModelForm):
         return cleaned_data
 
 
-class PostAdmin(admin.ModelAdmin):
+class CommentAdmin(admin.ModelAdmin):
     fields = [
         "user",
         "profile",
-        "title",
+        "post",
         "content",
-        "plaza",
-        "permissions",
         "reactions",
         "hidden",
         "deleted",
     ]
-    form = PostAdminForm
+    form = CommentAdminForm
 
 
-admin.site.register(Post, PostAdmin)
+admin.site.register(Comment, CommentAdmin)
