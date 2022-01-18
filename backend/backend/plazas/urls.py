@@ -5,8 +5,6 @@ from rest_framework_nested import routers
 
 from .viewsets import PlazaViewSet, PostViewSet
 
-post_create = PostViewSet.as_view({"post": "create"})
-
 urlpatterns = []
 
 router = DefaultRouter()
