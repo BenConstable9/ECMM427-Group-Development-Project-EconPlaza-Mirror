@@ -1,5 +1,5 @@
 from rest_framework.permissions import SAFE_METHODS, AllowAny
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 
 
 # Taken form https://stackoverflow.com/questions/39392007/django-rest-framework-viewset-permissions-create-without-list
@@ -23,13 +23,15 @@ class IsVerified(AllowAny):
     """
 
     def has_permission(self, request, view):
-        # Let through GET, HEAD and OPTIONS
-        if request.method in SAFE_METHODS:
-            return True
+        if request.user.is_authenticated:
+            # Let through GET, HEAD and OPTIONS
+            if request.method in SAFE_METHODS:
+                return True
+            else:
+                # Check if verified
+                return request.user.verified
         else:
-            # Check if verified
-
-            return request.user.verified
+            return False
 
 
 class IsSelf(AllowAny):

@@ -1,4 +1,4 @@
-from rest_framework import viewsets, mixins
+from rest_framework import viewsets, mixins, filters
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -39,6 +39,12 @@ class PostViewSet(
     pagination_class = StandardResultsSetPagination
 
     lookup_field = "id"
+
+    filter_backends = [filters.OrderingFilter]
+
+    ordering_fields = [
+        "id",
+    ]
 
     ordering = ["id"]
 
