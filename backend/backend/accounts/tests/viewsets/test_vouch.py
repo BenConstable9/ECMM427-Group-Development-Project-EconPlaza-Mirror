@@ -30,13 +30,13 @@ class VouchViewsetTest(APITestCase):
         self.user_3.save()
 
         # Have to manually verify user 3 so they can verify
-        user_4 = User.objects.create(username="user_4")
-        user_5 = User.objects.create(username="user_5")
+        self.user_4 = User.objects.create(username="user_4")
+        self.user_5 = User.objects.create(username="user_5")
 
         Vouch.objects.create(voucher=self.user_1, vouchee=self.user_3)
         Vouch.objects.create(voucher=self.user_2, vouchee=self.user_3)
-        Vouch.objects.create(voucher=user_4, vouchee=self.user_3)
-        Vouch.objects.create(voucher=user_5, vouchee=self.user_3)
+        Vouch.objects.create(voucher=self.user_4, vouchee=self.user_3)
+        Vouch.objects.create(voucher=self.user_5, vouchee=self.user_3)
 
         # Add some verifications for starting
         Vouch.objects.create(voucher=self.user_1, vouchee=self.user_2)
@@ -49,10 +49,10 @@ class VouchViewsetTest(APITestCase):
 
         # Now test the actual data is the same
         self.client.force_authenticate(self.user_1)
-        response = self.client.get("/v1/accounts/vouches/{}/".format(self.user_2.id))
+        response = self.client.get("/v1/users/{}/vouches/".format(self.user_2.id))
 
         factory = APIRequestFactory()
-        request = factory.get("/v1/accounts/vouches/{}/".format(self.user_2.id))
+        request = factory.get("/v1/users/{}/vouches/".format(self.user_2.id))
 
         serializer_context = {
             "request": Request(request),
@@ -70,33 +70,16 @@ class VouchViewsetTest(APITestCase):
         """Test we get a HTTP 401 response when looking at detailed view."""
 
         # Get some data
-        response = self.client.get("/v1/accounts/vouches/{}/".format(self.user_2.id))
+        response = self.client.get("/v1/users/{}/vouches/".format(self.user_2.id))
 
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
-
-    def test_get_vouches_unauth(self):
-        """Test we get a HTTP 401 response when looking at list view."""
-
-        # Get some data
-        response = self.client.get("/v1/accounts/vouches/")
-
-        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
-
-    def test_get_vouches(self):
-        """Test we get a HTTP 403 response when looking at list view."""
-
-        # Get some data
-        self.client.force_authenticate(self.user_1)
-        response = self.client.get("/v1/accounts/vouches/")
-
-        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
     def test_delete_vouch(self):
         """Test we get a HTTP 403 response when attempting to delete data."""
         self.client.force_authenticate(self.user_2)
 
         # Set the delete type
-        response = self.client.delete("/v1/accounts/vouches/{}/".format(self.user_2.id))
+        response = self.client.delete("/v1/users/{}/vouches/".format(self.user_2.id))
 
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
@@ -104,28 +87,32 @@ class VouchViewsetTest(APITestCase):
         """Test we get a HTTP 401 response when attempting to delete data and we aren't authorised."""
 
         # Set the delete type
-        response = self.client.delete("/v1/accounts/vouches/{}/".format(self.user_2.id))
+        response = self.client.delete("/v1/users/{}/vouches/".format(self.user_2.id))
 
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
     def test_put_vouch(self):
         """Test we get a HTTP 403 response when attempting to update data."""
-        self.client.force_authenticate(self.user_2)
+        self.client.force_authenticate(self.user_4)
+
+        Vouch.objects.create(voucher=self.user_4, vouchee=self.user_2)
 
         # Set the payload
-        payload = {"vouchee": self.user_3.id, "voucher": self.user_2.id}
+        payload = {"vouchee": self.user_2.id, "voucher": self.user_4.id}
         response = self.client.put(
-            "/v1/accounts/vouches/{}/".format(self.user_3.id), payload
+            "/v1/users/{}/vouches/".format(self.user_2.id), payload
         )
 
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
     def test_put_vouch_unauth(self):
         """Test we get a HTTP 401 response when attempting to update data and we aren't authorised."""
+        Vouch.objects.create(voucher=self.user_5, vouchee=self.user_2)
+
         # Set the payload
-        payload = {"vouchee": self.user_3.id, "voucher": self.user_2.id}
+        payload = {"vouchee": self.user_2.id, "voucher": self.user_5.id}
         response = self.client.put(
-            "/v1/accounts/vouches/{}/".format(self.user_3.id), payload
+            "/v1/users/{}/vouches/".format(self.user_2.id), payload
         )
 
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
@@ -136,7 +123,9 @@ class VouchViewsetTest(APITestCase):
 
         # Set the payload
         payload = {"vouchee": self.user_2.id, "voucher": self.user_3.id}
-        response = self.client.post("/v1/accounts/vouches/", payload)
+        response = self.client.post(
+            "/v1/users/{}/vouches/".format(self.user_2.id), payload
+        )
 
         exists = Vouch.objects.filter(
             vouchee=self.user_2,
@@ -152,31 +141,8 @@ class VouchViewsetTest(APITestCase):
 
         # Set the payload
         payload = {"vouchee": self.user_1.id, "voucher": self.user_3.id}
-        response = self.client.post("/v1/accounts/vouches/", payload)
+        response = self.client.post(
+            "/v1/users/{}/vouches/".format(self.user_1.id), payload
+        )
 
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
-
-    def test_get_unathorised_vouch(self):
-        """Test we get a HTTP 401 response when looking at the detailed view as we aren't authenticated."""
-        factory = APIRequestFactory()
-        view = VouchViewSet.as_view({"get": "retrieve"})
-
-        # Don't authenticate this request
-        request = factory.get("/v1/accounts/vouches/")
-        response = view(request, vouchee=self.user_1.id)
-
-        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
-
-    def test_get_invalid_vouch(self):
-        """Test we get a HTTP 404 response when looking at the detailed view."""
-        factory = APIRequestFactory()
-        view = VouchViewSet.as_view({"get": "retrieve"})
-
-        # Make an authenticated request to the view...
-        request = factory.get("/v1/accounts/vouches/")
-        force_authenticate(request, user=self.user_1)
-
-        # Use an invalid id
-        response = view(request, vouchee=200)
-
-        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)

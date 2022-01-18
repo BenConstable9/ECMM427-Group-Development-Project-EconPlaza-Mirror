@@ -8,9 +8,11 @@ export const PLAZAS = {
     POSTS: (plaza) => `v1/plazas/${plaza}/posts/`,
 }
 
-// Profiles
+// Users
 
-export const PROFILES = {
-  ALL: () => '/v1/accounts/profiles/',
-  ONE: (id) => `/v1/accounts/profiles/${id}/`,
+export const USERS = {
+    ALL: () => '/v1/users/',
+    ONE: (id) => `/v1/users/${id}/`,
+    VOUCHES: (id) => `/v1/users/${id}/vouches/`,
+    PROFILES: (id) => '/v1/users/${id}/profiles/',
 }
