@@ -5,7 +5,8 @@
                 <not-found v-if="plazaNotFound && !loading" id="content" />
                 <div v-else id="content" class="flex space-x-5 pt-5 pb-8">
                     <div id="content-left" class="w-full lg:w-3/4">
-                        <post-form />
+                        {{ posts }}
+                        <post-box />
                     </div>
                     <div
                         id="content-left"
@@ -22,6 +23,7 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
+
 export default {
     data() {
         return {
@@ -30,11 +32,11 @@ export default {
     },
     head() {
         return {
-            title: `New Post | ${this.plaza.name} | EconPlaza`,
+            title: `${this.plaza.name} | EconPlaza`,
         }
     },
     computed: {
-        ...mapGetters({ plaza: 'plazas/current' }),
+        ...mapGetters({ plaza: 'plazas/current', posts: 'plazas/posts/posts' }),
         plazaNotFound() {
             // Determine if plaza exists if the ID is 0 (the undefined plaza)
             return this.plaza && this.plaza.id === 0
@@ -43,10 +45,14 @@ export default {
     async created() {
         this.loading = true
         await this.getCurrentPlaza(this.$route.params.plazas)
+        await this.getAllPlazaPosts(this.$route.params.plazas)
         this.loading = false
     },
     methods: {
-        ...mapActions({ getCurrentPlaza: 'plazas/getCurrentPlaza' }),
+        ...mapActions({
+            getCurrentPlaza: 'plazas/getCurrentPlaza',
+            getAllPlazaPosts: 'plazas/posts/getAllPlazaPosts',
+        }),
     },
 }
 </script>

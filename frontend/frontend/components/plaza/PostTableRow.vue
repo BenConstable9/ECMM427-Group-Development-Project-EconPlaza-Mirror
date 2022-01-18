@@ -90,7 +90,7 @@ export default {
         },
         postLink() {
             return this.post
-                ? `/plazas/${this.$route.params.plazas}/${this.post.id}`
+                ? `/plazas/${this.$route.params.plazas}/posts/${this.post.id}`
                 : '#'
         },
         time() {
