@@ -29,23 +29,23 @@ deploy-staging:
   image: docker:19.03.12 
   stage: staging
   script:
-    - curl -i http://host.docker.internal/blue-green/econplaza-api-staging/$CI_PIPELINE_ID
+    - curl -i http://host.docker.internal:9999/blue-green/econplaza-api-staging/$CI_PIPELINE_ID
 
 deploy-frontend-staging:
   image: docker:19.03.12 
   stage: staging
   script:
-    - curl -i http://host.docker.internal/blue-green/econplaza-frontend-staging/$CI_PIPELINE_ID
+    - curl -i http://host.docker.internal:9999/blue-green/econplaza-frontend-staging/$CI_PIPELINE_ID
 
 deploy-production:
   image: docker:19.03.12 
   stage: production
   script:
-    - curl -i http://host.docker.internal/blue-green/econplaza-api-production/$CI_PIPELINE_ID
+    - curl -i http://host.docker.internal:9999/blue-green/econplaza-api-production/$CI_PIPELINE_ID
 
 deploy-frontend-production:
   image: docker:19.03.12 
   stage: production
   script:
-    - curl -i http://host.docker.internal/blue-green/econplaza-frontend-production/$CI_PIPELINE_ID
+    - curl -i http://host.docker.internal:9999/blue-green/econplaza-frontend-production/$CI_PIPELINE_ID
 
