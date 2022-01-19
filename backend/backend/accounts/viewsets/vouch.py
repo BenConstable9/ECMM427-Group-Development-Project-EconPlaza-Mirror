@@ -9,6 +9,7 @@ from utils import IsVerified
 from ..serializers import VouchSerializer
 from ..models import Vouch
 
+
 # Only allow POST, GET, HEAD and OPTIONS requests
 # Need to inherit list although we block it.
 
@@ -22,9 +23,11 @@ class VouchViewSet(
     API endpoint that allows users to vouch for someone.
     """
 
+    queryset = Vouch.objects.all()
+
     def get_queryset(self):
         user = get_user_model().objects.get(id=self.kwargs["users_pk"])
-        return Vouch.objects.filter(vouchee=user)
+        return self.queryset.filter(vouchee=user)
 
     serializer_class = VouchSerializer
 
