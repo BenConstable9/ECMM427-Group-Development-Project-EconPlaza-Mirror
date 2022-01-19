@@ -13,7 +13,6 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from pathlib import Path
 from os import environ
 
-
 # Determine Environment
 
 DEVELOPMENT = environ.get("DEVELOPMENT", "false").lower() == "true"
@@ -21,7 +20,6 @@ CLOUD = not DEVELOPMENT
 DEBUG = DEVELOPMENT or environ.get("DEBUG", "false").lower() == "true"
 STAGING = CLOUD and DEBUG
 PRODUCTION = CLOUD and not DEBUG
-
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -44,6 +42,21 @@ if CLOUD:
 if DEVELOPMENT:
     ALLOWED_HOSTS = ["*"]
 
+CORS_ALLOWED_ORIGINS = []
+
+if PRODUCTION:
+    CORS_ALLOWED_ORIGINS = [
+        "https://econplaza.bebbo.link",
+        "https://api.econplaza.bebbo.link",
+    ]
+elif STAGING:
+    CORS_ALLOWED_ORIGINS = [
+        "https://staging.econplaza.bebbo.link",
+        "https://api.staging.econplaza.bebbo.link",
+    ]
+
+if DEVELOPMENT:
+    CORS_ALLOW_ALL_ORIGINS = True
 
 # Application definition
 
@@ -60,6 +73,7 @@ INSTALLED_APPS = [
     "labels.apps.LabelsConfig",
     "rest_framework",
     "rest_framework.authtoken",
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -116,7 +130,6 @@ if CLOUD:
         }
     }
 
-
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
@@ -154,7 +167,6 @@ USE_TZ = True
 STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / "static"
 
-
 # Django user authentication settings
 # https://docs.djangoproject.com/en/3.2/topics/auth/customizing/#auth-custom-user
 
@@ -169,7 +181,6 @@ REST_FRAMEWORK = {
         "rest_framework.permissions.IsAuthenticated",
     ],
 }
-
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
