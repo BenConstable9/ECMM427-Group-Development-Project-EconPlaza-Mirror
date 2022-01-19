@@ -25,26 +25,26 @@ build-frontend-docker-image:
     - docker build -t $DOCKER_REPO/econplaza/frontend:$CI_PIPELINE_ID .
     - docker push $DOCKER_REPO/econplaza/frontend:$CI_PIPELINE_ID
 
-deploy-staging:
-  image: byrnedo/alpine-curl:0.1.8 
+deploy-api-staging:
+  image: alpine/curl:3.14
   stage: staging
   script:
     - curl -i http://192.168.0.15:9999/blue-green/econplaza-api-staging/$CI_PIPELINE_ID
 
 deploy-frontend-staging:
-  image: byrnedo/alpine-curl:0.1.8
+  image: alpine/curl:3.14
   stage: staging
   script:
     - curl -i http://192.168.0.15:9999/blue-green/econplaza-frontend-staging/$CI_PIPELINE_ID
 
-deploy-production:
-  image: byrnedo/alpine-curl:0.1.8
+deploy-api-production:
+  image: alpine/curl:3.14
   stage: production
   script:
     - curl -i http://192.168.0.15:9999/blue-green/econplaza-api-production/$CI_PIPELINE_ID
 
 deploy-frontend-production:
-  image: byrnedo/alpine-curl:0.1.8
+  image: alpine/curl:3.14
   stage: production
   script:
     - curl -i http://192.168.0.15:9999/blue-green/econplaza-frontend-production/$CI_PIPELINE_ID
