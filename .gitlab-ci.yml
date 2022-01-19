@@ -30,22 +30,32 @@ deploy-api-staging:
   stage: staging
   script:
     - curl -i http://192.168.0.15:9999/blue-green/econplaza-api-staging/$CI_PIPELINE_ID
+  only:
+    - master
 
 deploy-frontend-staging:
   image: alpine/curl:3.14
   stage: staging
   script:
     - curl -i http://192.168.0.15:9999/blue-green/econplaza-frontend-staging/$CI_PIPELINE_ID
+  only:
+    - master
 
 deploy-api-production:
   image: alpine/curl:3.14
   stage: production
   script:
     - curl -i http://192.168.0.15:9999/blue-green/econplaza-api-production/$CI_PIPELINE_ID
+  when: manual
+  only:
+    - master
 
 deploy-frontend-production:
   image: alpine/curl:3.14
   stage: production
   script:
     - curl -i http://192.168.0.15:9999/blue-green/econplaza-frontend-production/$CI_PIPELINE_ID
+  when: manual
+  only:
+    - master
 
