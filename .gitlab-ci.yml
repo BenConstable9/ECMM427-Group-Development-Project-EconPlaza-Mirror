@@ -27,27 +27,23 @@ deploy-staging:
   image: docker:19.03.12 
   stage: staging
   script:
-    - cd backend
-    - sed -i "s+<<DOCKER_IMAGE>>+${DOCKER_REPO}/${GCP_PROJECT_ID}/econplaza/app:${CI_PIPELINE_ID}+g" .google/staging.yaml
+    - curl -i http://host.docker.internal/blue-green/econplaza-api-staging/$CI_PIPELINE_ID
 
 deploy-frontend-staging:
   image: docker:19.03.12 
   stage: staging
   script:
-    - cd frontend
-    - sed -i "s+<<DOCKER_IMAGE>>+${DOCKER_REPO}/${GCP_PROJECT_ID}/econplaza/frontend:${CI_PIPELINE_ID}+g" .google/staging.yaml
+    - curl -i http://host.docker.internal/blue-green/econplaza-frontend-staging/$CI_PIPELINE_ID
 
 deploy-production:
   image: docker:19.03.12 
   stage: production
   script:
-    - cd backend
-    - sed -i "s+<<DOCKER_IMAGE>>+${DOCKER_REPO}/${GCP_PROJECT_ID}/econplaza/app:${CI_PIPELINE_ID}+g" .google/production.yaml
+    - curl -i http://host.docker.internal/blue-green/econplaza-api-production/$CI_PIPELINE_ID
 
 deploy-frontend-production:
   image: docker:19.03.12 
   stage: production
   script:
-    - cd frontend
-    - sed -i "s+<<DOCKER_IMAGE>>+${DOCKER_REPO}/${GCP_PROJECT_ID}/econplaza/frontend:${CI_PIPELINE_ID}+g" .google/production.yaml
+    - curl -i http://host.docker.internal/blue-green/econplaza-frontend-production/$CI_PIPELINE_ID
 
