@@ -1,5 +1,5 @@
 variables:
-  DOCKER_REPO: "docker.sambebbington.co.uk"
+  DOCKER_REPO: "docker.sambebbington.co.uk:4999"
   DOCKER_USER: $DOCKER_USER
   DOCKER_PASSWORD: $DOCKER_PASSWORD
 
@@ -13,7 +13,7 @@ build-backend-docker-image:
   stage: build
   script:
     - cd backend
-    - docker login -u $DOCKER_USER -p $DOCKER_PASSWORD https://$DOCKER_REPO
+    - docker login -u $DOCKER_USER -p $DOCKER_PASSWORD $DOCKER_REPO
     - docker build -t $DOCKER_REPO/econplaza/app:$CI_PIPELINE_ID .
     - docker push $DOCKER_REPO/econplaza/app:$CI_PIPELINE_ID
 
@@ -21,7 +21,7 @@ build-frontend-docker-image:
   stage: build
   script:
     - cd frontend
-    - docker login -u $DOCKER_USER -p $DOCKER_PASSWORD https://$DOCKER_REPO
+    - docker login -u $DOCKER_USER -p $DOCKER_PASSWORD $DOCKER_REPO
     - docker build -t $DOCKER_REPO/econplaza/frontend:$CI_PIPELINE_ID .
     - docker push $DOCKER_REPO/econplaza/frontend:$CI_PIPELINE_ID
 
