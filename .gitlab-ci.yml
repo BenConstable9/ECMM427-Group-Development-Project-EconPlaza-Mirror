@@ -1,5 +1,7 @@
 variables:
   DOCKER_REPO: "docker.sambebbington.co.uk"
+  DOCKER_USER: $DOCKER_USER
+  DOCKER_PASSWORD: $DOCKER_PASSWORD
 
 stages:
   - build
