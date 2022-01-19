@@ -13,7 +13,7 @@ build-backend-docker-image:
   stage: build
   script:
     - cd backend
-    - docker login $DOCKER_REPO -u $DOCKER_USER -p $DOCKER_PASSWORD
+    - docker login -u $DOCKER_USER -p $DOCKER_PASSWORD https://$DOCKER_REPO
     - docker build -t $DOCKER_REPO/econplaza/app:$CI_PIPELINE_ID .
     - docker push $DOCKER_REPO/econplaza/app:$CI_PIPELINE_ID
 
@@ -21,7 +21,7 @@ build-frontend-docker-image:
   stage: build
   script:
     - cd frontend
-    - docker login $DOCKER_REPO -u $DOCKER_USER -p $DOCKER_PASSWORD
+    - docker login -u $DOCKER_USER -p $DOCKER_PASSWORD https://$DOCKER_REPO
     - docker build -t $DOCKER_REPO/econplaza/frontend:$CI_PIPELINE_ID .
     - docker push $DOCKER_REPO/econplaza/frontend:$CI_PIPELINE_ID
 
