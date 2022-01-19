@@ -11,6 +11,7 @@ from ..models import Comment
 class PostSerializer(serializers.ModelSerializer):
     permissions = serializers.JSONField()
     reactions = serializers.JSONField()
+    profile = ProfileSerializer()
     replies = serializers.SerializerMethodField("count_comments")
 
     profile = ProfileSerializer()

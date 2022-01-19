@@ -107,15 +107,15 @@ DATABASES = {
 
 if CLOUD:
     DATABASES = {
-                "default": {
-                    "ENGINE": "django.db.backends.postgresql",
-                    "NAME": environ.get("DB_NAME", ""),
-                    "USER": environ.get("DB_USERNAME", ""),
-                    "PASSWORD": environ.get("DB_PASSWORD", ""),
-                    "HOST": environ.get("DB_HOST", ""),
-                    "PORT": environ.get("DB_PORT", "5432"),
-                }
-            }
+        "default": {
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": environ.get("DB_NAME", ""),
+            "USER": environ.get("DB_USERNAME", ""),
+            "PASSWORD": environ.get("DB_PASSWORD", ""),
+            "HOST": environ.get("DB_HOST", ""),
+            "PORT": environ.get("DB_PORT", "5432"),
+        }
+    }
 
 
 # Password validation

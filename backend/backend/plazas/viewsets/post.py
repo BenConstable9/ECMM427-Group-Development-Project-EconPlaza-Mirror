@@ -36,8 +36,6 @@ class PostViewSet(
         AllowAny: ["register_view"],
     }
 
-    pagination_class = StandardResultsSetPagination
-
     lookup_field = "id"
 
     filter_backends = [filters.OrderingFilter]
