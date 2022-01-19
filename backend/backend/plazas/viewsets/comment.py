@@ -16,6 +16,7 @@ from ..models import Plaza, Post, Comment
 class CommentViewSet(
     mixins.CreateModelMixin,
     mixins.ListModelMixin,
+    mixins.RetrieveModelMixin,
     viewsets.GenericViewSet,
 ):
     """
@@ -30,7 +31,7 @@ class CommentViewSet(
     serializer_class = CommentSerializer
 
     permission_classes = (ActionBasedPermission,)
-    action_permissions = {IsVerified: ["create"], IsAuthenticated: ["list"]}
+    action_permissions = {IsVerified: ["create"], IsAuthenticated: ["list", "retrieve"]}
 
     lookup_field = "id"
 
