@@ -134,7 +134,7 @@
 <script>
 import { mapGetters, mapActions, mapMutations } from 'vuex'
 import { PLAZAS } from '../../api-routes'
-import Error from '~/components/helpers/Error'
+import Error from '~/components/messages/Error'
 export default {
     components: {
         Error,
