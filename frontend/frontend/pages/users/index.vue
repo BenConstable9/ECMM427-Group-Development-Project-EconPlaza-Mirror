@@ -37,6 +37,7 @@
 </template>
 
 <script>
+import { USERS } from '../../api-routes'
 import UserBox from '~/components/user/user-box'
 import Pagination from '~/components/helpers/pagination'
 
@@ -53,7 +54,7 @@ export default {
                 page = 1
             }
 
-            const users = await $axios.$get(`/v1/accounts/users/`, {
+            const users = await $axios.$get(USERS.ALL(), {
                 params: {
                     page,
                 },

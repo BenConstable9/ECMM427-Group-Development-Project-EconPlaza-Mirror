@@ -10,8 +10,7 @@ from ..models import Comment
 class PostSerializer(serializers.ModelSerializer):
     permissions = serializers.JSONField()
     reactions = serializers.JSONField()
-    profile = ProfileSerializer()
-    replies = serializers.SerializerMethodField('count_comments')
+    replies = serializers.SerializerMethodField("count_comments")
 
     class Meta:
         model = Post
@@ -22,6 +21,7 @@ class PostSerializer(serializers.ModelSerializer):
             "content",
             "permissions",
             "reactions",
+            "hidden",
             "views",
             "replies",
             "created_at",
@@ -33,7 +33,8 @@ class PostSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         # Convert Permissions JSON into a dictionary to be combined into the JSON response
-        representation = super(PostSerializer, self).to_representation(instance)
+        representation = super().to_representation(instance)
+
         try:
             representation["permissions"] = json.loads(representation["permissions"])
         except ValueError as e:
@@ -46,4 +47,8 @@ class PostSerializer(serializers.ModelSerializer):
             # Permissions are not valid JSON.
             # Something's wrong here return a 500
             raise APIException("Reactions are formatted incorrectly.", 500)
+
+        # This ensures the profile is only serialised on a GET not a POST
+        representation["profile"] = ProfileSerializer(instance.profile).data
+
         return representation
