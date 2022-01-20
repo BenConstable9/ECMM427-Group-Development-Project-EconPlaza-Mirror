@@ -30,10 +30,3 @@ class IsVerified(AllowAny):
             # Check if verified
 
             return request.user.verified
-
-
-class IsSelf(AllowAny):
-    """Custom permission to only allow requests to /users/1/slug when the user is theirself"""
-
-    def has_permission(self, request, view):
-        return request.user.id == int(view.kwargs["users_pk"])

@@ -14,7 +14,9 @@ class UserViewSet(
     API endpoint that allows for viewing of users.
     """
 
-    queryset = get_user_model().objects.all()
+    User = get_user_model()
+
+    queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = [permissions.IsAuthenticated]
 

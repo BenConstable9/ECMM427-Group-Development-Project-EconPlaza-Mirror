@@ -42,6 +42,7 @@ class UserSerializerTest(APITestCase):
             set(
                 [
                     "id",
+                    "url",
                     "username",
                     "email",
                     "verified",

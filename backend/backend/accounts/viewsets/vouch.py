@@ -16,26 +16,34 @@ from ..models import Vouch
 class VouchViewSet(
     mixins.CreateModelMixin,
     mixins.ListModelMixin,
+    mixins.RetrieveModelMixin,
     viewsets.GenericViewSet,
 ):
     """
     API endpoint that allows users to vouch for someone.
     """
 
-    def get_queryset(self):
-        user = get_user_model().objects.get(id=self.kwargs["users_pk"])
-        return Vouch.objects.filter(vouchee=user)
-
+    queryset = Vouch.objects.all()
     serializer_class = VouchSerializer
 
     # Allow different permissions based on the action
     # Taken from https://stackoverflow.com/questions/39392007/django-rest-framework-viewset-permissions-create-without-list
     permission_classes = (ActionBasedPermission,)
-    action_permissions = {IsVerified: ["create"], IsAuthenticated: ["list"]}
+    action_permissions = {IsVerified: ["create"], IsAuthenticated: ["retrieve"]}
+
+    # Ensures we look up against the vouchee field on a retrieve mixin
+    lookup_field = "vouchee"
 
     def perform_create(self, serializer):
-        # Force the vouchee to be the same user as url
-        vouchee = get_user_model().objects.get(id=self.kwargs["users_pk"])
-
         # Force the voucher to be the logged in user
-        serializer.save(voucher=self.request.user, vouchee=vouchee)
+        serializer.save(voucher=self.request.user)
+
+    def retrieve(self, request, *args, **kwargs):
+        # Overwrite the retrieve functionality to allow us to return more than one result
+        vouchee_id = kwargs.get("vouchee", None)
+
+        # Ensure we force a 404 if the user doesn't actually exist
+        vouchee = get_object_or_404(get_user_model(), pk=vouchee_id)
+
+        self.queryset = Vouch.objects.filter(vouchee=vouchee)
+        return super(VouchViewSet, self).list(request, *args, **kwargs)

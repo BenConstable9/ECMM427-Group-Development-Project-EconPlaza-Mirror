@@ -103,7 +103,7 @@ export default {
                 endpoints: {
                     login: { url: '/v1/auth/login/', method: 'post' },
                     logout: false,
-                    user: { url: '/v1/users/me/', method: 'get' },
+                    user: { url: '/v1/accounts/user/', method: 'get' },
                     refresh: { url: '/v1/auth/refresh/', method: 'post' },
                 },
             },

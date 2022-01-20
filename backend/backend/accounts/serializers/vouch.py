@@ -3,7 +3,9 @@ from ..models import Vouch
 from ..serializers import UserSerializer
 
 
-class VouchSerializer(serializers.ModelSerializer):
+class VouchSerializer(serializers.HyperlinkedModelSerializer):
+    # voucher = serializers.ReadOnlyField(source='voucher.id')
+
     voucher = UserSerializer(many=False, read_only=True)
 
     class Meta:

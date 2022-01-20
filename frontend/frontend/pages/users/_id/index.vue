@@ -61,7 +61,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import { USERS } from '../../../api-routes'
+
 import VouchBox from '~/components/vouch/vouch-box'
 import Voucher from '~/components/vouch/voucher'
 import Staff from '~/components/labels/staff'
@@ -76,9 +76,11 @@ export default {
     },
     async asyncData({ $axios, params, store }) {
         try {
-            const user = await $axios.$get(USERS.ONE(params.id))
+            const user = await $axios.$get(`/v1/accounts/users/${params.id}/`)
             try {
-                const vouches = await $axios.$get(USERS.VOUCHES(params.id))
+                const vouches = await $axios.$get(
+                    `/v1/accounts/vouches/${params.id}/`
+                )
 
                 const alreadyVouched =
                     vouches.filter(

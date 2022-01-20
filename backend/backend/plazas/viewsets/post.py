@@ -43,9 +43,9 @@ class PostViewSet(
         # Force the user to be the logged in user and the plaza to be from the slug
         serializer.save(user=self.request.user, plaza=plaza)
 
-    @action(methods=["GET"], detail=True, url_path="view")
+    @action(methods=['GET'], detail=True, url_path='view')
     def register_view(self, request, **kwargs):
-        post = get_object_or_404(Post, id=kwargs["id"])
+        post = get_object_or_404(Post, id=kwargs['id'])
         post.views += 1
         post.save()
         return Response(PostSerializer(post).data)

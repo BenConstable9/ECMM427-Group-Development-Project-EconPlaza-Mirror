@@ -15,5 +15,6 @@ router = DefaultRouter()
 
 router.register(r"vouches", VouchViewSet)
 router.register(r"users", UserViewSet)
+router.register(r"profiles", ProfileViewSet)
 
 urlpatterns += router.urls
