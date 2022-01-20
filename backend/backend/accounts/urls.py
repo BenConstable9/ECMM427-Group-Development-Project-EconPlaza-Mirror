@@ -4,7 +4,7 @@ from django.urls import path
 from rest_framework.routers import SimpleRouter
 from rest_framework_nested import routers
 
-from .viewsets import UserViewSet, VouchViewSet
+from .viewsets import UserViewSet, VouchViewSet, ProfileViewSet
 
 from .views import AuthenticatedUserView
 
