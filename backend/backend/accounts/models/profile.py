@@ -6,10 +6,8 @@ from django.contrib.auth import get_user_model
 class Profile(models.Model):
     User = get_user_model()
 
-    user = models.OneToOneField(
-        User,
-        models.CASCADE,
-        verbose_name="Profile's related user",
+    user = models.ForeignKey(
+        User, models.CASCADE, verbose_name="Profile's related user"
     )
 
     display_name = models.CharField("Profile's Display Name", max_length=30)
