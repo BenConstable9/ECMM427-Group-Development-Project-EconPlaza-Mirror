@@ -14,7 +14,7 @@
             </div>
         </div>
         <div v-if="authenticatedUser.verified" id="write">
-            <NuxtLink :to="`${plaza.slug}/posts`">
+            <NuxtLink :to="`/plazas/${plaza.slug}/create`">
                 <div class="rounded-full bg-gray-50 p-3">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
