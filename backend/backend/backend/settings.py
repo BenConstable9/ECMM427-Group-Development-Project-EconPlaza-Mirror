@@ -11,10 +11,18 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+from os import environ
+
+# Determine Environment
+
+DEVELOPMENT = environ.get("DEVELOPMENT", "false").lower() == "true"
+CLOUD = not DEVELOPMENT
+DEBUG = DEVELOPMENT or environ.get("DEBUG", "false").lower() == "true"
+STAGING = CLOUD and DEBUG
+PRODUCTION = CLOUD and not DEBUG
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
@@ -22,11 +30,33 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = "django-insecure-p2aniflccfqo1)fyiph$g_sw9v6h2i$-h2uho2qr+7&7v%5@a1"
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
 ALLOWED_HOSTS = []
 
+if CLOUD:
+    if environ.get("INSTANCE_IP", None) is not None:
+        ALLOWED_HOSTS.append(environ.get("INSTANCE_IP"))
+
+    if environ.get("HOSTNAMES", None) is not None:
+        ALLOWED_HOSTS += environ.get("HOSTNAMES").split(",")
+
+if DEVELOPMENT:
+    ALLOWED_HOSTS = ["*"]
+
+CORS_ALLOWED_ORIGINS = []
+
+if PRODUCTION:
+    CORS_ALLOWED_ORIGINS = [
+        "https://econplaza.bebbo.link",
+        "https://api.econplaza.bebbo.link",
+    ]
+elif STAGING:
+    CORS_ALLOWED_ORIGINS = [
+        "https://staging.econplaza.bebbo.link",
+        "https://api.staging.econplaza.bebbo.link",
+    ]
+
+if DEVELOPMENT:
+    CORS_ALLOW_ALL_ORIGINS = True
 
 # Application definition
 
@@ -43,11 +73,14 @@ INSTALLED_APPS = [
     "labels.apps.LabelsConfig",
     "rest_framework",
     "rest_framework.authtoken",
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -75,7 +108,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "backend.wsgi.application"
 
-
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
@@ -86,6 +118,17 @@ DATABASES = {
     }
 }
 
+if CLOUD:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": environ.get("DB_NAME", ""),
+            "USER": environ.get("DB_USERNAME", ""),
+            "PASSWORD": environ.get("DB_PASSWORD", ""),
+            "HOST": environ.get("DB_HOST", ""),
+            "PORT": environ.get("DB_PORT", "5432"),
+        }
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -105,7 +148,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
@@ -119,12 +161,11 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = "/static/"
-
+STATIC_ROOT = BASE_DIR / "static"
 
 # Django user authentication settings
 # https://docs.djangoproject.com/en/3.2/topics/auth/customizing/#auth-custom-user
@@ -140,7 +181,6 @@ REST_FRAMEWORK = {
         "rest_framework.permissions.IsAuthenticated",
     ],
 }
-
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

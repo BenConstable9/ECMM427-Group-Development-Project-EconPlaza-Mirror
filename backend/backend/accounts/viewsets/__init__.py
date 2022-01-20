@@ -1,3 +1,2 @@
-from .vouch import VouchViewSet
 from .user import UserViewSet
-from .profile import ProfileViewSet
+from .vouch import VouchViewSet

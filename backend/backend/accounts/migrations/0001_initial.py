@@ -239,4 +239,92 @@ class Migration(migrations.Migration):
                 ),
             ],
         ),
+        migrations.CreateModel(
+            name="Vouch",
+            fields=[
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "created_at",
+                    models.DateTimeField(
+                        auto_now_add=True, verbose_name="Created at timestamp"
+                    ),
+                ),
+                (
+                    "vouchee",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="related_vouchee_vouch",
+                        to=settings.AUTH_USER_MODEL,
+                        verbose_name="Vouch's vouchee",
+                    ),
+                ),
+                (
+                    "voucher",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="related_voucher_vouch",
+                        to=settings.AUTH_USER_MODEL,
+                        verbose_name="Vouch's voucher",
+                    ),
+                ),
+            ],
+        ),
+        migrations.CreateModel(
+            name="Profile",
+            fields=[
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "display_name",
+                    models.CharField(
+                        max_length=30, verbose_name="Profile's Display Name"
+                    ),
+                ),
+                (
+                    "global_anonymous",
+                    models.BooleanField(
+                        default=0, verbose_name="Profile's Annoymous Flag"
+                    ),
+                ),
+                (
+                    "reputation",
+                    models.PositiveBigIntegerField(
+                        default=0, verbose_name="Profile's reputation (Computed)"
+                    ),
+                ),
+                (
+                    "created_at",
+                    models.DateTimeField(
+                        auto_now_add=True, verbose_name="Created at timestamp"
+                    ),
+                ),
+                (
+                    "last_computed",
+                    models.DateTimeField(verbose_name="Last modified timestamp"),
+                ),
+                (
+                    "user",
+                    models.OneToOneField(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to=settings.AUTH_USER_MODEL,
+                        verbose_name="user",
+                    ),
+                ),
+            ],
+        ),
     ]

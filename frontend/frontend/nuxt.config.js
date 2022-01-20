@@ -1,6 +1,6 @@
 export default {
     // Target: https://go.nuxtjs.dev/config-target
-    target: 'server',
+    target: 'static',
 
     // Global page headers: https://go.nuxtjs.dev/config-head
     head: {
@@ -21,7 +21,7 @@ export default {
     css: [],
 
     // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-    plugins: [],
+    plugins: ['~/plugins/axios'],
 
     // Auto import components: https://go.nuxtjs.dev/config-components
     components: [
@@ -54,8 +54,11 @@ export default {
     axios: {
         retry: { retries: 3 },
         prefix: '/api',
-        debug: true,
-        proxy: true,
+        baseUrl:
+            process.env.NODE_ENV === 'production'
+                ? `https://api.econplaza.bebbo.link/`
+                : 'http://localhost:8000/',
+        proxy: false,
     },
 
     // PWA module configuration: https://go.nuxtjs.dev/pwa
@@ -71,13 +74,6 @@ export default {
     // Force all pages to go through authentication
     router: {
         middleware: ['auth'],
-    },
-
-    proxy: {
-        '/api/v1/': {
-            target: 'http://127.0.0.1:8000/v1/',
-            pathRewrite: { '^/api/v1/': '' },
-        },
     },
 
     auth: {

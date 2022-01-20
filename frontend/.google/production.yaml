@@ -1,0 +1,43 @@
+---
+apiVersion: "apps/v1"
+kind: "Deployment"
+metadata:
+  name: "econplaza-frontend"
+  namespace: "default"
+  labels:
+    app: "econplaza-frontend"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: "econplaza-frontend"
+  template:
+    metadata:
+      labels:
+        app: "econplaza-frontend"
+    spec:
+      containers:
+      - name: "app-sha256-1"
+        image: "<<DOCKER_IMAGE>>"
+        ports:
+        - containerPort: 80
+---
+apiVersion: "autoscaling/v2beta1"
+kind: "HorizontalPodAutoscaler"
+metadata:
+  name: "econplaza-frontend-hpa-dtlm"
+  namespace: "default"
+  labels:
+    app: "econplaza-frontend"
+spec:
+  scaleTargetRef:
+    kind: "Deployment"
+    name: "econplaza-frontend"
+    apiVersion: "apps/v1"
+  minReplicas: 1
+  maxReplicas: 5
+  metrics:
+  - type: "Resource"
+    resource:
+      name: "cpu"
+      targetAverageUtilization: 80
