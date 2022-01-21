@@ -1,8 +1,8 @@
 <template>
-    <div id="post" class="flex">
+    <div id="about" class="flex">
         <ul class="flex flex-col w-full border rounded-lg overflow-hidden">
-            <post-box-header />
-            <post-box-body />
+            <post-stat-box-header />
+            <post-stat-box-body />
         </ul>
     </div>
 </template>

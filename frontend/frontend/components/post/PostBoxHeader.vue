@@ -6,9 +6,11 @@
         <div id="title" class="flex-1">
             <div class="flex flex-col space-y-1">
                 <h1 class="text-gray-50 text-xl font-semibold">
-                    New Post In {{ plaza.name }}
+                    {{ post.title }} in {{ plaza.name }}
                 </h1>
-                <h2 class="italic text-gray-100">By NAME here</h2>
+                <h2 class="italic text-gray-100">
+                    By {{ post.profile.display_name }}
+                </h2>
             </div>
         </div>
         <div id="controls">
@@ -35,14 +37,20 @@ export default {
         ...mapGetters({
             plaza: 'plazas/current',
             authenticatedUser: 'authenticatedUser',
+            post: 'plazas/posts/current',
         }),
     },
     async created() {
         await this.getCurrentPlaza(this.$route.params.plazas)
+        await this.getCurrentPost({
+            plazaSlug: this.$route.params.plazas,
+            postID: this.$route.params.id,
+        })
     },
     methods: {
         ...mapActions({
             getCurrentPlaza: 'plazas/getCurrentPlaza',
+            getCurrentPost: 'plazas/posts/getCurrentPost',
         }),
     },
 }

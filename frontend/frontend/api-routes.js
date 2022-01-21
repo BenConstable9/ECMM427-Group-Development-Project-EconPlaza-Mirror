@@ -5,7 +5,8 @@
 export const PLAZAS = {
     ALL: () => `/v1/plazas/`,
     ONE: (slug) => `/v1/plazas/${slug}/`,
-    POSTS: (plaza) => `/v1/plazas/${plaza}/posts/`,
+    POSTS: (slug) => `/v1/plazas/${slug}/posts/`,
+    POST: (slug, post) => `/v1/plazas/${slug}/posts/${post}`,
 }
 
 // Users
