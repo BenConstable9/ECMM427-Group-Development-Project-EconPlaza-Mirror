@@ -94,7 +94,7 @@
 </template>
 
 <script>
-import Error from '~/components/helpers/error'
+import Error from '~/components/messages/Error'
 
 export default {
     components: {
