@@ -18,7 +18,6 @@
                 </div>
             </div>
         </div>
-        {{ post }}
     </main>
 </template>
 
@@ -33,7 +32,7 @@ export default {
     },
     head() {
         return {
-            title: `${this.plaza.name} | EconPlaza`,
+            title: `${this.post.title} | ${this.plaza.name} | EconPlaza`,
         }
     },
     computed: {
