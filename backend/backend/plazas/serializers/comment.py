@@ -8,7 +8,6 @@ from ..models import Comment
 
 class CommentSerializer(serializers.ModelSerializer):
     reactions = serializers.JSONField()
-    profile = ProfileSerializer()
 
     class Meta:
         model = Comment
@@ -30,4 +29,7 @@ class CommentSerializer(serializers.ModelSerializer):
             # Permissions are not valid JSON.
             # Something's wrong here return a 500
             raise APIException("Reactions are formatted incorrectly.", 500)
+
+        # This ensures the profile is only serialised on a GET not a POST
+        representation["profile"] = ProfileSerializer(instance.profile).data
         return representation
