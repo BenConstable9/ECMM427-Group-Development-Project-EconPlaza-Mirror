@@ -6,6 +6,7 @@
                 <div v-else id="content" class="flex space-x-5 pt-5 pb-8">
                     <div id="content-left" class="w-full lg:w-3/4">
                         <post-box />
+                        <comment-table />
                     </div>
                     <div
                         id="content-left"
@@ -17,7 +18,6 @@
                     </div>
                 </div>
             </div>
-            {{ comments }}
         </div>
     </main>
 </template>
@@ -40,7 +40,6 @@ export default {
         ...mapGetters({
             plaza: 'plazas/currentPlaza',
             post: 'plazas/posts/currentPost',
-            comments: 'plazas/posts/comments/comments',
         }),
         postNotFound() {
             // Determine if post exists if the ID is 0 (the undefined post)
@@ -54,18 +53,12 @@ export default {
             plazaSlug: this.$route.params.plazas,
             postID: this.$route.params.id,
         })
-        await this.getCurrentPostComments({
-            plazaSlug: this.$route.params.plazas,
-            postID: this.$route.params.id,
-        })
         this.loading = false
     },
     methods: {
         ...mapActions({
             getCurrentPlaza: 'plazas/getCurrentPlaza',
             getCurrentPost: 'plazas/posts/getCurrentPost',
-            getCurrentPostComments:
-                'plazas/posts/comments/getCurrentPostComments',
         }),
     },
 }

@@ -192,7 +192,7 @@ export default {
                 })
                 .then((response) => {
                     this.$router.push(
-                        `/plazas/${this.$route.params.plazas}/posts/${response.data.id}`
+                        `/plazas/${this.$route.params.plazas}/posts/${response.data.id}/`
                     )
                 })
                 .catch((response) => {
