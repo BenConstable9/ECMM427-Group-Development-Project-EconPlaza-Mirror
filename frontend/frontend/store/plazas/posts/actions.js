@@ -18,10 +18,9 @@ export default {
     },
     async getCurrentPost({ getters, commit }, { plazaSlug, postID }) {
         // Check if already current
-        if (getters.current.id === postID) {
+        if (getters.currentPost.id === postID) {
             return
         }
-        console.log(postID)
         // If post already in all, use that
         try {
             const current = getters.posts.find(({ id }) => id === postID)

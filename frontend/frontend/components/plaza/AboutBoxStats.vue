@@ -21,7 +21,7 @@ export default {
         }
     },
     computed: {
-        ...mapGetters({ plaza: 'plazas/current' }),
+        ...mapGetters({ plaza: 'plazas/currentPlaza' }),
         members() {
             return this.plaza ? this.plaza.stats.members : ''
         },

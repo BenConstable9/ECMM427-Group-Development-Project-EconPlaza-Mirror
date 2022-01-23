@@ -35,7 +35,10 @@ export default {
         }
     },
     computed: {
-        ...mapGetters({ plaza: 'plazas/current', posts: 'plazas/posts/posts' }),
+        ...mapGetters({
+            plaza: 'plazas/currentPlaza',
+            posts: 'plazas/posts/posts',
+        }),
         plazaNotFound() {
             // Determine if plaza exists if the ID is 0 (the undefined plaza)
             return this.plaza && this.plaza.id === 0

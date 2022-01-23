@@ -153,8 +153,8 @@ export default {
     },
     computed: {
         ...mapGetters({
-            profile: 'profiles/current',
-            profiles: 'profiles/all',
+            profile: 'profiles/currentProfile',
+            profiles: 'profiles/allProfiles',
             authenticatedUser: 'authenticatedUser',
         }),
     },

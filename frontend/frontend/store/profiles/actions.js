@@ -3,7 +3,7 @@ import { USERS } from '../../api-routes'
 export default {
     async getAllProfiles({ state, commit }) {
         // If already loaded. Return
-        if (state.all !== undefined) {
+        if (state.allProfiles !== undefined) {
             return
         }
         // Make API Call to get plazas

@@ -2,7 +2,7 @@ export default {
     posts(state) {
         return state.posts
     },
-    current(state) {
+    currentPost(state) {
         return (
             state.currentPost ?? {
                 title: 'Undefined',

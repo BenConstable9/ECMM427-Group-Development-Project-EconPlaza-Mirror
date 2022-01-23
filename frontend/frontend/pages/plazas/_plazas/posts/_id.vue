@@ -17,6 +17,7 @@
                     </div>
                 </div>
             </div>
+            {{ comments }}
         </div>
     </main>
 </template>
@@ -37,8 +38,9 @@ export default {
     },
     computed: {
         ...mapGetters({
-            plaza: 'plazas/current',
-            post: 'plazas/posts/current',
+            plaza: 'plazas/currentPlaza',
+            post: 'plazas/posts/currentPost',
+            comments: 'plazas/posts/comments/comments',
         }),
         postNotFound() {
             // Determine if post exists if the ID is 0 (the undefined post)
@@ -52,12 +54,18 @@ export default {
             plazaSlug: this.$route.params.plazas,
             postID: this.$route.params.id,
         })
+        await this.getCurrentPostComments({
+            plazaSlug: this.$route.params.plazas,
+            postID: this.$route.params.id,
+        })
         this.loading = false
     },
     methods: {
         ...mapActions({
             getCurrentPlaza: 'plazas/getCurrentPlaza',
             getCurrentPost: 'plazas/posts/getCurrentPost',
+            getCurrentPostComments:
+                'plazas/posts/comments/getCurrentPostComments',
         }),
     },
 }
