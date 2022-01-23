@@ -21,7 +21,7 @@ export default {
         }
     },
     computed: {
-        ...mapGetters({ post: 'plazas/posts/current' }),
+        ...mapGetters({ post: 'plazas/posts/currentPost' }),
         views() {
             return this.post ? this.post.views : ''
         },
@@ -39,7 +39,7 @@ export default {
     },
     methods: {
         ...mapActions({
-            getCurrentPost: 'plazas/getCurrentPost',
+            getCurrentPost: 'plazas/posts/getCurrentPost',
         }),
     },
 }

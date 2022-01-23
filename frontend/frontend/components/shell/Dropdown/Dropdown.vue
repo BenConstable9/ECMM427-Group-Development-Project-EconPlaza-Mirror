@@ -119,7 +119,7 @@ export default {
     computed: {
         ...mapGetters({
             authenticatedUser: 'authenticatedUser',
-            plazas: 'plazas/all',
+            plazas: 'plazas/allPlazas',
         }),
     },
     async created() {

@@ -3,7 +3,7 @@ import { PLAZAS } from '../../api-routes'
 export default {
     async getAllPlazas({ state, commit }) {
         // If already loaded. Return
-        if (state.all !== undefined) {
+        if (state.allPlazas !== undefined) {
             return
         }
         // Make API Call to get plazas
@@ -17,7 +17,7 @@ export default {
     },
     async getCurrentPlaza({ getters, commit }, plazaSlug) {
         // Check if already current
-        if (getters.current.slug === plazaSlug) {
+        if (getters.currentPlaza.slug === plazaSlug) {
             return
         }
         // If plaza already in all, use that

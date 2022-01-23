@@ -11,7 +11,7 @@ import { mapGetters, mapActions } from 'vuex'
 export default {
     computed: {
         ...mapGetters({
-            post: 'plazas/posts/current',
+            post: 'plazas/posts/currentPost',
         }),
     },
     async created() {

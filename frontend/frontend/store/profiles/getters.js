@@ -1,8 +1,8 @@
 export default {
-    all(state) {
-        return state.all
+    allProfiles(state) {
+        return state.allProfiles
     },
-    current(state) {
+    currentProfile(state) {
         return (
             state.currentProfile ?? {
                 display_name: 'Undefined',

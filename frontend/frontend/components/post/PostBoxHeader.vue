@@ -35,9 +35,9 @@ import { mapGetters, mapActions } from 'vuex'
 export default {
     computed: {
         ...mapGetters({
-            plaza: 'plazas/current',
+            plaza: 'plazas/currentPlaza',
             authenticatedUser: 'authenticatedUser',
-            post: 'plazas/posts/current',
+            post: 'plazas/posts/currentPost',
         }),
     },
     async created() {
