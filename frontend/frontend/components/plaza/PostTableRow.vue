@@ -2,20 +2,22 @@
     <div id="post-info" class="flex items-center px-5 py-4">
         <div class="flex flex-1 flex-col space-y-1">
             <h2>
-                <a
+                <NuxtLink
+                    :to="postLink"
                     class="font-semibold text-primary hover:underline"
-                    :href="postLink"
-                    >{{ title }}</a
                 >
+                    {{ title }}
+                </NuxtLink>
             </h2>
             <p v-if="post" class="flex space-x-1">
                 <span class="text-sm text-gray-700"
                     >By
-                    <a
+                    <NuxtLink
+                        :to="authorProfileLink"
                         class="font-semibold hover:underline"
-                        :href="authorProfileLink"
-                        >{{ author }}</a
-                    ></span
+                    >
+                        {{ author }}
+                    </NuxtLink></span
                 >
                 <span class="text-sm text-gray-700 font-semibold"
                     >&middot;</span
@@ -90,7 +92,7 @@ export default {
         },
         postLink() {
             return this.post
-                ? `/plazas/${this.$route.params.plazas}/posts/${this.post.id}`
+                ? `/plazas/${this.$route.params.plazas}/posts/${this.post.id}/`
                 : '#'
         },
         time() {
