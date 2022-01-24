@@ -15,4 +15,5 @@ module.exports = {
         '<rootDir>/pages/**/*.vue',
     ],
     testEnvironment: 'jsdom',
+    reporters: ['default', 'jest-junit'],
 }

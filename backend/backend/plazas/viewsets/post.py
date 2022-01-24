@@ -46,7 +46,7 @@ class PostViewSet(
         "id",
     ]
 
-    ordering = ["id"]
+    ordering = ["-id"]
 
     def perform_create(self, serializer):
         plaza = Plaza.objects.get(slug=self.kwargs["plazas_slug"])

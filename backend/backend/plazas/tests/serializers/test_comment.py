@@ -60,7 +60,7 @@ class CommentSerializerTest(APITestCase):
 
         # Serialise the data
         self.serializer = CommentSerializer(
-            instance=self.post, context=serializer_context
+            instance=self.comment, context=serializer_context
         )
 
     def test_contains_expected_fields(self):
@@ -73,14 +73,11 @@ class CommentSerializerTest(APITestCase):
             set(
                 [
                     "id",
-                    "replies",
                     "profile",
-                    "title",
                     "content",
-                    "permissions",
                     "reactions",
                     "hidden",
-                    "views",
+                    "deleted",
                     "created_at",
                 ]
             ),
@@ -94,10 +91,7 @@ class CommentSerializerTest(APITestCase):
 
         data = self.serializer.data
 
-        self.assertEqual(data["id"], self.post.id)
-        self.assertEqual(data["replies"], 0)
+        self.assertEqual(data["id"], self.comment.id)
         self.assertEqual(data["profile"]["id"], self.profile_1.id)
-        self.assertEqual(data["title"], self.post.title)
-        self.assertEqual(data["content"], self.post.content)
-        self.assertEqual(data["hidden"], self.post.hidden)
-        self.assertEqual(data["views"], self.post.views)
+        self.assertEqual(data["content"], self.comment.content)
+        self.assertEqual(data["hidden"], self.comment.hidden)

@@ -132,6 +132,8 @@ export default {
         }),
         ...mapMutations({
             setCurrentProfile: 'profiles/setCurrentProfile',
+            addComment: 'plazas/posts/comments/addComment',
+            increaseReplyCount: 'plazas/posts/increaseReplyCount',
         }),
         profileSwitch(e) {
             // Get the profile that matches
@@ -159,9 +161,11 @@ export default {
                     }
                 )
                 .then((response) => {
-                    this.$router.push(
-                        `/plazas/${this.$route.params.plazas}/posts/${response.data.id}`
-                    )
+                    this.comment.isDisabled = false
+                    this.comment.content = ''
+                    this.success = 'Comment posted successfully.'
+                    this.addComment(response.data)
+                    this.increaseReplyCount()
                 })
                 .catch((response) => {
                     if (

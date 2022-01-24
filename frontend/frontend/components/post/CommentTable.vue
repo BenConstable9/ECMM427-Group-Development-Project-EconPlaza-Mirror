@@ -2,7 +2,7 @@
     <div id="comments" class="flex">
         <ul class="flex flex-col w-full border rounded-lg overflow-hidden">
             <comment-table-header />
-            <comment-table-form />
+            <comment-table-form v-if="authenticatedUser.verified" />
             <div v-if="loading">
                 <comment-table-row
                     v-for="i in 4"
@@ -33,7 +33,10 @@ export default {
         }
     },
     computed: {
-        ...mapGetters({ comments: 'plazas/posts/comments/comments' }),
+        ...mapGetters({
+            comments: 'plazas/posts/comments/comments',
+            authenticatedUser: 'authenticatedUser',
+        }),
     },
     async created() {
         this.loading = true
