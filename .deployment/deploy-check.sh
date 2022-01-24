@@ -1,19 +1,26 @@
-if [[ -z $1 ]]
+if [ -z $1 ]
 then
   echo "Task Definition Required"
   exit 1
 fi
 
-while [[ true ]]
+count=0
+while [ true ]
 do
-    $state=$(curl -s http://192.168.0.15:9999/blue-green-state/$1)
-    echo $state
-  if [[ $state == Done* ]]
+  count=$((count+1))
+  state=$(curl -s http://192.168.0.15:9999/blue-green-state/$1)
+  echo "$state"
+  if test "${state##Done*}" = ""
   then
     exit 0
   fi
-  if [[ $state == Fail* ]]
+  if test "${state##Fail*}" = ""
   then
+    exit 1
+  fi
+  if [ $count -gt 600 ]
+  then
+    echo "Timeout Failure: Deployment took too long"
     exit 1
   fi
   sleep 5
