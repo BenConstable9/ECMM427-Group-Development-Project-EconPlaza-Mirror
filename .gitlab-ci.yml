@@ -24,7 +24,6 @@ test-backend-docker-image:
     when: always
     reports:
       junit: results.xml
-        - docker push $DOCKER_REPO/econplaza/app:$CI_PIPELINE_ID
 
 test-frontend-docker-image:
   image: docker:19.03.12
