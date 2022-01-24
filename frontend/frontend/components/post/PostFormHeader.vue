@@ -32,10 +32,11 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
+
 export default {
     computed: {
         ...mapGetters({
-            plaza: 'plazas/current',
+            plaza: 'plazas/currentPlaza',
             authenticatedUser: 'authenticatedUser',
         }),
     },

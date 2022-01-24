@@ -22,6 +22,7 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
+
 export default {
     data() {
         return {
@@ -34,7 +35,7 @@ export default {
         }
     },
     computed: {
-        ...mapGetters({ plaza: 'plazas/current' }),
+        ...mapGetters({ plaza: 'plazas/currentPlaza' }),
         plazaNotFound() {
             // Determine if plaza exists if the ID is 0 (the undefined plaza)
             return this.plaza && this.plaza.id === 0
