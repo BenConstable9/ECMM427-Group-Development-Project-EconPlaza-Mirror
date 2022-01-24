@@ -8,4 +8,4 @@ export JEST_JUNIT_OUTPUT_NAME=results.xml
 
 yarn install
 
-yarn test
+yarn unittest
