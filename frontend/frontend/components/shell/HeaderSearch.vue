@@ -3,6 +3,10 @@
         v-if="isAuthenticated"
         class="relative flex-1 max-w-lg mx-auto text-gray-600"
     >
+        <select name="" id="">
+            <option value="users">Users</option>
+            <option value="plazas">Plazas</option>
+        </select>
         <input
             class="
                 min-w-full
