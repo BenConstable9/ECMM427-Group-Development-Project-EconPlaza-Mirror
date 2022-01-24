@@ -31,9 +31,9 @@ test-backend-docker-image:
   stage: test
   script:
     - docker login -u $DOCKER_USER -p $DOCKER_PASSWORD $DOCKER_REPO
-    - docker run --name econplaza-app-test-$CI_PIPELINE_ID $DOCKER_REPO/econplaza/app:$CI_PIPELINE_ID /bin/sh run-tests.sh
-    - docker cp econplaza-app-test-$CI_PIPELINE_ID:/test-results/results.xml results.xml
-    - docker rm econplaza-app-test-$CI_PIPELINE_ID
+    - docker run --cidfile cid $DOCKER_REPO/econplaza/app:$CI_PIPELINE_ID /bin/sh run-tests.sh
+    - docker cp $(cat cid):/test-results/results.xml results.xml
+    - docker rm $(cat cid)
   artifacts:
     when: always
     reports:
@@ -45,9 +45,9 @@ test-frontend-docker-image:
   script:
     - cd frontend
     - docker login -u $DOCKER_USER -p $DOCKER_PASSWORD $DOCKER_REPO
-    - docker run --name econplaza-app-test-$CI_PIPELINE_ID $DOCKER_REPO/econplaza/frontend:$CI_PIPELINE_ID /bin/sh /build/run-tests.sh
-    - docker cp econplaza-frontend-test-$CI_PIPELINE_ID:/test-results/results.xml results.xml
-    - docker rm econplaza-frontend-test-$CI_PIPELINE_ID
+    - docker run --cidfile cid $DOCKER_REPO/econplaza/frontend:$CI_PIPELINE_ID /bin/sh /build/run-tests.sh
+    - docker cp $(cat cid):/test-results/results.xml results.xml
+    - docker rm $(cat cid)
   artifacts:
     when: always
     reports:
