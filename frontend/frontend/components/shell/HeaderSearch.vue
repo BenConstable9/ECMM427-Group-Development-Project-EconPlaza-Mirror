@@ -8,7 +8,21 @@
             @submit.prevent="searchPlatform"
         >
             <div id="search-dropdown">
-                <select name="" id="" v-model="search.resource">
+                <select
+                    name=""
+                    id=""
+                    class="
+                        min-w-full
+                        border-2 border-gray-300
+                        bg-white
+                        h-8
+                        px-3
+                        rounded-l-full
+                        text-sm
+                        focus:outline-none
+                    "
+                    v-model="search.resource"
+                >
                     <option value="users">Users</option>
                     <option value="plazas">Plazas</option>
                 </select>
@@ -17,11 +31,11 @@
                 <input
                     class="
                         min-w-full
-                        border-2 border-gray-300
+                        border-2 border-l-0 border-gray-300
                         bg-white
                         h-8
                         px-4
-                        rounded-full
+                        rounded-r-full
                         text-sm
                         focus:outline-none
                     "
