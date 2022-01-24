@@ -11,11 +11,10 @@ from django.contrib.auth import get_user_model
 
 from ...models import Plaza, Post
 from accounts.models import Profile
-from ...serializers import PostSerializer, PlazaSerializer
-from ...viewsets import PostViewSet
+from ...serializers import PostSerializer
 
 
-class UserViewsetTest(APITestCase):
+class PostViewsetTest(APITestCase):
     def setUp(self):
         """Initialise user instance, which creates a profile instance."""
 
@@ -240,7 +239,7 @@ class UserViewsetTest(APITestCase):
             "permissions": "{}",
         }
         response = self.client.post(
-            "/v1/plazas/{}/posts/".format(self.user_1.id), payload
+            "/v1/plazas/{}/posts/".format(self.plaza.slug), payload
         )
 
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
