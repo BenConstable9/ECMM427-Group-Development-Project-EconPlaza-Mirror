@@ -13,7 +13,7 @@ RUN apk add --virtual .dependencies yarn && \
 RUN mkdir /html && \
   cp -r /build/dist/* /html
 WORKDIR /html
-# REMOVE BUILD FILES
-RUN rm -r /build
+# Allow test script to be runnable
+RUN chmod +x /build/run-tests.sh
 # LOAD CONFIGS
 COPY nginx.conf /etc/nginx/nginx.conf
