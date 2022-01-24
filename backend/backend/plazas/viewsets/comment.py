@@ -43,11 +43,11 @@ class CommentViewSet(
     ordering_fields = [
         "id",
     ]
-    ordering = ["id"]
+    ordering = ["-id"]
 
     def perform_create(self, serializer):
         plaza = Plaza.objects.get(slug=self.kwargs["plazas_slug"])
         post = Post.objects.get(id=self.kwargs["posts_id"], plaza=plaza.id)
 
-        # Force the user to be the logged in user and the plaza to be from the slug
-        serializer.save(user=self.request.user, plaza=plaza, post=post)
+        # Force the user to be the logged in user and the post from the URL
+        serializer.save(user=self.request.user, post=post)

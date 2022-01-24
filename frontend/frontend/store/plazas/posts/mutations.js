@@ -8,4 +8,7 @@ export default {
     setCurrentPost(state, post) {
         state.currentPost = post
     },
+    increaseReplyCount(state) {
+        state.currentPost.replies += 1
+    },
 }
