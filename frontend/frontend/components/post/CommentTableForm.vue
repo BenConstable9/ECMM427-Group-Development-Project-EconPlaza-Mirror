@@ -1,6 +1,7 @@
 <template>
     <div>
         <Error v-if="error" :message="error" />
+        <Success v-if="success" :message="success" />
         <div id="post-heading" class="flex space-x-3 items-center px-5 py-3">
             <form class="space-y-4 w-full" @submit.prevent="commentNew">
                 <div>
@@ -97,9 +98,11 @@
 import { mapGetters, mapActions, mapMutations } from 'vuex'
 import { PLAZAS } from '../../api-routes'
 import Error from '~/components/messages/Error'
+import Success from '~/components/messages/Success'
 export default {
     components: {
         Error,
+        Success,
     },
     data() {
         return {
@@ -109,6 +112,7 @@ export default {
                 isDisabled: false,
             },
             error: null,
+            success: null,
         }
     },
     computed: {
@@ -171,7 +175,7 @@ export default {
                         this.error = 'Unable to process request.'
                     }
 
-                    this.post.isDisabled = false
+                    this.comment.isDisabled = false
                 })
         },
     },
