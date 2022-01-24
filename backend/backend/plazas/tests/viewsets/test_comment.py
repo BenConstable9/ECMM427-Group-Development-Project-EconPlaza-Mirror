@@ -97,19 +97,21 @@ class CommentViewsetTest(APITestCase):
         # Now test the actual data is the same
         self.client.force_authenticate(self.user_1)
         response = self.client.get(
-            "/v1/plazas/{}/posts/{}/comments".format(self.plaza.slug, self.plaza.id)
+            "/v1/plazas/{}/posts/{}/comments/".format(self.plaza.slug, self.plaza.id)
         )
 
         factory = APIRequestFactory()
         request = factory.get(
-            "/v1/plazas/{}/posts/{}/comments".format(self.plaza.slug, self.plaza.id)
+            "/v1/plazas/{}/posts/{}/comments/".format(self.plaza.slug, self.plaza.id)
         )
 
         serializer_context = {
             "request": Request(request),
         }
 
-        serializer = CommentSerializer(instance=self.post, context=serializer_context)
+        serializer = CommentSerializer(
+            instance=self.comment, context=serializer_context
+        )
 
         # Check with the data direct from model
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -137,16 +139,35 @@ class CommentViewsetTest(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
     def test_get_comment(self):
-        """Test we get a HTTP 401 response when looking at detailed view."""
+        """Test we get a HTTP 200 response when looking at detailed view."""
 
         # Get some data
         self.client.force_authenticate(self.user_1)
         # Get some data
         response = self.client.get(
-            "/v1/plazas/{}/posts/{}/".format(self.plaza.slug, self.post.id)
+            "/v1/plazas/{}/posts/{}/comments/{}/".format(
+                self.plaza.slug, self.post.id, self.comment.id
+            )
         )
 
-        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+        factory = APIRequestFactory()
+        request = factory.get(
+            "/v1/plazas/{}/posts/{}/comments/{}/".format(
+                self.plaza.slug, self.plaza.id, self.comment.id
+            )
+        )
+
+        serializer_context = {
+            "request": Request(request),
+        }
+
+        serializer = CommentSerializer(
+            instance=self.comment, context=serializer_context
+        )
+
+        # Check with the data direct from model
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data, serializer.data)
 
     def test_delete_comment(self):
         """Test we get a HTTP 405 response when attempting to delete data."""

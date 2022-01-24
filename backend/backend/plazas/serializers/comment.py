@@ -17,6 +17,8 @@ class CommentSerializer(serializers.ModelSerializer):
             "content",
             "reactions",
             "created_at",
+            "hidden",
+            "deleted",
         ]
         lookup_field = "id"
 
