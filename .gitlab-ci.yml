@@ -33,7 +33,7 @@ test-frontend-docker-image:
     - docker login -u $DOCKER_USER -p $DOCKER_PASSWORD $DOCKER_REPO
     - docker build -t $DOCKER_REPO/econplaza/frontend:$CI_PIPELINE_ID-test --file DockerfileTest .
     - cd ../
-    - docker create --name econplaza-frontend-test-$CI_PIPELINE_ID $DOCKER_REPO/econplaza/frontend:$CI_PIPELINE_ID
+    - docker create --name econplaza-frontend-test-$CI_PIPELINE_ID $DOCKER_REPO/econplaza/frontend:$CI_PIPELINE_ID-test
     - docker cp econplaza-frontend-test-$CI_PIPELINE_ID:/test-results/results.xml results.xml
     - docker rm econplaza-frontend-test-$CI_PIPELINE_ID
   artifacts:
