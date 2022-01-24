@@ -7,10 +7,10 @@
             class="flex items-center space-x-3"
             @submit.prevent="searchPlatform"
         >
-            <div id="search-dropdown">
+            <div id="search-dropdown-container">
                 <select
                     name=""
-                    id=""
+                    id="search-dropdown"
                     class="
                         min-w-full
                         border-2 border-gray-300
@@ -27,8 +27,9 @@
                     <option value="plazas">Plazas</option>
                 </select>
             </div>
-            <div id="search-bar" class="flex-1">
+            <div id="search-bar-container" class="flex-1">
                 <input
+                    id="search-bar"
                     class="
                         min-w-full
                         border-2 border-l-0 border-gray-300
@@ -45,7 +46,7 @@
                 />
                 <button type="submit" class="absolute right-0 top-0 mt-2 mr-4">
                     <svg
-                        id="Capa_1"
+                        id="search-icon"
                         class="text-gray-600 h-4 w-4 fill-current"
                         xmlns="http://www.w3.org/2000/svg"
                         xmlns:xlink="http://www.w3.org/1999/xlink"
