@@ -9,7 +9,7 @@ stages:
   - production
 
 build-backend-docker-image:
-  image: docker:19.03.12 
+  image: docker:19.03.12
   stage: build
   script:
     - cd backend
@@ -30,6 +30,20 @@ deploy-api-staging:
   stage: staging
   script:
     - curl -i http://192.168.0.15:9999/blue-green/econplaza-api-staging/$CI_PIPELINE_ID
+    - while [[ true ]]
+      do
+      $state=$(curl -s http://192.168.0.15:9999/blue-green-state/econplaza-api-staging)
+      echo $state
+      if [[ $state == Done* ]]
+      then
+      exit 0
+      fi
+      if [[ $state == Fail* ]]
+      then
+      exit 1
+      fi
+      sleep 5
+      done
   only:
     - master
 
@@ -38,6 +52,20 @@ deploy-frontend-staging:
   stage: staging
   script:
     - curl -i http://192.168.0.15:9999/blue-green/econplaza-frontend-staging/$CI_PIPELINE_ID
+    - while [[ true ]]
+      do
+      $state=$(curl -s http://192.168.0.15:9999/blue-green-state/econplaza-frontend-staging)
+      echo $state
+      if [[ $state == Done* ]]
+      then
+      exit 0
+      fi
+      if [[ $state == Fail* ]]
+      then
+      exit 1
+      fi
+      sleep 5
+      done
   only:
     - master
 
@@ -46,6 +74,20 @@ deploy-api-production:
   stage: production
   script:
     - curl -i http://192.168.0.15:9999/blue-green/econplaza-api-production/$CI_PIPELINE_ID
+    - while [[ true ]]
+      do
+      $state=$(curl -s http://192.168.0.15:9999/blue-green-state/econplaza-api-production)
+      echo $state
+      if [[ $state == Done* ]]
+      then
+      exit 0
+      fi
+      if [[ $state == Fail* ]]
+      then
+      exit 1
+      fi
+      sleep 5
+      done
   when: manual
   only:
     - master
@@ -55,6 +97,20 @@ deploy-frontend-production:
   stage: production
   script:
     - curl -i http://192.168.0.15:9999/blue-green/econplaza-frontend-production/$CI_PIPELINE_ID
+    - while [[ true ]]
+      do
+      $state=$(curl -s http://192.168.0.15:9999/blue-green-state/econplaza-frontend-production)
+      echo $state
+      if [[ $state == Done* ]]
+      then
+      exit 0
+      fi
+      if [[ $state == Fail* ]]
+      then
+      exit 1
+      fi
+      sleep 5
+      done
   when: manual
   only:
     - master
