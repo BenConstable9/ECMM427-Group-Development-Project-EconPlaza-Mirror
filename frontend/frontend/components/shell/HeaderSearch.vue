@@ -9,8 +9,9 @@
         >
             <div id="search-dropdown-container">
                 <select
-                    name=""
                     id="search-dropdown"
+                    v-model="search.resource"
+                    name=""
                     class="
                         min-w-full
                         border-2 border-gray-300
@@ -21,7 +22,6 @@
                         text-sm
                         focus:outline-none
                     "
-                    v-model="search.resource"
                 >
                     <option value="users">Users</option>
                     <option value="plazas">Plazas</option>
