@@ -73,7 +73,7 @@ INSTALLED_APPS = [
     "labels.apps.LabelsConfig",
     "rest_framework",
     "rest_framework.authtoken",
-    'corsheaders',
+    "corsheaders",
 ]
 
 TEST_RUNNER = 'xmlrunner.extra.djangotestrunner.XMLTestRunner'
