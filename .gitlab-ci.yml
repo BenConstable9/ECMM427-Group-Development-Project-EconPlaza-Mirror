@@ -43,7 +43,6 @@ test-frontend-docker-image:
   image: docker:19.03.12
   stage: test
   script:
-    - cd frontend
     - docker login -u $DOCKER_USER -p $DOCKER_PASSWORD $DOCKER_REPO
     - docker run --cidfile cid $DOCKER_REPO/econplaza/frontend:$CI_PIPELINE_ID /bin/sh /build/run-tests.sh
     - docker cp $(cat cid):/test-results/results.xml results.xml
