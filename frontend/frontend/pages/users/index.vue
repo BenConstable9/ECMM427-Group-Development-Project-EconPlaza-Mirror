@@ -24,7 +24,7 @@
                         <NuxtLink
                             v-for="user in users.results"
                             :key="user.id"
-                            :to="`users/${user.id}`"
+                            :to="`/users/${user.id}`"
                         >
                             <user-box :user="user" />
                         </NuxtLink>
