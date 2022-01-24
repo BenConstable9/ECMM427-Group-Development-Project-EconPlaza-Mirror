@@ -22,10 +22,11 @@ export default {
             return
         }
         // If post already in all, use that
-        try {
-            const current = getters.posts.find(({ id }) => id === postID)
+        const current = getters.posts.find(({ id }) => id === postID)
+
+        if (current !== undefined) {
             commit('setCurrentPost', current)
-        } catch {
+        } else {
             // Otherwise load fresh
             await this.$axios
                 .get(PLAZAS.POST(plazaSlug, postID))
