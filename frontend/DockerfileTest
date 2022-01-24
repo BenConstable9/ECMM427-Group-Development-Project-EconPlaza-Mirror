@@ -1,0 +1,16 @@
+FROM nginx:1.21.4-alpine
+EXPOSE 80
+# CREATE BUILD DIRECTORY
+RUN mkdir /build
+WORKDIR /build
+COPY frontend/ /build
+# BUILD FRONTEND
+RUN apk add --virtual .dependencies yarn && \
+  yarn install && \
+  yarn generate && \
+  apk del .dependencies
+# RUN TESTS
+RUN mkdir /test-results
+RUN echo "" > /test-results/results.xml
+# LOAD CONFIGS
+COPY nginx.conf /etc/nginx/nginx.conf

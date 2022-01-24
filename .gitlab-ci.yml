@@ -4,9 +4,43 @@ variables:
   DOCKER_PASSWORD: $DOCKER_PASSWORD
 
 stages:
+  - test
   - build
   - staging
   - production
+
+test-backend-docker-image:
+  image: docker:19.03.12
+  stage: test
+  script:
+    - cd backend
+    - docker login -u $DOCKER_USER -p $DOCKER_PASSWORD $DOCKER_REPO
+    - docker build -t $DOCKER_REPO/econplaza/app:$CI_PIPELINE_ID --file DockerfileTest .
+    - cd ../
+    - docker create --name econplaza-app-test-$CI_PIPELINE_ID $DOCKER_REPO/econplaza/app:$CI_PIPELINE_ID
+    - docker cp econplaza-app-test-$CI_PIPELINE_ID:/test-results/results.xml results.xml
+    - docker rm econplaza-app-test-$CI_PIPELINE_ID
+  artifacts:
+    when: always
+    reports:
+      junit: results.xml
+        - docker push $DOCKER_REPO/econplaza/app:$CI_PIPELINE_ID
+
+test-frontend-docker-image:
+  image: docker:19.03.12
+  stage: test
+  script:
+    - cd frontend
+    - docker login -u $DOCKER_USER -p $DOCKER_PASSWORD $DOCKER_REPO
+    - docker build -t $DOCKER_REPO/econplaza/frontend:$CI_PIPELINE_ID-test --file DockerfileTest .
+    - cd ../
+    - docker create --name econplaza-frontend-test-$CI_PIPELINE_ID $DOCKER_REPO/econplaza/frontend:$CI_PIPELINE_ID
+    - docker cp econplaza-frontend-test-$CI_PIPELINE_ID:/test-results/results.xml results.xml
+    - docker rm econplaza-frontend-test-$CI_PIPELINE_ID
+  artifacts:
+    when: always
+    reports:
+      junit: results.xml
 
 build-backend-docker-image:
   image: docker:19.03.12
