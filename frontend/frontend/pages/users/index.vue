@@ -54,9 +54,16 @@ export default {
                 page = 1
             }
 
+            let search = query.search
+
+            if (search === undefined) {
+                search = ''
+            }
+
             const users = await $axios.$get(USERS.ALL(), {
                 params: {
                     page,
+                    search,
                 },
             })
             return { users, page }
@@ -72,7 +79,7 @@ export default {
             title: 'All Users | EconPlaza',
         }
     },
-    watchQuery: ['page'],
+    watchQuery: ['page', 'search'],
     created() {
         this.$nuxt.$on('pagination-next', () => {
             this.page += 1
