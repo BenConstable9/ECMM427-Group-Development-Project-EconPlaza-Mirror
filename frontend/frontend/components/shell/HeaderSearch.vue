@@ -3,10 +3,7 @@
         v-if="isAuthenticated"
         class="relative flex-1 max-w-lg mx-auto text-gray-600"
     >
-        <form
-            class="flex items-center space-x-3"
-            @submit.prevent="searchPlatform"
-        >
+        <form class="flex items-center" @submit.prevent="searchPlatform">
             <div id="search-dropdown-container">
                 <select
                     id="search-dropdown"
