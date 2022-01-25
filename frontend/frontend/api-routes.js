@@ -7,6 +7,7 @@ export const PLAZAS = {
     ONE: (slug) => `/v1/plazas/${slug}/`,
     POSTS: (slug) => `/v1/plazas/${slug}/posts/`,
     POST: (slug, post) => `/v1/plazas/${slug}/posts/${post}/`,
+    VIEWPOST: (slug, post) => `/v1/plazas/${slug}/posts/${post}/view/`,
     COMMENTS: (slug, post) => `/v1/plazas/${slug}/posts/${post}/comments/`,
 }
 
