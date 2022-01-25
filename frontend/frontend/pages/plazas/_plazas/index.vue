@@ -6,6 +6,10 @@
                 <div v-else id="content" class="flex space-x-5 pt-5 pb-8">
                     <div id="content-left" class="w-full lg:w-3/4">
                         <post-table />
+                        <pagination
+                            :next="pagination.next"
+                            :previous="pagination.previous"
+                        />
                     </div>
                     <div
                         id="content-left"
@@ -22,8 +26,12 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
+import Pagination from '~/components/helpers/pagination'
 
 export default {
+    components: {
+        Pagination,
+    },
     data() {
         return {
             loading: false,
@@ -38,6 +46,7 @@ export default {
         ...mapGetters({
             plaza: 'plazas/currentPlaza',
             posts: 'plazas/posts/posts',
+            pagination: 'plazas/posts/pagination',
         }),
         plazaNotFound() {
             // Determine if plaza exists if the ID is 0 (the undefined plaza)
@@ -48,11 +57,33 @@ export default {
     async created() {
         this.loading = true
         await this.getCurrentPlaza(this.$route.params.plazas)
+
+        let page = Number(this.$route.query.page)
+
+        if (isNaN(page)) {
+            page = 1
+        }
+
         await this.getAllPlazaPosts({
+            page,
             plazaSlug: this.$route.params.plazas,
-            page: this.$route.params.plazas,
         })
         this.loading = false
+
+        this.$nuxt.$on('pagination-next', () => {
+            page += 1
+            this.$router.replace({
+                path: this.$route.path,
+                query: { ...this.$route.query, page: this.page },
+            })
+        })
+        this.$nuxt.$on('pagination-previous', () => {
+            page -= 1
+            this.$router.replace({
+                path: this.$route.path,
+                query: { ...this.$route.query, page: this.page },
+            })
+        })
     },
     beforeDestroy() {
         this.$nuxt.$off('pagination-next')

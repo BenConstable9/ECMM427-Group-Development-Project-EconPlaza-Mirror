@@ -1,7 +1,7 @@
 import { PLAZAS } from '~/api-routes'
 
 export default {
-    async getAllPlazaPosts({ state, commit }, { plazaSlug, page }) {
+    async getAllPlazaPosts({ state, commit }, { page, plazaSlug }) {
         // If already loaded. Return
         if (
             state.posts !== undefined &&
@@ -10,6 +10,8 @@ export default {
         ) {
             return
         }
+        console.log(plazaSlug)
+        console.log(page)
         // Make API Call to get plazas
         await this.$axios
             .get(PLAZAS.POSTS(plazaSlug), {
