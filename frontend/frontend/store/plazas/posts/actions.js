@@ -1,16 +1,30 @@
 import { PLAZAS } from '~/api-routes'
 
 export default {
-    async getAllPlazaPosts({ state, commit }, plazaSlug) {
+    async getAllPlazaPosts({ state, commit }, { plazaSlug, page }) {
         // If already loaded. Return
-        if (state.posts !== undefined && state.currentPlaza === plazaSlug) {
+        if (
+            state.posts !== undefined &&
+            state.currentPlaza === plazaSlug &&
+            state.pagination.page === page
+        ) {
             return
         }
         // Make API Call to get plazas
         await this.$axios
-            .get(PLAZAS.POSTS(plazaSlug))
+            .get(PLAZAS.POSTS(plazaSlug), {
+                params: {
+                    page,
+                },
+            })
             .then(({ data }) => {
+                console.log(data)
                 // Mutate value
+                commit('setPagination', {
+                    next: data.next,
+                    previous: data.previous,
+                })
+                commit('setPage', page)
                 commit('setPosts', data.results)
                 commit('setCurrentPlaza', plazaSlug)
             })

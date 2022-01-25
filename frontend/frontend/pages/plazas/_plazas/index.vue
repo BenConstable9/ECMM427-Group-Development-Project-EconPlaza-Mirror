@@ -44,11 +44,19 @@ export default {
             return this.plaza && this.plaza.id === 0
         },
     },
+    watchQuery: ['page'],
     async created() {
         this.loading = true
         await this.getCurrentPlaza(this.$route.params.plazas)
-        await this.getAllPlazaPosts(this.$route.params.plazas)
+        await this.getAllPlazaPosts({
+            plazaSlug: this.$route.params.plazas,
+            page: this.$route.params.plazas,
+        })
         this.loading = false
+    },
+    beforeDestroy() {
+        this.$nuxt.$off('pagination-next')
+        this.$nuxt.$off('pagination-previous')
     },
     methods: {
         ...mapActions({
