@@ -18,4 +18,7 @@ export default {
         state.pagination.next = next
         state.pagination.previous = previous
     },
+    setPaginationSize(state, size) {
+        state.pagination.size = size
+    },
 }

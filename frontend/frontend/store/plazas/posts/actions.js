@@ -10,8 +10,6 @@ export default {
         ) {
             return
         }
-        console.log(plazaSlug)
-        console.log(page)
         // Make API Call to get plazas
         await this.$axios
             .get(PLAZAS.POSTS(plazaSlug), {

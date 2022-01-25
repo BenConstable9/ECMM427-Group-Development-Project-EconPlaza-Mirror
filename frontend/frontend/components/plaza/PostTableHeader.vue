@@ -13,6 +13,7 @@
                 </h2>
             </div>
         </div>
+        <pagination-size :size="pagination.size" />
         <div v-if="authenticatedUser.verified" id="write">
             <NuxtLink :to="`/plazas/${plaza.slug}/create`">
                 <div class="rounded-full bg-gray-50 p-3">
@@ -53,8 +54,12 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
+import PaginationSize from '~/components/helpers/PaginationSize'
 
 export default {
+    components: {
+        PaginationSize,
+    },
     data() {
         return {
             loading: false,
@@ -64,6 +69,7 @@ export default {
         ...mapGetters({
             plaza: 'plazas/currentPlaza',
             authenticatedUser: 'authenticatedUser',
+            pagination: 'plazas/posts/pagination',
         }),
     },
     async created() {

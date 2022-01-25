@@ -84,15 +84,21 @@ export default {
                 query: { ...this.$route.query, page: this.page },
             })
         })
+        this.$nuxt.$on('pagination-size', (newSize) => {
+            // Store this size
+            this.setPaginationSize(newSize)
+        })
     },
     beforeDestroy() {
         this.$nuxt.$off('pagination-next')
         this.$nuxt.$off('pagination-previous')
+        this.$nuxt.$off('pagination-size')
     },
     methods: {
         ...mapActions({
             getCurrentPlaza: 'plazas/getCurrentPlaza',
             getAllPlazaPosts: 'plazas/posts/getAllPlazaPosts',
+            setPaginationSize: 'plazas/posts/setPaginationSize',
         }),
     },
 }
