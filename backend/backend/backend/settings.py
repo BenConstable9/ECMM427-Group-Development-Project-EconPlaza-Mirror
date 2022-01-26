@@ -76,8 +76,8 @@ INSTALLED_APPS = [
     "corsheaders",
 ]
 
-TEST_RUNNER = 'xmlrunner.extra.djangotestrunner.XMLTestRunner'
-TEST_OUTPUT_DIR = environ.get("TEST_OUTPUT_DIR", './test-results')
+TEST_RUNNER = "xmlrunner.extra.djangotestrunner.XMLTestRunner"
+TEST_OUTPUT_DIR = environ.get("TEST_OUTPUT_DIR", "./test-results")
 TEST_OUTPUT_FILE_NAME = environ.get("TEST_OUTPUT_FILE_NAME", "results.xml")
 
 MIDDLEWARE = [
