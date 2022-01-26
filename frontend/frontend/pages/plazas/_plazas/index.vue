@@ -8,6 +8,7 @@
                         <post-table />
                         <pagination
                             :next="pagination.next"
+                            :page="pagination.page"
                             :previous="pagination.previous"
                         />
                     </div>
@@ -21,7 +22,6 @@
                 </div>
             </div>
         </div>
-        {{ plaza }}
     </main>
 </template>
 
@@ -51,6 +51,7 @@ export default {
 
         return {
             loaded: true,
+            page,
             plaza: store.getters['plazas/currentPlaza'],
             pagination: store.getters['plazas/posts/pagination'],
         }
@@ -90,7 +91,17 @@ export default {
         this.$nuxt.$on('pagination-size', (newSize) => {
             // Store this size
             this.setDesiredPaginationSize(Number(newSize))
-            this.$nuxt.refresh()
+
+            // If we are already on page 1 then refresh otherwise change page
+            if (this.page === 1) {
+                this.$nuxt.refresh()
+            } else {
+                this.page = 1
+                this.$router.replace({
+                    path: this.$route.path,
+                    query: { ...this.$route.query, page: this.page },
+                })
+            }
         })
     },
     methods: {

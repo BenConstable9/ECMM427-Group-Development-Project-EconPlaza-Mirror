@@ -29,7 +29,11 @@
                             <user-box :user="user" />
                         </NuxtLink>
                     </div>
-                    <pagination :next="users.next" :previous="users.previous" />
+                    <pagination
+                        :next="users.next"
+                        :page="page"
+                        :previous="users.previous"
+                    />
                 </div>
             </div>
         </div>
