@@ -5,7 +5,6 @@
             class="rounded-full bg-gray-50 p-3"
             @change="$nuxt.$emit('pagination-size', $event.target.value)"
         >
-            <option value="1">1</option>
             <option value="10">10</option>
             <option value="20">20</option>
             <option value="50">50</option>
