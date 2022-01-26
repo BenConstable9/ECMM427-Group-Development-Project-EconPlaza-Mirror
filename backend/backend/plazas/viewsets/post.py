@@ -59,7 +59,9 @@ class PostViewSet(
     @action(methods=["POST"], detail=True, url_path="view")
     def register_view(self, request, **kwargs):
         # Hash user IP with post id
-        ip = request.META.get('HTTP_X_FORWARDED_FOR', request.META.get('REMOTE_ADDR')).split(',')[0]
+        ip = request.META.get(
+            "HTTP_X_FORWARDED_FOR", request.META.get("REMOTE_ADDR")
+        ).split(",")[0]
         hash = md5(f"{ip}${kwargs['id']}".encode()).hexdigest()
 
         print(hash)
