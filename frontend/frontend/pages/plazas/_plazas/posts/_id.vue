@@ -24,6 +24,7 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
+import { PLAZAS } from '~/api-routes'
 
 export default {
     data() {
@@ -45,6 +46,11 @@ export default {
             // Determine if post exists if the ID is 0 (the undefined post)
             return this.post && this.post.id === 0
         },
+    },
+    mounted() {
+        this.$axios.post(
+            PLAZAS.VIEWPOST(this.$route.params.plazas, this.$route.params.id)
+        )
     },
     async created() {
         this.loading = true
