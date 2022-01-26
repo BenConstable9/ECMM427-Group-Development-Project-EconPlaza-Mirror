@@ -13,7 +13,7 @@
                 </h2>
             </div>
         </div>
-        <pagination-size :size="pagination.size" />
+        <pagination-size :size="pagination.returnedSize" />
         <div v-if="authenticatedUser.verified" id="write">
             <NuxtLink :to="`/plazas/${plaza.slug}/create`">
                 <div class="rounded-full bg-gray-50 p-3">

@@ -15,7 +15,7 @@ export default {
             })
             .catch(() => {})
     },
-    async getCurrentPlaza({ getters, commit }, plazaSlug) {
+    async getCurrentPlaza({ getters, commit }, { plazaSlug }) {
         // Check if already current
         if (getters.currentPlaza.slug === plazaSlug) {
             return

@@ -2,7 +2,8 @@ export default {
     posts: undefined,
     pagination: {
         page: undefined,
-        size: 10,
+        desiredSize: 10,
+        returnedSize: undefined,
         next: undefined,
         previous: undefined,
     },

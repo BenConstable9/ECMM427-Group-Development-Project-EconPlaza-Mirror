@@ -27,10 +27,7 @@ import { mapActions, mapGetters } from 'vuex'
 
 export default {
     data() {
-        return {
-            loading: false,
-            page: undefined,
-        }
+        return { page: undefined, loading: true }
     },
     computed: {
         ...mapGetters({ posts: 'plazas/posts/posts' }),

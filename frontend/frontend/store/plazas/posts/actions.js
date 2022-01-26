@@ -6,7 +6,8 @@ export default {
         if (
             state.posts !== undefined &&
             state.currentPlaza === plazaSlug &&
-            state.pagination.page === page
+            state.pagination.page === page &&
+            state.pagination.returnedSize === state.pagination.desiredSize
         ) {
             return
         }
@@ -15,14 +16,15 @@ export default {
             .get(PLAZAS.POSTS(plazaSlug), {
                 params: {
                     page,
+                    size: state.pagination.desiredSize,
                 },
             })
             .then(({ data }) => {
-                console.log(data)
                 // Mutate value
                 commit('setPagination', {
                     next: data.next,
                     previous: data.previous,
+                    returnedSize: state.pagination.desiredSize,
                 })
                 commit('setPage', page)
                 commit('setPosts', data.results)
