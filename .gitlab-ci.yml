@@ -45,12 +45,14 @@ test-frontend-docker-image:
   script:
     - docker login -u $DOCKER_USER -p $DOCKER_PASSWORD $DOCKER_REPO
     - docker run --cidfile cid $DOCKER_REPO/econplaza/frontend:$CI_PIPELINE_ID /bin/sh /build/run-tests.sh
-    - docker cp $(cat cid):/test-results/results.xml results.xml
+    - docker cp $(cat cid):/test-results .
     - docker rm $(cat cid)
   artifacts:
     when: always
     reports:
-      junit: results.xml
+      junit: 
+        - results.xml
+        - lint.xml
 
 deploy-api-staging:
   image: alpine/curl:3.14
