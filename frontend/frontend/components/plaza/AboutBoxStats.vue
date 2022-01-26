@@ -31,7 +31,7 @@ export default {
     },
     async created() {
         this.loading = true
-        await this.getCurrentPlaza(this.$route.params.plazas)
+        await this.getCurrentPlaza({ plazaSlug: this.$route.params.plazas })
         this.loading = false
     },
     methods: {

@@ -16,7 +16,7 @@ export default {
             .get(PLAZAS.POSTS(plazaSlug), {
                 params: {
                     page,
-                    size: state.pagination.desiredSize,
+                    page_size: state.pagination.desiredSize,
                 },
             })
             .then(({ data }) => {

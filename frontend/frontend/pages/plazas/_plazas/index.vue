@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapMutations } from 'vuex'
 import Pagination from '~/components/helpers/pagination'
 
 export default {
@@ -89,12 +89,12 @@ export default {
         })
         this.$nuxt.$on('pagination-size', (newSize) => {
             // Store this size
-            this.setDesiredPaginationSize(newSize)
+            this.setDesiredPaginationSize(Number(newSize))
             this.$nuxt.refresh()
         })
     },
     methods: {
-        ...mapActions({
+        ...mapMutations({
             setDesiredPaginationSize: 'plazas/posts/setDesiredPaginationSize',
         }),
     },
