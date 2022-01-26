@@ -64,14 +64,10 @@ class PostViewSet(
         ).split(",")[0]
         hash = md5(f"{ip}${kwargs['id']}".encode()).hexdigest()
 
-        print(hash)
-
         # Check if hash exists in cache
         if cache.get(hash):
-            print("hash exists")
             # If hash exists, user has already contributed to the view counter
             return Response()
-        print("hash does not exist")
         # If user has not viewed the post already, create cache entry and increment view count
         cache.set(hash, True, 60 * 15)  # Cache will expire in 15 mins
         post = get_object_or_404(Post, id=kwargs["id"])
