@@ -29,6 +29,7 @@ import { mapActions, mapGetters } from 'vuex'
 export default {
     data() {
         return {
+            page: undefined,
             loading: false,
         }
     },
@@ -40,7 +41,15 @@ export default {
     },
     async created() {
         this.loading = true
+
+        this.page = Number(this.$route.query.page)
+
+        if (isNaN(this.page)) {
+            this.page = 1
+        }
+
         await this.getCurrentPostComments({
+            page: this.page,
             plazaSlug: this.$route.params.plazas,
             postID: this.$route.params.id,
         })

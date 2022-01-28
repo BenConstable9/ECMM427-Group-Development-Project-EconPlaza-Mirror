@@ -8,6 +8,7 @@
                 <h1 class="text-gray-50 text-xl font-semibold">Comments</h1>
             </div>
         </div>
+        <pagination-size :size="pagination.preferredSize" />
         <div id="views">
             <div class="rounded-full bg-gray-50 p-3">
                 <svg
@@ -27,23 +28,21 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
+import PaginationSize from '~/components/helpers/PaginationSize'
 
 export default {
+    components: {
+        PaginationSize,
+    },
     data() {
         return {
             loading: false,
         }
     },
     computed: {
-        ...mapGetters({ comments: 'plazas/posts/comments/comments' }),
-    },
-    async created() {
-        this.loading = true
-        await this.getCurrentPostComments({
-            plazaSlug: this.$route.params.plazas,
-            postID: this.$route.params.id,
-        })
-        this.loading = false
+        ...mapGetters({
+            pagination: 'plazas/posts/comments/pagination',
+        }),
     },
     methods: {
         ...mapActions({
