@@ -2,6 +2,9 @@ export default {
     allPlazas(state) {
         return state.allPlazas
     },
+    pagination(state) {
+        return state.pagination
+    },
     currentPlaza(state) {
         return (
             state.currentPlaza ?? {
