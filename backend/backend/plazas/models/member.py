@@ -25,10 +25,10 @@ class Member(models.Model):
     ]
 
     member_type = models.CharField(
-        "Report's Type", max_length=2, choices=MEMBER_TYPE_CHOICES, default="MB"
+        "Member Type", max_length=2, choices=MEMBER_TYPE_CHOICES, default="MB"
     )
 
     created_at = models.DateTimeField("Created at timestamp", auto_now_add=True)
 
     def __str__(self):
-        return f"{self.report}"
+        return f"{self.user}"
