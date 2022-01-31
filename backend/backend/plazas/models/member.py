@@ -9,13 +9,13 @@ class Member(models.Model):
     user = models.ForeignKey(
         "accounts.User",
         on_delete=models.CASCADE,
-        verbose_name="Plaza Membership's Profile",
+        verbose_name="Plaza Membership's User",
     )
 
     plaza = models.ForeignKey(
         Plaza,
         on_delete=models.CASCADE,
-        verbose_name="Plaza Memberhip's Plaza",
+        verbose_name="Plaza Membership's Plaza",
     )
 
     MEMBER_TYPE_CHOICES = [

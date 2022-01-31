@@ -37,7 +37,9 @@ class PlazaSerializer(serializers.HyperlinkedModelSerializer):
         try:
             return {
                 "member": True,
-                "type": Member.objects.get(plaza=instance, user=request.user),
+                "type": Member.objects.get(
+                    plaza=instance, user=request.user
+                ).member_type,
             }
         except ObjectDoesNotExist:
             return {
