@@ -10,11 +10,10 @@ from ..models import Plaza, Member
 
 class MemberViewSet(
     mixins.CreateModelMixin,
-    mixins.ListModelMixin,
     viewsets.GenericViewSet,
 ):
     """
-    API endpoint that allows users to check the membership of a Plaza or join.
+    API endpoint that allows users to join a Plaza.
     """
 
     def get_queryset(self):
@@ -25,20 +24,8 @@ class MemberViewSet(
 
     permission_classes = (ActionBasedPermission,)
     action_permissions = {
-        IsAuthenticated: ["create", "list"],
+        IsAuthenticated: ["create"],
     }
-
-    pagination_class = StandardResultsSetPagination
-
-    lookup_field = "user"
-
-    filter_backends = [filters.OrderingFilter]
-
-    ordering_fields = [
-        "id",
-    ]
-
-    ordering = ["id"]
 
     def perform_create(self, serializer):
         plaza = Plaza.objects.get(slug=self.kwargs["plazas_slug"])

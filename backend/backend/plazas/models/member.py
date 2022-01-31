@@ -30,5 +30,12 @@ class Member(models.Model):
 
     created_at = models.DateTimeField("Created at timestamp", auto_now_add=True)
 
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=["user", "plaza"], name="no_duplicate_memberships"
+            ),
+        ]
+
     def __str__(self):
         return f"{self.user}"
