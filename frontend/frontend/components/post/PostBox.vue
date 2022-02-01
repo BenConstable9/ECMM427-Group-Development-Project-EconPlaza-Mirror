@@ -1,6 +1,8 @@
 <template>
     <div id="post" class="flex">
-        <ul class="flex flex-col w-full border rounded-lg overflow-hidden">
+        <ul
+            class="flex flex-col w-full border rounded-lg overflow-hidden mb-10"
+        >
             <post-box-header />
             <post-box-body />
         </ul>

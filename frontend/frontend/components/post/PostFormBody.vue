@@ -69,29 +69,11 @@
                         />
                     </div>
                     <div>
-                        <textarea
+                        <Editor
                             v-model="post.content"
                             :disabled="post.isDisabled"
-                            class="
-                                w-full
-                                p-4
-                                text-m
-                                bg-white
-                                focus:outline-none
-                                border border-gray-200
-                                rounded-r-2xl rounded-b-2xl
-                                text-blue-600
-                                shadow
-                                disabled:bg-gray-100
-                                disabled:text-gray-500
-                                disabled:border-gray-400
-                            "
-                            type="text"
-                            placeholder="Post Content"
-                            rows="5"
-                            maxlength="2800"
-                        >
-                        </textarea>
+                            placeholder="Type your post here..."
+                        />
                     </div>
                     <div
                         v-if="
@@ -109,7 +91,7 @@
                                 py-4
                                 bg-blue-600
                                 hover:bg-blue-800
-                                rounded-r-2xl rounded-b-2xl
+                                rounded-lg
                                 text-m
                                 font-bold
                                 border border-blue-600
@@ -135,6 +117,7 @@
 import { mapGetters, mapActions, mapMutations } from 'vuex'
 import { PLAZAS } from '../../api-routes'
 import Error from '~/components/messages/Error'
+
 export default {
     components: {
         Error,
