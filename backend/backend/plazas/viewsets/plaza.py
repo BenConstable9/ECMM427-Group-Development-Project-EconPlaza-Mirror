@@ -1,9 +1,9 @@
-from rest_framework import viewsets, filters
-from rest_framework.response import Response
-from rest_framework.decorators import action
+from rest_framework import viewsets, filters, permissions
 
-from ..serializers import PlazaSerializer, PostSerializer
-from ..models import Plaza, Post
+from utils import StandardResultsSetPagination
+
+from ..serializers import PlazaSerializer
+from ..models import Plaza
 
 
 class PlazaViewSet(viewsets.ReadOnlyModelViewSet):
@@ -13,7 +13,11 @@ class PlazaViewSet(viewsets.ReadOnlyModelViewSet):
 
     queryset = Plaza.objects.all()
     serializer_class = PlazaSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
     lookup_field = "slug"
+
+    pagination_class = StandardResultsSetPagination
 
     filter_backends = [filters.SearchFilter]
     search_fields = ["name", "description"]
