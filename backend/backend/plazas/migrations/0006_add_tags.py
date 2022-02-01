@@ -7,35 +7,83 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('contenttypes', '0002_remove_content_type_name'),
-        ('plazas', '0005_add_unique_constraint'),
+        ("contenttypes", "0002_remove_content_type_name"),
+        ("plazas", "0005_add_unique_constraint"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='AvailableTag',
+            name="AvailableTag",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.SlugField(max_length=32, verbose_name="Tag's Slug")),
-                ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='Created at timestamp')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.SlugField(max_length=32, verbose_name="Tag's Slug")),
+                (
+                    "created_at",
+                    models.DateTimeField(
+                        auto_now_add=True, verbose_name="Created at timestamp"
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='Tag',
+            name="Tag",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('object_id', models.PositiveIntegerField()),
-                ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='Created at timestamp')),
-                ('content_type', models.ForeignKey(limit_choices_to=models.Q(models.Q(('app_label', 'plazas'), ('model', 'plaza')), models.Q(('app_label', 'plazas'), ('model', 'post')), _connector='OR'), on_delete=django.db.models.deletion.CASCADE, to='contenttypes.contenttype')),
-                ('tag', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='plazas.availabletag', verbose_name='Tag')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("object_id", models.PositiveIntegerField()),
+                (
+                    "created_at",
+                    models.DateTimeField(
+                        auto_now_add=True, verbose_name="Created at timestamp"
+                    ),
+                ),
+                (
+                    "content_type",
+                    models.ForeignKey(
+                        limit_choices_to=models.Q(
+                            models.Q(("app_label", "plazas"), ("model", "plaza")),
+                            models.Q(("app_label", "plazas"), ("model", "post")),
+                            _connector="OR",
+                        ),
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="contenttypes.contenttype",
+                    ),
+                ),
+                (
+                    "tag",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="plazas.availabletag",
+                        verbose_name="Tag",
+                    ),
+                ),
             ],
         ),
         migrations.AddConstraint(
-            model_name='availabletag',
-            constraint=models.UniqueConstraint(fields=('name',), name='no_duplicate_tag'),
+            model_name="availabletag",
+            constraint=models.UniqueConstraint(
+                fields=("name",), name="no_duplicate_tag"
+            ),
         ),
         migrations.AddConstraint(
-            model_name='tag',
-            constraint=models.UniqueConstraint(fields=('tag', 'content_type', 'object_id'), name='no_duplicate_tags'),
+            model_name="tag",
+            constraint=models.UniqueConstraint(
+                fields=("tag", "content_type", "object_id"), name="no_duplicate_tags"
+            ),
         ),
     ]
