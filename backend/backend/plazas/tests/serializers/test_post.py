@@ -71,6 +71,7 @@ class PostSerializerTest(APITestCase):
                     "views",
                     "created_at",
                     "last_activity",
+                    "tags",
                 ]
             ),
         )
