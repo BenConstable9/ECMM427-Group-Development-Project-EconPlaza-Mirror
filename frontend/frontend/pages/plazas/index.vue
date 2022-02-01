@@ -45,7 +45,7 @@ export default {
     components: {
         Pagination,
     },
-    async asyncData({ query, params, store }) {
+    async asyncData({ query, store }) {
         let page = Number(query.page)
 
         if (isNaN(page)) {
@@ -79,17 +79,17 @@ export default {
     watchQuery: ['page', 'search'],
     created() {
         this.$nuxt.$on('pagination-next', () => {
-            this.page += 1
+            this.pagination.page += 1
             this.$router.replace({
                 path: this.$route.path,
-                query: { ...this.$route.query, page: this.page },
+                query: { ...this.$route.query, page: this.pagination.page },
             })
         })
         this.$nuxt.$on('pagination-previous', () => {
-            this.page -= 1
+            this.pagination.page -= 1
             this.$router.replace({
                 path: this.$route.path,
-                query: { ...this.$route.query, page: this.page },
+                query: { ...this.$route.query, page: this.pagination.page },
             })
         })
     },
