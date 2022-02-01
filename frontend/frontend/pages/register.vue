@@ -21,6 +21,7 @@
                         </h2>
                     </div>
                     <Error v-if="error" :message="error" />
+                    <Success v-if="success" :message="success" />
 
                     <form
                         method="post"
@@ -149,11 +150,14 @@
 </template>
 
 <script>
-import Error from '~/components/helpers/Error'
+import { USERS } from '../api-routes'
+import Error from '~/components/messages/Error'
+import Success from '~/components/messages/Success'
 
 export default {
     components: {
         Error,
+        Success,
     },
 
     data() {
@@ -162,24 +166,36 @@ export default {
             email: '',
             password: '',
             error: null,
+            success: null,
             over18: null,
         }
     },
     auth: 'guest',
     methods: {
-        register() {
+        async register() {
             if (this.over18 === true) {
-                try {
-                    this.$axios.post('v1/accounts/register', {
+                await this.$axios
+                    .post(USERS.REGISTER, {
                         username: this.username,
                         email: this.email,
                         password: this.password,
                     })
-
-                    this.$router.push('/')
-                } catch (e) {
-                    this.error = e.response.data.message
-                }
+                    .then(() => {
+                        this.$router.push('/')
+                        this.success = 'Joined Plaza!'
+                    })
+                    .catch((response) => {
+                        if (
+                            typeof response === 'string' ||
+                            response instanceof String
+                        ) {
+                            this.error = response
+                        } else if ('detail' in response) {
+                            this.error = response.detail
+                        } else {
+                            this.error = 'Unable to process request.'
+                        }
+                    })
             }
         },
     },
