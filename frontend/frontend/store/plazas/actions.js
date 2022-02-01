@@ -1,12 +1,13 @@
 import { PLAZAS } from '../../api-routes'
 
 export default {
-    async getAllPlazas({ state, commit }, { page }) {
+    async getAllPlazas({ state, commit }, { page, search }) {
         // If already loaded. Return
         if (
             state.allPlazas !== undefined &&
             state.pagination.page === page &&
-            state.pagination.returnedSize === state.pagination.desiredSize
+            state.pagination.returnedSize === state.pagination.desiredSize &&
+            state.pagination.search === search
         ) {
             return
         }
@@ -17,6 +18,7 @@ export default {
                 params: {
                     page,
                     page_size: state.pagination.desiredSize,
+                    search,
                 },
             })
             .then(({ data }) => {
@@ -26,6 +28,7 @@ export default {
                     next: data.next,
                     previous: data.previous,
                     returnedSize: state.pagination.desiredSize,
+                    search,
                 })
                 commit('setPage', page)
             })

@@ -7,5 +7,6 @@ export default {
         returnedSize: undefined,
         next: undefined,
         previous: undefined,
+        search: '',
     },
 }

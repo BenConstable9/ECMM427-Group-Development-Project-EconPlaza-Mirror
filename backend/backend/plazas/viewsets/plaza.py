@@ -1,4 +1,4 @@
-from rest_framework import viewsets
+from rest_framework import viewsets, filters
 from rest_framework.response import Response
 from rest_framework.decorators import action
 
@@ -14,3 +14,6 @@ class PlazaViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Plaza.objects.all()
     serializer_class = PlazaSerializer
     lookup_field = "slug"
+
+    filter_backends = [filters.SearchFilter]
+    search_fields = ["name", "description"]
