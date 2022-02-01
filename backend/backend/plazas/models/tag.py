@@ -23,9 +23,9 @@ class Tag(models.Model):
     class Meta:
         constraints = [
             models.UniqueConstraint(
-                fields=["tag", "content_type", "object_id"], name="no_duplicate_tags"
+                fields=["name", "content_type", "object_id"], name="no_duplicate_tags"
             ),
         ]
 
     def __str__(self):
-        return f"{self.tag.name}"
+        return f"{self.name}"
