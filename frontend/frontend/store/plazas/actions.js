@@ -23,7 +23,7 @@ export default {
             })
             .then(({ data }) => {
                 // Mutate value
-                commit('setPlazaList', data)
+                commit('setPlazaList', data.results)
                 commit('setPagination', {
                     next: data.next,
                     previous: data.previous,
