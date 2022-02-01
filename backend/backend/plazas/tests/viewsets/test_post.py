@@ -11,11 +11,10 @@ from django.contrib.auth import get_user_model
 
 from ...models import Plaza, Post
 from accounts.models import Profile
-from ...serializers import PostSerializer, PlazaSerializer
-from ...viewsets import PostViewSet
+from ...serializers import PostSerializer
 
 
-class UserViewsetTest(APITestCase):
+class PostViewsetTest(APITestCase):
     def setUp(self):
         """Initialise user instance, which creates a profile instance."""
 
@@ -240,7 +239,7 @@ class UserViewsetTest(APITestCase):
             "permissions": "{}",
         }
         response = self.client.post(
-            "/v1/plazas/{}/posts/".format(self.user_1.id), payload
+            "/v1/plazas/{}/posts/".format(self.plaza.slug), payload
         )
 
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
@@ -255,3 +254,36 @@ class UserViewsetTest(APITestCase):
         )
 
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+    def test_post_view(self):
+        """Test the post view count increases"""
+
+        # Make an authenticated request to the view...
+        self.client.force_authenticate(self.user_1)
+        response = self.client.post(
+            "/v1/plazas/{}/posts/{}/view/".format(self.plaza.slug, self.post.id)
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        post = Post.objects.get(id=self.post.id)
+
+        self.assertEqual(post.views, 1)
+
+    def test_post_view_no_spam(self):
+        """Test the post view count doesn't increase multiple times for the same ip"""
+
+        # Make an authenticated request to the view...
+        self.client.force_authenticate(self.user_1)
+        response = self.client.post(
+            "/v1/plazas/{}/posts/{}/view/".format(self.plaza.slug, self.post.id)
+        )
+        response = self.client.post(
+            "/v1/plazas/{}/posts/{}/view/".format(self.plaza.slug, self.post.id)
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        post = Post.objects.get(id=self.post.id)
+
+        self.assertEqual(post.views, 1)

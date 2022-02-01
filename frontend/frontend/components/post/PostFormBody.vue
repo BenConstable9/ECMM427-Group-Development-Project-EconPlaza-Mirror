@@ -153,8 +153,8 @@ export default {
     },
     computed: {
         ...mapGetters({
-            profile: 'profiles/current',
-            profiles: 'profiles/all',
+            profile: 'profiles/currentProfile',
+            profiles: 'profiles/allProfiles',
             authenticatedUser: 'authenticatedUser',
         }),
     },
@@ -192,7 +192,7 @@ export default {
                 })
                 .then((response) => {
                     this.$router.push(
-                        `/plazas/${this.$route.params.plazas}/posts/${response.data.id}`
+                        `/plazas/${this.$route.params.plazas}/posts/${response.data.id}/`
                     )
                 })
                 .catch((response) => {

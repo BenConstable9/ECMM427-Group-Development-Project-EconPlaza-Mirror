@@ -5,6 +5,7 @@ variables:
 
 stages:
   - build
+  - test
   - staging
   - production
 
@@ -24,6 +25,32 @@ build-frontend-docker-image:
     - docker login -u $DOCKER_USER -p $DOCKER_PASSWORD $DOCKER_REPO
     - docker build -t $DOCKER_REPO/econplaza/frontend:$CI_PIPELINE_ID .
     - docker push $DOCKER_REPO/econplaza/frontend:$CI_PIPELINE_ID
+
+test-backend-docker-image:
+  image: docker:19.03.12
+  stage: test
+  script:
+    - docker login -u $DOCKER_USER -p $DOCKER_PASSWORD $DOCKER_REPO
+    - docker run --cidfile cid $DOCKER_REPO/econplaza/app:$CI_PIPELINE_ID /bin/sh run-tests.sh
+    - docker cp $(cat cid):/test-results/results.xml results.xml
+    - docker rm $(cat cid)
+  artifacts:
+    when: always
+    reports:
+      junit: results.xml
+
+test-frontend-docker-image:
+  image: docker:19.03.12
+  stage: test
+  script:
+    - docker login -u $DOCKER_USER -p $DOCKER_PASSWORD $DOCKER_REPO
+    - docker run --cidfile cid $DOCKER_REPO/econplaza/frontend:$CI_PIPELINE_ID /bin/sh /build/run-tests.sh
+    - docker cp $(cat cid):/test-results ./test-results
+    - docker rm $(cat cid)
+  artifacts:
+    when: always
+    reports:
+      junit: test-results/*.xml
 
 deploy-api-staging:
   image: alpine/curl:3.14

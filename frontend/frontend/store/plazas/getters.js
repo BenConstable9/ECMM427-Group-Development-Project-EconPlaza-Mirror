@@ -1,8 +1,8 @@
 export default {
-    all(state) {
-        return state.all
+    allPlazas(state) {
+        return state.allPlazas
     },
-    current(state) {
+    currentPlaza(state) {
         return (
             state.currentPlaza ?? {
                 name: 'Undefined',

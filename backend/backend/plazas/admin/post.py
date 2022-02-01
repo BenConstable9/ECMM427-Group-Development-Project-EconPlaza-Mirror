@@ -28,6 +28,8 @@ class PostAdmin(admin.ModelAdmin):
         "plaza",
         "permissions",
         "reactions",
+        "hidden",
+        "deleted",
     ]
     form = PostAdminForm
 

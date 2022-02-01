@@ -1,6 +1,7 @@
 # Run Migrations
 
 python manage.py migrate
+python manage.py createcachetable
 
 # Collect Static Files
 

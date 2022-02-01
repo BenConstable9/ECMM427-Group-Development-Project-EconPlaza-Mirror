@@ -38,4 +38,4 @@ class Comment(models.Model):
     last_computed = models.DateTimeField("Last modified timestamp", auto_now_add=True)
 
     def __str__(self):
-        return f"{self.report}"
+        return f"{self.content}"

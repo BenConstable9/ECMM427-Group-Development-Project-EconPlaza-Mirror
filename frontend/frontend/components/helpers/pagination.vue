@@ -3,13 +3,12 @@
         <button
             :disabled="!previous"
             class="
-                px-3
-                py-1
+                rounded-full
+                bg-gray-50
                 mx-2
-                my-1
+                p-3
                 bg-blue-600
                 hover:bg-blue-800
-                rounded-2xl
                 text-sm
                 border border-blue-800
                 text-white
@@ -26,16 +25,36 @@
         >
             <span class="font-bold pr-1">&larr;</span> Previous
         </button>
+        <div
+            class="
+                rounded-full
+                bg-gray-50
+                mx-2
+                p-3
+                bg-blue-600
+                hover:bg-blue-800
+                text-sm
+                border border-blue-800
+                text-white
+                shadow
+                transition
+                duration-200
+                flex
+                items-center
+            "
+        >
+            Page:
+            {{ page }}
+        </div>
         <button
             :disabled="!next"
             class="
-                px-3
-                py-1
+                rounded-full
+                bg-gray-50
                 mx-2
-                my-1
+                p-3
                 bg-blue-600
                 hover:bg-blue-800
-                rounded-2xl
                 text-sm
                 border border-blue-800
                 text-white
@@ -63,6 +82,10 @@ export default {
         next: {
             type: String,
             default: null,
+        },
+        page: {
+            type: Number,
+            default: 1,
         },
         previous: {
             type: String,

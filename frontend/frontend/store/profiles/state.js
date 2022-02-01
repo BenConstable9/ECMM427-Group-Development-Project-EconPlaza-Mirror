@@ -1,4 +1,4 @@
 export default {
-    all: undefined,
+    allProfiles: undefined,
     currentProfile: undefined,
 }

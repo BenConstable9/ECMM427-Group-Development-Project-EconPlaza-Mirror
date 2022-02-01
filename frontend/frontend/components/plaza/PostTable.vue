@@ -27,16 +27,24 @@ import { mapActions, mapGetters } from 'vuex'
 
 export default {
     data() {
-        return {
-            loading: false,
-        }
+        return { page: undefined, loading: true }
     },
     computed: {
         ...mapGetters({ posts: 'plazas/posts/posts' }),
     },
     async created() {
         this.loading = true
-        await this.getAllPlazaPosts(this.$route.params.plazas)
+
+        this.page = Number(this.$route.query.page)
+
+        if (isNaN(this.page)) {
+            this.page = 1
+        }
+
+        await this.getAllPlazaPosts({
+            page: this.page,
+            plazaSlug: this.$route.params.plazas,
+        })
         this.loading = false
     },
     methods: {

@@ -1,4 +1,4 @@
 export default {
-    all: undefined,
+    allPlazas: undefined,
     currentPlaza: undefined,
 }

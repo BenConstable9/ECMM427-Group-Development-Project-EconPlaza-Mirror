@@ -1,6 +1,6 @@
 export default {
     setPlazaList(state, plazas) {
-        state.all = plazas
+        state.allPlazas = plazas
     },
     setCurrentPlaza(state, plaza) {
         state.currentPlaza = plaza

@@ -32,15 +32,16 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
+
 export default {
     computed: {
         ...mapGetters({
-            plaza: 'plazas/current',
+            plaza: 'plazas/currentPlaza',
             authenticatedUser: 'authenticatedUser',
         }),
     },
     async created() {
-        await this.getCurrentPlaza(this.$route.params.plazas)
+        await this.getCurrentPlaza({ plazaSlug: this.$route.params.plazas })
     },
     methods: {
         ...mapActions({

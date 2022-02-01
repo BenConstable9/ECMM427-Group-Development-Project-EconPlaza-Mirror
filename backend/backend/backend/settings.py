@@ -73,8 +73,12 @@ INSTALLED_APPS = [
     "labels.apps.LabelsConfig",
     "rest_framework",
     "rest_framework.authtoken",
-    'corsheaders',
+    "corsheaders",
 ]
+
+TEST_RUNNER = "xmlrunner.extra.djangotestrunner.XMLTestRunner"
+TEST_OUTPUT_DIR = environ.get("TEST_OUTPUT_DIR", "./test-results")
+TEST_OUTPUT_FILE_NAME = environ.get("TEST_OUTPUT_FILE_NAME", "results.xml")
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -129,6 +133,14 @@ if CLOUD:
             "PORT": environ.get("DB_PORT", "5432"),
         }
     }
+
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.db.DatabaseCache",
+        "LOCATION": "my_cache_table",
+        "TIMEOUT": 60 * 15,  # 15 Minutes
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators

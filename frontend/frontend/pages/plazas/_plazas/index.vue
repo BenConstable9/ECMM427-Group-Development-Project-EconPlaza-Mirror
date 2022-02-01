@@ -2,47 +2,15 @@
     <main>
         <div class="container mx-auto">
             <div class="bg-gray-100 px-5 mt-5 mb-5 mx-auto">
-                <div
-                    v-if="plazaNotFound && !loading"
-                    id="content"
-                    class="flex space-x-5 pt-5 pb-8"
-                >
-                    <div id="content-left" class="w-full lg:w-3/4">
-                        <h1 class="text-primary text-2xl my-10">
-                            Plaza Not Found!
-                        </h1>
-                        <p class="text-gray-500">
-                            We can't seem to find this plaza, it may have been
-                            removed or deleted
-                        </p>
-                        <p class="my-5">
-                            <NuxtLink
-                                to="/"
-                                class="
-                                    px-5
-                                    py-2
-                                    rounded-lg
-                                    bg-primary
-                                    text-gray-100
-                                    hover:bg-secondary
-                                "
-                            >
-                                Take Me Home
-                            </NuxtLink>
-                        </p>
-                    </div>
-                    <div
-                        id="content-left"
-                        class="hidden lg:flex lg:w-1/4 flex-col space-y-5"
-                    >
-                        <my-plazas />
-                        <my-bookmarks />
-                        <popular-plazas />
-                    </div>
-                </div>
+                <not-found v-if="plazaNotFound && loaded" id="content" />
                 <div v-else id="content" class="flex space-x-5 pt-5 pb-8">
                     <div id="content-left" class="w-full lg:w-3/4">
                         <post-table />
+                        <pagination
+                            :next="pagination.next"
+                            :page="pagination.page"
+                            :previous="pagination.previous"
+                        />
                     </div>
                     <div
                         id="content-left"
@@ -58,12 +26,34 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapMutations } from 'vuex'
+import Pagination from '~/components/helpers/pagination'
 
 export default {
-    data() {
+    components: {
+        Pagination,
+    },
+    async asyncData({ query, params, store }) {
+        await store.dispatch('plazas/getCurrentPlaza', {
+            plazaSlug: params.plazas,
+        })
+
+        let page = Number(query.page)
+
+        if (isNaN(page)) {
+            page = 1
+        }
+
+        await store.dispatch('plazas/posts/getAllPlazaPosts', {
+            page,
+            plazaSlug: params.plazas,
+        })
+
         return {
-            loading: false,
+            loaded: true,
+            page,
+            plaza: store.getters['plazas/currentPlaza'],
+            pagination: store.getters['plazas/posts/pagination'],
         }
     },
     head() {
@@ -72,22 +62,51 @@ export default {
         }
     },
     computed: {
-        ...mapGetters({ plaza: 'plazas/current', posts: 'plazas/posts/posts' }),
         plazaNotFound() {
             // Determine if plaza exists if the ID is 0 (the undefined plaza)
             return this.plaza && this.plaza.id === 0
         },
     },
-    async created() {
-        this.loading = true
-        await this.getCurrentPlaza(this.$route.params.plazas)
-        await this.getAllPlazaPosts(this.$route.params.plazas)
-        this.loading = false
+    watchQuery: ['page'],
+    beforeDestroy() {
+        this.$nuxt.$off('pagination-next')
+        this.$nuxt.$off('pagination-previous')
+        this.$nuxt.$off('pagination-size')
+    },
+    created() {
+        this.$nuxt.$on('pagination-next', () => {
+            this.page += 1
+            this.$router.replace({
+                path: this.$route.path,
+                query: { ...this.$route.query, page: this.page },
+            })
+        })
+        this.$nuxt.$on('pagination-previous', () => {
+            this.page -= 1
+            this.$router.replace({
+                path: this.$route.path,
+                query: { ...this.$route.query, page: this.page },
+            })
+        })
+        this.$nuxt.$on('pagination-size', (newSize) => {
+            // Store this size
+            this.setDesiredPaginationSize(Number(newSize))
+
+            // If we are already on page 1 then refresh otherwise change page
+            if (this.page === 1) {
+                this.$nuxt.refresh()
+            } else {
+                this.page = 1
+                this.$router.replace({
+                    path: this.$route.path,
+                    query: { ...this.$route.query, page: this.page },
+                })
+            }
+        })
     },
     methods: {
-        ...mapActions({
-            getCurrentPlaza: 'plazas/getCurrentPlaza',
-            getAllPlazaPosts: 'plazas/posts/getAllPlazaPosts',
+        ...mapMutations({
+            setDesiredPaginationSize: 'plazas/posts/setDesiredPaginationSize',
         }),
     },
 }
