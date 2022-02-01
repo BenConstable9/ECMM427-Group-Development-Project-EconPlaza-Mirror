@@ -86,7 +86,9 @@ export default {
             // Take the search and then direct to correct page
             if (this.search.term.length > 0) {
                 const url = `/${this.search.resource}/?search=${this.search.term}`
-
+                this.$router.push(url)
+            } else {
+                const url = `/${this.search.resource}/`
                 this.$router.push(url)
             }
         },
