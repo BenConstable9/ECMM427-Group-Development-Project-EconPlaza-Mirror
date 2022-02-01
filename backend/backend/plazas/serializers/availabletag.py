@@ -6,6 +6,7 @@ class AvailableTagSerializer(serializers.ModelSerializer):
     class Meta:
         model = AvailableTag
         fields = [
+            "id",
             "name",
             "created_at",
         ]
