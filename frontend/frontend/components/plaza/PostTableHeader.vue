@@ -16,6 +16,11 @@
                     </h2>
                 </div>
             </div>
+            <Tag
+                v-for="tagged in plaza.tags"
+                :key="tagged.id"
+                :slug="tagged.tag.name"
+            />
             <pagination-size :size="pagination.preferredSize" />
             <div v-if="plaza.membership.member" id="write">
                 <NuxtLink :to="`/plazas/${plaza.slug}/create`">
@@ -80,6 +85,7 @@
 import { mapGetters, mapActions, mapMutations } from 'vuex'
 import Error from '~/components/messages/Error'
 import Success from '~/components/messages/Success'
+import Tag from '~/components/labels/Tag'
 import PaginationSize from '~/components/helpers/PaginationSize'
 import { PLAZAS } from '~/api-routes'
 
@@ -87,6 +93,7 @@ export default {
     components: {
         Error,
         Success,
+        Tag,
         PaginationSize,
     },
     data() {

@@ -20,6 +20,7 @@ export default {
                     member: false,
                     type: null,
                 },
+                tags: {},
             }
         )
     },

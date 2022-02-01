@@ -16,6 +16,7 @@ export default {
                 profile: {
                     display_name: 'Undefined',
                 },
+                tags: {},
             }
         )
     },
