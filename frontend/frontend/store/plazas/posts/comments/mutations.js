@@ -5,4 +5,21 @@ export default {
     addComment(state, comment) {
         state.comments.unshift(comment)
     },
+    setPage(state, page) {
+        state.pagination.page = page
+    },
+    setPagination(state, { next, previous, returnedSize }) {
+        state.pagination.next = next
+        state.pagination.previous = previous
+        state.pagination.returnedSize = returnedSize
+    },
+    setDesiredPaginationSize(state, size) {
+        state.pagination.desiredSize = size
+    },
+    setCurrentPlaza(state, plaza) {
+        state.currentPlaza = plaza
+    },
+    setCurrentPost(state, post) {
+        state.currentPost = post
+    },
 }

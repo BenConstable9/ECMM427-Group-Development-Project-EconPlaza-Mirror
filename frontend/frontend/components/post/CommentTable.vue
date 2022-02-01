@@ -2,7 +2,7 @@
     <div id="comments" class="flex">
         <ul class="flex flex-col w-full border rounded-lg overflow-hidden">
             <comment-table-header />
-            <comment-table-form v-if="authenticatedUser.verified" />
+            <comment-table-form v-if="plaza.membership.member" />
             <div v-if="loading">
                 <comment-table-row
                     v-for="i in 4"
@@ -29,18 +29,27 @@ import { mapActions, mapGetters } from 'vuex'
 export default {
     data() {
         return {
+            page: undefined,
             loading: false,
         }
     },
     computed: {
         ...mapGetters({
             comments: 'plazas/posts/comments/comments',
-            authenticatedUser: 'authenticatedUser',
+            plaza: 'plazas/currentPlaza',
         }),
     },
     async created() {
         this.loading = true
+
+        this.page = Number(this.$route.query.page)
+
+        if (isNaN(this.page)) {
+            this.page = 1
+        }
+
         await this.getCurrentPostComments({
+            page: this.page,
             plazaSlug: this.$route.params.plazas,
             postID: this.$route.params.id,
         })
@@ -48,6 +57,7 @@ export default {
     },
     methods: {
         ...mapActions({
+            getCurrentPlaza: 'plazas/getCurrentPlaza',
             getCurrentPostComments:
                 'plazas/posts/comments/getCurrentPostComments',
         }),

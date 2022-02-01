@@ -41,7 +41,7 @@ export default {
         }),
     },
     async created() {
-        await this.getCurrentPlaza(this.$route.params.plazas)
+        await this.getCurrentPlaza({ plazaSlug: this.$route.params.plazas })
     },
     methods: {
         ...mapActions({
