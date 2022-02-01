@@ -6,6 +6,7 @@ import json
 
 from accounts.serializers import ProfileSerializer
 from ..models import Comment
+from ..serializers import TagSerializer
 
 
 class PostSerializer(serializers.ModelSerializer):
@@ -13,6 +14,8 @@ class PostSerializer(serializers.ModelSerializer):
     reactions = serializers.JSONField()
     replies = serializers.SerializerMethodField("get_comments_count")
     last_activity = serializers.SerializerMethodField()
+
+    tags = TagSerializer(many=True, read_only=True)
 
     class Meta:
         model = Post
@@ -28,8 +31,9 @@ class PostSerializer(serializers.ModelSerializer):
             "replies",
             "last_activity",
             "created_at",
+            "tags",
         ]
-        lookup_field = "slug"
+        lookup_field = "id"
 
     def get_comments_count(self, instance):
         return Comment.objects.filter(post=instance).count()

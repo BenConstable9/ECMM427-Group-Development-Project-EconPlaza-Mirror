@@ -7,28 +7,12 @@ import json
 from django.core.exceptions import ObjectDoesNotExist
 
 
-class TagObjectRelatedField(serializers.RelatedField):
-    def to_representation(self, value):
-        """
-        Serialize tagged objects to a simple textual representation.
-        """
-        print(value.get_queryset())
-        # print(value.get_queryset()[0])
-
-        for query in value.get_queryset():
-            print(TagSerializer(query))
-
-        serializer = TagSerializer(value.get_queryset())
-
-        return serializer.data
-
-
 class PlazaSerializer(serializers.HyperlinkedModelSerializer):
     permissions = serializers.JSONField()
     stats = serializers.SerializerMethodField("get_plaza_stats")
     membership = serializers.SerializerMethodField("get_plaza_membership")
 
-    tags = TagObjectRelatedField(read_only=True)
+    tags = TagSerializer(many=True, read_only=True)
 
     class Meta:
         model = Plaza
