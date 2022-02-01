@@ -27,6 +27,7 @@
                 <div id="search-bar-container" class="flex-1">
                     <input
                         id="search-bar"
+                        v-model="search.term"
                         class="
                             min-w-full
                             border-2 border-l-0 border-gray-300
@@ -38,7 +39,6 @@
                             focus:outline-none
                         "
                         type="search"
-                        v-model="search.term"
                         placeholder="Search"
                     />
                     <button
