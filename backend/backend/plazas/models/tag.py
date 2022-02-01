@@ -1,13 +1,19 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
+from .availabletag import AvailableTag
+
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 
 
 class Tag(models.Model):
 
-    name = models.SlugField("Tag's Slug", max_length=32)
+    tag = models.ForeignKey(
+        AvailableTag,
+        on_delete=models.CASCADE,
+        verbose_name="Tag",
+    )
 
     limit = models.Q(app_label="plazas", model="plaza") | models.Q(
         app_label="plazas", model="post"
@@ -23,9 +29,9 @@ class Tag(models.Model):
     class Meta:
         constraints = [
             models.UniqueConstraint(
-                fields=["name", "content_type", "object_id"], name="no_duplicate_tags"
+                fields=["tag", "content_type", "object_id"], name="no_duplicate_tags"
             ),
         ]
 
     def __str__(self):
-        return f"{self.name}"
+        return f"{self.tag}"
