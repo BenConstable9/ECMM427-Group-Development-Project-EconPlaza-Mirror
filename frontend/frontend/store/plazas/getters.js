@@ -13,6 +13,10 @@ export default {
                     members: 0,
                     posts: 0,
                 },
+                membership: {
+                    member: false,
+                    type: null,
+                },
             }
         )
     },

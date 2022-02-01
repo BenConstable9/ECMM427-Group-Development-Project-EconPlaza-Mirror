@@ -9,13 +9,13 @@ class Member(models.Model):
     user = models.ForeignKey(
         "accounts.User",
         on_delete=models.CASCADE,
-        verbose_name="Plaza Membership's Profile",
+        verbose_name="Plaza Membership's User",
     )
 
     plaza = models.ForeignKey(
         Plaza,
         on_delete=models.CASCADE,
-        verbose_name="Plaza Memberhip's Plaza",
+        verbose_name="Plaza Membership's Plaza",
     )
 
     MEMBER_TYPE_CHOICES = [
@@ -25,10 +25,17 @@ class Member(models.Model):
     ]
 
     member_type = models.CharField(
-        "Report's Type", max_length=2, choices=MEMBER_TYPE_CHOICES, default="MB"
+        "Member Type", max_length=2, choices=MEMBER_TYPE_CHOICES, default="MB"
     )
 
     created_at = models.DateTimeField("Created at timestamp", auto_now_add=True)
 
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=["user", "plaza"], name="no_duplicate_memberships"
+            ),
+        ]
+
     def __str__(self):
-        return f"{self.report}"
+        return f"{self.user}"

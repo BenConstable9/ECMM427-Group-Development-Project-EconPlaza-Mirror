@@ -3,10 +3,13 @@ from rest_framework.exceptions import APIException
 from ..models import Plaza, Member, Post
 import json
 
+from django.core.exceptions import ObjectDoesNotExist
+
 
 class PlazaSerializer(serializers.HyperlinkedModelSerializer):
     permissions = serializers.JSONField()
     stats = serializers.SerializerMethodField("get_plaza_stats")
+    membership = serializers.SerializerMethodField("get_plaza_membership")
 
     class Meta:
         model = Plaza
@@ -18,6 +21,7 @@ class PlazaSerializer(serializers.HyperlinkedModelSerializer):
             "created_at",
             "permissions",
             "stats",
+            "membership",
         ]
         lookup_field = "slug"
 
@@ -26,6 +30,22 @@ class PlazaSerializer(serializers.HyperlinkedModelSerializer):
             "members": Member.objects.all().filter(plaza=instance).count(),
             "posts": Post.objects.all().filter(plaza=instance).count(),
         }
+
+    def get_plaza_membership(self, instance):
+        request = self.context.get("request", None)
+
+        try:
+            return {
+                "member": True,
+                "type": Member.objects.get(
+                    plaza=instance, user=request.user
+                ).member_type,
+            }
+        except ObjectDoesNotExist:
+            return {
+                "member": False,
+                "type": None,
+            }
 
     def to_representation(self, instance):
         # Convert Permissions JSON into a dictionary to be combined into the JSON response
