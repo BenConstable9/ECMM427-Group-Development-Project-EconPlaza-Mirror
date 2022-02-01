@@ -15,3 +15,19 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
             "last_name",
             "date_joined",
         ]
+
+class UserPostSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = get_user_model()
+        read_only_fields = ["id"]
+        fields = [
+            "id",
+            "username",
+            "email",
+            "first_name",
+            "last_name",
+            "password",
+        ]
+        extra_kwargs = {
+            "password": {"write_only": True, "required": False},
+        }
