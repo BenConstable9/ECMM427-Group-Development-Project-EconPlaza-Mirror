@@ -19,5 +19,11 @@ class PlazaViewSet(viewsets.ReadOnlyModelViewSet):
 
     pagination_class = StandardResultsSetPagination
 
-    filter_backends = [filters.SearchFilter]
+    filter_backends = [filters.SearchFilter, filters.OrderingFilter]
     search_fields = ["name", "description"]
+
+    ordering_fields = [
+        "id",
+        "slug",
+    ]
+    ordering = ["id"]

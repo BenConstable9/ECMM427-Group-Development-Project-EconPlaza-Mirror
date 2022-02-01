@@ -64,6 +64,7 @@ export default {
         })
 
         return {
+            page,
             plazas: store.getters['plazas/allPlazas'],
             pagination: store.getters['plazas/pagination'],
         }
@@ -79,17 +80,17 @@ export default {
     watchQuery: ['page', 'search'],
     created() {
         this.$nuxt.$on('pagination-next', () => {
-            this.pagination.page += 1
+            this.page += 1
             this.$router.replace({
                 path: this.$route.path,
-                query: { ...this.$route.query, page: this.pagination.page },
+                query: { ...this.$route.query, page: this.page },
             })
         })
         this.$nuxt.$on('pagination-previous', () => {
-            this.pagination.page -= 1
+            this.page -= 1
             this.$router.replace({
                 path: this.$route.path,
-                query: { ...this.$route.query, page: this.pagination.page },
+                query: { ...this.$route.query, page: this.page },
             })
         })
     },

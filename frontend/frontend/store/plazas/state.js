@@ -3,7 +3,7 @@ export default {
     currentPlaza: undefined,
     pagination: {
         page: undefined,
-        desiredSize: 10,
+        desiredSize: 12,
         returnedSize: undefined,
         next: undefined,
         previous: undefined,
