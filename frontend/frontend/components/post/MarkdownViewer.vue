@@ -37,4 +37,12 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style>
+.md-body ol li {
+    list-style: decimal !important;
+}
+
+.md-body ul li {
+    list-style: disc !important;
+}
+</style>
