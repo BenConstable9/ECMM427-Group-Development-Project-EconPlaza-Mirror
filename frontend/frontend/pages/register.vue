@@ -79,6 +79,56 @@
                             </div>
                         </div>
                         <div class="field">
+                            <label class="label">First Name</label>
+                            <div class="control">
+                                <input
+                                    v-model="first_name"
+                                    type="text"
+                                    class="
+                                        w-full
+                                        p-4
+                                        text-m
+                                        bg-white
+                                        focus:outline-none
+                                        border border-gray-200
+                                        rounded-r-2xl rounded-b-2xl
+                                        text-blue-600
+                                        shadow
+                                        disabled:bg-gray-100
+                                        disabled:text-gray-500
+                                        disabled:border-gray-400
+                                    "
+                                    name="first_name"
+                                    required
+                                />
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">Last Name</label>
+                            <div class="control">
+                                <input
+                                    v-model="last_name"
+                                    type="text"
+                                    class="
+                                        w-full
+                                        p-4
+                                        text-m
+                                        bg-white
+                                        focus:outline-none
+                                        border border-gray-200
+                                        rounded-r-2xl rounded-b-2xl
+                                        text-blue-600
+                                        shadow
+                                        disabled:bg-gray-100
+                                        disabled:text-gray-500
+                                        disabled:border-gray-400
+                                    "
+                                    name="last_name"
+                                    required
+                                />
+                            </div>
+                        </div>
+                        <div class="field">
                             <label class="label">Password</label>
                             <div class="control">
                                 <input
@@ -112,6 +162,21 @@
                             <label class="label" for="checkbox">
                                 I certify that I am least 18 years of age.
                             </label>
+                        </div>
+                        <div class="field">
+                            <input
+                                id="checkbox"
+                                v-model="privacy"
+                                type="checkbox"
+                            />
+                            <label class="label" for="checkbox">
+                                I have read and understood the
+                                <nuxt-link to="/login">privacy policy</nuxt-link
+                                >.
+                            </label>
+                        </div>
+                        <div class="field">
+                            <recaptcha />
                         </div>
                         <div class="control">
                             <button
@@ -164,25 +229,42 @@ export default {
         return {
             username: '',
             email: '',
+            first_name: '',
+            last_name: '',
             password: '',
             error: null,
             success: null,
             over18: null,
+            privacy: null,
+        }
+    },
+    head() {
+        return {
+            title: 'Register | EconPlaza',
         }
     },
     auth: 'guest',
     methods: {
         async register() {
-            if (this.over18 === true) {
+            if (this.over18 === true && this.privacy === true) {
+                const token = await this.$recaptcha.getResponse()
+
+                // send token to server alongside your form data
                 await this.$axios
-                    .post(USERS.REGISTER, {
+                    .post(USERS.REGISTER(), {
                         username: this.username,
                         email: this.email,
+                        first_name: this.first_name,
+                        last_name: this.last_name,
                         password: this.password,
+                        'g-recaptcha-response': token,
                     })
                     .then(() => {
-                        this.$router.push('/')
-                        this.success = 'Joined Plaza!'
+                        this.success = 'You are now registered for EconPlaza!'
+                        this.$router.push('/', {
+                            username: this.username,
+                            password: this.password,
+                        })
                     })
                     .catch((response) => {
                         if (
@@ -196,6 +278,8 @@ export default {
                             this.error = 'Unable to process request.'
                         }
                     })
+                // at the end you need to reset recaptcha
+                await this.$recaptcha.reset()
             }
         },
     },

@@ -62,6 +62,9 @@
                             placeholder="Password"
                         />
                     </div>
+                    <div class="field">
+                        <recaptcha />
+                    </div>
                     <div>
                         <button
                             type="submit"
