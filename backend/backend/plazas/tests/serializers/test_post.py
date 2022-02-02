@@ -70,6 +70,7 @@ class PostSerializerTest(APITestCase):
                     "hidden",
                     "views",
                     "created_at",
+                    "last_activity",
                 ]
             ),
         )
