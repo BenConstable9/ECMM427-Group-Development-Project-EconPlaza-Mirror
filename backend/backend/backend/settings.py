@@ -201,3 +201,8 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # All settings related to Econplaza
 ECONPLAZA = {"QUANTITY_VOUCHES_FOR_VERIFICATION": 5}
+
+# Google Recaptcha Settings
+# SECURITY WARNING: keep the secret key used in production secret!
+GOOGLE_VERIFY_RECAPTCHA_URL = "https://www.google.com/recaptcha/api/siteverify"
+RECAPTCHA_SECRET_KEY = '6LcdcVIeAAAAAH48fANB75r1-bx8IF36Wqi0162D'
