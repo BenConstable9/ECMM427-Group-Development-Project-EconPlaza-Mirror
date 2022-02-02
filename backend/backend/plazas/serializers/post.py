@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from rest_framework.exceptions import APIException
+from django.core.exceptions import ObjectDoesNotExist
 from ..models import Post
 import json
 
@@ -10,7 +11,8 @@ from ..models import Comment
 class PostSerializer(serializers.ModelSerializer):
     permissions = serializers.JSONField()
     reactions = serializers.JSONField()
-    replies = serializers.SerializerMethodField("count_comments")
+    replies = serializers.SerializerMethodField("get_comments_count")
+    last_activity = serializers.SerializerMethodField()
 
     class Meta:
         model = Post
@@ -24,12 +26,24 @@ class PostSerializer(serializers.ModelSerializer):
             "hidden",
             "views",
             "replies",
+            "last_activity",
             "created_at",
         ]
         lookup_field = "slug"
 
-    def count_comments(self, instance):
-        return Comment.objects.all().filter(post=instance).count()
+    def get_comments_count(self, instance):
+        return Comment.objects.filter(post=instance).count()
+
+    def get_last_activity(self, instance):
+        # Get the last comment on the post
+
+        try:
+            last_comment = Comment.objects.filter(post=instance).latest("created_at")
+
+            return last_comment.created_at
+        except ObjectDoesNotExist:
+
+            return instance.created_at
 
     def to_representation(self, instance):
         # Convert Permissions JSON into a dictionary to be combined into the JSON response
