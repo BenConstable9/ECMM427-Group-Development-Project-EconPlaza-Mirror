@@ -59,7 +59,26 @@ export default {
         '@nuxtjs/auth-next',
         // Proxy is needed for the API calls
         '@nuxtjs/proxy',
+        '@nuxtjs/recaptcha',
     ],
+
+    recaptcha: {
+        /* reCAPTCHA options */
+        hideBadge: false, // Hide badge element (v3 & v2 via size=invisible)
+        language: 'english', // Recaptcha language (v2)
+        siteKey: '6LcdcVIeAAAAAH48fANB75r1-bx8IF36Wqi0162D', // Site key for requests
+        version: 2, // Version
+        size: 'normal', // Size: 'compact', 'normal', 'invisible' (v2)
+    },
+
+    publicRuntimeConfig: {
+        recaptcha: {
+            /* reCAPTCHA options for production */
+            siteKey:
+                process.env.RECAPTCHA_SITE_KEY ||
+                '6LcdcVIeAAAAAH48fANB75r1-bx8IF36Wqi0162D',
+        },
+    },
 
     // Axios module configuration: https://go.nuxtjs.dev/config-axios
     axios: {
