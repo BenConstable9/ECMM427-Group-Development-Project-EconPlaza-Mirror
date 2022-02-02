@@ -12,5 +12,7 @@ class User(AbstractUser):
 
     created_at = models.DateTimeField("Created at timestamp", auto_now_add=True)
 
+    institutional_affiliation = models.CharField("User's main institution", null=True, max_length=64)
+
     def __str__(self):
         return f"{self.username}"
