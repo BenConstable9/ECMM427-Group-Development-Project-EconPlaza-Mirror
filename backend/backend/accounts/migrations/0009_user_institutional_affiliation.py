@@ -6,13 +6,15 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('accounts', '0008_fix_single_profile'),
+        ("accounts", "0008_fix_single_profile"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='user',
-            name='institutional_affiliation',
-            field=models.CharField(max_length=64, null=True, verbose_name="User's main institution"),
+            model_name="user",
+            name="institutional_affiliation",
+            field=models.CharField(
+                max_length=64, null=True, verbose_name="User's main institution"
+            ),
         ),
     ]

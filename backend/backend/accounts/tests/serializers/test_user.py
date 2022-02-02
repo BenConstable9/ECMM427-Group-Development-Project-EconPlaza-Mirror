@@ -6,6 +6,7 @@ from django.contrib.auth.hashers import make_password
 from ...serializers import UserSerializer
 from ...serializers.user import UserPostSerializer
 
+
 class UserSerializerTest(APITestCase):
     def setUp(self):
         """Initalise a user."""
@@ -69,6 +70,7 @@ class UserSerializerTest(APITestCase):
         self.assertEqual(data["username"], self.user_1.username)
         self.assertEqual(data["email"], self.user_1.email)
         self.assertEqual(data["is_staff"], self.user_1.is_staff)
+
 
 class UserPostSerializerTest(APITestCase):
     def setUp(self):

@@ -11,7 +11,10 @@ from ..permissions.create_or_authenticate import IsCreationOrIsAuthenticated
 
 
 class UserViewSet(
-   mixins.CreateModelMixin, mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets.GenericViewSet
+    mixins.CreateModelMixin,
+    mixins.RetrieveModelMixin,
+    mixins.ListModelMixin,
+    viewsets.GenericViewSet,
 ):
     """
     API endpoint that allows for viewing and creating of users.

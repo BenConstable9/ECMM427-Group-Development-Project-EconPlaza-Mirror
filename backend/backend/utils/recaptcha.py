@@ -12,7 +12,7 @@ def is_recaptcha_valid(request):
     """
     Verify if the response for the Google recaptcha is valid.
     """
-    return True # Temporary
+    return True  # Temporary
     # TODO: Setup X_FORWARDED_FROM for get_client_ip()
     # return requests.post(
     #     settings.GOOGLE_VERIFY_RECAPTCHA_URL,
@@ -25,14 +25,15 @@ def is_recaptcha_valid(request):
     # ).json().get("success", False)
 
 
-
 def human_required(view_func):
     """
     This decorator is aimed to verify Google recaptcha in the backend side.
     """
+
     def wrapped(request, *args, **kwargs):
         if is_recaptcha_valid(request):
             return view_func(request, *args, **kwargs)
         else:
             return HttpResponseForbidden()
+
     return wrapped
