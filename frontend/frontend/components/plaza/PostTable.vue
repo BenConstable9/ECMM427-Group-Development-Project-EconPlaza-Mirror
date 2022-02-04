@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions } from 'vuex'
 
 export default {
     props: { isPlazaView: { type: Boolean, default: true } },
@@ -31,7 +31,13 @@ export default {
         return { page: undefined, loading: true }
     },
     computed: {
-        ...mapGetters({ posts: 'plazas/posts/posts' }),
+        posts() {
+            if (this.isPlazaView) {
+                return this.$store.getters['plazas/posts/posts']
+            } else {
+                return this.$store.getters['posts/posts']
+            }
+        },
     },
     async created() {
         this.loading = true
