@@ -6,7 +6,7 @@ import json
 
 from accounts.serializers import ProfileSerializer
 from ..models import Comment
-from ..serializers import TagSerializer
+from ..serializers import TagSerializer, PlazaSerializer
 
 
 class PostSerializer(serializers.ModelSerializer):
@@ -22,6 +22,7 @@ class PostSerializer(serializers.ModelSerializer):
         fields = [
             "id",
             "profile",
+            "plaza",
             "title",
             "content",
             "permissions",
@@ -68,5 +69,7 @@ class PostSerializer(serializers.ModelSerializer):
 
         # This ensures the profile is only serialised on a GET not a POST
         representation["profile"] = ProfileSerializer(instance.profile).data
+
+        representation["plaza"] = PlazaSerializer(instance.plaza).data
 
         return representation

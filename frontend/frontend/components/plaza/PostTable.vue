@@ -15,6 +15,7 @@
                     v-for="(post, index) in posts"
                     :key="post.id"
                     :post="post"
+                    :include-plaza="!isPlazaView"
                     :class="{ 'bg-gray-50': index % 2 }"
                 />
             </div>

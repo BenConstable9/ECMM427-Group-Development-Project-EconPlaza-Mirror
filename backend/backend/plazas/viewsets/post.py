@@ -46,7 +46,8 @@ class PostViewSet(
 
     lookup_field = "id"
 
-    filter_backends = [filters.OrderingFilter]
+    filter_backends = [filters.SearchFilter, filters.OrderingFilter]
+    search_fields = ["title"]
 
     ordering_fields = [
         "id",
