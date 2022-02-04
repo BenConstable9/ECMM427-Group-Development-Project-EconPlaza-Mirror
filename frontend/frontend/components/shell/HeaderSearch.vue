@@ -20,8 +20,9 @@
                         focus:outline-none
                     "
                 >
-                    <option value="users">Users</option>
                     <option value="plazas">Plazas</option>
+                    <option value="posts">Posts</option>
+                    <option value="users">Users</option>
                 </select>
             </div>
             <div id="search-bar-container" class="flex-1">
