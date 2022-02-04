@@ -13,6 +13,11 @@
                 </h2>
             </div>
         </div>
+        <Tag
+            v-for="tagged in post.tags"
+            :key="tagged.id"
+            :slug="tagged.tag.name"
+        />
         <div id="controls">
             <div class="rounded-full bg-gray-50 p-3">
                 <svg
@@ -32,7 +37,11 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
+import Tag from '~/components/labels/Tag'
 export default {
+    components: {
+        Tag,
+    },
     computed: {
         ...mapGetters({
             plaza: 'plazas/currentPlaza',

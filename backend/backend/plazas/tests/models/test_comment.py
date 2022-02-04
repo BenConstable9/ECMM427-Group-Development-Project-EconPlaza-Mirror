@@ -44,6 +44,6 @@ class CommentCreationTest(TestCase):
             reactions="{}",
         )
 
-    def test_post_has_str(self):
+    def test_comment_has_str(self):
         """Comment has a defined __str__ method."""
         self.assertEqual(self.comment.__str__(), "Test Comment")

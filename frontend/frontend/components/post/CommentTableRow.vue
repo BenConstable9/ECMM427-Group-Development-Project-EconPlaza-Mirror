@@ -1,7 +1,7 @@
 <template>
     <div id="comment-info" class="flex items-center px-5 py-4">
         <div class="flex flex-1 flex-col space-y-1">
-            {{ content }}
+            <MarkdownViewer :content="content" />
             <p class="flex space-x-1">
                 <span class="text-xs text-gray-700"
                     >By

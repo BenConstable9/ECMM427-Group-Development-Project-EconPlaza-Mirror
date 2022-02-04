@@ -6,6 +6,25 @@
             <form class="space-y-4 w-full" @submit.prevent="commentNew">
                 <div>
                     Post Comment as:
+                    <svg
+                        class="
+                            w-2
+                            h-2
+                            absolute
+                            top-0
+                            right-0
+                            m-4
+                            pointer-events-none
+                        "
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 412 232"
+                    >
+                        <path
+                            d="M206 171.144L42.678 7.822c-9.763-9.763-25.592-9.763-35.355 0-9.763 9.764-9.763 25.592 0 35.355l181 181c4.88 4.882 11.279 7.323 17.677 7.323s12.796-2.441 17.678-7.322l181-181c9.763-9.764 9.763-25.592 0-35.355-9.763-9.763-25.592-9.763-35.355 0L206 171.144z"
+                            fill="#648299"
+                            fill-rule="nonzero"
+                        />
+                    </svg>
                     <select
                         :value="profile.id"
                         :disabled="comment.isDisabled"
@@ -16,12 +35,13 @@
                             bg-white
                             focus:outline-none
                             border border-gray-200
-                            rounded-r-2xl rounded-b-2xl
+                            rounded-lg
                             text-blue-600
                             shadow
                             disabled:bg-gray-100
                             disabled:text-gray-500
                             disabled:border-gray-400
+                            focus:outline-none
                         "
                         @change="profileSwitch($event)"
                     >
@@ -35,29 +55,11 @@
                     </select>
                 </div>
                 <div>
-                    <textarea
+                    <Editor
                         v-model="comment.content"
                         :disabled="comment.isDisabled"
-                        class="
-                            w-full
-                            p-4
-                            text-m
-                            bg-white
-                            focus:outline-none
-                            border border-gray-200
-                            rounded-r-2xl rounded-b-2xl
-                            text-blue-600
-                            shadow
-                            disabled:bg-gray-100
-                            disabled:text-gray-500
-                            disabled:border-gray-400
-                        "
-                        type="text"
-                        placeholder="Post Content"
-                        rows="5"
-                        maxlength="2800"
-                    >
-                    </textarea>
+                        placeholder="Type your comment here..."
+                    />
                 </div>
                 <div
                     v-if="
@@ -73,7 +75,7 @@
                             py-4
                             bg-blue-600
                             hover:bg-blue-800
-                            rounded-r-2xl rounded-b-2xl
+                            rounded-lg
                             text-m
                             font-bold
                             border border-blue-600
@@ -99,6 +101,7 @@ import { mapGetters, mapActions, mapMutations } from 'vuex'
 import { PLAZAS } from '../../api-routes'
 import Error from '~/components/messages/Error'
 import Success from '~/components/messages/Success'
+
 export default {
     components: {
         Error,

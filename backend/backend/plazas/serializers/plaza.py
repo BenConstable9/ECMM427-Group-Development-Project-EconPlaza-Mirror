@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from rest_framework.exceptions import APIException
 from ..models import Plaza, Member, Post
+from ..serializers import TagSerializer
 import json
 
 from django.core.exceptions import ObjectDoesNotExist
@@ -10,6 +11,8 @@ class PlazaSerializer(serializers.HyperlinkedModelSerializer):
     permissions = serializers.JSONField()
     stats = serializers.SerializerMethodField("get_plaza_stats")
     membership = serializers.SerializerMethodField("get_plaza_membership")
+
+    tags = TagSerializer(many=True, read_only=True)
 
     class Meta:
         model = Plaza
@@ -22,6 +25,7 @@ class PlazaSerializer(serializers.HyperlinkedModelSerializer):
             "permissions",
             "stats",
             "membership",
+            "tags",
         ]
         lookup_field = "slug"
 
