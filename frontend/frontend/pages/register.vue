@@ -264,8 +264,14 @@ export default {
                         password: this.password,
                         'g-recaptcha-response': token,
                     })
-                    .then(() => {
+                    .then(async () => {
                         this.success = 'You are now registered for EconPlaza!'
+                        await this.$auth.loginWith('local', {
+                            data: {
+                                username: this.username,
+                                password: this.password,
+                            },
+                        })
                         this.$router.push('/', {
                             username: this.username,
                             password: this.password,
