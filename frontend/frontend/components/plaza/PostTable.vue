@@ -1,7 +1,7 @@
 <template>
     <div id="posts" class="flex">
         <ul class="flex flex-col w-full border rounded-lg overflow-hidden">
-            <post-table-header />
+            <post-table-header :is-plaza-view="isPlazaView" />
             <div v-if="loading">
                 <post-table-row
                     v-for="i in 4"
@@ -26,6 +26,7 @@
 import { mapActions, mapGetters } from 'vuex'
 
 export default {
+    props: { isPlazaView: { type: Boolean, default: true } },
     data() {
         return { page: undefined, loading: true }
     },
@@ -41,14 +42,29 @@ export default {
             this.page = 1
         }
 
-        await this.getAllPlazaPosts({
-            page: this.page,
-            plazaSlug: this.$route.params.plazas,
-        })
+        if (this.isPlazaView) {
+            await this.getAllPlazaPosts({
+                page: this.page,
+                plazaSlug: this.$route.params.plazas,
+            })
+        } else {
+            let search = this.$route.query.search
+
+            if (search === undefined) {
+                search = ''
+            }
+
+            await this.getAllPosts({
+                page: this.page,
+                search,
+            })
+        }
+
         this.loading = false
     },
     methods: {
         ...mapActions({ getAllPlazaPosts: 'plazas/posts/getAllPlazaPosts' }),
+        ...mapActions({ getAllPosts: 'posts/getAllPosts' }),
     },
 }
 </script>
