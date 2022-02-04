@@ -50,6 +50,7 @@
                                     "
                                     name="username"
                                     required
+                                    placeholder="Username"
                                 />
                             </div>
                         </div>
@@ -75,6 +76,7 @@
                                     "
                                     name="email"
                                     required
+                                    placeholder="Email"
                                 />
                             </div>
                         </div>
@@ -100,6 +102,7 @@
                                     "
                                     name="first_name"
                                     required
+                                    placeholder="First Name"
                                 />
                             </div>
                         </div>
@@ -125,6 +128,7 @@
                                     "
                                     name="last_name"
                                     required
+                                    placeholder="Last Name"
                                 />
                             </div>
                         </div>
@@ -150,6 +154,7 @@
                                     "
                                     name="password"
                                     required
+                                    placeholder="Password"
                                 />
                             </div>
                         </div>
