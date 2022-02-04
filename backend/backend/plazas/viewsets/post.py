@@ -7,7 +7,7 @@ from django.shortcuts import get_object_or_404
 from django.core.cache import cache
 
 from utils import ActionBasedPermission
-from utils import IsVerified
+from utils import ContainsPlazaURLVerified, ContainsPlazaURL
 from utils import StandardResultsSetPagination
 
 from ..serializers import PostSerializer
@@ -26,16 +26,20 @@ class PostViewSet(
     """
 
     def get_queryset(self):
-        plaza = Plaza.objects.get(slug=self.kwargs["plazas_slug"])
-        return Post.objects.filter(plaza=plaza.id)
+        if "plazas_slug" in self.kwargs:
+            plaza = Plaza.objects.get(slug=self.kwargs["plazas_slug"])
+            return Post.objects.filter(plaza=plaza.id)
+        else:
+            return Post.objects.all()
 
     serializer_class = PostSerializer
 
     permission_classes = (ActionBasedPermission,)
+
     action_permissions = {
-        IsVerified: ["create"],
-        IsAuthenticated: ["retrieve", "list"],
-        AllowAny: ["register_view"],
+        ContainsPlazaURLVerified: ["create", "register_view"],
+        ContainsPlazaURL: ["retrieve"],
+        IsAuthenticated: ["list"],
     }
 
     pagination_class = StandardResultsSetPagination

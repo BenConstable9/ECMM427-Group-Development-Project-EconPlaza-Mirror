@@ -34,6 +34,33 @@ class IsVerified(AllowAny):
             return False
 
 
+class ContainsPlazaURL(AllowAny):
+    """
+    Custom permission to only allow verified users to vouch.
+    """
+
+    def has_permission(self, request, view):
+        if request.user.is_authenticated:
+            if "plazas_slug" in self.kwargs:
+                return True
+
+        return False
+
+
+class ContainsPlazaURLVerified(AllowAny):
+    """
+    Custom permission to only allow verified users to vouch.
+    """
+
+    def has_permission(self, request, view):
+        if request.user.is_authenticated:
+            # Let through GET, HEAD and OPTIONS
+            if "plazas_slug" in self.kwargs:
+                # Check if verified
+                return request.user.verified
+        return False
+
+
 class IsSelf(AllowAny):
     """Custom permission to only allow requests to /users/1/slug when the user is theirself"""
 
