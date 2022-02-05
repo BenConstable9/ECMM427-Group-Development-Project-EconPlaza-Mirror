@@ -41,7 +41,7 @@ class ContainsPlazaURL(AllowAny):
 
     def has_permission(self, request, view):
         if request.user.is_authenticated:
-            if "plazas_slug" in self.kwargs:
+            if "plazas_slug" in request.kwargs:
                 return True
 
         return False
@@ -55,7 +55,7 @@ class ContainsPlazaURLVerified(AllowAny):
     def has_permission(self, request, view):
         if request.user.is_authenticated:
             # Let through GET, HEAD and OPTIONS
-            if "plazas_slug" in self.kwargs:
+            if "plazas_slug" in request.kwargs:
                 # Check if verified
                 return request.user.verified
         return False
