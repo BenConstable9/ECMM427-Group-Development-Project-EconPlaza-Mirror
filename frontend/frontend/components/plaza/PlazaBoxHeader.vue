@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import Member from '~/components/labels/member'
+import Member from '~/components/labels/Member'
 
 export default {
     name: 'PlazaBoxHeader',
