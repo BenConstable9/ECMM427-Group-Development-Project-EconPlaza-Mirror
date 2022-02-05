@@ -1,3 +1,5 @@
+import re
+
 from rest_framework.permissions import SAFE_METHODS, AllowAny
 from rest_framework.permissions import AllowAny, IsAuthenticated
 
@@ -36,12 +38,12 @@ class IsVerified(AllowAny):
 
 class ContainsPlazaURL(AllowAny):
     """
-    Custom permission to only allow verified users to vouch.
+    Custom permission that checks we are accessing /plazas/.
     """
 
     def has_permission(self, request, view):
         if request.user.is_authenticated:
-            if "plazas_slug" in request.kwargs:
+            if re.search("\/plazas\/.*\/", request.path):
                 return True
 
         return False
@@ -49,13 +51,12 @@ class ContainsPlazaURL(AllowAny):
 
 class ContainsPlazaURLVerified(AllowAny):
     """
-    Custom permission to only allow verified users to vouch.
+    Custom permission that checks we are accessing /plazas/ and we are verified.
     """
 
     def has_permission(self, request, view):
         if request.user.is_authenticated:
-            # Let through GET, HEAD and OPTIONS
-            if "plazas_slug" in request.kwargs:
+            if re.search("\/plazas\/.*\/", request.path):
                 # Check if verified
                 return request.user.verified
         return False

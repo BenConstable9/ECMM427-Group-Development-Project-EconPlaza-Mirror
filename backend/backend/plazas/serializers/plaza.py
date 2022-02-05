@@ -38,7 +38,8 @@ class PlazaSerializer(serializers.HyperlinkedModelSerializer):
     def get_plaza_membership(self, instance):
         request = self.context.get("request", None)
 
-        if request is not None:
+        # Must check user is authenticated to avoid error on the member check
+        if request is not None and request.user.is_authenticated:
             try:
                 return {
                     "member": True,
