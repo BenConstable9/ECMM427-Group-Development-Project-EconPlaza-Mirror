@@ -22,4 +22,18 @@ export default {
         state.currentPlaza.membership.type = type
         state.currentPlaza.stats.members += 1
     },
+    joinPlaza(state, { slug, type }) {
+        // Filter the plaza
+        const plaza = state.allPlazas.find((plaza) => plaza.slug === slug)
+        plaza.membership.member = true
+        plaza.membership.type = type
+        plaza.stats.members += 1
+
+        // If the current plaza is this, update it too
+        if (state.currentPlaza.slug === slug) {
+            state.currentPlaza.membership.member = true
+            state.currentPlaza.membership.type = type
+            state.currentPlaza.stats.members += 1
+        }
+    },
 }

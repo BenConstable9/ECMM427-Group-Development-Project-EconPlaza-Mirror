@@ -87,7 +87,6 @@ import Error from '~/components/messages/Error'
 import Success from '~/components/messages/Success'
 import Tag from '~/components/labels/Tag'
 import PaginationSize from '~/components/helpers/PaginationSize'
-import { PLAZAS } from '~/api-routes'
 
 export default {
     components: {
@@ -121,40 +120,15 @@ export default {
     methods: {
         ...mapActions({
             getCurrentPlaza: 'plazas/getCurrentPlaza',
+            joinPlaza: 'plazas/joinPlaza',
         }),
         ...mapMutations({
             joinCurrentPlaza: 'plazas/joinCurrentPlaza',
         }),
-        async plazaJoin() {
+        plazaJoin() {
             this.membership.isDisabled = true
 
-            const memberType = 'MB'
-
-            // Send to server
-            await this.$axios
-                .post(PLAZAS.MEMBERSHIP(this.$route.params.plazas), {
-                    user: this.$store.getters.authenticatedUser.id,
-                    plaza: this.$route.params.plazas,
-                    member_type: memberType,
-                })
-                .then(() => {
-                    this.joinCurrentPlaza(memberType)
-                    this.success = 'Joined Plaza!'
-                })
-                .catch((response) => {
-                    if (
-                        typeof response === 'string' ||
-                        response instanceof String
-                    ) {
-                        this.error = response
-                    } else if ('detail' in response) {
-                        this.error = response.detail
-                    } else {
-                        this.error = 'Unable to process request.'
-                    }
-
-                    this.membership.isDisabled = false
-                })
+            this.joinPlaza({ plazaSlug: this.$route.params.plazas })
         },
     },
 }
