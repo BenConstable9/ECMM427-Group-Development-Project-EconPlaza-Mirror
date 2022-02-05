@@ -1,6 +1,8 @@
 from rest_framework import serializers
 from rest_framework.exceptions import APIException
 from django.core.exceptions import ObjectDoesNotExist
+
+from plazas.models.plaza import Plaza
 from ..models import Post
 import json
 
@@ -16,6 +18,7 @@ class PostSerializer(serializers.ModelSerializer):
     last_activity = serializers.SerializerMethodField()
 
     tags = TagSerializer(many=True, read_only=True)
+    plaza = PlazaSerializer(many=False, read_only=True)
 
     class Meta:
         model = Post
@@ -69,7 +72,5 @@ class PostSerializer(serializers.ModelSerializer):
 
         # This ensures the profile is only serialised on a GET not a POST
         representation["profile"] = ProfileSerializer(instance.profile).data
-
-        representation["plaza"] = PlazaSerializer(instance.plaza).data
 
         return representation
