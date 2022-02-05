@@ -21,7 +21,6 @@
                 :description="plaza.description"
             />
         </ul>
-        {{ plaza }}
     </div>
 </template>
 
