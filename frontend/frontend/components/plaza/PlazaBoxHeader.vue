@@ -5,7 +5,10 @@
                 flex-1
                 md:flex-none
                 lg:flex-1
-                text-gray-50 text-xl
+                text-gray-50
+                hover:underline
+                duration-100
+                text-xl
                 font-semibold
             "
         >
@@ -17,7 +20,16 @@
             <member class="flex-initial md:flex-none lg:flex-initial" />
         </template>
         <template v-else>
-            <button class="rounded-full bg-gray-50 p-3" @click="plazaJoin()">
+            <button
+                class="
+                    rounded-full
+                    bg-gray-100
+                    hover:bg-gray-50
+                    duration-100
+                    p-3
+                "
+                @click="plazaJoin()"
+            >
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     class="h-5 w-5 text-primary mx-auto"
