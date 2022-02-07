@@ -82,7 +82,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions, mapMutations } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 import Error from '~/components/messages/Error'
 import Success from '~/components/messages/Success'
 import Tag from '~/components/labels/Tag'
@@ -121,9 +121,6 @@ export default {
         ...mapActions({
             getCurrentPlaza: 'plazas/getCurrentPlaza',
             joinPlaza: 'plazas/joinPlaza',
-        }),
-        ...mapMutations({
-            joinCurrentPlaza: 'plazas/joinCurrentPlaza',
         }),
         plazaJoin() {
             this.membership.isDisabled = true
