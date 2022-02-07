@@ -5,13 +5,15 @@ from django.http import HttpResponseForbidden
 # 3rd-party imports
 import requests
 
+
 def get_client_ip(request):
-    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    x_forwarded_for = request.META.get("HTTP_X_FORWARDED_FOR")
     if x_forwarded_for:
-        ip = x_forwarded_for.split(',')[0]
+        ip = x_forwarded_for.split(",")[0]
     else:
-        ip = request.META.get('REMOTE_ADDR')
+        ip = request.META.get("REMOTE_ADDR")
     return ip
+
 
 # https://stackoverflow.com/questions/29548574/how-to-validate-google-recaptcha-v2-in-django
 # https://stackoverflow.com/a/49282092
@@ -22,10 +24,10 @@ def is_recaptcha_valid(request):
     json = requests.post(
         settings.GOOGLE_VERIFY_RECAPTCHA_URL,
         data={
-            'secret': settings.RECAPTCHA_SECRET_KEY,
-            'response': request.data.get('g-recaptcha-response'),
-            'remoteip': get_client_ip(request)
-        }
+            "secret": settings.RECAPTCHA_SECRET_KEY,
+            "response": request.data.get("g-recaptcha-response"),
+            "remoteip": get_client_ip(request),
+        },
     ).json()
     return json.get("success", False)
 
