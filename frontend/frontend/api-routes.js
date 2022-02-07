@@ -12,6 +12,12 @@ export const PLAZAS = {
     MEMBERSHIP: (slug) => `/v1/plazas/${slug}/membership/`,
 }
 
+// Posts
+
+export const POSTS = {
+    ALL: () => `/v1/posts/`,
+}
+
 // Users
 
 export const USERS = {

@@ -19,6 +19,20 @@
                         {{ author }}
                     </NuxtLink></span
                 >
+                <span
+                    v-if="includePlaza"
+                    class="text-sm text-gray-700 font-semibold"
+                    >&middot;</span
+                >
+                <span v-if="includePlaza" class="text-sm text-gray-700"
+                    >Posted in
+                    <NuxtLink
+                        :to="plazaLink"
+                        class="font-semibold hover:underline"
+                    >
+                        {{ plaza }}
+                    </NuxtLink></span
+                >
                 <span class="text-sm text-gray-700 font-semibold"
                     >&middot;</span
                 >
@@ -78,6 +92,10 @@ export default {
             type: Object,
             default: undefined,
         },
+        includePlaza: {
+            type: Boolean,
+            default: false,
+        },
     },
     data() {
         return {
@@ -94,9 +112,15 @@ export default {
         authorProfileLink() {
             return this.post ? `/profiles/${this.post.profile.id}` : '#'
         },
+        plaza() {
+            return this.post ? `${this.post.plaza.name}` : '...'
+        },
+        plazaLink() {
+            return this.post ? `/plazas/${this.post.plaza.slug}/` : '#'
+        },
         postLink() {
             return this.post
-                ? `/plazas/${this.$route.params.plazas}/posts/${this.post.id}/`
+                ? `/plazas/${this.post.plaza.slug}/posts/${this.post.id}/`
                 : '#'
         },
         time() {

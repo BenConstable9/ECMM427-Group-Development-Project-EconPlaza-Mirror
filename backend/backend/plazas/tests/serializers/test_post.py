@@ -63,6 +63,7 @@ class PostSerializerTest(APITestCase):
                     "id",
                     "replies",
                     "profile",
+                    "plaza",
                     "title",
                     "content",
                     "permissions",
