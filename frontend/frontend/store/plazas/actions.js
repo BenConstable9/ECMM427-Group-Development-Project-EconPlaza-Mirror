@@ -63,7 +63,7 @@ export default {
                 member_type: memberType,
             })
             .then(() => {
-                commit('joinPlaza', {
+                commit('setPlazaMembership', {
                     slug: plazaSlug,
                     type: memberType,
                 })

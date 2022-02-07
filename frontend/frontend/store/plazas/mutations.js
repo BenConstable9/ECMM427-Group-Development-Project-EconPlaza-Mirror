@@ -17,12 +17,7 @@ export default {
     setDesiredPaginationSize(state, size) {
         state.pagination.desiredSize = size
     },
-    joinCurrentPlaza(state, type) {
-        state.currentPlaza.membership.member = true
-        state.currentPlaza.membership.type = type
-        state.currentPlaza.stats.members += 1
-    },
-    joinPlaza(state, { slug, type }) {
+    setPlazaMembership(state, { slug, type }) {
         // Filter the plaza
         const plaza = state.allPlazas.find((plaza) => plaza.slug === slug)
         plaza.membership.member = true
