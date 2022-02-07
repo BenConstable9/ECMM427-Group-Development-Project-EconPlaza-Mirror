@@ -35,6 +35,7 @@ class UserPostSerializer(serializers.HyperlinkedModelSerializer):
             "email",
             "first_name",
             "last_name",
+            "institution",
             "password",
         ]
         extra_kwargs = {
