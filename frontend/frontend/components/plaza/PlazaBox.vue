@@ -1,20 +1,17 @@
 <template>
     <div>
-        <ul class="w-full border rounded-lg overflow-hidden">
+        <div class="flex flex-col w-full border rounded-lg overflow-hidden">
             <plaza-box-header
                 :slug="plaza.slug"
                 :name="plaza.name"
                 :is-member="plaza.membership.member"
             />
-            <plaza-box-details
-                :date-created="new Date(plaza.created_at)"
-                :description="plaza.description"
-            />
+            <plaza-box-details :description="plaza.description" />
             <plaza-box-stats
                 :members="plaza.stats.members"
                 :posts="plaza.stats.posts"
             />
-        </ul>
+        </div>
     </div>
 </template>
 

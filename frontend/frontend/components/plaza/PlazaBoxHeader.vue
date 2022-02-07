@@ -1,5 +1,5 @@
 <template>
-    <div class="flex items-start px-5 py-3 bg-primary">
+    <div class="flex items-center px-5 py-3 bg-primary">
         <h3
             class="
                 flex-1
