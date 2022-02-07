@@ -4,7 +4,9 @@
             <div class="bg-gray-100 px-5 mt-5 mb-5 mx-auto">
                 <div id="title">
                     <div class="flex pt-8">
-                        <h1 class="text-xl font-semibold">All Plazas</h1>
+                        <h1 class="text-xl text-gray-900 font-semibold">
+                            Plaza directory
+                        </h1>
                     </div>
                 </div>
                 <div id="content">
