@@ -51,6 +51,7 @@ class UserSerializerTest(APITestCase):
                     "first_name",
                     "last_name",
                     "date_joined",
+                    "institutional_affiliation",
                 ]
             ),
         )
