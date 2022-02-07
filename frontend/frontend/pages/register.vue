@@ -306,14 +306,22 @@ export default {
                             password: this.password,
                         })
                     })
-                    .catch((response) => {
-                        if (
-                            typeof response === 'string' ||
-                            response instanceof String
-                        ) {
-                            this.error = response
-                        } else if ('detail' in response) {
-                            this.error = response.detail
+                    .catch((err) => {
+                        // If there is an error set the error message to
+                        // '' instead of null for display purposes
+                        this.error = ''
+                        if (typeof err === 'string' || err instanceof String) {
+                            this.error = err
+                        } else if ('detail' in err.response) {
+                            Object.values(err.response.detail).forEach(
+                                (val) => {
+                                    this.error += val + ' '
+                                }
+                            )
+                        } else if ('data' in err.response) {
+                            Object.values(err.response.data).forEach((val) => {
+                                this.error += val + ' '
+                            })
                         } else {
                             this.error = 'Unable to process request.'
                         }
