@@ -1,19 +1,18 @@
 <template>
-    <div class="flex items-center px-5 py-3 bg-primary">
-        <h3
-            class="
-                flex-1
-                text-gray-50
-                hover:underline
-                duration-100
-                text-lg
-                font-semibold
-            "
-        >
-            <NuxtLink :to="`/plazas/${slug}`">
+    <div class="flex items-center justify-between px-5 py-3 bg-primary">
+        <NuxtLink :to="`/plazas/${slug}`">
+            <h3
+                class="
+                    text-gray-50
+                    hover:underline
+                    duration-100
+                    text-lg
+                    font-semibold
+                "
+            >
                 {{ name }}
-            </NuxtLink>
-        </h3>
+            </h3>
+        </NuxtLink>
         <template v-if="isMember">
             <div class="rounded-full bg-gray-100 p-2">
                 <svg
