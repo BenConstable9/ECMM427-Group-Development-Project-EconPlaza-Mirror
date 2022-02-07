@@ -35,7 +35,7 @@
                 class="
                     rounded-full
                     text-gray-400
-                    hover:text-secondary
+                    hover:text-primary
                     bg-gray-100
                     duration-100
                     p-2
