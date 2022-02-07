@@ -36,8 +36,9 @@
             <button
                 class="
                     rounded-full
+                    text-gray-400
+                    hover:text-secondary
                     bg-gray-100
-                    hover:bg-gray-50
                     duration-100
                     p-3
                 "
@@ -45,7 +46,7 @@
             >
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    class="h-5 w-5 text-primary mx-auto"
+                    class="h-5 w-5 mx-auto"
                     viewBox="0 0 20 20"
                     fill="currentColor"
                 >
