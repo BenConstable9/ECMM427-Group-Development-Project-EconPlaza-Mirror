@@ -136,7 +136,7 @@
                             <label class="label">Institution</label>
                             <div class="control">
                                 <input
-                                    v-model="institution"
+                                    v-model="institutional_affiliation"
                                     type="text"
                                     class="
                                         w-full
@@ -152,7 +152,7 @@
                                         disabled:text-gray-500
                                         disabled:border-gray-400
                                     "
-                                    name="institution"
+                                    name="institutional_affiliation"
                                     required
                                     placeholder="Institution"
                                 />
@@ -262,7 +262,7 @@ export default {
             email: '',
             first_name: '',
             last_name: '',
-            insitution: '',
+            institutional_affiliation: '',
             password: '',
             error: null,
             success: null,
@@ -288,7 +288,8 @@ export default {
                         email: this.email,
                         first_name: this.first_name,
                         last_name: this.last_name,
-                        institution: this.institution,
+                        institutional_affiliation:
+                            this.institutional_affiliation,
                         password: this.password,
                         'g-recaptcha-response': token,
                     })
