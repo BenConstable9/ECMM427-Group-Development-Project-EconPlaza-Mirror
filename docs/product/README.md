@@ -1,4 +1,4 @@
-# product
+# EconPlaza Help
 
 ## Setup
 
