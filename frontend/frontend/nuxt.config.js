@@ -66,7 +66,7 @@ export default {
         /* reCAPTCHA options */
         hideBadge: false, // Hide badge element (v3 & v2 via size=invisible)
         language: 'english', // Recaptcha language (v2)
-        siteKey: '6LcdcVIeAAAAAH48fANB75r1-bx8IF36Wqi0162D', // Site key for requests
+        siteKey: '6LfbGWMeAAAAAFkxGJoH0Zw07lT0_nmdFA4zWQzX', // Site key for requests
         version: 2, // Version
         size: 'normal', // Size: 'compact', 'normal', 'invisible' (v2)
     },
@@ -76,7 +76,7 @@ export default {
             /* reCAPTCHA options for production */
             siteKey:
                 process.env.RECAPTCHA_SITE_KEY ||
-                '6LcdcVIeAAAAAH48fANB75r1-bx8IF36Wqi0162D',
+                '6LfbGWMeAAAAAFkxGJoH0Zw07lT0_nmdFA4zWQzX',
         },
     },
 
