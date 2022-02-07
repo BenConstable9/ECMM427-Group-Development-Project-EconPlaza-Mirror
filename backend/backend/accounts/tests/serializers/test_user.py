@@ -113,6 +113,7 @@ class UserPostSerializerTest(APITestCase):
                     "email",
                     "first_name",
                     "last_name",
+                    "institutional_affiliation"
                 ]
             ),
         )
