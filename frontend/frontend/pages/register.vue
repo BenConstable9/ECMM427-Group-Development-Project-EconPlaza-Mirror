@@ -133,6 +133,32 @@
                             </div>
                         </div>
                         <div class="field">
+                            <label class="label">Institution</label>
+                            <div class="control">
+                                <input
+                                    v-model="institution"
+                                    type="text"
+                                    class="
+                                        w-full
+                                        p-4
+                                        text-m
+                                        bg-white
+                                        focus:outline-none
+                                        border border-gray-200
+                                        rounded-r-2xl rounded-b-2xl
+                                        text-blue-600
+                                        shadow
+                                        disabled:bg-gray-100
+                                        disabled:text-gray-500
+                                        disabled:border-gray-400
+                                    "
+                                    name="institution"
+                                    required
+                                    placeholder="Institution"
+                                />
+                            </div>
+                        </div>
+                        <div class="field">
                             <label class="label">Password</label>
                             <div class="control">
                                 <input
@@ -236,6 +262,7 @@ export default {
             email: '',
             first_name: '',
             last_name: '',
+            insitution: '',
             password: '',
             error: null,
             success: null,
@@ -261,6 +288,7 @@ export default {
                         email: this.email,
                         first_name: this.first_name,
                         last_name: this.last_name,
+                        institution: this.institution,
                         password: this.password,
                         'g-recaptcha-response': token,
                     })
