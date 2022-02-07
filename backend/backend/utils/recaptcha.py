@@ -4,7 +4,14 @@ from django.http import HttpResponseForbidden
 
 # 3rd-party imports
 import requests
-from ipware import get_client_ip
+
+def get_client_ip(request):
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    return ip
 
 # https://stackoverflow.com/questions/29548574/how-to-validate-google-recaptcha-v2-in-django
 # https://stackoverflow.com/a/49282092
@@ -12,17 +19,15 @@ def is_recaptcha_valid(request):
     """
     Verify if the response for the Google recaptcha is valid.
     """
-    return True  # Temporary
-    # TODO: Setup X_FORWARDED_FROM for get_client_ip()
-    # return requests.post(
-    #     settings.GOOGLE_VERIFY_RECAPTCHA_URL,
-    #     data={
-    #         'secret': settings.RECAPTCHA_SECRET_KEY,
-    #         'response': request.data.get('g-recaptcha-response'),
-    #         'remoteip': get_client_ip(request)
-    #     },
-    #     verify=True
-    # ).json().get("success", False)
+    json = requests.post(
+        settings.GOOGLE_VERIFY_RECAPTCHA_URL,
+        data={
+            'secret': settings.RECAPTCHA_SECRET_KEY,
+            'response': request.data.get('g-recaptcha-response'),
+            'remoteip': get_client_ip(request)
+        }
+    ).json()
+    return json.get("success", False)
 
 
 def human_required(view_func):
