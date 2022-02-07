@@ -18,11 +18,7 @@
             v-if="isMember"
             class="flex-initial md:flex-none lg:flex-initial"
         />
-        <button
-            v-else
-            class="rounded-full bg-gray-50 p-3"
-            @click="$nuxt.$emit('join-plaza', slug)"
-        >
+        <button v-else class="rounded-full bg-gray-50 p-3" @click="plazaJoin()">
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 class="h-5 w-5 text-primary mx-auto"
@@ -38,6 +34,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 import Member from '~/components/labels/Member'
 
 export default {
@@ -49,6 +46,15 @@ export default {
         slug: { type: String, default: '' },
         name: { type: String, default: '' },
         isMember: { type: Boolean, default: false },
+    },
+    methods: {
+        ...mapActions({
+            joinPlaza: 'plazas/joinPlaza',
+        }),
+        plazaJoin() {
+            // Join the plaza
+            this.joinPlaza({ plazaSlug: this.slug })
+        },
     },
 }
 </script>

@@ -37,7 +37,6 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
 import Pagination from '~/components/helpers/pagination'
 
 export default {
@@ -92,20 +91,10 @@ export default {
                 query: { ...this.$route.query, page: this.page },
             })
         })
-        this.$nuxt.$on('join-plaza', (slug) => {
-            // Join the plaza
-            this.joinPlaza({ plazaSlug: slug })
-        })
     },
     beforeDestroy() {
         this.$nuxt.$off('pagination-next')
         this.$nuxt.$off('pagination-previous')
-        this.$nuxt.$off('join-plaza')
-    },
-    methods: {
-        ...mapActions({
-            joinPlaza: 'plazas/joinPlaza',
-        }),
     },
 }
 </script>
