@@ -86,11 +86,57 @@ class PostViewsetTest(APITestCase):
         self.assertEqual(response.data["count"], 1)
         self.assertEqual(response.data["results"][0], serializer.data)
 
+    def test_get_posts_without_plaza(self):
+        """Test we get a HTTP 200 response when looking at list view."""
+
+        # Now test the actual data is the same
+        self.client.force_authenticate(self.user_1)
+        response = self.client.get("/v1/posts/")
+
+        factory = APIRequestFactory()
+        request = factory.get("/v1/posts/")
+
+        serializer_context = {
+            "request": Request(request),
+        }
+
+        serializer = PostSerializer(instance=self.post, context=serializer_context)
+
+        # Check with the data direct from model
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data["count"], 1)
+        self.assertEqual(response.data["results"][0], serializer.data)
+
     def test_get_posts_unauth(self):
         """Test we get a HTTP 401 response when looking at list view."""
 
         # Get some data
         response = self.client.get("/v1/plazas/{}/posts/".format(self.plaza.slug))
+
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+    def test_get_posts_unauth_without_plaza(self):
+        """Test we get a HTTP 401 response when looking at list view."""
+
+        # Get some data
+        response = self.client.get("/v1/posts/")
+
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)  #
+
+    def test_get_post_without_plaza(self):
+        """Test we get a HTTP 403 response when looking at detailed view."""
+
+        # Get some data
+        self.client.force_authenticate(self.user_1)
+        response = self.client.get("/v1/posts/{}/".format(self.post.id))
+
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+    def test_get_post_unauth_without_plaza(self):
+        """Test we get a HTTP 403 response when looking at detailed view."""
+
+        # Get some data
+        response = self.client.get("/v1/posts/{}/".format(self.post.id))
 
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
@@ -127,6 +173,15 @@ class PostViewsetTest(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data, serializer.data)
 
+    def test_delete_post_without_plaza(self):
+        """Test we get a HTTP 405 response when attempting to delete data."""
+        self.client.force_authenticate(self.user_1)
+
+        # Set the delete type
+        response = self.client.delete("/v1/posts/{}/".format(self.post.id))
+
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
     def test_delete_post(self):
         """Test we get a HTTP 405 response when attempting to delete data."""
         self.client.force_authenticate(self.user_1)
@@ -159,6 +214,14 @@ class PostViewsetTest(APITestCase):
         )
 
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+    def test_put_post_without_plaza(self):
+        """Test we get a HTTP 401 response when attempting to update data and we aren't authorised."""
+        # Set the payload
+        payload = {"title": "test2"}
+        response = self.client.put("/v1/posts/{}/".format(self.post.id), payload)
+
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
     def test_put_post_unauth(self):
         """Test we get a HTTP 401 response when attempting to update data and we aren't authorised."""
@@ -206,6 +269,34 @@ class PostViewsetTest(APITestCase):
         payload = {
             "title": "test post with HTTP",
             "content": "content",
+            "user": self.user_2.id,
+            "profile": self.profile_2.id,
+            "reactions": "{}",
+            "permissions": "{}",
+        }
+
+        response = self.client.post(
+            "/v1/plazas/{}/posts/".format(self.plaza.slug),
+            json.dumps(payload),
+            content_type="application/json",
+        )
+
+        exists = Post.objects.filter(
+            title="test post with HTTP",
+            profile=self.profile_2.id,
+        ).exists()
+
+        self.assertFalse(exists)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+    def test_post_post_without_plaza(self):
+        """Test we get a HTTP 403 response when attempting to add data as we aren't verified."""
+        self.client.force_authenticate(self.user_1)
+
+        # Set the payload
+        payload = {
+            "title": "test post with HTTP",
+            "content": "content",
             "user": self.user_1.id,
             "profile": self.profile_1.id,
             "reactions": "{}",
@@ -213,7 +304,7 @@ class PostViewsetTest(APITestCase):
         }
 
         response = self.client.post(
-            "/v1/plazas/{}/posts/".format(self.plaza.slug),
+            "/v1/posts/",
             json.dumps(payload),
             content_type="application/json",
         )

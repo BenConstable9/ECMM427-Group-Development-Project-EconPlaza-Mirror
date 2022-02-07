@@ -38,14 +38,21 @@ class PlazaSerializer(serializers.HyperlinkedModelSerializer):
     def get_plaza_membership(self, instance):
         request = self.context.get("request", None)
 
-        try:
-            return {
-                "member": True,
-                "type": Member.objects.get(
-                    plaza=instance, user=request.user
-                ).member_type,
-            }
-        except ObjectDoesNotExist:
+        # Must check user is authenticated to avoid error on the member check
+        if request is not None and request.user.is_authenticated:
+            try:
+                return {
+                    "member": True,
+                    "type": Member.objects.get(
+                        plaza=instance, user=request.user
+                    ).member_type,
+                }
+            except ObjectDoesNotExist:
+                return {
+                    "member": False,
+                    "type": None,
+                }
+        else:
             return {
                 "member": False,
                 "type": None,

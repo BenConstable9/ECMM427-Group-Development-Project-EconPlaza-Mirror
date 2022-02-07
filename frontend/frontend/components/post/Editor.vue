@@ -57,11 +57,7 @@
             maxlength="2800"
         >
         </textarea>
-        <MarkdownViewer
-            :class="{ hidden: !showPreview }"
-            :content="content"
-            :options="options"
-        />
+        <MarkdownViewer :class="{ hidden: !showPreview }" :content="content" />
     </div>
 </template>
 

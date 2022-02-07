@@ -4,6 +4,8 @@ from accounts.serializers import UserSerializer
 
 
 class MemberSerializer(serializers.ModelSerializer):
+    user = UserSerializer(many=False, read_only=True)
+
     class Meta:
         model = Member
         fields = [
@@ -19,6 +21,4 @@ class MemberSerializer(serializers.ModelSerializer):
         # Convert Permissions JSON into a dictionary to be combined into the JSON response
         representation = super().to_representation(instance)
 
-        # This ensures the profile is only serialised on a GET not a POST
-        representation["user"] = UserSerializer(instance.user).data
         return representation

@@ -1,12 +1,14 @@
 from rest_framework import serializers
 from rest_framework.exceptions import APIException
 from django.core.exceptions import ObjectDoesNotExist
+
+from plazas.models.plaza import Plaza
 from ..models import Post
 import json
 
 from accounts.serializers import ProfileSerializer
 from ..models import Comment
-from ..serializers import TagSerializer
+from ..serializers import TagSerializer, PlazaSerializer
 
 
 class PostSerializer(serializers.ModelSerializer):
@@ -16,12 +18,14 @@ class PostSerializer(serializers.ModelSerializer):
     last_activity = serializers.SerializerMethodField()
 
     tags = TagSerializer(many=True, read_only=True)
+    plaza = PlazaSerializer(many=False, read_only=True)
 
     class Meta:
         model = Post
         fields = [
             "id",
             "profile",
+            "plaza",
             "title",
             "content",
             "permissions",

@@ -19,13 +19,11 @@
                             my-6
                         "
                     >
-                        <NuxtLink
+                        <plaza-box
                             v-for="plaza in plazas"
                             :key="plaza.id"
-                            :to="`/plazas/${plaza.slug}`"
-                        >
-                            <plaza-box :plaza="plaza" />
-                        </NuxtLink>
+                            :plaza="plaza"
+                        />
                     </div>
                     <pagination
                         :next="pagination.next"

@@ -9,7 +9,11 @@
                 shadow-md
             "
         >
-            <plaza-box-header :name="plaza.name" />
+            <plaza-box-header
+                :slug="plaza.slug"
+                :name="plaza.name"
+                :is-member="plaza.membership.member"
+            />
             <plaza-box-details
                 :members="plaza.stats.members"
                 :posts="plaza.stats.posts"

@@ -2,10 +2,9 @@
     <main>
         <div class="container mx-auto">
             <div class="bg-gray-100 px-5 mt-5 mb-5 mx-auto">
-                <not-found v-if="plazaNotFound && loaded" id="content" />
-                <div v-else id="content" class="flex space-x-5 pt-5 pb-8">
+                <div id="content" class="flex space-x-5 pt-5 pb-8">
                     <div id="content-left" class="w-full lg:w-3/4">
-                        <post-table :is-plaza-view="true" />
+                        <post-table :is-plaza-view="false" />
                         <pagination
                             :next="pagination.next"
                             :page="pagination.page"
@@ -16,8 +15,9 @@
                         id="content-left"
                         class="hidden lg:flex lg:w-1/4 flex-col space-y-5"
                     >
-                        <about-box />
-                        <rules-box />
+                        <my-plazas />
+                        <my-bookmarks />
+                        <popular-plazas />
                     </div>
                 </div>
             </div>
@@ -34,40 +34,35 @@ export default {
         Pagination,
     },
     async asyncData({ query, params, store }) {
-        await store.dispatch('plazas/getCurrentPlaza', {
-            plazaSlug: params.plazas,
-        })
-
         let page = Number(query.page)
 
         if (isNaN(page)) {
             page = 1
         }
 
-        await store.dispatch('plazas/posts/getAllPlazaPosts', {
+        let search = query.search
+
+        if (search === undefined) {
+            search = ''
+        }
+
+        await store.dispatch('posts/getAllPosts', {
             page,
-            plazaSlug: params.plazas,
+            search,
         })
 
         return {
             loaded: true,
             page,
-            plaza: store.getters['plazas/currentPlaza'],
-            pagination: store.getters['plazas/posts/pagination'],
+            pagination: store.getters['posts/pagination'],
         }
     },
     head() {
         return {
-            title: `${this.plaza.name} | EconPlaza`,
+            title: `All Posts | EconPlaza`,
         }
     },
-    computed: {
-        plazaNotFound() {
-            // Determine if plaza exists if the ID is 0 (the undefined plaza)
-            return this.plaza && this.plaza.id === 0
-        },
-    },
-    watchQuery: ['page'],
+    watchQuery: ['page', 'search'],
     beforeDestroy() {
         this.$nuxt.$off('pagination-next')
         this.$nuxt.$off('pagination-previous')
@@ -106,7 +101,7 @@ export default {
     },
     methods: {
         ...mapMutations({
-            setDesiredPaginationSize: 'plazas/posts/setDesiredPaginationSize',
+            setDesiredPaginationSize: 'posts/setDesiredPaginationSize',
         }),
     },
 }
