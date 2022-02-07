@@ -3,8 +3,7 @@ from rest_framework.permissions import SAFE_METHODS
 from django.contrib.auth import get_user_model
 from utils import StandardResultsSetPagination
 
-from ..serializers import UserSerializer
-from ..serializers.user import UserPostSerializer
+from ..serializers import UserSerializer, UserPostSerializer
 from ..permissions.create_or_authenticate import IsCreationOrIsAuthenticated
 
 # Only allow GET, HEAD and OPTIONS requests
