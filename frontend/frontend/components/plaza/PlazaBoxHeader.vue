@@ -3,8 +3,6 @@
         <h3
             class="
                 flex-1
-                md:flex-none
-                lg:flex-1
                 text-gray-50
                 hover:underline
                 duration-100
