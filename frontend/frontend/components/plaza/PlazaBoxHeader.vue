@@ -15,7 +15,7 @@
             </NuxtLink>
         </h3>
         <template v-if="isMember">
-            <div class="rounded-full bg-gray-100 p-3">
+            <div class="rounded-full bg-gray-100 p-2">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     class="h-5 w-5 text-primary mx-auto"
@@ -38,7 +38,7 @@
                     hover:text-secondary
                     bg-gray-100
                     duration-100
-                    p-3
+                    p-2
                 "
                 @click="plazaJoin()"
             >
