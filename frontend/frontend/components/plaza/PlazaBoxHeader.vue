@@ -6,7 +6,7 @@
                 text-gray-50
                 hover:underline
                 duration-100
-                text-xl
+                text-lg
                 font-semibold
             "
         >
