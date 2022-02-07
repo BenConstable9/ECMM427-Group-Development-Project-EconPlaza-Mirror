@@ -145,9 +145,32 @@ class UserViewsetTest(APITestCase):
     def test_post_user(self):
         """Test we get a HTTP 201 response when attempting to register a user"""
 
-        # Set the payload
-        payload = {"first_name": "tester", "username": "test", "password": "Te5t@146"}
-        response = self.client.post("/v1/users/", payload)
+        # Set the default payload (No reCaptcha)
+        bad_payload = {
+            "first_name": "tester",
+            "username": "test",
+            "password": "Te5t@146",
+            "email": "test@example.com",
+            "institutional_affiliation": "University of Exeter",
+        }
+        response = self.client.post("/v1/users/", bad_payload)
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+        # Set the payload (With reCaptcha test keys)
+        # This uses a special recaptcha key designed specifically for unit testing.
+        # Do not use this 'secret' anywhere else, as it will show errors.
+        with self.settings(
+            RECAPTCHA_SECRET_KEY="6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe",
+        ):
+            good_payload = {
+                "first_name": "tester",
+                "username": "test",
+                "password": "Te5t@146",
+                "email": "test@example.com",
+                "institutional_affiliation": "University of Exeter",
+                "g-recaptcha-response": "anything-goes-here",
+            }
+            response = self.client.post("/v1/users/", good_payload)
 
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
