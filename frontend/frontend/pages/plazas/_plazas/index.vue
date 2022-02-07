@@ -27,7 +27,7 @@
 
 <script>
 import { mapMutations } from 'vuex'
-import Pagination from '~/components/helpers/pagination'
+import Pagination from '~/components/helpers/Pagination'
 
 export default {
     components: {
