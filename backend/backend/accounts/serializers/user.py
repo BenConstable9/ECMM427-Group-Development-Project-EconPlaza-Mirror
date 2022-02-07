@@ -9,7 +9,6 @@ from rest_framework.exceptions import ValidationError as DRFValidationError
 from utils.recaptcha import is_recaptcha_valid
 
 
-
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = get_user_model()
@@ -43,8 +42,7 @@ class UserPostSerializer(serializers.HyperlinkedModelSerializer):
         }
 
     def create(self, validated_data):
-        print(self.context)
-        request = self.context.get('request', None)
+        request = self.context.get("request", None)
         if is_recaptcha_valid(request):
             try:
                 password = validated_data.get("password")
