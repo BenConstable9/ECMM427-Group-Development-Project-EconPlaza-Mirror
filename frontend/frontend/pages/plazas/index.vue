@@ -1,10 +1,12 @@
 <template>
     <main>
         <div class="container mx-auto">
-            <div class="bg-gray-50 px-5 mx-auto">
+            <div class="bg-gray-100 px-5 mt-5 mb-5 mx-auto">
                 <div id="title">
                     <div class="flex pt-8">
-                        <h1 class="text-xl font-semibold">All Plazas</h1>
+                        <h1 class="text-xl text-gray-900 font-semibold">
+                            Plaza directory
+                        </h1>
                     </div>
                 </div>
                 <div id="content">
@@ -15,8 +17,9 @@
                             sm:grid-cols-2
                             md:grid-cols-3
                             lg:grid-cols-4
-                            gap-4
-                            my-6
+                            gap-5
+                            pt-8
+                            pb-12
                         "
                     >
                         <plaza-box
@@ -37,7 +40,7 @@
 </template>
 
 <script>
-import Pagination from '~/components/helpers/pagination'
+import Pagination from '~/components/helpers/Pagination'
 
 export default {
     components: {
