@@ -1,13 +1,12 @@
 <template>
-    <div class="flex items-start bg-blue-600 px-4 py-2">
+    <div class="flex items-start px-5 py-3 bg-primary">
         <h3
             class="
                 flex-1
                 md:flex-none
                 lg:flex-1
-                text-lg
+                text-gray-50 text-xl
                 font-semibold
-                text-white
             "
         >
             <NuxtLink :to="`/plazas/${slug}`">
