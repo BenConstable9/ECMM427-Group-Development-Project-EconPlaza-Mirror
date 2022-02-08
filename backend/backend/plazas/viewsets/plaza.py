@@ -35,7 +35,7 @@ class PlazaViewSet(viewsets.ReadOnlyModelViewSet):
 
     @action(methods=["GET"], detail=True, url_path="popular")
     def popular(self, request, **kwargs):
-        two_weeks_ago = timezone.now().date() - timedelta(days=14)
+        two_weeks_ago = timezone.now() - timedelta(days=14)
         # Order by most popular post within a plaza, from the last two weeks
         plazas = (
             Post.objects.filter(created_at__gte=two_weeks_ago)
