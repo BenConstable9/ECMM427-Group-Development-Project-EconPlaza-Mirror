@@ -1,7 +1,7 @@
 ---
 title: Introduction
 description: ''
-position: 1
+position: 100
 category: ''
 features:
   - Feature 1
@@ -9,18 +9,17 @@ features:
   - Feature 3
 ---
 
-<img src="/preview.png" class="light-img" width="1280" height="640" alt=""/>
-<img src="/preview-dark.png" class="dark-img" width="1280" height="640" alt=""/>
+EconPlaza is a discussion platform for, and by, economists.
 
-[Module]() for [NuxtJS](https://nuxtjs.org).
+This technical documentation describes usage of the platform by users and administrators.
 
-<alert type="success">
+<alert type="info">
 
-Your documentation has been created successfully!
+Product documentation for administrators is available separately.
 
 </alert>
 
-## Features
+## Sections
 
 <list :items="features"></list>
 
