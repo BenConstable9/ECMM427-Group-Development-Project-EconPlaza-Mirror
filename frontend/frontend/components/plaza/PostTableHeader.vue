@@ -30,7 +30,14 @@
                 />
             </div>
             <pagination-size :size="pagination.preferredSize" />
-            <div v-if="plaza.membership.member && isPlazaView" id="write">
+            <div
+                v-if="
+                    authenticatedUser.verified &&
+                    plaza.membership.member &&
+                    isPlazaView
+                "
+                id="write"
+            >
                 <NuxtLink :to="`/plazas/${plaza.slug}/create`">
                     <div class="rounded-full bg-gray-50 p-3">
                         <svg
@@ -51,7 +58,7 @@
                     </div>
                 </NuxtLink>
             </div>
-            <div v-else-if="isPlazaView" id="join">
+            <div v-else-if="!plaza.membership.member && isPlazaView" id="join">
                 <form @submit.prevent="plazaJoin">
                     <button
                         class="rounded-full bg-gray-50 p-3"
