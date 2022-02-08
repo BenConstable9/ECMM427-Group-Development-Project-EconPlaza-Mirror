@@ -4,15 +4,35 @@
             <popular-plazas-header />
             <ol class="list-inside">
                 <popular-plazas-row
-                    v-for="i in 3"
-                    :key="i"
-                    :class="{ 'bg-gray-50': i % 2 }"
+                    v-for="plaza in plazas"
+                    :key="plaza.plaza__name"
+                    :title="plaza.plaza__name"
+                    :slug="plaza.plaza__slug"
                 />
             </ol>
         </ul>
     </div>
 </template>
 
-<script></script>
+<script>
+import { PLAZAS } from '../../api-routes'
+
+export default {
+    data() {
+        return {
+            plazas: [],
+        }
+    },
+    mounted() {
+        this.getPlazas()
+    },
+    methods: {
+        async getPlazas() {
+            const response = await this.$axios.get(PLAZAS.POPULAR())
+            this.plazas = response.data
+        },
+    },
+}
+</script>
 
 <style></style>
