@@ -1,4 +1,4 @@
-# technical
+# EconPlaza Docs
 
 ## Setup
 
