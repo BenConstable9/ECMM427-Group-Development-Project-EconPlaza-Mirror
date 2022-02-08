@@ -13,6 +13,12 @@ export const PLAZAS = {
     POPULAR: () => `/v1/plazas/all/popular/`,
 }
 
+// Posts
+
+export const POSTS = {
+    ALL: () => `/v1/posts/`,
+}
+
 // Users
 
 export const USERS = {
@@ -20,4 +26,5 @@ export const USERS = {
     ONE: (id) => `/v1/users/${id}/`,
     VOUCHES: (id) => `/v1/users/${id}/vouches/`,
     PROFILES: (id) => `/v1/users/${id}/profiles/`,
+    REGISTER: () => `/v1/users/`,
 }

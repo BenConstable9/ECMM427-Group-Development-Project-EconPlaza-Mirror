@@ -1,7 +1,9 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-from . import Plaza
+from django.contrib.contenttypes.fields import GenericRelation
+
+from . import Plaza, Tag
 
 
 class Post(models.Model):
@@ -40,6 +42,8 @@ class Post(models.Model):
     deleted = models.BooleanField("Post's Deleted Flag", default=0)
 
     views = models.PositiveIntegerField("Post's Total Views (Computed)", default=0)
+
+    tags = GenericRelation(Tag)
 
     created_at = models.DateTimeField("Created at timestamp", auto_now_add=True)
 

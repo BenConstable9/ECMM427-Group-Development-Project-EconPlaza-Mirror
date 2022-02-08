@@ -43,7 +43,7 @@
 <script>
 import { USERS } from '../../api-routes'
 import UserBox from '~/components/user/user-box'
-import Pagination from '~/components/helpers/pagination'
+import Pagination from '~/components/helpers/Pagination'
 
 export default {
     components: {

@@ -1,6 +1,5 @@
 from django.contrib.auth import get_user_model
 from django.test import RequestFactory, TestCase
-from django.contrib.auth import get_user_model
 from rest_framework.test import force_authenticate
 
 from utils import IsVerified

@@ -62,6 +62,9 @@
                             placeholder="Password"
                         />
                     </div>
+                    <div class="field">
+                        <recaptcha />
+                    </div>
                     <div>
                         <button
                             type="submit"
@@ -88,6 +91,26 @@
                         </button>
                     </div>
                 </form>
+                <button
+                    type="submit"
+                    class="
+                        w-full
+                        py-4
+                        bg-blue-600
+                        hover:bg-blue-800
+                        rounded-r-2xl rounded-b-2xl
+                        text-m
+                        font-bold
+                        border border-blue-600
+                        text-white
+                        shadow
+                        transition
+                        duration-200
+                    "
+                    @click="register"
+                >
+                    Register
+                </button>
             </div>
         </div>
     </main>
@@ -117,6 +140,9 @@ export default {
     },
     auth: 'guest',
     methods: {
+        register() {
+            this.$router.push('/register')
+        },
         async userLogin() {
             try {
                 this.login.isDisabled = true

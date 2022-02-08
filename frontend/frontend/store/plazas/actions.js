@@ -53,4 +53,21 @@ export default {
                 .catch(() => {})
         }
     },
+    async joinPlaza({ commit }, { plazaSlug }) {
+        const memberType = 'MB'
+
+        // Send to server
+        await this.$axios
+            .post(PLAZAS.MEMBERSHIP(plazaSlug), {
+                plaza: plazaSlug,
+                member_type: memberType,
+            })
+            .then(() => {
+                commit('setPlazaMembership', {
+                    slug: plazaSlug,
+                    type: memberType,
+                })
+            })
+            .catch(() => {})
+    },
 }

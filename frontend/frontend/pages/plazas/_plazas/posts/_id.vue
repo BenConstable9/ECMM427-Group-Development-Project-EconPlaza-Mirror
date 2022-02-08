@@ -30,7 +30,7 @@
 <script>
 import { mapMutations } from 'vuex'
 import { PLAZAS } from '~/api-routes'
-import Pagination from '~/components/helpers/pagination'
+import Pagination from '~/components/helpers/Pagination'
 
 export default {
     components: {

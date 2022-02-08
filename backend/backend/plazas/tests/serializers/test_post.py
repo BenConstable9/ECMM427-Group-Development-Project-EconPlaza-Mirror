@@ -63,6 +63,7 @@ class PostSerializerTest(APITestCase):
                     "id",
                     "replies",
                     "profile",
+                    "plaza",
                     "title",
                     "content",
                     "permissions",
@@ -70,6 +71,8 @@ class PostSerializerTest(APITestCase):
                     "hidden",
                     "views",
                     "created_at",
+                    "last_activity",
+                    "tags",
                 ]
             ),
         )

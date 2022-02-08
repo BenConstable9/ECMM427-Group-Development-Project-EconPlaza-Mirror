@@ -143,23 +143,36 @@ class UserViewsetTest(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
     def test_post_user(self):
-        """Test we get a HTTP 405 response when attempting to add data."""
-        self.client.force_authenticate(self.user_1)
+        """Test we get a HTTP 201 response when attempting to register a user"""
 
-        # Set the payload
-        payload = {"first_name": "tester", "username": "test"}
-        response = self.client.post("/v1/users/", payload)
+        # Set the default payload (No reCaptcha)
+        bad_payload = {
+            "first_name": "tester",
+            "username": "test",
+            "password": "Te5t@146",
+            "email": "test@example.com",
+            "institutional_affiliation": "University of Exeter",
+        }
+        response = self.client.post("/v1/users/", bad_payload)
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
-        self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
+        # Set the payload (With reCaptcha test keys)
+        # This uses a special recaptcha key designed specifically for unit testing.
+        # Do not use this 'secret' anywhere else, as it will show errors.
+        with self.settings(
+            RECAPTCHA_SECRET_KEY="6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe",
+        ):
+            good_payload = {
+                "first_name": "tester",
+                "username": "test",
+                "password": "Te5t@146",
+                "email": "test@example.com",
+                "institutional_affiliation": "University of Exeter",
+                "g-recaptcha-response": "anything-goes-here",
+            }
+            response = self.client.post("/v1/users/", good_payload)
 
-    def test_post_vouch_with_unauth(self):
-        """Test we get a HTTP 401 response when attempting to add data as we are not authorised."""
-
-        # Set the payload
-        payload = {"first_name": "tester", "username": "test"}
-        response = self.client.post("/v1/users/", payload)
-
-        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
     def test_get_invalid_user(self):
         """Test we get a HTTP 404 response when looking at the detailed view."""

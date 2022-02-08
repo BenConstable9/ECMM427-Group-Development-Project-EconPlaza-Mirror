@@ -1,15 +1,12 @@
-from django.urls import path
-
-from rest_framework.routers import DefaultRouter
 from rest_framework_nested import routers
 
-from .viewsets import PlazaViewSet, PostViewSet, CommentViewSet, MemberViewSet
+from ..viewsets import PlazaViewSet, PostViewSet, CommentViewSet, MemberViewSet
 
 urlpatterns = []
 
-router = DefaultRouter()
+router = routers.SimpleRouter()
 
-router.register(r"", PlazaViewSet)
+router.register(r"", PlazaViewSet, basename="plazas")
 
 post_router = routers.NestedSimpleRouter(router, r"", lookup="plazas")
 post_router.register(r"posts", PostViewSet, basename="plaza-post")

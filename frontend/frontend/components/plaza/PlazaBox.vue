@@ -1,22 +1,17 @@
 <template>
     <div>
-        <ul
-            class="
-                w-full
-                border
-                rounded-r-2xl rounded-b-2xl
-                overflow-hidden
-                shadow-md
-            "
-        >
-            <plaza-box-header :name="plaza.name" />
-            <plaza-box-details
+        <div class="flex flex-col w-full border rounded-lg overflow-hidden">
+            <plaza-box-header
+                :slug="plaza.slug"
+                :name="plaza.name"
+                :is-member="plaza.membership.member"
+            />
+            <plaza-box-details :description="plaza.description" />
+            <plaza-box-stats
                 :members="plaza.stats.members"
                 :posts="plaza.stats.posts"
-                :date-created="new Date(plaza.created_at)"
-                :description="plaza.description"
             />
-        </ul>
+        </div>
     </div>
 </template>
 
