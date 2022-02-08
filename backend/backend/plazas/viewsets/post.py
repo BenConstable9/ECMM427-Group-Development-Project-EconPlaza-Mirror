@@ -7,7 +7,11 @@ from django.shortcuts import get_object_or_404
 from django.core.cache import cache
 
 from utils import ActionBasedPermission
-from utils import ContainsPlazaURLVerified, ContainsPlazaURL
+from utils import (
+    ContainsPlazaURLVerified,
+    ContainsPlazaURL,
+    ContainsPlazaURLVerifiedMember,
+)
 from utils import StandardResultsSetPagination
 
 from ..serializers import PostSerializer
@@ -37,7 +41,8 @@ class PostViewSet(
     permission_classes = (ActionBasedPermission,)
 
     action_permissions = {
-        ContainsPlazaURLVerified: ["create", "register_view"],
+        ContainsPlazaURLVerifiedMember: ["create"],
+        ContainsPlazaURLVerified: ["register_view"],
         ContainsPlazaURL: ["retrieve"],
         IsAuthenticated: ["list"],
     }
