@@ -44,10 +44,8 @@ class PlazaViewSet(viewsets.ReadOnlyModelViewSet):
             .order_by("-most_views")
         )
         if plazas.count() >= 5:
-            print("More than 5")
             return Response(plazas, status=status.HTTP_200_OK)
         else:
-            print("Less than 5")
             all_plazas = (
                 Post.objects.values("plaza", "plaza__name", "plaza__slug")
                 .annotate(most_views=Max("views"))
