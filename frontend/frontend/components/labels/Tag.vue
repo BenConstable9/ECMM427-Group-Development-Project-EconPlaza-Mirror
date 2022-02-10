@@ -1,9 +1,7 @@
 <template>
     <NuxtLink :to="`/tags/${slug}/`">
-        <div
-            class="p-3 bg-red-700 rounded-r-xl rounded-b-xl text-xs text-white"
-        >
-            {{ slug }}
+        <div class="py-2 px-3 bg-gray-400 rounded-lg text-xs text-white">
+            #{{ slug }}
         </div>
     </NuxtLink>
 </template>

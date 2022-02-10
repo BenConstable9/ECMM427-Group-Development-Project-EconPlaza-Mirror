@@ -57,12 +57,12 @@ export default {
     },
     head() {
         return {
-            title: `Tag: ${this.$route.params.tag} | EconPlaza`,
+            title: `Tag: #${this.$route.params.tag} | EconPlaza`,
         }
     },
     computed: {
         title() {
-            return `Posts with Tag: ${this.$route.params.tag}`
+            return `Posts with Tag: #${this.$route.params.tag}`
         },
     },
     watchQuery: ['page'],

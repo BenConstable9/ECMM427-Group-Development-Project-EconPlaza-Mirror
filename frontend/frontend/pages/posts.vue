@@ -4,7 +4,11 @@
             <div class="bg-gray-100 px-5 mt-5 mb-5 mx-auto">
                 <div id="content" class="flex space-x-5 pt-5 pb-8">
                     <div id="content-left" class="w-full lg:w-3/4">
-                        <post-table :view-type="post" />
+                        <post-table
+                            view-type="post"
+                            :title="title"
+                            description="Posts from across all plazas."
+                        />
                         <pagination
                             :next="pagination.next"
                             :page="pagination.page"
@@ -61,6 +65,15 @@ export default {
         return {
             title: `All Posts | EconPlaza`,
         }
+    },
+    computed: {
+        title() {
+            if (this.$route.params.search === undefined) {
+                return `All posts`
+            } else {
+                return `Posts matching: ${this.$route.params.search}`
+            }
+        },
     },
     watchQuery: ['page', 'search'],
     beforeDestroy() {
