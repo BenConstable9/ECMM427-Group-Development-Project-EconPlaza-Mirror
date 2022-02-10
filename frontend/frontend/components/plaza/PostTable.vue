@@ -1,7 +1,11 @@
 <template>
     <div id="posts" class="flex">
         <ul class="flex flex-col w-full border rounded-lg overflow-hidden">
-            <post-table-header :is-plaza-view="isPlazaView" />
+            <post-table-header
+                :include-plaza-actions="isPlaza"
+                :title="title"
+                :description="description"
+            />
             <div v-if="loading">
                 <post-table-row
                     v-for="i in 4"
@@ -15,7 +19,7 @@
                     v-for="(post, index) in posts"
                     :key="post.id"
                     :post="post"
-                    :include-plaza="!isPlazaView"
+                    :include-plaza-link="!isPlaza"
                     :class="{ 'bg-gray-50': index % 2 }"
                 />
             </div>
@@ -27,16 +31,29 @@
 import { mapActions } from 'vuex'
 
 export default {
-    props: { isPlazaView: { type: Boolean, default: true } },
+    props: {
+        viewType: { type: String, default: 'plaza' },
+        title: { type: String, default: '' },
+        description: { type: String, default: '' },
+    },
     data() {
         return { page: undefined, loading: true }
     },
     computed: {
         posts() {
-            if (this.isPlazaView) {
+            if (this.viewType === 'plaza') {
                 return this.$store.getters['plazas/posts/posts']
-            } else {
+            } else if (this.viewType === 'post') {
                 return this.$store.getters['posts/posts']
+            } else {
+                return this.$store.getters['tags/posts']
+            }
+        },
+        isPlaza() {
+            if (this.viewType === 'plaza') {
+                return true
+            } else {
+                return false
             }
         },
     },
@@ -49,12 +66,12 @@ export default {
             this.page = 1
         }
 
-        if (this.isPlazaView) {
+        if (this.viewType === 'plaza') {
             await this.getAllPlazaPosts({
                 page: this.page,
                 plazaSlug: this.$route.params.plazas,
             })
-        } else {
+        } else if (this.viewType === 'post') {
             let search = this.$route.query.search
 
             if (search === undefined) {
@@ -65,13 +82,21 @@ export default {
                 page: this.page,
                 search,
             })
+        } else {
+            await this.getTaggedPosts({
+                page: this.page,
+                tag: this.$route.params.tag,
+            })
         }
 
         this.loading = false
     },
     methods: {
-        ...mapActions({ getAllPlazaPosts: 'plazas/posts/getAllPlazaPosts' }),
-        ...mapActions({ getAllPosts: 'posts/getAllPosts' }),
+        ...mapActions({
+            getAllPlazaPosts: 'plazas/posts/getAllPlazaPosts',
+            getAllPosts: 'posts/getAllPosts',
+            getTaggedPosts: 'tags/getTaggedPosts',
+        }),
     },
 }
 </script>

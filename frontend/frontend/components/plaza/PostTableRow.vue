@@ -20,11 +20,11 @@
                     </NuxtLink></span
                 >
                 <span
-                    v-if="includePlaza"
+                    v-if="includePlazaLink"
                     class="text-sm text-gray-700 font-semibold"
                     >&middot;</span
                 >
-                <span v-if="includePlaza" class="text-sm text-gray-700"
+                <span v-if="includePlazaLink" class="text-sm text-gray-700"
                     >Posted in
                     <NuxtLink
                         :to="plazaLink"
@@ -92,7 +92,7 @@ export default {
             type: Object,
             default: undefined,
         },
-        includePlaza: {
+        includePlazaLink: {
             type: Boolean,
             default: false,
         },
