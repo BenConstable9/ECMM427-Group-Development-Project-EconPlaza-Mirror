@@ -15,7 +15,7 @@ from utils import (
 from utils import StandardResultsSetPagination
 
 from ..serializers import PostSerializer
-from ..models import Plaza, Post
+from ..models import Plaza, Post, AvailableTag
 from hashlib import md5
 
 
@@ -30,11 +30,22 @@ class PostViewSet(
     """
 
     def get_queryset(self):
-        if "plazas_slug" in self.kwargs:
-            plaza = Plaza.objects.get(slug=self.kwargs["plazas_slug"])
-            return Post.objects.filter(plaza=plaza.id)
+        available_tag_param = self.request.query_params.get('tag', None)
+
+        # See if we have a ?tag= query
+        if available_tag_param:
+            available_tag = get_object_or_404(AvailableTag, name=available_tag_param)
+            if "plazas_slug" in self.kwargs:
+                plaza = Plaza.objects.get(slug=self.kwargs["plazas_slug"])
+                return Post.objects.filter(tags__tag=available_tag, plaza=plaza.id)
+            else:
+                return Post.objects.filter(tags__tag=available_tag)
         else:
-            return Post.objects.all()
+            if "plazas_slug" in self.kwargs:
+                plaza = Plaza.objects.get(slug=self.kwargs["plazas_slug"])
+                return Post.objects.filter(plaza=plaza.id)
+            else:
+                return Post.objects.all()
 
     serializer_class = PostSerializer
 
