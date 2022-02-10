@@ -5,7 +5,7 @@
                 <not-found v-if="plazaNotFound && loaded" id="content" />
                 <div v-else id="content" class="flex space-x-5 pt-5 pb-8">
                     <div id="content-left" class="w-full lg:w-3/4">
-                        <post-table :is-plaza-view="true" />
+                        <post-table :view-type="plaza" />
                         <pagination
                             :next="pagination.next"
                             :page="pagination.page"

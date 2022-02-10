@@ -4,7 +4,11 @@
             <div class="bg-gray-100 px-5 mt-5 mb-5 mx-auto">
                 <div id="content" class="flex space-x-5 pt-5 pb-8">
                     <div id="content-left" class="w-full lg:w-3/4">
-                        <post-table :view-type="post" />
+                        <post-table
+                            view-type="tag"
+                            :title="title"
+                            description="Posts across all plazas with these tags"
+                        />
                         <pagination
                             :next="pagination.next"
                             :page="pagination.page"
@@ -40,29 +44,28 @@ export default {
             page = 1
         }
 
-        let search = query.search
-
-        if (search === undefined) {
-            search = ''
-        }
-
-        await store.dispatch('posts/getAllPosts', {
+        await store.dispatch('tags/getTaggedPosts', {
             page,
-            search,
+            tag: params.tag,
         })
 
         return {
             loaded: true,
             page,
-            pagination: store.getters['posts/pagination'],
+            pagination: store.getters['tags/pagination'],
         }
     },
     head() {
         return {
-            title: `All Posts | EconPlaza`,
+            title: `Tag: ${this.$route.params.tag} | EconPlaza`,
         }
     },
-    watchQuery: ['page', 'search'],
+    computed: {
+        title() {
+            return `Posts with Tag: ${this.$route.params.tag}`
+        },
+    },
+    watchQuery: ['page'],
     beforeDestroy() {
         this.$nuxt.$off('pagination-next')
         this.$nuxt.$off('pagination-previous')
@@ -101,7 +104,7 @@ export default {
     },
     methods: {
         ...mapMutations({
-            setDesiredPaginationSize: 'posts/setDesiredPaginationSize',
+            setDesiredPaginationSize: 'tags/setDesiredPaginationSize',
         }),
     },
 }
