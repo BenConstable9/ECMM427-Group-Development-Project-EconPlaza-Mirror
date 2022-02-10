@@ -26,7 +26,7 @@ class PostViewSet(
     """
 
     def get_queryset(self):
-        available_tag_param = self.request.query_params.get('tag', None)
+        available_tag_param = self.request.query_params.get("tag", None)
 
         # See if we have a ?tag= query
         if available_tag_param:
