@@ -61,6 +61,21 @@
                     <div>
                         <Tags v-model="post.tags" :disabled="post.isDisabled" />
                     </div>
+                    <div
+                        class="
+                            cursor-pointer
+                            py-3
+                            px-4
+                            m-2
+                            rounded
+                            transition
+                            bg-secondary
+                            text-gray-50
+                        "
+                        @click="showPreview = true"
+                    >
+                        Preview
+                    </div>
                     <div>
                         <Editor
                             v-model="post.content"
