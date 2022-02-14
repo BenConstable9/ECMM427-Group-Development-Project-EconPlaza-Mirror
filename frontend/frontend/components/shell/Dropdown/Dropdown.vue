@@ -83,7 +83,7 @@
                         <span>All Plazas</span>
                     </DropdownItem>
                 </NuxtLink>
-                <a href="#">
+                <NuxtLink v-if="authenticatedUser.verified" :to="`/create/`">
                     <DropdownItem @click="toggleMenu">
                         <span
                             ><svg
@@ -99,7 +99,7 @@
                         </span>
                         <span>Create a plaza</span>
                     </DropdownItem>
-                </a>
+                </NuxtLink>
                 <DropdownTitle> Settings </DropdownTitle>
                 <a href="#" @click="$auth.logout()">
                     <DropdownItem @click="toggleMenu">
