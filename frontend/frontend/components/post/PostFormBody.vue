@@ -139,6 +139,7 @@ export default {
             profile: 'profiles/currentProfile',
             profiles: 'profiles/allProfiles',
             authenticatedUser: 'authenticatedUser',
+            postPagination: 'plazas/posts/pagination',
         }),
     },
     async created() {
@@ -148,6 +149,8 @@ export default {
         ...mapActions({
             getCurrentProfile: 'profiles/getCurrentProfile',
             getAllProfiles: 'profiles/getAllProfiles',
+            getAllPlazaPosts: 'plazas/posts/getAllPlazaPosts',
+            emptyAllPlazaPosts: 'plazas/posts/emptyAllPlazaPosts',
         }),
         ...mapMutations({
             setCurrentProfile: 'profiles/setCurrentProfile',
@@ -174,6 +177,13 @@ export default {
                     permissions: this.post.permissions,
                 })
                 .then((response) => {
+                    // Update our previous page we were on so any navigation back to page is fine.
+                    this.emptyAllPlazaPosts()
+                    // Dispatch the action
+                    this.getAllPlazaPosts({
+                        page: this.postPagination.page,
+                        plazaSlug: this.$route.params.plazas,
+                    })
                     this.$router.push(
                         `/plazas/${this.$route.params.plazas}/posts/${response.data.id}/`
                     )
