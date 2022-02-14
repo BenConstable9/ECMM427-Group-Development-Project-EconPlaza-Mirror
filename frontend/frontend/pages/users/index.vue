@@ -18,7 +18,7 @@
                             md:grid-cols-3
                             lg:grid-cols-4
                             gap-4
-                            my-6
+                            my-5
                         "
                     >
                         <NuxtLink
