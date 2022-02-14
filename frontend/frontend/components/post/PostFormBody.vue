@@ -1,20 +1,34 @@
 <template>
     <div>
-        <ul
-            class="
-                w-full
-                border
-                rounded-r-2xl rounded-b-2xl
-                overflow-hidden
-                shadow-md
-            "
-        >
+        <ul class="w-full bg-gray-50 overflow-hidden">
             <Error v-if="error" :message="error" />
             <div
                 id="post-heading"
                 class="flex space-x-3 items-center px-5 py-3"
             >
                 <form class="space-y-4 w-full" @submit.prevent="postNew">
+                    <div>
+                        <input
+                            v-model="post.title"
+                            :disabled="post.isDisabled"
+                            class="
+                                w-full
+                                p-4
+                                text-m
+                                bg-white
+                                focus:outline-none
+                                border border-gray-200
+                                rounded-lg
+                                text-blue-600
+                                disabled:bg-gray-100
+                                disabled:text-gray-500
+                                disabled:border-gray-400
+                            "
+                            type="text"
+                            placeholder="Post Title"
+                            maxlength="140"
+                        />
+                    </div>
                     <div>
                         Post as:
                         <select
@@ -47,7 +61,7 @@
                     </div>
                     <div>
                         <input
-                            v-model="post.title"
+                            v-model="post.tag"
                             :disabled="post.isDisabled"
                             class="
                                 w-full
@@ -64,9 +78,23 @@
                                 disabled:border-gray-400
                             "
                             type="text"
-                            placeholder="Post Title"
-                            maxlength="140"
+                            placeholder="Post Tags"
                         />
+                    </div>
+                    <div
+                        class="
+                            cursor-pointer
+                            py-3
+                            px-4
+                            m-2
+                            rounded
+                            transition
+                            bg-secondary
+                            text-gray-50
+                        "
+                        @click="showPreview = true"
+                    >
+                        Preview
                     </div>
                     <div>
                         <Editor
