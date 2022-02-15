@@ -1,9 +1,4 @@
-from datetime import timedelta
-from django.db.models import Max
-from django.utils import timezone
-from rest_framework import viewsets, filters, permissions, status
-from rest_framework.decorators import action
-from rest_framework.response import Response
+from rest_framework import viewsets, mixins, filters, permissions
 
 from utils import StandardResultsSetPagination
 
@@ -11,7 +6,12 @@ from ..serializers import AvailableTagSerializer
 from ..models import AvailableTag
 
 
-class AvailableTagViewSet(viewsets.ReadOnlyModelViewSet):
+class AvailableTagViewSet(
+    mixins.CreateModelMixin,
+    mixins.ListModelMixin,
+    mixins.RetrieveModelMixin,
+    viewsets.GenericViewSet,
+):
     """
     API endpoint that allows users to view Plazas
     """
