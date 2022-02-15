@@ -48,8 +48,10 @@
                         flex-initial
                         mr-1
                         mb-1
-                        cursor-pointer
                     "
+                    :class="{
+                        'cursor-pointer': !disabled,
+                    }"
                     :data-id="result.id"
                     :data-name="result.name"
                     @click="selectTag"
@@ -63,7 +65,6 @@
                 </div>
                 <div
                     class="
-                        cursor-pointer
                         py-1
                         px-2
                         rounded
@@ -72,6 +73,9 @@
                         bg-primary
                         text-gray-50 text-xs
                     "
+                    :class="{
+                        'cursor-pointer': !disabled,
+                    }"
                     @click="addNewTag"
                 >
                     Add As New Tag
@@ -92,8 +96,10 @@
                         flex-initial
                         mr-1
                         mb-1
-                        cursor-pointer
                     "
+                    :class="{
+                        'cursor-pointer': !disabled,
+                    }"
                     :data-id="result.id"
                     :data-name="result.name"
                     @click="selectTag"
@@ -126,6 +132,14 @@ export default {
             selected: [],
         }
     },
+    watch: {
+        selected() {
+            const tags = this.selected.map(function (i) {
+                return { ID: Number(i.id) }
+            })
+            this.$emit('input', tags)
+        },
+    },
     mounted() {
         this.searchTag()
     },
@@ -143,29 +157,33 @@ export default {
             }
         },
         selectTag(e) {
-            // check if in array
-            const matching = this.checkIfSelected(e.target.dataset.id)
+            if (!this.disabled) {
+                // check if in array
+                const matching = this.checkIfSelected(e.target.dataset.id)
 
-            if (matching === false) {
-                this.selected.push({
-                    id: e.target.dataset.id,
-                    name: e.target.dataset.name,
-                })
-            } else {
-                this.selected.splice(this.selected.indexOf(matching), 1)
+                if (matching === false) {
+                    this.selected.push({
+                        id: e.target.dataset.id,
+                        name: e.target.dataset.name,
+                    })
+                } else {
+                    this.selected.splice(this.selected.indexOf(matching), 1)
+                }
             }
         },
         async addNewTag() {
-            // Send off
-            const tag = this.prepareTag(this.search.tag)
-            await this.$axios
-                .post(TAGS.ALL(), {
-                    name: tag,
-                })
-                .then((response) => {
-                    this.searchTag()
-                })
-                .catch((response) => {})
+            if (!this.disabled) {
+                // Send off
+                const tag = this.prepareTag(this.search.tag)
+                await this.$axios
+                    .post(TAGS.ALL(), {
+                        name: tag,
+                    })
+                    .then((response) => {
+                        this.searchTag()
+                    })
+                    .catch((response) => {})
+            }
         },
         async searchTag() {
             // Send off to server

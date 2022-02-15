@@ -19,7 +19,7 @@
                                 focus:outline-none
                                 border border-gray-200
                                 rounded-lg
-                                text-blue-600
+                                text-primary
                                 disabled:bg-gray-100
                                 disabled:text-gray-500
                                 disabled:border-gray-400
@@ -41,9 +41,8 @@
                                 bg-white
                                 focus:outline-none
                                 border border-gray-200
-                                rounded-r-2xl rounded-b-2xl
-                                text-blue-600
-                                shadow
+                                rounded-lg
+                                text-primary
                                 disabled:bg-gray-100
                                 disabled:text-gray-500
                                 disabled:border-gray-400
@@ -60,7 +59,7 @@
                         </select>
                     </div>
                     <div>
-                        <Tags :disabled="post.isDisabled" />
+                        <Tags v-model="post.tags" :disabled="post.isDisabled" />
                     </div>
                     <div>
                         <Editor
@@ -83,12 +82,11 @@
                             class="
                                 w-full
                                 py-4
-                                bg-blue-600
-                                hover:bg-blue-800
+                                bg-primary
+                                hover:bg-secondary
                                 rounded-lg
                                 text-m
                                 font-bold
-                                border border-blue-600
                                 text-white
                                 shadow
                                 transition
@@ -123,6 +121,7 @@ export default {
                 content: '',
                 permissions: '{}',
                 reactions: '{}',
+                tags: [],
                 isDisabled: false,
             },
             error: null,
@@ -170,6 +169,7 @@ export default {
                     profile: this.profile.id,
                     reactions: this.post.reactions,
                     permissions: this.post.permissions,
+                    tags: this.post.tags,
                 })
                 .then((response) => {
                     // Update post count
