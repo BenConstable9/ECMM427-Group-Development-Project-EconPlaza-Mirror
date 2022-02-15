@@ -1,10 +1,11 @@
 from rest_framework import viewsets, mixins, filters
-from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
 from django.shortcuts import get_object_or_404
 from django.core.cache import cache
+from plazas.models.availabletag import AvailableTag
 
 from utils import ActionBasedPermission
 from utils import (
@@ -69,8 +70,14 @@ class PostViewSet(
     def perform_create(self, serializer):
         plaza = Plaza.objects.get(slug=self.kwargs["plazas_slug"])
 
+        # Build our list of tags to send
+        sent_tags = self.request.data["tags"]
+        tags_to_save = []
+        for sent_tag in sent_tags:
+            tags_to_save.append(AvailableTag.objects.get(id=sent_tag["ID"]))
+
         # Force the user to be the logged in user and the plaza to be from the slug
-        serializer.save(user=self.request.user, plaza=plaza)
+        serializer.save(user=self.request.user, plaza=plaza, tags=tags_to_save)
 
     @action(methods=["POST"], detail=True, url_path="view")
     def register_view(self, request, **kwargs):

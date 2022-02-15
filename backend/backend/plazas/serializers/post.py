@@ -2,12 +2,11 @@ from rest_framework import serializers
 from rest_framework.exceptions import APIException
 from django.core.exceptions import ObjectDoesNotExist
 
-from plazas.models.plaza import Plaza
 from ..models import Post
 import json
 
 from accounts.serializers import ProfileSerializer
-from ..models import Comment
+from ..models import Comment, Post, Tag, AvailableTag
 from ..serializers import TagSerializer, PlazaSerializer
 
 
@@ -17,7 +16,7 @@ class PostSerializer(serializers.ModelSerializer):
     replies = serializers.SerializerMethodField("get_comments_count")
     last_activity = serializers.SerializerMethodField()
 
-    tags = TagSerializer(many=True, read_only=True)
+    tags = TagSerializer(many=True)
     plaza = PlazaSerializer(many=False, read_only=True)
 
     class Meta:
@@ -38,6 +37,18 @@ class PostSerializer(serializers.ModelSerializer):
             "tags",
         ]
         lookup_field = "id"
+
+    def create(self, validated_data):
+        # Allow writeable tags
+        # https://www.django-rest-framework.org/api-guide/relations/#writable-nested-serializers
+
+        tags_data = validated_data.pop("tags")
+        post = Post.objects.create(**validated_data)
+
+        for tag_data in tags_data:
+            Tag.objects.create(content_object=post, tag=tag_data)
+
+        return post
 
     def get_comments_count(self, instance):
         return Comment.objects.filter(post=instance).count()
