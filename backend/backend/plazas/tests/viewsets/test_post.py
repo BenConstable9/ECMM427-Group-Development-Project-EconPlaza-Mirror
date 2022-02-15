@@ -252,6 +252,7 @@ class PostViewsetTest(APITestCase):
             "profile": self.profile_1.id,
             "reactions": "{}",
             "permissions": "{}",
+            "tags": list(),
         }
 
         response = self.client.post(
