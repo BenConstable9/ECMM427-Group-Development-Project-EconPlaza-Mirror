@@ -145,7 +145,11 @@ export default {
     },
     methods: {
         prepareTag(tag) {
-            return tag.trimEnd().replace(/\s/g, '-').replace(/#/g, '')
+            return tag
+                .trimEnd()
+                .replace(/\s/g, '-')
+                .replace(/#/g, '')
+                .toLowerCase()
         },
         checkIfSelected(id) {
             const matching = this.selected.find((tag) => tag.id === id)
