@@ -4,9 +4,34 @@
             <div class="bg-gray-100 px-5 mt-5 mb-5 mx-auto">
                 <div id="title">
                     <div class="flex pt-8">
-                        <h1 class="text-xl text-gray-900 font-semibold">
-                            Plaza directory
+                        <h1
+                            class="
+                                text-xl text-gray-900
+                                font-semibold
+                                flex-grow
+                            "
+                        >
+                            Open Plazas
                         </h1>
+                        <NuxtLink
+                            v-if="authenticatedUser.verified"
+                            :to="`/create/`"
+                        >
+                            <div
+                                class="
+                                    rounded-lg
+                                    py-2
+                                    px-4
+                                    bg-primary
+                                    text-sm text-gray-50
+                                    font-semibold
+                                    flex
+                                    items-center
+                                "
+                            >
+                                Create Plaza
+                            </div>
+                        </NuxtLink>
                     </div>
                 </div>
                 <div id="content">
@@ -40,6 +65,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import Pagination from '~/components/helpers/Pagination'
 
 export default {
@@ -77,6 +103,11 @@ export default {
         return {
             title: 'All Plazas | EconPlaza',
         }
+    },
+    computed: {
+        ...mapGetters({
+            authenticatedUser: 'authenticatedUser',
+        }),
     },
     watchQuery: ['page', 'search'],
     created() {
