@@ -72,10 +72,11 @@
                             bg-secondary
                             text-gray-50
                         "
-                        @click="showPreview = true"
+                        @click="addTag"
                     >
-                        Preview
+                        Add Tag
                     </div>
+                    {{ search.results }}
                     <div>
                         <Editor
                             v-model="post.content"
@@ -122,7 +123,7 @@
 
 <script>
 import { mapGetters, mapActions, mapMutations } from 'vuex'
-import { PLAZAS } from '../../api-routes'
+import { PLAZAS, TAGS } from '../../api-routes'
 import Error from '~/components/messages/Error'
 
 export default {
@@ -131,6 +132,10 @@ export default {
     },
     data() {
         return {
+            search: {
+                tag: '',
+                results: undefined,
+            },
             post: {
                 title: '',
                 content: '',
@@ -171,6 +176,21 @@ export default {
             )
             // Update the store
             this.setCurrentProfile(newProfile)
+        },
+        async addTag() {
+            // Send off
+        },
+        async searchTag() {
+            // Send off to server
+            await this.$axios
+                .get(TAGS.ALL(), {
+                    params: {
+                        search: this.search.tag,
+                    },
+                })
+                .then(({ data }) => {
+                    this.search.results = data.results
+                })
         },
         async postNew() {
             this.post.isDisabled = true
