@@ -60,44 +60,8 @@
                         </select>
                     </div>
                     <div>
-                        <input
-                            v-model="search.tag"
-                            :disabled="post.isDisabled"
-                            class="
-                                w-full
-                                p-4
-                                text-m
-                                bg-white
-                                focus:outline-none
-                                border border-gray-200
-                                rounded-r-2xl rounded-b-2xl
-                                text-blue-600
-                                shadow
-                                disabled:bg-gray-100
-                                disabled:text-gray-500
-                                disabled:border-gray-400
-                            "
-                            type="text"
-                            placeholder="Post Tags"
-                            @change="searchTag"
-                        />
+                        <Tags :disabled="post.isDisabled" />
                     </div>
-                    <div
-                        class="
-                            cursor-pointer
-                            py-3
-                            px-4
-                            m-2
-                            rounded
-                            transition
-                            bg-secondary
-                            text-gray-50
-                        "
-                        @click="addTag"
-                    >
-                        Add Tag
-                    </div>
-                    {{ search.results }}
                     <div>
                         <Editor
                             v-model="post.content"
@@ -145,7 +109,7 @@
 
 <script>
 import { mapGetters, mapActions, mapMutations } from 'vuex'
-import { PLAZAS, TAGS } from '../../api-routes'
+import { PLAZAS } from '../../api-routes'
 import Error from '~/components/messages/Error'
 
 export default {
@@ -154,10 +118,6 @@ export default {
     },
     data() {
         return {
-            search: {
-                tag: '',
-                results: undefined,
-            },
             post: {
                 title: '',
                 content: '',
@@ -197,21 +157,6 @@ export default {
             )
             // Update the store
             this.setCurrentProfile(newProfile)
-        },
-        async addTag() {
-            // Send off
-        },
-        async searchTag() {
-            // Send off to server
-            await this.$axios
-                .get(TAGS.ALL(), {
-                    params: {
-                        search: this.search.tag,
-                    },
-                })
-                .then(({ data }) => {
-                    this.search.results = data.results
-                })
         },
         async postNew() {
             this.post.isDisabled = true
