@@ -19,6 +19,11 @@ export const POSTS = {
     ALL: () => `/v1/posts/`,
 }
 
+// Tags
+export const TAGS = {
+    ALL: () => `/v1/tags/`,
+}
+
 // Users
 
 export const USERS = {
