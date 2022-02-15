@@ -30,6 +30,7 @@ urlpatterns = [
     path("v1/auth/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
     path("v1/plazas/", include("plazas.urls.plazas")),
     path("v1/posts/", include("plazas.urls.posts")),
+    path("v1/tags/", include("plazas.urls.tags")),
     path(
         "",
         lambda _: HttpResponse(
