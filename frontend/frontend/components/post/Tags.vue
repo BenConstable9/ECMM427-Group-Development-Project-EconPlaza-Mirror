@@ -9,15 +9,15 @@
             flex flex-col
         "
     >
-        <div class="flex flex-row border-b-2 bg-gray-50">
-            <div class="py-3 px-4 m-2 mr-0 flex-grow text-l">
+        <div class="border-b-2 bg-gray-50">
+            <div class="py-3 px-4">
                 <input
                     v-model="search.tag"
                     :disabled="disabled"
                     class="
                         w-full
-                        p-4
-                        text-m
+                        p-2
+                        text-sm
                         bg-white
                         focus:outline-none
                         border border-gray-200
@@ -32,11 +32,56 @@
                     @keyup="searchTag"
                 />
             </div>
-        </div>
-        <div>
-            <div v-if="search.results.length > 0" class="flex">
+            <div
+                v-if="search.results.length > 0"
+                class="flex flex-wrap pb-2 px-4"
+            >
                 <div
                     v-for="result in search.results"
+                    :key="result.id"
+                    class="
+                        px-2
+                        py-1
+                        bg-gray-200
+                        rounded-lg
+                        text-xs text-gray-600
+                        flex-initial
+                        mr-1
+                        mb-1
+                        cursor-pointer
+                    "
+                    :data-id="result.id"
+                    :data-name="result.name"
+                    @click="selectTag"
+                >
+                    #{{ result.name }}
+                </div>
+            </div>
+            <div v-else class="pb-2 px-4 flex">
+                <div class="flex-initial">
+                    Tag #{{ prepareTag(search.tag) }} doesn't exist.
+                </div>
+                <div
+                    class="
+                        cursor-pointer
+                        py-1
+                        px-2
+                        rounded
+                        ml-2
+                        flex-initial
+                        bg-primary
+                        text-gray-50 text-xs
+                    "
+                    @click="addNewTag"
+                >
+                    Add As New Tag
+                </div>
+            </div>
+        </div>
+        <div class="py-3 px-4">
+            <div v-if="selected.length > 0" class="flex flex-wrap">
+                <div
+                    v-for="result in selected"
                     :key="result.id"
                     class="
                         px-2
@@ -46,20 +91,17 @@
                         text-xs text-white
                         flex-initial
                         mr-1
+                        mb-1
+                        cursor-pointer
                     "
+                    :data-id="result.id"
+                    :data-name="result.name"
+                    @click="selectTag"
                 >
                     #{{ result.name }}
                 </div>
             </div>
-            <div v-else>
-                <p>Tag #{{ search.tag }} doesn't exist. Add as new tag?</p>
-                <div
-                    class="cursor-pointer py-3 px-4 m-2 mr-0 rounded transition"
-                    @click="addNewTag"
-                >
-                    Editor
-                </div>
-            </div>
+            <div v-else>Select relevant tags from the above list to add.</div>
         </div>
     </div>
 </template>
@@ -81,6 +123,7 @@ export default {
                 tag: '',
                 results: {},
             },
+            selected: [],
         }
     },
     mounted() {
@@ -88,7 +131,29 @@ export default {
     },
     methods: {
         prepareTag(tag) {
-            return tag.trimEnd().replace(' ', '-').replace('#', '')
+            return tag.trimEnd().replace(/\s/g, '-').replace(/#/g, '')
+        },
+        checkIfSelected(id) {
+            const matching = this.selected.find((tag) => tag.id === id)
+
+            if (matching === undefined) {
+                return false
+            } else {
+                return true
+            }
+        },
+        selectTag(e) {
+            // check if in array
+            const matching = this.checkIfSelected(e.target.dataset.id)
+
+            if (matching === false) {
+                this.selected.push({
+                    id: e.target.dataset.id,
+                    name: e.target.dataset.name,
+                })
+            } else {
+                this.selected.splice(this.selected.indexOf(matching), 1)
+            }
         },
         async addNewTag() {
             // Send off
