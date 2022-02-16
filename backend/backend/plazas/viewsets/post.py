@@ -33,19 +33,14 @@ class PostViewSet(
         available_tag_param = self.request.query_params.get("tag", None)
 
         # See if we have a ?tag= query
+        posts = Post.objects.all()
         if available_tag_param:
             available_tag = get_object_or_404(AvailableTag, name=available_tag_param)
-            if "plazas_slug" in self.kwargs:
-                plaza = Plaza.objects.get(slug=self.kwargs["plazas_slug"])
-                return Post.objects.filter(tags__tag=available_tag, plaza=plaza.id)
-            else:
-                return Post.objects.filter(tags__tag=available_tag)
-        else:
-            if "plazas_slug" in self.kwargs:
-                plaza = Plaza.objects.get(slug=self.kwargs["plazas_slug"])
-                return Post.objects.filter(plaza=plaza.id)
-            else:
-                return Post.objects.all()
+            posts = posts.filter(tags__tag=available_tag)
+        if "plazas_slug" in self.kwargs:
+            plaza = Plaza.objects.get(slug=self.kwargs["plazas_slug"])
+            posts = posts.filter(plaza=plaza.id)
+        return posts
 
     serializer_class = PostSerializer
 
