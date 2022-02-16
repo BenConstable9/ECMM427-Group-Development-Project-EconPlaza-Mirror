@@ -50,8 +50,7 @@ export default {
             }
         },
         isPlaza() {
-            return (this.viewType === 'plaza') ? true : false
-            }
+            return this.viewType === 'plaza'
         },
     },
     async created() {
