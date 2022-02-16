@@ -17,6 +17,20 @@ export default {
     setDesiredPaginationSize(state, size) {
         state.pagination.desiredSize = size
     },
+    increasePostCount(state) {
+        state.currentPlaza.stats.posts += 1
+
+        if (state.allPlazas !== undefined) {
+            // Increase the reply count in the list
+            const plaza = state.allPlazas.find(
+                (plaza) => plaza.slug === state.currentPlaza.slug
+            )
+
+            if (plaza !== undefined) {
+                plaza.stats.posts += 1
+            }
+        }
+    },
     setPlazaMembership(state, { slug, type }) {
         // Filter the plaza
         const plaza = state.allPlazas.find((plaza) => plaza.slug === slug)

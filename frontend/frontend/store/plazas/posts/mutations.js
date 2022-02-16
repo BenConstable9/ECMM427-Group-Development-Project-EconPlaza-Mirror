@@ -10,6 +10,17 @@ export default {
     },
     increaseReplyCount(state) {
         state.currentPost.replies += 1
+
+        if (state.posts !== undefined) {
+            // Increase the reply count in the list
+            const post = state.posts.find(
+                (post) => post.id === state.currentPost.id
+            )
+
+            if (post !== undefined) {
+                post.replies += 1
+            }
+        }
     },
     setPage(state, page) {
         state.pagination.page = page

@@ -154,6 +154,7 @@ export default {
         }),
         ...mapMutations({
             setCurrentProfile: 'profiles/setCurrentProfile',
+            increasePostCount: 'plazas/increasePostCount',
         }),
         profileSwitch(e) {
             // Get the profile that matches
@@ -177,6 +178,8 @@ export default {
                     permissions: this.post.permissions,
                 })
                 .then((response) => {
+                    // Update post count
+                    this.increasePostCount()
                     // Update our previous page we were on so any navigation back to page is fine.
                     this.emptyAllPlazaPosts()
                     // Dispatch the action
