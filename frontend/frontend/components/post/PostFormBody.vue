@@ -30,7 +30,6 @@
                         />
                     </div>
                     <div>
-                        Post as:
                         <select
                             :value="profile.id"
                             :disabled="post.isDisabled"
@@ -54,7 +53,7 @@
                                 :key="item.id"
                                 :value="item.id"
                             >
-                                {{ item.display_name }}
+                                Posting As: {{ item.display_name }}
                             </option>
                         </select>
                     </div>
@@ -88,7 +87,6 @@
                                 text-m
                                 font-bold
                                 text-white
-                                shadow
                                 transition
                                 duration-200
                                 disabled:bg-gray-100

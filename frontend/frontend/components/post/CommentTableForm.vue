@@ -5,7 +5,6 @@
         <div id="post-heading" class="flex space-x-3 items-center px-5 py-3">
             <form class="space-y-4 w-full" @submit.prevent="commentNew">
                 <div>
-                    Post Comment as:
                     <svg
                         class="
                             w-2
@@ -36,8 +35,7 @@
                             focus:outline-none
                             border border-gray-200
                             rounded-lg
-                            text-blue-600
-                            shadow
+                            text-primary
                             disabled:bg-gray-100
                             disabled:text-gray-500
                             disabled:border-gray-400
@@ -50,7 +48,7 @@
                             :key="item.id"
                             :value="item.id"
                         >
-                            {{ item.display_name }}
+                            Commenting As: {{ item.display_name }}
                         </option>
                     </select>
                 </div>
@@ -73,14 +71,12 @@
                         class="
                             w-full
                             py-4
-                            bg-blue-600
-                            hover:bg-blue-800
+                            bg-primary
+                            hover:bg-secondary
                             rounded-lg
                             text-m
                             font-bold
-                            border border-blue-600
                             text-white
-                            shadow
                             transition
                             duration-200
                             disabled:bg-gray-100
