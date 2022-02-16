@@ -3,7 +3,7 @@
         <ul class="flex flex-col w-full border rounded-lg overflow-hidden">
             <comment-table-header />
             <comment-table-form
-                v-if="authenticatedUser.is_verified && plaza.membership.member"
+                v-if="authenticatedUser.verified && plaza.membership.member"
             />
             <div v-if="loading">
                 <comment-table-row
