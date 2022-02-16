@@ -72,7 +72,7 @@ class ContainsPlazaURLVerifiedMember(AllowAny):
 
 class ContainsPlazaURLVerified(AllowAny):
     """
-    Custom permission that checks we are accessing /plazas/ and we are verified.
+    Custom permission that checks we are accessing /plazas/ and we are verified na.
     """
 
     def has_permission(self, request, view):
