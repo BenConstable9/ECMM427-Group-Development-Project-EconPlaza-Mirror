@@ -1,17 +1,22 @@
 from datetime import timedelta
 from django.db.models import Max
 from django.utils import timezone
-from rest_framework import viewsets, filters, permissions, status
+from rest_framework import viewsets, filters, permissions, status, mixins
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
 from utils import StandardResultsSetPagination
 
 from ..serializers import PlazaSerializer
-from ..models import Plaza, Post, Member
+from ..models import Plaza, Post, Member, AvailableTag
 
 
-class PlazaViewSet(viewsets.ReadOnlyModelViewSet):
+class PlazaViewSet(
+    mixins.CreateModelMixin,
+    mixins.ListModelMixin,
+    mixins.RetrieveModelMixin,
+    viewsets.GenericViewSet,
+):
     """
     API endpoint that allows users to view Plazas
     """
@@ -34,10 +39,12 @@ class PlazaViewSet(viewsets.ReadOnlyModelViewSet):
     ordering = ["id"]
 
     def perform_create(self, serializer):
-        serializer.save()
+        sent_tags = self.request.data["tags"]
+        tags_to_save = []
+        for sent_tag in sent_tags:
+            tags_to_save.append(AvailableTag.objects.get(id=sent_tag["ID"]))
 
-        # Create a membership against this plaza with the owner type
-        Member.objects.create(user=self.request.user)
+        serializer.save(tags=tags_to_save)
 
     @action(methods=["GET"], detail=True, url_path="popular")
     def popular(self, request, **kwargs):

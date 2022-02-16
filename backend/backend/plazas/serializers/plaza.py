@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from rest_framework.exceptions import APIException
-from ..models import Plaza, Member, Post
+from ..models import Plaza, Member, Post, Tag
 from ..serializers import TagSerializer
 import json
 
@@ -12,7 +12,7 @@ class PlazaSerializer(serializers.HyperlinkedModelSerializer):
     stats = serializers.SerializerMethodField("get_plaza_stats")
     membership = serializers.SerializerMethodField("get_plaza_membership")
 
-    tags = TagSerializer(many=True, read_only=True)
+    tags = TagSerializer(many=True)
 
     class Meta:
         model = Plaza
@@ -28,6 +28,25 @@ class PlazaSerializer(serializers.HyperlinkedModelSerializer):
             "tags",
         ]
         lookup_field = "slug"
+
+    def create(self, validated_data):
+        # Allow writeable tags
+        # https://www.django-rest-framework.org/api-guide/relations/#writable-nested-serializers
+
+        tags_data = validated_data.pop("tags")
+        plaza = Plaza.objects.create(**validated_data)
+
+        # Create a membership against this plaza with the owner type
+        Member.objects.create(
+            user=self.context["request"].user,
+            plaza=plaza,
+            member_type="OP",
+        )
+
+        for tag_data in tags_data:
+            Tag.objects.create(content_object=plaza, tag=tag_data)
+
+        return plaza
 
     def get_plaza_stats(self, instance):
         return {

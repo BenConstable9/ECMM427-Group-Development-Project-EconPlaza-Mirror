@@ -52,6 +52,12 @@
                         />
                     </div>
                     <div>
+                        <Tags
+                            v-model="plaza.tags"
+                            :disabled="plaza.isDisabled"
+                        />
+                    </div>
+                    <div>
                         <textarea
                             v-model="plaza.description"
                             :disabled="plaza.isDisabled"
@@ -125,6 +131,7 @@ export default {
                 slug: '',
                 description: '',
                 permissions: '{}',
+                tags: [],
                 isDisabled: false,
             },
             error: null,
@@ -136,11 +143,12 @@ export default {
 
             // Send to server
             await this.$axios
-                .plaza(PLAZAS.ALL(), {
+                .post(PLAZAS.ALL(), {
                     name: this.plaza.name,
                     description: this.plaza.description,
                     slug: this.plaza.slug,
                     permissions: this.plaza.permissions,
+                    tags: this.plaza.tags,
                 })
                 .then((response) => {
                     this.$router.push(`/plazas/${response.data.slug}/`)
