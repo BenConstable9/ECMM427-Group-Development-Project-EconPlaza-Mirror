@@ -47,7 +47,7 @@
 
             <label class="text-gray-800 mt-5 mb-3">Verification</label>
 
-            <div class="field">
+            <div class="field h-20">
                 <recaptcha />
             </div>
 
