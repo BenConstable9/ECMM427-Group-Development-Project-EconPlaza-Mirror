@@ -179,6 +179,12 @@ export default {
                     })
                     .then((response) => {
                         this.searchTag()
+
+                        // Push to selected
+                        this.selected.push({
+                            id: response.data.id,
+                            name: response.data.name,
+                        })
                     })
                     .catch((response) => {})
             }
