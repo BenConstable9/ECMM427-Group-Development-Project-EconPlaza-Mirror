@@ -33,7 +33,11 @@
             </div>
             <pagination-size :size="pagination.preferredSize" />
             <div
-                v-if="plaza.membership.member && includePlazaActions"
+                v-if="
+                    authenticatedUser.verified &&
+                    plaza.membership.member &&
+                    includePlazaActions
+                "
                 id="write"
             >
                 <NuxtLink :to="`/plazas/${plaza.slug}/create`">

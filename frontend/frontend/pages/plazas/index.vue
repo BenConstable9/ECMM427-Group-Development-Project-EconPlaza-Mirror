@@ -18,8 +18,8 @@
                             md:grid-cols-3
                             lg:grid-cols-4
                             gap-5
-                            pt-8
-                            pb-12
+                            pt-5
+                            pb-5
                         "
                     >
                         <plaza-box

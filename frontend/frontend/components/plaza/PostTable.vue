@@ -50,11 +50,7 @@ export default {
             }
         },
         isPlaza() {
-            if (this.viewType === 'plaza') {
-                return true
-            } else {
-                return false
-            }
+            return this.viewType === 'plaza'
         },
     },
     async created() {
@@ -65,28 +61,29 @@ export default {
         if (isNaN(this.page)) {
             this.page = 1
         }
+        /* eslint indent: [2, 4, {"SwitchCase": 1}] */
+        switch (this.viewType) {
+            case 'plaza':
+                await this.getAllPlazaPosts({
+                    page: this.page,
+                    plazaSlug: this.$route.params.plazas,
+                })
+                break
 
-        if (this.viewType === 'plaza') {
-            await this.getAllPlazaPosts({
-                page: this.page,
-                plazaSlug: this.$route.params.plazas,
-            })
-        } else if (this.viewType === 'post') {
-            let search = this.$route.query.search
+            case 'post':
+                await this.getAllPosts({
+                    page: this.page,
+                    search: this.$route.query.search
+                        ? this.$route.query.search
+                        : '',
+                })
+                break
 
-            if (search === undefined) {
-                search = ''
-            }
-
-            await this.getAllPosts({
-                page: this.page,
-                search,
-            })
-        } else {
-            await this.getTaggedPosts({
-                page: this.page,
-                tag: this.$route.params.tag,
-            })
+            default:
+                await this.getTaggedPosts({
+                    page: this.page,
+                    tag: this.$route.params.tag,
+                })
         }
 
         this.loading = false

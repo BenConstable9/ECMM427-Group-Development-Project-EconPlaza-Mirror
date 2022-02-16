@@ -2,6 +2,7 @@ import re
 
 from rest_framework.permissions import SAFE_METHODS, AllowAny
 from rest_framework.permissions import AllowAny, IsAuthenticated
+from plazas.models import Member, Plaza
 
 
 # Taken form https://stackoverflow.com/questions/39392007/django-rest-framework-viewset-permissions-create-without-list
@@ -46,6 +47,26 @@ class ContainsPlazaURL(AllowAny):
             if re.search("\/plazas\/.*\/", request.path):
                 return True
 
+        return False
+
+
+class ContainsPlazaURLVerifiedMember(AllowAny):
+    """
+    Custom permission that checks we are accessing /plazas/ and we are verified and a member of it.
+    """
+
+    def has_permission(self, request, view):
+        if request.user.is_authenticated:
+            plaza_url = re.search("\/plazas\/.*\/", request.path)
+            if plaza_url:
+                # Get the plaza out the URL and look up
+                plaza_slug = plaza_url.group().strip("/").split("/")[1]
+                plaza = Plaza.objects.get(slug=plaza_slug)
+                # Check if verified
+                return (
+                    request.user.verified
+                    and Member.objects.filter(plaza=plaza, user=request.user).exists()
+                )
         return False
 
 
