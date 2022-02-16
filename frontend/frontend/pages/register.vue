@@ -1,248 +1,157 @@
 <template>
-    <section class="section">
-        <div class="container mx-auto flex justify-center items-center">
-            <div
-                class="
-                    columns
-                    max-w-md
-                    w-full
-                    bg-gray-200
-                    rounded-r-2xl rounded-b-2xl
-                    p-4
-                    m-10
-                    space-y-4
-                    shadow-md
-                "
+    <div class="w-full max-w-md bg-gray-50 rounded-lg border shadow-sm mx-auto">
+        <form
+            method="post"
+            class="flex flex-col mx-8 mt-8 border-b"
+            @submit.prevent="register"
+        >
+            <h1 class="text-2xl text-gray-800 font-semibold mx-auto">
+                EconPlaza
+            </h1>
+            <Error v-if="error" :message="error" />
+            <Success v-if="success" :message="success" />
+
+            <label class="text-gray-800 mt-8 mb-2" for="username"
+                >Username</label
             >
-                <div class="column is-4 is-offset-4">
-                    <div class="mb-4">
-                        <h2 class="text-xl font-bold">
-                            Register for EconPlaza
-                        </h2>
-                    </div>
-                    <Error v-if="error" :message="error" />
-                    <Success v-if="success" :message="success" />
 
-                    <form
-                        method="post"
-                        class="space-y-4"
-                        @submit.prevent="register"
+            <input
+                v-model="username"
+                class="rounded-lg border px-3 py-1.5"
+                type="text"
+                name="username"
+                required
+            />
+
+            <label class="text-gray-800 mt-5 mb-2" for="email"
+                >Email address</label
+            >
+
+            <input
+                v-model="email"
+                class="rounded-lg border px-3 py-1.5"
+                type="email"
+                name="email"
+                required
+            />
+
+            <div id="full-name-container" class="flex space-x-5">
+                <div id="first-name-container" class="flex flex-col">
+                    <label class="text-gray-800 mt-5 mb-2" for="first_name"
+                        >First name</label
                     >
-                        <div class="field">
-                            <label class="label">Username</label>
-                            <div class="control">
-                                <input
-                                    v-model="username"
-                                    type="text"
-                                    class="
-                                        w-full
-                                        p-4
-                                        text-m
-                                        bg-white
-                                        focus:outline-none
-                                        border border-gray-200
-                                        rounded-r-2xl rounded-b-2xl
-                                        text-blue-600
-                                        shadow
-                                        disabled:bg-gray-100
-                                        disabled:text-gray-500
-                                        disabled:border-gray-400
-                                    "
-                                    name="username"
-                                    required
-                                    placeholder="Username"
-                                />
-                            </div>
-                        </div>
-                        <div class="field">
-                            <label class="label">Email</label>
-                            <div class="control">
-                                <input
-                                    v-model="email"
-                                    type="email"
-                                    class="
-                                        w-full
-                                        p-4
-                                        text-m
-                                        bg-white
-                                        focus:outline-none
-                                        border border-gray-200
-                                        rounded-r-2xl rounded-b-2xl
-                                        text-blue-600
-                                        shadow
-                                        disabled:bg-gray-100
-                                        disabled:text-gray-500
-                                        disabled:border-gray-400
-                                    "
-                                    name="email"
-                                    required
-                                    placeholder="Email"
-                                />
-                            </div>
-                        </div>
-                        <div class="field">
-                            <label class="label">First Name</label>
-                            <div class="control">
-                                <input
-                                    v-model="first_name"
-                                    type="text"
-                                    class="
-                                        w-full
-                                        p-4
-                                        text-m
-                                        bg-white
-                                        focus:outline-none
-                                        border border-gray-200
-                                        rounded-r-2xl rounded-b-2xl
-                                        text-blue-600
-                                        shadow
-                                        disabled:bg-gray-100
-                                        disabled:text-gray-500
-                                        disabled:border-gray-400
-                                    "
-                                    name="first_name"
-                                    required
-                                    placeholder="First Name"
-                                />
-                            </div>
-                        </div>
-                        <div class="field">
-                            <label class="label">Last Name</label>
-                            <div class="control">
-                                <input
-                                    v-model="last_name"
-                                    type="text"
-                                    class="
-                                        w-full
-                                        p-4
-                                        text-m
-                                        bg-white
-                                        focus:outline-none
-                                        border border-gray-200
-                                        rounded-r-2xl rounded-b-2xl
-                                        text-blue-600
-                                        shadow
-                                        disabled:bg-gray-100
-                                        disabled:text-gray-500
-                                        disabled:border-gray-400
-                                    "
-                                    name="last_name"
-                                    required
-                                    placeholder="Last Name"
-                                />
-                            </div>
-                        </div>
-                        <div class="field">
-                            <label class="label">Institution</label>
-                            <div class="control">
-                                <input
-                                    v-model="institutional_affiliation"
-                                    type="text"
-                                    class="
-                                        w-full
-                                        p-4
-                                        text-m
-                                        bg-white
-                                        focus:outline-none
-                                        border border-gray-200
-                                        rounded-r-2xl rounded-b-2xl
-                                        text-blue-600
-                                        shadow
-                                        disabled:bg-gray-100
-                                        disabled:text-gray-500
-                                        disabled:border-gray-400
-                                    "
-                                    name="institutional_affiliation"
-                                    required
-                                    placeholder="Institution"
-                                />
-                            </div>
-                        </div>
-                        <div class="field">
-                            <label class="label">Password</label>
-                            <div class="control">
-                                <input
-                                    v-model="password"
-                                    type="password"
-                                    class="
-                                        w-full
-                                        p-4
-                                        text-m
-                                        bg-white
-                                        focus:outline-none
-                                        border border-gray-200
-                                        rounded-r-2xl rounded-b-2xl
-                                        text-blue-600
-                                        shadow
-                                        disabled:bg-gray-100
-                                        disabled:text-gray-500
-                                        disabled:border-gray-400
-                                    "
-                                    name="password"
-                                    required
-                                    placeholder="Password"
-                                />
-                            </div>
-                        </div>
-                        <div class="field">
-                            <input
-                                id="checkbox"
-                                v-model="over18"
-                                type="checkbox"
-                            />
-                            <label class="label" for="checkbox">
-                                I certify that I am least 18 years of age.
-                            </label>
-                        </div>
-                        <div class="field">
-                            <input
-                                id="checkbox"
-                                v-model="privacy"
-                                type="checkbox"
-                            />
-                            <label class="label" for="checkbox">
-                                I have read and understood the
-                                <nuxt-link to="/login">privacy policy</nuxt-link
-                                >.
-                            </label>
-                        </div>
-                        <div class="field">
-                            <recaptcha />
-                        </div>
-                        <div class="control">
-                            <button
-                                type="submit"
-                                class="
-                                    w-full
-                                    py-4
-                                    bg-blue-600
-                                    hover:bg-blue-800
-                                    rounded-r-2xl rounded-b-2xl
-                                    text-m
-                                    font-bold
-                                    border border-blue-600
-                                    text-white
-                                    shadow
-                                    transition
-                                    duration-200
-                                    disabled:bg-gray-100
-                                    disabled:text-gray-500
-                                    disabled:border-gray-400
-                                "
-                            >
-                                Register
-                            </button>
-                        </div>
-                    </form>
 
-                    <div class="has-text-centered" style="margin-top: 20px">
-                        Already got an account?
-                        <nuxt-link to="/login">Login</nuxt-link>
-                    </div>
+                    <input
+                        v-model="first_name"
+                        class="w-full rounded-lg border px-3 py-1.5"
+                        type="text"
+                        name="first_name"
+                        required
+                    />
+                </div>
+
+                <div id="last-name-container" class="flex flex-col">
+                    <label class="text-gray-800 mt-5 mb-2" for="last_name"
+                        >Last name</label
+                    >
+
+                    <input
+                        v-model="last_name"
+                        class="w-full rounded-lg border px-3 py-1.5"
+                        type="text"
+                        name="last_name"
+                        required
+                    />
                 </div>
             </div>
+
+            <label
+                class="text-gray-800 mt-5 mb-2"
+                for="institutional_affiliation"
+                >Institution</label
+            >
+
+            <input
+                v-model="institutional_affiliation"
+                class="rounded-lg border px-3 py-1.5"
+                type="text"
+                name="institutional_affiliation"
+                required
+            />
+
+            <label class="text-gray-800 mt-5 mb-2" for="password"
+                >Password</label
+            >
+
+            <input
+                class="rounded-lg border px-3 py-1.5"
+                type="password"
+                name="password"
+                required
+            />
+
+            <label class="text-gray-800 mt-5 mb-2" for="password2"
+                >Confirm password</label
+            >
+
+            <input
+                class="rounded-lg border px-3 py-1.5"
+                type="password"
+                name="password2"
+                required
+            />
+
+            <label class="text-gray-800 mt-5 mb-3">Verification</label>
+
+            <div class="field h-20">
+                <recaptcha />
+            </div>
+
+            <label class="text-gray-800 mt-5"></label>
+
+            <div class="field">
+                <input id="checkbox" v-model="over18" type="checkbox" />
+                <label class="label" for="checkbox">
+                    I certify that I am least 18 years of age
+                </label>
+            </div>
+            <div class="field">
+                <input id="checkbox" v-model="privacy" type="checkbox" />
+                <label class="label" for="checkbox">
+                    I have read and understood the
+                    <NuxtLink to="#" class="text-blue-600"
+                        >privacy policy</NuxtLink
+                    >
+                </label>
+            </div>
+
+            <button
+                class="
+                    rounded-lg
+                    border
+                    text-gray-50
+                    bg-indigo-500
+                    hover:bg-indigo-600
+                    duration-100
+                    px-3
+                    py-2
+                    mt-10
+                    mb-8
+                "
+                type="submit"
+            >
+                Register
+            </button>
+        </form>
+        <div class="flex flex-col mx-5 mt-8 mb-8">
+            <h1 class="text-gray-800 mx-auto">
+                Already have an account?
+                <NuxtLink :to="`/login/`" class="text-blue-700 hover:underline">
+                    Log in
+                </NuxtLink>
+            </h1>
         </div>
-    </section>
+    </div>
 </template>
 
 <script>
@@ -255,7 +164,7 @@ export default {
         Error,
         Success,
     },
-
+    layout: 'auth',
     data() {
         return {
             username: '',
