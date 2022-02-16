@@ -8,7 +8,7 @@ from rest_framework.response import Response
 from utils import StandardResultsSetPagination
 
 from ..serializers import PlazaSerializer
-from ..models import Plaza, Post
+from ..models import Plaza, Post, Member
 
 
 class PlazaViewSet(viewsets.ReadOnlyModelViewSet):
@@ -32,6 +32,12 @@ class PlazaViewSet(viewsets.ReadOnlyModelViewSet):
         "slug",
     ]
     ordering = ["id"]
+
+    def perform_create(self, serializer):
+        serializer.save()
+
+        # Create a membership against this plaza with the owner type
+        Member.objects.create(user=self.request.user)
 
     @action(methods=["GET"], detail=True, url_path="popular")
     def popular(self, request, **kwargs):
