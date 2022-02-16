@@ -34,9 +34,10 @@ class PlazaViewSet(
 
     ordering_fields = [
         "id",
+        "name",
         "slug",
     ]
-    ordering = ["id"]
+    ordering = ["slug"]
 
     def perform_create(self, serializer):
         sent_tags = self.request.data["tags"]

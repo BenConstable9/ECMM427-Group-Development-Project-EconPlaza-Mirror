@@ -1,6 +1,9 @@
 import { PLAZAS } from '../../api-routes'
 
 export default {
+    emptyAllPlazas({ commit }) {
+        commit('setPlazaList', undefined)
+    },
     async getAllPlazas({ state, commit }, { page, search }) {
         // If already loaded. Return
         if (

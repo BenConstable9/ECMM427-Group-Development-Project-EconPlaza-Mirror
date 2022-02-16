@@ -117,6 +117,7 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
 import { PLAZAS } from '../../api-routes'
 import Error from '~/components/messages/Error'
 
@@ -137,7 +138,16 @@ export default {
             error: null,
         }
     },
+    computed: {
+        ...mapGetters({
+            plazaPagination: 'plazas/pagination',
+        }),
+    },
     methods: {
+        ...mapActions({
+            getAllPlazas: 'plazas/getAllPlazas',
+            emptyAllPlazas: 'plazas/emptyAllPlazas',
+        }),
         async plazaNew() {
             this.plaza.isDisabled = true
 
@@ -151,6 +161,12 @@ export default {
                     tags: this.plaza.tags,
                 })
                 .then((response) => {
+                    // Refetch the last plaza page
+                    this.emptyAllPlazas()
+                    this.getAllPlazas({
+                        page: this.plazaPagination.page,
+                        search: this.plazaPagination.search,
+                    })
                     this.$router.push(`/plazas/${response.data.slug}/`)
                 })
                 .catch((response) => {
