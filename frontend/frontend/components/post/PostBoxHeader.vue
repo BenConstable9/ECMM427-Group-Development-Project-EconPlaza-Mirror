@@ -4,7 +4,12 @@
             <div id="title" class="flex-1">
                 <div class="flex flex-col space-y-1">
                     <h1 class="text-gray-50 text-xl font-semibold">
-                        {{ post.title }} in {{ plaza.name }}
+                        {{ post.title }} in
+                        <NuxtLink
+                            :to="`/plazas/${plaza.slug}`"
+                            class="hover:underline duration-100"
+                            >{{ plaza.name }}</NuxtLink
+                        >
                     </h1>
                     <h2 class="italic text-gray-100">
                         By {{ post.profile.display_name }}
