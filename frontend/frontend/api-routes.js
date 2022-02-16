@@ -11,6 +11,7 @@ export const PLAZAS = {
     COMMENTS: (slug, post) => `/v1/plazas/${slug}/posts/${post}/comments/`,
     MEMBERSHIP: (slug) => `/v1/plazas/${slug}/membership/`,
     POPULAR: () => `/v1/plazas/all/popular/`,
+    MY: () => `/v1/plazas/?my`,
 }
 
 // Posts
