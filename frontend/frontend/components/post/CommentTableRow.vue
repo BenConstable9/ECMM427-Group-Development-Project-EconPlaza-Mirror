@@ -2,7 +2,7 @@
     <div id="comment-info" class="flex items-center px-5 py-4">
         <div class="flex flex-1 flex-col space-y-1">
             <MarkdownViewer :content="content" />
-            <p class="flex space-x-1 mt-2 mx-5 border-t py-3">
+            <p class="flex space-x-1 mt-1 mx-5 border-t py-3">
                 <span class="text-xs text-gray-700"
                     >By
                     <NuxtLink

@@ -1,6 +1,6 @@
 <template>
     <markdown-it-vue
-        class="md-body p-5"
+        class="md-body px-5 py-3"
         :content="content"
         :options="options"
     />
