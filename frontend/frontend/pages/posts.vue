@@ -13,6 +13,7 @@
                             :next="pagination.next"
                             :page="pagination.page"
                             :previous="pagination.previous"
+                            class="mt-5"
                         />
                     </div>
                     <div
