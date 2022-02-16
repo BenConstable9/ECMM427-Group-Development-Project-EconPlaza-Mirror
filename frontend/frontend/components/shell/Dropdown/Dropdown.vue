@@ -97,7 +97,7 @@
                                 />
                             </svg>
                         </span>
-                        <span>Create a plaza</span>
+                        <span>Create Plaza</span>
                     </DropdownItem>
                 </NuxtLink>
                 <DropdownTitle> Settings </DropdownTitle>
@@ -117,7 +117,7 @@
                                 />
                             </svg>
                         </span>
-                        <span>Log out</span>
+                        <span>Log Out</span>
                     </DropdownItem>
                 </a>
             </div>

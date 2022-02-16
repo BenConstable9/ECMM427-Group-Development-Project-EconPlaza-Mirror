@@ -20,6 +20,14 @@
     </main>
 </template>
 
-<script></script>
+<script>
+export default {
+    head() {
+        return {
+            title: 'Home | EconPlaza',
+        }
+    },
+}
+</script>
 
 <style></style>
