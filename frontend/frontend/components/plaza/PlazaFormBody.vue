@@ -27,6 +27,7 @@
                             type="text"
                             placeholder="Plaza Name"
                             maxlength="32"
+                            @keyup="generateSlug"
                         />
                     </div>
                     <div>
@@ -49,6 +50,7 @@
                             type="text"
                             placeholder="Plaza Slug"
                             maxlength="32"
+                            @change="cleanSlug"
                         />
                     </div>
                     <div>
@@ -85,7 +87,8 @@
                             plaza.name.length > 0 &&
                             plaza.name.length <= 32 &&
                             plaza.description.length > 0 &&
-                            plaza.description.length <= 2800
+                            plaza.description.length <= 2800 &&
+                            plaza.validSlug
                         "
                     >
                         <button
@@ -134,8 +137,9 @@ export default {
                 permissions: '{}',
                 tags: [],
                 isDisabled: false,
+                validSlug: false,
             },
-            error: null,
+            error: undefined,
         }
     },
     computed: {
@@ -148,6 +152,39 @@ export default {
             getAllPlazas: 'plazas/getAllPlazas',
             emptyAllPlazas: 'plazas/emptyAllPlazas',
         }),
+        prepareSlug(slug) {
+            return slug
+                .trimEnd()
+                .replace(/\s/g, '-')
+                .replace(/#/g, '')
+                .toLowerCase()
+        },
+        cleanSlug() {
+            this.plaza.slug = this.prepareSlug(this.plaza.slug)
+
+            this.checkSlug()
+        },
+        generateSlug() {
+            this.plaza.slug = this.prepareSlug(this.plaza.name)
+
+            this.checkSlug()
+        },
+        async checkSlug() {
+            await this.$axios
+                .get(PLAZAS.ONE(this.plaza.slug))
+                .then(() => {
+                    // this slug is invalid
+                    this.error =
+                        'This plaza slug is already taken. Please choose a different one.'
+
+                    this.plaza.validSlug = false
+                })
+                .catch(() => {
+                    this.error = undefined
+
+                    this.plaza.validSlug = true
+                })
+        },
         async plazaNew() {
             this.plaza.isDisabled = true
 
@@ -156,7 +193,7 @@ export default {
                 .post(PLAZAS.ALL(), {
                     name: this.plaza.name,
                     description: this.plaza.description,
-                    slug: this.plaza.slug,
+                    slug: this.prepareSlug(this.plaza.slug),
                     permissions: this.plaza.permissions,
                     tags: this.plaza.tags,
                 })
