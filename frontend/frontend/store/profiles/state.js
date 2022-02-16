@@ -1,4 +1,6 @@
-export default {
-    allProfiles: undefined,
-    currentProfile: undefined,
+export default () => {
+    return {
+        allProfiles: undefined,
+        currentProfile: undefined,
+    }
 }
