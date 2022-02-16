@@ -9,7 +9,7 @@ from rest_framework.test import (
 from rest_framework import status
 from django.contrib.auth import get_user_model
 
-from ...models import Plaza, Post
+from ...models import Plaza, Post, Member
 from accounts.models import Profile
 from ...serializers import PostSerializer
 
@@ -53,6 +53,8 @@ class PostViewsetTest(APITestCase):
             name="Test Plaza", slug="Test", permissions="{}"
         )
 
+        Member.objects.create(user=self.user_1, plaza=self.plaza, member_type="MB")
+
         self.post = Post.objects.create(
             title="Test Post",
             content="Test Content",
@@ -75,6 +77,8 @@ class PostViewsetTest(APITestCase):
         factory = APIRequestFactory()
         request = factory.get("/v1/plazas/{}/posts/".format(self.plaza.slug))
 
+        force_authenticate(request, user=self.user_1)
+
         serializer_context = {
             "request": Request(request),
         }
@@ -95,6 +99,7 @@ class PostViewsetTest(APITestCase):
 
         factory = APIRequestFactory()
         request = factory.get("/v1/posts/")
+        force_authenticate(request, user=self.user_1)
 
         serializer_context = {
             "request": Request(request),
@@ -163,6 +168,8 @@ class PostViewsetTest(APITestCase):
         request = factory.get(
             "/v1/plazas/{}/posts/{}/".format(self.plaza.slug, self.post.id)
         )
+
+        force_authenticate(request, user=self.user_1)
 
         serializer_context = {
             "request": Request(request),

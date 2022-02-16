@@ -6,7 +6,7 @@
             id="post-heading"
             class="flex space-x-3 items-center bg-primary px-5 py-3"
         >
-            <div v-if="isPlazaView" id="title" class="flex-1">
+            <div v-if="includePlazaActions" id="title" class="flex-1">
                 <div class="flex flex-col space-y-1">
                     <h1 class="text-gray-50 text-xl font-semibold">
                         {{ loading ? '' : plaza.name }}
@@ -18,11 +18,13 @@
             </div>
             <div v-else id="title" class="flex-1">
                 <div class="flex flex-col space-y-1">
-                    <h1 class="text-gray-50 text-xl font-semibold">Posts</h1>
-                    <h2 class="italic text-gray-100">All Posts</h2>
+                    <h1 class="text-gray-50 text-xl font-semibold">
+                        {{ title }}
+                    </h1>
+                    <h2 class="italic text-gray-100">{{ description }}</h2>
                 </div>
             </div>
-            <div v-if="isPlazaView">
+            <div v-if="includePlazaActions">
                 <Tag
                     v-for="tagged in plaza.tags"
                     :key="tagged.id"
@@ -30,7 +32,14 @@
                 />
             </div>
             <pagination-size :size="pagination.preferredSize" />
-            <div v-if="plaza.membership.member && isPlazaView" id="write">
+            <div
+                v-if="
+                    authenticatedUser.verified &&
+                    plaza.membership.member &&
+                    includePlazaActions
+                "
+                id="write"
+            >
                 <NuxtLink :to="`/plazas/${plaza.slug}/create`">
                     <div class="rounded-full bg-gray-50 p-3">
                         <svg
@@ -51,7 +60,7 @@
                     </div>
                 </NuxtLink>
             </div>
-            <div v-else-if="isPlazaView" id="join">
+            <div v-else-if="includePlazaActions" id="join">
                 <form @submit.prevent="plazaJoin">
                     <button
                         class="rounded-full bg-gray-50 p-3"
@@ -103,7 +112,11 @@ export default {
         Tag,
         PaginationSize,
     },
-    props: { isPlazaView: { type: Boolean, default: true } },
+    props: {
+        includePlazaActions: { type: Boolean, default: true },
+        title: { type: String, default: '' },
+        description: { type: String, default: '' },
+    },
     data() {
         return {
             loading: false,
@@ -123,7 +136,7 @@ export default {
     },
     async created() {
         this.loading = true
-        if (this.isPlazaView) {
+        if (this.includePlazaActions) {
             await this.getCurrentPlaza({ plazaSlug: this.$route.params.plazas })
         }
         this.loading = false

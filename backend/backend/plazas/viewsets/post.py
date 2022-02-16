@@ -7,11 +7,15 @@ from django.shortcuts import get_object_or_404
 from django.core.cache import cache
 
 from utils import ActionBasedPermission
-from utils import ContainsPlazaURLVerified, ContainsPlazaURL
+from utils import (
+    ContainsPlazaURLVerified,
+    ContainsPlazaURL,
+    ContainsPlazaURLVerifiedMember,
+)
 from utils import StandardResultsSetPagination
 
 from ..serializers import PostSerializer
-from ..models import Plaza, Post
+from ..models import Plaza, Post, AvailableTag
 from hashlib import md5
 
 
@@ -26,18 +30,25 @@ class PostViewSet(
     """
 
     def get_queryset(self):
+        available_tag_param = self.request.query_params.get("tag", None)
+
+        # See if we have a ?tag= query
+        posts = Post.objects.all()
+        if available_tag_param:
+            available_tag = get_object_or_404(AvailableTag, name=available_tag_param)
+            posts = posts.filter(tags__tag=available_tag)
         if "plazas_slug" in self.kwargs:
             plaza = Plaza.objects.get(slug=self.kwargs["plazas_slug"])
-            return Post.objects.filter(plaza=plaza.id)
-        else:
-            return Post.objects.all()
+            posts = posts.filter(plaza=plaza.id)
+        return posts
 
     serializer_class = PostSerializer
 
     permission_classes = (ActionBasedPermission,)
 
     action_permissions = {
-        ContainsPlazaURLVerified: ["create", "register_view"],
+        ContainsPlazaURLVerifiedMember: ["create"],
+        ContainsPlazaURLVerified: ["register_view"],
         ContainsPlazaURL: ["retrieve"],
         IsAuthenticated: ["list"],
     }

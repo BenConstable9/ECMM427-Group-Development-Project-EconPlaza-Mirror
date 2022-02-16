@@ -2,25 +2,26 @@
     <main>
         <div class="container mx-auto">
             <div class="bg-gray-100 px-5 mt-5 mb-5 mx-auto">
-                <not-found v-if="postNotFound && loaded" id="content" />
-                <div v-else id="content" class="flex space-x-5 pt-5 pb-8">
+                <div id="content" class="flex space-x-5 pt-5 pb-8">
                     <div id="content-left" class="w-full lg:w-3/4">
-                        <post-box />
-                        <comment-table />
+                        <post-table
+                            view-type="tag"
+                            :title="title"
+                            description="Posts across all plazas with these tags"
+                        />
                         <pagination
                             :next="pagination.next"
                             :page="pagination.page"
                             :previous="pagination.previous"
-                            class="mt-5"
                         />
                     </div>
                     <div
                         id="content-left"
                         class="hidden lg:flex lg:w-1/4 flex-col space-y-5"
                     >
-                        <post-stat-box />
-                        <about-box />
-                        <rules-box />
+                        <my-plazas />
+                        <my-bookmarks />
+                        <popular-plazas />
                     </div>
                 </div>
             </div>
@@ -30,7 +31,6 @@
 
 <script>
 import { mapMutations } from 'vuex'
-import { PLAZAS } from '~/api-routes'
 import Pagination from '~/components/helpers/Pagination'
 
 export default {
@@ -38,63 +38,34 @@ export default {
         Pagination,
     },
     async asyncData({ query, params, store }) {
-        await store.dispatch('plazas/getCurrentPlaza', {
-            plazaSlug: params.plazas,
-        })
-
-        // Need to get all the current Plaza posts before we can run current post
-        await store.dispatch('plazas/posts/getAllPlazaPosts', {
-            page: 1,
-            plazaSlug: params.plazas,
-        })
-
-        await store.dispatch('plazas/posts/getCurrentPost', {
-            plazaSlug: params.plazas,
-            postID: params.id,
-        })
-
         let page = Number(query.page)
 
         if (isNaN(page)) {
             page = 1
         }
 
-        await store.dispatch('plazas/posts/comments/getCurrentPostComments', {
+        await store.dispatch('tags/getTaggedPosts', {
             page,
-            plazaSlug: params.plazas,
-            postID: params.id,
+            tag: params.tag,
         })
 
         return {
             loaded: true,
             page,
-            plaza: store.getters['plazas/currentPlaza'],
-            post: store.getters['plazas/posts/currentPost'],
-            pagination: store.getters['plazas/posts/comments/pagination'],
-        }
-    },
-    data() {
-        return {
-            loading: false,
+            pagination: store.getters['tags/pagination'],
         }
     },
     head() {
         return {
-            title: `${this.post.title} | ${this.plaza.name} | EconPlaza`,
+            title: `Tag: #${this.$route.params.tag} | EconPlaza`,
         }
     },
     computed: {
-        postNotFound() {
-            // Determine if post exists if the ID is 0 (the undefined post)
-            return this.post && this.post.id === 0
+        title() {
+            return `Posts with Tag: #${this.$route.params.tag}`
         },
     },
     watchQuery: ['page'],
-    mounted() {
-        this.$axios.post(
-            PLAZAS.VIEWPOST(this.$route.params.plazas, this.$route.params.id)
-        )
-    },
     beforeDestroy() {
         this.$nuxt.$off('pagination-next')
         this.$nuxt.$off('pagination-previous')
@@ -133,8 +104,7 @@ export default {
     },
     methods: {
         ...mapMutations({
-            setDesiredPaginationSize:
-                'plazas/posts/comments/setDesiredPaginationSize',
+            setDesiredPaginationSize: 'tags/setDesiredPaginationSize',
         }),
     },
 }
