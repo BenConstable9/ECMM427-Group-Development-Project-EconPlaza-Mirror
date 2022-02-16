@@ -91,17 +91,6 @@
                 required
             />
 
-            <label class="text-gray-800 mt-5 mb-2" for="password2"
-                >Confirm password</label
-            >
-
-            <input
-                class="rounded-lg border px-3 py-1.5"
-                type="password"
-                name="password2"
-                required
-            />
-
             <label class="text-gray-800 mt-5 mb-3">Verification</label>
 
             <div class="field h-20">
