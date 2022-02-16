@@ -84,6 +84,7 @@
             >
 
             <input
+                v-model="password"
                 class="rounded-lg border px-3 py-1.5"
                 type="password"
                 name="password"
