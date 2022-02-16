@@ -4,7 +4,25 @@
             <comment-table-header />
             <comment-table-form
                 v-if="authenticatedUser.verified && plaza.membership.member"
+                class="bg-gray-50"
             />
+            <div
+                v-else
+                class="
+                    flex
+                    text-gray-500
+                    h-20
+                    justify-center
+                    items-center
+                    bg-gray-50
+                "
+            >
+                {{
+                    authenticatedUser.verified
+                        ? "You can't add comments because you have not joined this plaza."
+                        : "You can't add comments because you have not been verified."
+                }}
+            </div>
             <div v-if="loading">
                 <comment-table-row
                     v-for="i in 4"
