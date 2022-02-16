@@ -158,6 +158,7 @@ export default {
                 .replace(/\s/g, '-')
                 .replace(/#/g, '')
                 .toLowerCase()
+                .replace(/[^0-9a-z-]/g, '')
         },
         cleanSlug() {
             this.plaza.slug = this.prepareSlug(this.plaza.slug)
@@ -212,8 +213,8 @@ export default {
                         response instanceof String
                     ) {
                         this.error = response
-                    } else if ('detail' in response) {
-                        this.error = response.detail
+                    } else if ('data' in response) {
+                        this.error = response.data
                     } else {
                         this.error = 'Unable to process request.'
                     }

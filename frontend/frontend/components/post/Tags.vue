@@ -29,6 +29,7 @@
                     "
                     type="text"
                     placeholder="Filter Existing Tags"
+                    maxlength="32"
                     @keyup="searchTag"
                 />
             </div>
@@ -151,6 +152,7 @@ export default {
                 .replace(/\s/g, '-')
                 .replace(/#/g, '')
                 .toLowerCase()
+                .replace(/[^0-9a-z-]/g, '')
         },
         selectTag(e) {
             if (!this.disabled) {
