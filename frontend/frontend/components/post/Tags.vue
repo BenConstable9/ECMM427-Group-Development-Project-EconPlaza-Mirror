@@ -22,7 +22,7 @@
                         focus:outline-none
                         border border-gray-200
                         rounded-lg
-                        text-blue-600
+                        text-primary
                         disabled:bg-gray-100
                         disabled:text-gray-500
                         disabled:border-gray-400
