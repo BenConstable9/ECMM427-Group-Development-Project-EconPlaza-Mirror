@@ -2,45 +2,76 @@
     <div>
         <Error v-if="error" :message="error" />
         <Success v-if="success" :message="success" />
-        <div
-            id="post-heading"
-            class="flex space-x-3 items-center bg-primary px-5 py-3"
-        >
-            <div v-if="includePlazaActions" id="title" class="flex-1">
-                <div class="flex flex-col space-y-1">
-                    <h1 class="text-gray-50 text-xl font-semibold">
-                        {{ loading ? '' : plaza.name }}
-                    </h1>
-                    <h2 class="italic text-gray-100">
-                        {{ loading ? '' : plaza.description }}
-                    </h2>
+        <div id="post-heading" class="bg-primary px-5 py-3">
+            <div class="flex space-x-3 items-center">
+                <div v-if="includePlazaActions" id="title" class="flex-1">
+                    <div class="flex flex-col space-y-1">
+                        <h1 class="text-gray-50 text-xl font-semibold">
+                            {{ loading ? '' : plaza.name }}
+                        </h1>
+                        <h2 class="italic text-gray-100">
+                            {{ loading ? '' : plaza.description }}
+                        </h2>
+                    </div>
                 </div>
-            </div>
-            <div v-else id="title" class="flex-1">
-                <div class="flex flex-col space-y-1">
-                    <h1 class="text-gray-50 text-xl font-semibold">
-                        {{ title }}
-                    </h1>
-                    <h2 class="italic text-gray-100">{{ description }}</h2>
+                <div v-else id="title" class="flex-1">
+                    <div class="flex flex-col space-y-1">
+                        <h1 class="text-gray-50 text-xl font-semibold">
+                            {{ title }}
+                        </h1>
+                        <h2 class="italic text-gray-100">{{ description }}</h2>
+                    </div>
                 </div>
-            </div>
-            <div v-if="includePlazaActions">
-                <Tag
-                    v-for="tagged in plaza.tags"
-                    :key="tagged.id"
-                    :slug="tagged.tag.name"
-                />
-            </div>
-            <pagination-size :size="pagination.preferredSize" />
-            <div
-                v-if="
-                    authenticatedUser.verified &&
-                    plaza.membership.member &&
-                    includePlazaActions
-                "
-                id="write"
-            >
-                <NuxtLink :to="`/plazas/${plaza.slug}/create`">
+                <pagination-size :size="pagination.preferredSize" />
+                <div
+                    v-if="
+                        authenticatedUser.verified &&
+                        plaza.membership.member &&
+                        includePlazaActions
+                    "
+                    id="write"
+                >
+                    <NuxtLink :to="`/plazas/${plaza.slug}/create`">
+                        <div class="rounded-full bg-gray-50 p-3">
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                class="h-5 w-5 text-primary mx-auto"
+                                viewBox="0 0 20 20"
+                                fill="currentColor"
+                            >
+                                <path
+                                    d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"
+                                />
+                                <path
+                                    fill-rule="evenodd"
+                                    d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"
+                                    clip-rule="evenodd"
+                                />
+                            </svg>
+                        </div>
+                    </NuxtLink>
+                </div>
+                <div v-else-if="includePlazaActions" id="join">
+                    <form @submit.prevent="plazaJoin">
+                        <button
+                            class="rounded-full bg-gray-50 p-3"
+                            type="submit"
+                            :disabled="membership.isDisabled"
+                        >
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                class="h-5 w-5 text-primary mx-auto"
+                                viewBox="0 0 20 20"
+                                fill="currentColor"
+                            >
+                                <path
+                                    d="M8 9a3 3 0 100-6 3 3 0 000 6zM8 11a6 6 0 016 6H2a6 6 0 016-6zM16 7a1 1 0 10-2 0v1h-1a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V7z"
+                                />
+                            </svg>
+                        </button>
+                    </form>
+                </div>
+                <div id="views">
                     <div class="rounded-full bg-gray-50 p-3">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -49,50 +80,18 @@
                             fill="currentColor"
                         >
                             <path
-                                d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"
-                            />
-                            <path
-                                fill-rule="evenodd"
-                                d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"
-                                clip-rule="evenodd"
+                                d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z"
                             />
                         </svg>
                     </div>
-                </NuxtLink>
-            </div>
-            <div v-else-if="includePlazaActions" id="join">
-                <form @submit.prevent="plazaJoin">
-                    <button
-                        class="rounded-full bg-gray-50 p-3"
-                        type="submit"
-                        :disabled="membership.isDisabled"
-                    >
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            class="h-5 w-5 text-primary mx-auto"
-                            viewBox="0 0 20 20"
-                            fill="currentColor"
-                        >
-                            <path
-                                d="M8 9a3 3 0 100-6 3 3 0 000 6zM8 11a6 6 0 016 6H2a6 6 0 016-6zM16 7a1 1 0 10-2 0v1h-1a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V7z"
-                            />
-                        </svg>
-                    </button>
-                </form>
-            </div>
-            <div id="views">
-                <div class="rounded-full bg-gray-50 p-3">
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        class="h-5 w-5 text-primary mx-auto"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                    >
-                        <path
-                            d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z"
-                        />
-                    </svg>
                 </div>
+            </div>
+            <div v-if="includePlazaActions" class="flex flex-wrap mt-2">
+                <Tag
+                    v-for="tagged in plaza.tags"
+                    :key="tagged.id"
+                    :slug="tagged.tag.name"
+                />
             </div>
         </div>
     </div>

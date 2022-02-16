@@ -7,11 +7,13 @@
                 bg-secondary
                 rounded-lg
                 text-xs text-white
-                flex-initial
                 mr-1
+                mb-1
+                transition
+                hover:bg-primary
             "
         >
-            #{{ slug }}
+            # {{ slug }}
         </div>
     </NuxtLink>
 </template>

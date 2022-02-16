@@ -88,7 +88,7 @@
                 </div>
             </div>
         </div>
-        <div class="flex mt-2">
+        <div class="flex flex-wrap mt-2">
             <MiniTag
                 v-for="tagged in tags"
                 :key="tagged.id"
