@@ -62,26 +62,31 @@ export default {
             this.page = 1
         }
 
-        switch(this.viewType) {
-            case 'plaza':
+        switch (this.viewType) {
+            case 'plaza': {
                 await this.getAllPlazaPosts({
                     page: this.page,
                     plazaSlug: this.$route.params.plazas,
                 })
                 break
-            case 'post':
-                let search = this.$route.query.search ? this.$route.query.search : ''
+            }
+            case 'post': {
+                const search = this.$route.query.search
+                    ? this.$route.query.search
+                    : ''
 
                 await this.getAllPosts({
                     page: this.page,
                     search,
                 })
                 break
-            default:
+            }
+            default: {
                 await this.getTaggedPosts({
                     page: this.page,
                     tag: this.$route.params.tag,
                 })
+            }
         }
 
         this.loading = false
