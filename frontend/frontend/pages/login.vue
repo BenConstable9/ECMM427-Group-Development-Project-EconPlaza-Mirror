@@ -94,6 +94,7 @@ export default {
     components: {
         Error,
     },
+    layout: 'auth',
     data() {
         return {
             login: {
