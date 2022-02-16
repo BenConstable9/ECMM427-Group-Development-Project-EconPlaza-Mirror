@@ -4,12 +4,12 @@
             class="flex flex-col mx-8 mt-8 border-b"
             @submit.prevent="userLogin"
         >
-            <h1 class="text-2xl text-gray-800 font-semibold mx-auto">
+            <h1 class="text-2xl text-gray-800 font-semibold mx-auto mb-3">
                 EconPlaza
             </h1>
             <Error v-if="error" :message="error" />
 
-            <label class="text-gray-800 mt-8 mb-3" for="username"
+            <label class="text-gray-800 mt-5 mb-3" for="username"
                 >Username</label
             >
 
