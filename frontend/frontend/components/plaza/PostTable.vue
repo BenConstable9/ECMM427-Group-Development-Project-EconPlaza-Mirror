@@ -50,10 +50,7 @@ export default {
             }
         },
         isPlaza() {
-            if (this.viewType === 'plaza') {
-                return true
-            } else {
-                return false
+            return (this.viewType === 'plaza') ? true : false
             }
         },
     },
