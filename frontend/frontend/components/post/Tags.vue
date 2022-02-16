@@ -42,10 +42,11 @@
                     class="
                         px-2
                         py-1
-                        bg-gray-200
                         rounded-lg
+                        bg-gray-200
                         text-xs text-gray-600
                         flex-initial
+                        hover:bg-secondary hover:text-gray-50
                         mr-1
                         mb-1
                     "
@@ -67,7 +68,7 @@
                     class="
                         py-1
                         px-2
-                        rounded
+                        rounded-lg
                         ml-2
                         flex-initial
                         bg-primary
@@ -151,21 +152,14 @@ export default {
                 .replace(/#/g, '')
                 .toLowerCase()
         },
-        checkIfSelected(id) {
-            const matching = this.selected.find((tag) => tag.id === id)
-
-            if (matching === undefined) {
-                return false
-            } else {
-                return true
-            }
-        },
         selectTag(e) {
             if (!this.disabled) {
                 // check if in array
-                const matching = this.checkIfSelected(e.target.dataset.id)
+                const matching = this.selected.find(
+                    (tag) => tag.id === e.target.dataset.id
+                )
 
-                if (matching === false) {
+                if (matching === undefined) {
                     this.selected.push({
                         id: e.target.dataset.id,
                         name: e.target.dataset.name,
