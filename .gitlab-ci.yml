@@ -34,6 +34,7 @@ test-backend-docker-image:
     - docker run --cidfile cid $DOCKER_REPO/econplaza/app:$CI_PIPELINE_ID /bin/sh run-tests.sh
     - docker cp $(cat cid):/test-results ./test-results
     - docker rm $(cat cid)
+  coverage: '/^TOTAL.*\s+(\d+\%)$/'
   artifacts:
     when: always
     reports:
