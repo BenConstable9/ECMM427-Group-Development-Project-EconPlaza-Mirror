@@ -17,7 +17,7 @@ def create_plaza(**kwargs):
     :return: Plaza
     """
     # Static counter (for uniqueness)
-    if not hasattr(create_plaza, 'counter'):
+    if not hasattr(create_plaza, "counter"):
         create_plaza.counter = 0
     create_plaza.counter += 1
 

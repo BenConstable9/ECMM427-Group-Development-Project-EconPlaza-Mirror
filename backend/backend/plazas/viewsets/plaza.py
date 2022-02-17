@@ -66,26 +66,33 @@ class PlazaViewSet(
         # Get user's most recently interacted with plazas
         memberships = (
             Plaza.objects.filter(member__user=request.user)
-                .annotate(
+            .annotate(
                 # Get most recent post in plaza by the user
                 # We Coalesce with a 0 datetime as sqLite requires a non-null
                 # value for the Greatest annotation used later. (this is not required for postgres)
                 # https://docs.djangoproject.com/en/3.2/ref/models/database-functions/#greatest
-                most_recent_post=Coalesce(Max(
-                    "post__created_at",
-                    filter=Q(post__user=request.user),
-                ), datetime.utcfromtimestamp(0)),
+                most_recent_post=Coalesce(
+                    Max(
+                        "post__created_at",
+                        filter=Q(post__user=request.user),
+                    ),
+                    datetime.utcfromtimestamp(0),
+                ),
                 # Get most recent comment in plaza by the user
-                most_recent_comment=Coalesce(Max(
-                    "post__comment__created_at",
-                    filter=Q(post__comment__user=request.user),
-                ), datetime.utcfromtimestamp(0)),
+                most_recent_comment=Coalesce(
+                    Max(
+                        "post__comment__created_at",
+                        filter=Q(post__comment__user=request.user),
+                    ),
+                    datetime.utcfromtimestamp(0),
+                ),
                 # Use the most recent datetime out of the two
                 most_recent_activity=Greatest(
                     "most_recent_post",
                     "most_recent_comment",
-                )
-            ).order_by(
+                ),
+            )
+            .order_by(
                 # Order descending by most recent
                 "-most_recent_activity"
             )
@@ -93,23 +100,29 @@ class PlazaViewSet(
         if memberships.count() < _NUMBER_OF_PLAZAS:
             other_plazas = (
                 Plaza.objects.all()
-                    .annotate(
+                .annotate(
                     # Get most recent post in plaza by any user
-                    most_recent_post=Coalesce(Max(
-                        "post__created_at",
-                    ), datetime.utcfromtimestamp(0)),
+                    most_recent_post=Coalesce(
+                        Max(
+                            "post__created_at",
+                        ),
+                        datetime.utcfromtimestamp(0),
+                    ),
                     # Get most recent comment in plaza by any user
-                    most_recent_comment=Coalesce(Max(
-                        "post__comment__created_at",
-                    ), datetime.utcfromtimestamp(0)),
+                    most_recent_comment=Coalesce(
+                        Max(
+                            "post__comment__created_at",
+                        ),
+                        datetime.utcfromtimestamp(0),
+                    ),
                     # Use the most recent datetime out of the two
                     most_recent_activity=Greatest(
                         "most_recent_post",
                         "most_recent_comment",
                     ),
-                ).exclude(
-                    pk__in=memberships
-                ).order_by(
+                )
+                .exclude(pk__in=memberships)
+                .order_by(
                     # Order descending by most recent
                     "-most_recent_activity"
                 )[: _NUMBER_OF_PLAZAS - memberships.count()]
@@ -129,18 +142,27 @@ class PlazaViewSet(
         _NUMBER_OF_PLAZAS = 3
         two_weeks_ago = timezone.now() - timedelta(days=14)
         # Order by most popular post within a plaza, from the last two weeks
-        plazas = Plaza.objects.filter(
-            post__created_at__gte=two_weeks_ago,
-        ).annotate(
-            views=Max("post__views"),
-        ).order_by("-views")
+        plazas = (
+            Plaza.objects.filter(
+                post__created_at__gte=two_weeks_ago,
+            )
+            .annotate(
+                views=Max("post__views"),
+            )
+            .order_by("-views")
+        )
 
         if plazas.count() < _NUMBER_OF_PLAZAS:
-            historically_popular_plazas = Plaza.objects.all().exclude(
-                id__in=plazas,
-            ).annotate(
-                views=Max("post__views"),
-            ).order_by("-views")
+            historically_popular_plazas = (
+                Plaza.objects.all()
+                .exclude(
+                    id__in=plazas,
+                )
+                .annotate(
+                    views=Max("post__views"),
+                )
+                .order_by("-views")
+            )
             plazas = list(chain(plazas, historically_popular_plazas))
         return Response(
             PlazaSerializer(

@@ -58,7 +58,9 @@ class PlazaViewsetTest(APITestCase):
 
         Member.objects.create(user=self.user_1, plaza=self.plaza, member_type="MB")
 
-        self.post = create_post(user=self.user_1, profile=self.profile_1, plaza=self.plaza)
+        self.post = create_post(
+            user=self.user_1, profile=self.profile_1, plaza=self.plaza
+        )
 
         self.client = APIClient()
 
@@ -118,13 +120,13 @@ class PlazaViewsetTest(APITestCase):
             user=self.user_1,
             profile=self.profile_1,
             plaza=plaza_4,
-            created_at=timezone.now() + timedelta(days=1, hours=1)
+            created_at=timezone.now() + timedelta(days=1, hours=1),
         )
         post_2 = create_post(
             user=self.user_2,
             profile=self.profile_2,
             plaza=plaza_3,
-            created_at=timezone.now() + timedelta(days=1, hours=2)
+            created_at=timezone.now() + timedelta(days=1, hours=2),
         )
 
         # Create comments on posts
@@ -133,7 +135,7 @@ class PlazaViewsetTest(APITestCase):
             user=self.user_1,
             profile=self.profile_1,
             post=post_2,
-            created_at=timezone.now() + timedelta(days=1, hours=5)
+            created_at=timezone.now() + timedelta(days=1, hours=5),
         )
 
         # Make request
