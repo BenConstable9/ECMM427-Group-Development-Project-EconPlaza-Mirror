@@ -1,7 +1,5 @@
 # EconPlaza backend (Django)
 
-[![pipeline status](https://git.exeter.ac.uk/ab1185/2021-ecmm427-project-02/badges/master/pipeline.svg)](https://git.exeter.ac.uk/ab1185/2021-ecmm427-project-02/-/commits/master)
-[![coverage report](https://git.exeter.ac.uk/ab1185/2021-ecmm427-project-02/badges/master/coverage.svg)](https://git.exeter.ac.uk/ab1185/2021-ecmm427-project-02/-/commits/master)
 [![python 3.9](https://img.shields.io/badge/python-3.9-blue.svg)](https://www.python.org/downloads/release/python-392/)
 [![django 3.2.8](https://img.shields.io/badge/django-3.2-blue.svg)](https://pypi.org/project/Django/3.2.8/)
 
