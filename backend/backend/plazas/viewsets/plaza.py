@@ -55,51 +55,62 @@ class PlazaViewSet(
             # If there is a get variable "my" /plazas/?my
             _NUMBER_OF_PLAZAS = 3
             # Get user's most recently interacted with plazas
-            memberships = Plaza.objects.filter(
-                member__user=request.user
-            ).annotate(
-                # Get most recent post in plaza by the user
-                most_recent_post=Max(
-                    'post__created_at',
-                    filter=Q(post__user=request.user),
-                ),
-                # Get most recent comment in plaza by the user
-                most_recent_comment=Max(
-                    'post__comment__created_at',
-                    filter=Q(post__comment__user=request.user),
-                ),
-                # Use the most recent datetime out of the two
-                most_recent_activity=Greatest(
-                    'most_recent_post',
-                    'most_recent_comment',
-                ),
-            ).order_by(
-                # Order descending by most recent
-                '-most_recent_activity'
-            )
-            if memberships.count() < _NUMBER_OF_PLAZAS:
-                other_plazas = Plaza.objects.all().annotate(
-                    # Get most recent post in plaza by any user
+            memberships = (
+                Plaza.objects.filter(member__user=request.user)
+                .annotate(
+                    # Get most recent post in plaza by the user
                     most_recent_post=Max(
-                        'post__created_at',
+                        "post__created_at",
+                        filter=Q(post__user=request.user),
                     ),
-                    # Get most recent comment in plaza by any user
+                    # Get most recent comment in plaza by the user
                     most_recent_comment=Max(
-                        'post__comment__created_at',
+                        "post__comment__created_at",
+                        filter=Q(post__comment__user=request.user),
                     ),
                     # Use the most recent datetime out of the two
                     most_recent_activity=Greatest(
-                        'most_recent_post',
-                        'most_recent_comment',
+                        "most_recent_post",
+                        "most_recent_comment",
                     ),
-                ).order_by(
+                )
+                .order_by(
                     # Order descending by most recent
-                    '-most_recent_activity'
-                )[:_NUMBER_OF_PLAZAS - memberships.count()]
+                    "-most_recent_activity"
+                )
+            )
+            if memberships.count() < _NUMBER_OF_PLAZAS:
+                other_plazas = (
+                    Plaza.objects.all()
+                    .annotate(
+                        # Get most recent post in plaza by any user
+                        most_recent_post=Max(
+                            "post__created_at",
+                        ),
+                        # Get most recent comment in plaza by any user
+                        most_recent_comment=Max(
+                            "post__comment__created_at",
+                        ),
+                        # Use the most recent datetime out of the two
+                        most_recent_activity=Greatest(
+                            "most_recent_post",
+                            "most_recent_comment",
+                        ),
+                    )
+                    .order_by(
+                        # Order descending by most recent
+                        "-most_recent_activity"
+                    )[: _NUMBER_OF_PLAZAS - memberships.count()]
+                )
                 # Add the other plazas to the list
                 memberships = list(chain(memberships, other_plazas))
             return Response(
-                PlazaSerializer(memberships[:_NUMBER_OF_PLAZAS], many=True, context={'request': request}).data)
+                PlazaSerializer(
+                    memberships[:_NUMBER_OF_PLAZAS],
+                    many=True,
+                    context={"request": request},
+                ).data
+            )
         # Return list as normal
         return super().list(request)
 
@@ -109,16 +120,16 @@ class PlazaViewSet(
         # Order by most popular post within a plaza, from the last two weeks
         plazas = (
             Post.objects.filter(created_at__gte=two_weeks_ago)
-                .values("plaza", "plaza__name", "plaza__slug")
-                .annotate(most_views=Max("views"))
-                .order_by("-most_views")
+            .values("plaza", "plaza__name", "plaza__slug")
+            .annotate(most_views=Max("views"))
+            .order_by("-most_views")
         )
         if plazas.count() >= 5:
             return Response(plazas, status=status.HTTP_200_OK)
         else:
             all_plazas = (
                 Post.objects.values("plaza", "plaza__name", "plaza__slug")
-                    .annotate(most_views=Max("views"))
-                    .order_by("-most_views")
+                .annotate(most_views=Max("views"))
+                .order_by("-most_views")
             )
             return Response(all_plazas, status=status.HTTP_200_OK)
