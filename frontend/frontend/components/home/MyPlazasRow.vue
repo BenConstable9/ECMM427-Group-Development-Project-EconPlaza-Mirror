@@ -6,7 +6,7 @@
         :class="{ 'animate-pulse': loading }"
     >
         <NuxtLink v-if="!loading" :to="`/plazas/${plaza.slug}`">
-            <li class="text-sm text-gray-900 hover:underline">
+            <li class="text-sm text-gray-900 font-semibold hover:underline">
                 {{ plaza.name }}
             </li>
         </NuxtLink>

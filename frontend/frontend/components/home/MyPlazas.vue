@@ -2,7 +2,7 @@
     <div id="rules" class="flex">
         <ul class="flex flex-col w-full border rounded-lg overflow-hidden">
             <my-plazas-header />
-            <ol v-if="plazas.length > 0" class="list-decimal list-inside">
+            <ol v-if="plazas.length > 0" class="list-inside">
                 <my-plazas-row
                     v-for="(plaza, index) in plazas"
                     :key="index"
