@@ -49,6 +49,7 @@ test-frontend-docker-image:
     - docker run --cidfile cid $DOCKER_REPO/econplaza/frontend:$CI_PIPELINE_ID /bin/sh /build/run-tests.sh
     - docker cp $(cat cid):/test-results ./test-results
     - docker rm $(cat cid)
+  coverage: '/^All files[^|]*\|[^|]*\s+([\d\.]+).*$/'
   artifacts:
     when: always
     reports:
