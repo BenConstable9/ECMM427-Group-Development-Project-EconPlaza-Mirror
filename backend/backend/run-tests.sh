@@ -13,6 +13,7 @@ export DEVELOPMENT=True
 
 
 coverage run --source='.' manage.py test
+coverage report
 coverage xml -o $TEST_OUTPUT_DIR/coverage.xml
 
 black . --check
