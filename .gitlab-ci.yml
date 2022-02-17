@@ -32,12 +32,13 @@ test-backend-docker-image:
   script:
     - docker login -u $DOCKER_USER -p $DOCKER_PASSWORD $DOCKER_REPO
     - docker run --cidfile cid $DOCKER_REPO/econplaza/app:$CI_PIPELINE_ID /bin/sh run-tests.sh
-    - docker cp $(cat cid):/test-results/results.xml results.xml
+    - docker cp $(cat cid):/test-results ./test-results
     - docker rm $(cat cid)
   artifacts:
     when: always
     reports:
-      junit: results.xml
+      junit: test-results/results.xml
+      cobertura: test-results/coverage.xml
 
 test-frontend-docker-image:
   image: docker:19.03.12

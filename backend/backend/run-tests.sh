@@ -12,6 +12,7 @@ export TEST_OUTPUT_FILE_NAME=results.xml
 export DEVELOPMENT=True
 
 
-python manage.py test
+coverage run --source='.' manage.py test
+coverage xml -o $TEST_OUTPUT_DIR/coverage.xml
 
 black . --check
