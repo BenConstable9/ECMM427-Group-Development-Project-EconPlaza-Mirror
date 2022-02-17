@@ -74,7 +74,6 @@ export default {
             .catch(() => {})
     },
     async getMyPlazas({ state, commit }) {
-        console.log('Hello')
         if (
             state.myPlazas.last_updated === undefined ||
             Date.now() - state.myPlazas.last_updated > 60 * 1000
