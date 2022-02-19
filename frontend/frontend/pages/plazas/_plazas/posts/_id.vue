@@ -94,6 +94,7 @@ export default {
         this.$axios.post(
             PLAZAS.VIEWPOST(this.$route.params.plazas, this.$route.params.id)
         )
+        this.$nuxt.$emit('breadcrumb', this.post.title)
     },
     beforeDestroy() {
         this.$nuxt.$off('pagination-next')
