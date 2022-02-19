@@ -1,7 +1,7 @@
 <template>
     <main>
         <div class="container mx-auto">
-            <div class="bg-gray-100 px-5 mt-5 mb-5 mx-auto">
+            <div class="bg-gray-100 px-5 mb-5 mx-auto">
                 <div id="title">
                     <div class="flex pt-8">
                         <h1
