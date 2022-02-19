@@ -33,7 +33,7 @@
                                                     font-semibold
                                                 "
                                             >
-                                                EconPlaza Community Charter
+                                                EconPlaza Privacy Policy
                                             </h1>
                                         </div>
                                     </div>
@@ -42,7 +42,7 @@
                                     id="charter-info"
                                     class="flex items-center px-5 py-4 bg-white"
                                 >
-                                    By joining EconPlaza, I ....
+                                    We collect ....
                                 </div>
                             </ul>
                         </div>
@@ -58,7 +58,7 @@ export default {
     auth: false,
     head() {
         return {
-            title: 'Community Charter | EconPlaza',
+            title: 'Privacy Policy | EconPlaza',
         }
     },
 }
