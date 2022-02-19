@@ -1,12 +1,19 @@
 <template>
     <div class="container mx-auto px-5 pt-5">
-        <div class="w-full border rounded-lg overflow-hidden bg-gray-50 w-full">
+        <div
+            class="
+                w-full
+                border
+                rounded-lg
+                overflow-hidden
+                px-5
+                py-3
+                bg-gray-50
+                w-full
+            "
+        >
             <ol class="flex flex-row w-full">
-                <li
-                    class="flex-initial"
-                    property="itemListElement"
-                    typeof="ListItem"
-                >
+                <li class="flex-initial font-semibold">
                     <NuxtLink to="/">
                         <span>EconPlaza</span>
                     </NuxtLink>
