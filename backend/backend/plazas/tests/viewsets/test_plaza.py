@@ -145,7 +145,7 @@ class PlazaViewsetTest(APITestCase):
 
         # Check with the data direct from model
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response.data), 3)
+        self.assertEqual(len(response.data), 4)
         self.assertEqual(response.data[0]["slug"], plaza_3.slug)
         self.assertEqual(response.data[1]["slug"], plaza_4.slug)
         self.assertEqual(response.data[2]["slug"], self.plaza.slug)
@@ -223,7 +223,7 @@ class PlazaViewsetTest(APITestCase):
 
         # Check with the data direct from model
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response.data), 3)
+        self.assertEqual(len(response.data), 4)
         self.assertEqual(response.data[0]["slug"], plaza_3.slug)
         self.assertEqual(response.data[1]["slug"], self.plaza_2.slug)
         self.assertEqual(response.data[2]["slug"], self.plaza.slug)
