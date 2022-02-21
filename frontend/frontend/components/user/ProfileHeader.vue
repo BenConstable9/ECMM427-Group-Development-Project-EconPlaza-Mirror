@@ -17,16 +17,23 @@
             >
                 <div class="flex-col">
                     <h1 class="text-lg text-gray-900 font-semibold text-center">
-                        Lewis Lloyd
+                        {{ user.first_name }} {{ user.last_name }}
                     </h1>
-                    <p class="text-gray-700 text-center">@lloyd</p>
+                    <p class="text-gray-700 text-center">
+                        @{{ user.username }}
+                    </p>
                     <p class="text-gray-500 text-center mt-1">
-                        Member since January 1 2021
+                        Member since
+                        {{
+                            new Date(user.date_joined).toLocaleDateString(
+                                'en-CA'
+                            )
+                        }}
                     </p>
                 </div>
                 <div class="flex items-center space-x-1 justify-center mt-3">
-                    <Staff />
-                    <Verified />
+                    <Staff v-if="user.is_staff" />
+                    <Verified v-if="user.is_verified" />
                 </div>
             </div>
         </div>
@@ -34,13 +41,21 @@
 </template>
 
 <script>
+import Member from '~/components/labels/member'
 import Staff from '~/components/labels/staff'
 import Verified from '~/components/labels/verified'
 
 export default {
     components: {
+        Member,
         Staff,
         Verified,
+    },
+    props: {
+        user: {
+            type: Object,
+            default: () => {},
+        },
     },
 }
 </script>
