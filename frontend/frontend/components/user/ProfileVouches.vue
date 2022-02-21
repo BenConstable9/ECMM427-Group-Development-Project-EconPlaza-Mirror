@@ -14,11 +14,16 @@
                 </div>
             </div>
             <div class="flex-col divide-y px-5 py-2">
-                <ProfileVouch
-                    v-for="vouch in vouches"
-                    :key="vouch"
-                    :vouch="vouch"
-                />
+                <template v-if="vouches.length == 0">
+                    <div class="italic text-gray-600">User has no vouches.</div>
+                </template>
+                <template v-else>
+                    <ProfileVouch
+                        v-for="vouch in vouches"
+                        :key="vouch"
+                        :vouch="vouch"
+                    />
+                </template>
             </div>
         </div>
     </div>
