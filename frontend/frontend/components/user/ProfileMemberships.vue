@@ -14,30 +14,37 @@
                 </div>
             </div>
             <div class="flex-col divide-y px-5 py-2">
-                <div
-                    id="membership-container"
-                    class="flex items-center justify-between"
-                >
-                    <p class="text-gray-700 py-2">University of Exeter</p>
-                </div>
-                <div
-                    id="membership-container"
-                    class="flex items-center justify-between"
-                >
-                    <p class="text-gray-700 py-2">General</p>
-                </div>
-                <div
-                    id="membership-container"
-                    class="flex items-center justify-between"
-                >
-                    <p class="text-gray-700 py-2">EconPlaza News</p>
-                </div>
-                <div
-                    id="membership-container"
-                    class="flex items-center justify-between"
-                >
-                    <p class="text-gray-700 py-2">Twitter Community</p>
-                </div>
+                <template v-if="false">
+                    <div class="italic text-gray-600">
+                        User has no memberships.
+                    </div>
+                </template>
+                <template v-else>
+                    <div
+                        id="membership-container"
+                        class="flex items-center justify-between"
+                    >
+                        <p class="text-gray-700 py-2">University of Exeter</p>
+                    </div>
+                    <div
+                        id="membership-container"
+                        class="flex items-center justify-between"
+                    >
+                        <p class="text-gray-700 py-2">General</p>
+                    </div>
+                    <div
+                        id="membership-container"
+                        class="flex items-center justify-between"
+                    >
+                        <p class="text-gray-700 py-2">EconPlaza News</p>
+                    </div>
+                    <div
+                        id="membership-container"
+                        class="flex items-center justify-between"
+                    >
+                        <p class="text-gray-700 py-2">Twitter Community</p>
+                    </div>
+                </template>
             </div>
         </div>
     </div>
