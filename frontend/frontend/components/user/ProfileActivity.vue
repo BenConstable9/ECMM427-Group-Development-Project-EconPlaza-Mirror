@@ -14,7 +14,14 @@
                 </div>
             </div>
             <div class="flex-col divide-y px-5">
-                <ProfileActivityItem v-for="index in 5" :key="index" />
+                <template v-if="false">
+                    <div class="italic text-gray-600 py-3">
+                        User has no activity.
+                    </div>
+                </template>
+                <template v-else>
+                    <ProfileActivityItem v-for="index in 5" :key="index" />
+                </template>
             </div>
         </div>
     </div>
