@@ -1,5 +1,5 @@
 <template>
-    <div id="profile" class="bg-gray-50 rounded-lg border">
+    <div id="profile" class="bg-gray-50 rounded-lg border overflow-hidden">
         <div id="profile-header" class="flex flex-col justify-center">
             <div
                 id="profile-image"
