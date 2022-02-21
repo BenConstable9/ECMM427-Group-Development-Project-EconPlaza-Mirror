@@ -22,7 +22,10 @@
                     <p class="text-gray-700 text-center">
                         @{{ user.username }}
                     </p>
-                    <p class="text-gray-500 text-center mt-1">
+                    <p class="text-sm text-gray-700 text-center">
+                        {{ user.email }}
+                    </p>
+                    <p class="text-gray-700 text-center mt-2">
                         Member since
                         {{
                             new Date(user.date_joined).toLocaleDateString(
