@@ -45,7 +45,7 @@
 </template>
 
 <script>
-import Member from '~/components/labels/member'
+import Member from '~/components/labels/Member'
 import Staff from '~/components/labels/staff'
 import Verified from '~/components/labels/verified'
 
