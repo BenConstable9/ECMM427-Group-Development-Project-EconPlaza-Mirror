@@ -1,16 +1,15 @@
 <template>
     <div
         class="
-            py-1
-            px-2
-            bg-green-400
-            rounded-r-xl rounded-b-xl
-            text-sm
-            font-bold
-            text-white
+            text-sm text-gray-50
+            font-semibold
+            bg-green-500
+            rounded
+            px-3
+            py-0.5
         "
     >
-        Verified &#10003;
+        Verified
     </div>
 </template>
 
