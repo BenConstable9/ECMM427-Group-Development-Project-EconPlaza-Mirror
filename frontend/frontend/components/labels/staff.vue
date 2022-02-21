@@ -1,14 +1,15 @@
 <template>
     <div
         class="
-            py-1
-            px-2
-            bg-red-700
-            rounded-r-xl rounded-b-xl
-            text-xs text-white
+            text-sm text-gray-50
+            font-semibold
+            bg-red-500
+            rounded
+            px-3
+            py-0.5
         "
     >
-        EconPlaza Staff
+        Staff
     </div>
 </template>
 
