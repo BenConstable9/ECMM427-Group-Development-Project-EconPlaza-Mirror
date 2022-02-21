@@ -18,7 +18,10 @@
                             class="w-full md:w-72 flex-col space-y-5"
                         >
                             <ProfileHeader :user="user" />
-                            <ProfileVouches :vouches="vouches" />
+                            <ProfileVouches
+                                :user="user"
+                                :vouches="vouches"
+                            />
                             <ProfileMemberships />
                         </div>
                         <div
