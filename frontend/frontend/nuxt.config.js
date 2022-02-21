@@ -40,6 +40,7 @@ export default {
         '~/components/plaza',
         '~/components/post',
         '~/components/shell',
+        '~/components/user',
     ],
 
     // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
