@@ -21,6 +21,7 @@
                             <ProfileVouches
                                 :user="user"
                                 :vouches="vouches"
+                                :can-vouch="canVouch"
                             />
                             <ProfileMemberships />
                         </div>
