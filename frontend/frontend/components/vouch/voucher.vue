@@ -1,15 +1,18 @@
 <template>
     <div>
-        <ul
-            class="
-                w-full
-                border
-                rounded-r-2xl rounded-b-2xl
-                overflow-hidden
-                shadow-md
-            "
-        >
-            <voucher-header :first-name="firstName" />
+        <ul>
+            <div
+                id="memberships-heading"
+                class="flex space-x-3 items-center bg-primary px-5 py-3"
+            >
+                <div id="title" class="flex-1">
+                    <div class="flex flex-col space-y-1">
+                        <h1 class="text-gray-50 text-lg font-semibold">
+                            Vouch for {{ firstName }}?
+                        </h1>
+                    </div>
+                </div>
+            </div>
             <Error v-if="error" :message="error" />
             <div class="bg-gray-100 px-4 py-2">
                 <form class="space-y-4" @submit.prevent="userVouch">
@@ -88,13 +91,9 @@
 
 <script>
 import { USERS } from '../../api-routes'
-import VoucherHeader from '~/components/vouch/voucher-header'
 
 export default {
     name: 'VouchBox',
-    components: {
-        VoucherHeader,
-    },
     props: {
         id: { type: Number, default: null },
         firstName: { type: String, default: null },
