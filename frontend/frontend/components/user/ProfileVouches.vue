@@ -29,7 +29,7 @@
                 <template v-else>
                     <ProfileVouch
                         v-for="vouch in vouches"
-                        :key="vouch"
+                        :key="vouch.id"
                         :vouch="vouch"
                     />
                 </template>
