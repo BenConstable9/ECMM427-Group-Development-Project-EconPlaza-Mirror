@@ -6,10 +6,17 @@
                 class="flex space-x-3 items-center bg-primary px-5 py-3"
             >
                 <div id="title" class="flex-1">
-                    <div class="flex flex-col space-y-1">
+                    <div class="flex justify-between">
                         <h1 class="text-gray-50 text-lg font-semibold">
                             Vouches
                         </h1>
+                        <span v-if="canVouch">
+                            <VouchModalToggle
+                                v-model="showVouchModal"
+                                :id="user.id"
+                                :first-name="user.first_name"
+                            />
+                        </span>
                     </div>
                 </div>
             </div>
@@ -32,12 +39,27 @@
 </template>
 
 <script>
+import VouchModalToggle from '~/components/user/VouchModalToggle'
+
 export default {
+    components: {
+        VouchModalToggle,
+    },
+    data() {
+        return {
+            showVouchModal: true,
+        }
+    },
     props: {
+        user: {
+            type: Object,
+            default: () => {},
+        },
         vouches: {
             type: Array,
             default: () => [],
         },
+        canVouch: { type: Boolean, default: false },
     },
 }
 </script>
