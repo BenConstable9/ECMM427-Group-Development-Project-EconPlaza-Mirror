@@ -15,7 +15,9 @@
             </div>
             <div class="flex-col divide-y px-5 py-2">
                 <template v-if="vouches.length == 0">
-                    <div class="italic text-gray-600">User has no vouches.</div>
+                    <div class="italic text-gray-600 py-1">
+                        User has no vouches.
+                    </div>
                 </template>
                 <template v-else>
                     <ProfileVouch
