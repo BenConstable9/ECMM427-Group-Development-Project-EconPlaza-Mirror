@@ -14,7 +14,7 @@
                 </div>
             </div>
             <Error v-if="error" :message="error" />
-            <div class="bg-gray-50 px-5 py-4">
+            <div class="bg-gray-50 px-5 py-5">
                 <form class="space-y-4" @submit.prevent="userVouch">
                     <p>Please check the following:</p>
                     <div class="flex items-center space-x-5">
