@@ -107,7 +107,7 @@ export default {
     },
     head() {
         return {
-            title: 'Login | EconPlaza',
+            title: 'Login',
         }
     },
     auth: 'guest',

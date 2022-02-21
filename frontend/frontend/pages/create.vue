@@ -24,7 +24,7 @@
 export default {
     head() {
         return {
-            title: `New Plaza | EconPlaza`,
+            title: `New Plaza`,
         }
     },
 }

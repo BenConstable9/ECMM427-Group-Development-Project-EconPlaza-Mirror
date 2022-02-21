@@ -72,6 +72,9 @@ export default {
     components: {
         Pagination,
     },
+    meta: {
+        title: 'Hello World!!!',
+    },
     async asyncData({ query, store }) {
         let page = Number(query.page)
 
@@ -101,7 +104,7 @@ export default {
     },
     head() {
         return {
-            title: 'All Plazas | EconPlaza',
+            title: 'All Plazas',
         }
     },
     computed: {

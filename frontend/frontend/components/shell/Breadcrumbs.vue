@@ -37,11 +37,7 @@
                             'text-gray-500': index !== crumbs.length - 1,
                         }"
                     >
-                        {{
-                            $route.fullPath === crumb.path && title !== null
-                                ? title
-                                : crumb.title
-                        }}
+                        {{ crumb.title }}
                     </NuxtLink>
                 </li>
             </ol>
@@ -52,24 +48,10 @@
 <script>
 export default {
     data() {
-        return {
-            crumbs: [],
-        }
+        return {}
     },
-    watch: {
-        '$route.query',
-    },
-    created() {
-        this.getCrumbs()
-        this.$nuxt.$on('breadcrumb', (title) => {
-            this.crumbs[this.crumbs.length - 1].title = title
-        })
-    },
-    beforeDestroy() {
-        this.$nuxt.$off('breadcrumb')
-    },
-    methods: {
-        getCrumbs() {
+    computed: {
+        crumbs() {
             const fullPath = this.$route.fullPath
             const params = fullPath.startsWith('/')
                 ? fullPath.substring(1).split('/')
@@ -79,19 +61,24 @@ export default {
                 params.pop()
             }
 
-            this.crumbs = []
+            const crumbs = []
             let path = ''
             params.forEach((param, index) => {
                 path = `${path}/${param}`
                 const match = this.$router.match(path)
 
                 if (match.name !== null) {
-                    this.crumbs.push({
-                        title: param.replace(/-/g, ' '),
+                    const breadcrumb =
+                        match.meta.breadcrumb instanceof Function
+                            ? match.meta.breadcrumb(this.$route, this.$store)
+                            : match.meta.breadcrumb
+                    crumbs.push({
+                        title: breadcrumb,
                         ...match,
                     })
                 }
             })
+            return crumbs
         },
     },
 }

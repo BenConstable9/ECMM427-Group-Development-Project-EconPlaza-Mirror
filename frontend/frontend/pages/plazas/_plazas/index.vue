@@ -59,7 +59,7 @@ export default {
     },
     head() {
         return {
-            title: `${this.plaza.name} | EconPlaza`,
+            title: this.plaza.name,
         }
     },
     computed: {

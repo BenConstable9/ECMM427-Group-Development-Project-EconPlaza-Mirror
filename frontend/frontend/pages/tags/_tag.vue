@@ -58,7 +58,7 @@ export default {
     },
     head() {
         return {
-            title: `Tag: #${this.$route.params.tag} | EconPlaza`,
+            title: `Tag: #${this.$route.params.tag}`,
         }
     },
     computed: {

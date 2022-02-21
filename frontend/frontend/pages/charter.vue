@@ -65,7 +65,7 @@
 export default {
     head() {
         return {
-            title: 'Community Charter | EconPlaza',
+            title: 'Community Charter',
         }
     },
 }

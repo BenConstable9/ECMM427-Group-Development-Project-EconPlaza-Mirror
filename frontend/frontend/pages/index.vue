@@ -24,7 +24,7 @@
 export default {
     head() {
         return {
-            title: 'Home | EconPlaza',
+            title: 'Home',
         }
     },
 }

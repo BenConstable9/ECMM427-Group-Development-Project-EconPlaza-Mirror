@@ -31,7 +31,7 @@ export default {
     },
     head() {
         return {
-            title: `New Post | ${this.plaza.name} | EconPlaza`,
+            title: `New Post | ${this.plaza.name}`,
         }
     },
     computed: {

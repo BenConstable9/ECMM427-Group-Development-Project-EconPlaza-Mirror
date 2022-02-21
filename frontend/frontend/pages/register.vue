@@ -110,8 +110,8 @@
                 <label class="label" for="checkbox">
                     I have read and understood the
                     <NuxtLink to="#" class="text-blue-600"
-                        >privacy policy</NuxtLink
-                    >
+                        >privacy policy
+                    </NuxtLink>
                 </label>
             </div>
 
@@ -171,7 +171,7 @@ export default {
     },
     head() {
         return {
-            title: 'Register | EconPlaza',
+            title: 'Register',
         }
     },
     auth: 'guest',

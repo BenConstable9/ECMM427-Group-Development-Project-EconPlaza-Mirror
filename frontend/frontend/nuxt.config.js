@@ -4,7 +4,10 @@ export default {
 
     // Global page headers: https://go.nuxtjs.dev/config-head
     head: {
-        title: 'frontend',
+        title: '',
+        titleTemplate: (title) => {
+            return title ? `${title} | EconPlaza` : 'EconPlaza'
+        },
         meta: [
             { charset: 'utf-8' },
             {
@@ -48,6 +51,12 @@ export default {
         '@nuxtjs/eslint-module',
         // https://go.nuxtjs.dev/tailwindcss
         '@nuxtjs/tailwindcss',
+        [
+            '@nuxtjs/router',
+            {
+                filename: 'router.js',
+            },
+        ],
     ],
 
     // Modules: https://go.nuxtjs.dev/config-modules

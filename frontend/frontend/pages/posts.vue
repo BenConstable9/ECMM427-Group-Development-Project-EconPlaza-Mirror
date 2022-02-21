@@ -64,7 +64,7 @@ export default {
     },
     head() {
         return {
-            title: `All Posts | EconPlaza`,
+            title: `All Posts`,
         }
     },
     computed: {

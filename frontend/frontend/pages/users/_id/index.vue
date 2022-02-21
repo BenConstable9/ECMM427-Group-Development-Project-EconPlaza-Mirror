@@ -122,12 +122,7 @@ export default {
     },
     head() {
         return {
-            title:
-                'View ' +
-                this.user.first_name +
-                ' ' +
-                this.user.last_name +
-                ' | EconPlaza',
+            title: `View ${this.user.first_name} ${this.user.last_name}`,
         }
     },
     computed: {

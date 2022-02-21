@@ -80,7 +80,7 @@ export default {
     },
     head() {
         return {
-            title: `${this.post.title} | ${this.plaza.name} | EconPlaza`,
+            title: `${this.post.title} | ${this.plaza.name}`,
         }
     },
     computed: {
