@@ -14,71 +14,92 @@
                 </div>
             </div>
             <Error v-if="error" :message="error" />
-            <div class="bg-gray-100 px-4 py-2">
+            <div class="bg-gray-50 px-5 py-4">
                 <form class="space-y-4" @submit.prevent="userVouch">
-                    <div>
-                        <label
-                            >Are you certain that this name belongs to a real
-                            person who you know?</label
-                        >
+                    <p>Please check the following:</p>
+                    <div class="flex items-center space-x-5">
                         <input
                             v-model="voucher.name"
                             type="checkbox"
                             :disabled="voucher.isDisabled"
                         />
-                    </div>
-                    <div>
                         <label
-                            >Are you 100% certain that this email belongs to the
-                            person named above?</label
+                            >Are you certain that this name belongs to a real
+                            person who you know?</label
                         >
+                    </div>
+                    <div class="flex items-center space-x-5">
                         <input
                             v-model="voucher.email"
                             type="checkbox"
                             :disabled="voucher.isDisabled"
                         />
-                    </div>
-                    <div>
                         <label
-                            >Are you 100% certain the institutional affiliation
-                            and position of the person named above are
-                            correct?</label
+                            >Are you 100% certain that this email belongs to the
+                            person named above?</label
                         >
+                    </div>
+                    <div class="flex items-center space-x-5">
                         <input
                             v-model="voucher.institution"
                             type="checkbox"
                             :disabled="voucher.isDisabled"
                         />
+                        <label
+                            >Are you 100% certain the institutional affiliation
+                            and position of the person named above are
+                            correct?</label
+                        >
                     </div>
-                    <div
-                        v-if="
-                            voucher.name && voucher.email && voucher.institution
-                        "
-                    >
-                        <p>
+                    <div>
+                        <p
+                            class="
+                                mt-5
+                                disabled:invisible
+                                transition
+                                text-gray-700
+                            "
+                            :class="{
+                                'opacity-0':
+                                    !voucher.name ||
+                                    !voucher.email ||
+                                    !voucher.institution,
+                                'opacity-100':
+                                    voucher.name &&
+                                    voucher.email &&
+                                    voucher.institution,
+                            }"
+                        >
                             Your vouch will be displayed publicly in this user's
-                            profile
+                            profile.
                         </p>
                         <button
                             type="submit"
-                            :disabled="voucher.isDisabled"
+                            :disabled="
+                                !voucher.name ||
+                                !voucher.email ||
+                                !voucher.institution
+                            "
                             class="
-                                w-full
-                                py-4
-                                bg-blue-600
-                                hover:bg-blue-800
-                                rounded-r-2xl rounded-b-2xl
-                                text-m
-                                font-bold
-                                border border-blue-600
-                                text-white
-                                shadow
+                                text-gray-100
+                                font-semibold
+                                rounded
+                                py-1
+                                px-5
+                                mt-3
                                 transition
                                 duration-200
-                                disabled:bg-gray-100
-                                disabled:text-gray-500
-                                disabled:border-gray-400
                             "
+                            :class="{
+                                'bg-primary hover:bg-blue-600 text-gray-50':
+                                    voucher.name &&
+                                    voucher.email &&
+                                    voucher.institution,
+                                'bg-gray-100 text-gray-300 ring-1 ring-gray-300':
+                                    !voucher.name ||
+                                    !voucher.email ||
+                                    !voucher.institution,
+                            }"
                         >
                             Vouch
                         </button>

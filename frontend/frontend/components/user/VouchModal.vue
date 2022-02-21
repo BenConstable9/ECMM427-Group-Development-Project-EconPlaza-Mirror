@@ -20,10 +20,13 @@
         <div
             id="dropdown"
             class="
+                fixed
                 w-full
                 max-w-lg
                 items-center
-                fixed
+                rounded-lg
+                shadow-lg
+                overflow-hidden
                 z-20
                 top-1/2
                 left-1/2
