@@ -14,78 +14,23 @@
                 </div>
             </div>
             <div class="flex-col divide-y px-5 py-2">
-                <div
-                    id="vouch-container"
-                    class="flex items-center justify-between"
-                >
-                    <p class="text-gray-700 py-2">Lewis Lloyd</p>
-                    <div
-                        class="
-                            text-sm text-gray-50
-                            font-semibold
-                            bg-green-500
-                            rounded
-                            px-3
-                            py-0.5
-                        "
-                    >
-                        Verified
-                    </div>
-                </div>
-                <div
-                    id="vouch-container"
-                    class="flex items-center justify-between"
-                >
-                    <p class="text-gray-700 py-2">Lewis Lloyd</p>
-                    <div
-                        class="
-                            text-sm text-gray-50
-                            font-semibold
-                            bg-green-500
-                            rounded
-                            px-3
-                            py-0.5
-                        "
-                    >
-                        Verified
-                    </div>
-                </div>
-                <div
-                    id="vouch-container"
-                    class="flex items-center justify-between"
-                >
-                    <p class="text-gray-700 py-2">Lewis Lloyd</p>
-                    <div
-                        class="
-                            text-sm text-gray-50
-                            font-semibold
-                            bg-green-500
-                            rounded
-                            px-3
-                            py-0.5
-                        "
-                    >
-                        Verified
-                    </div>
-                </div>
-                <div
-                    id="vouch-container"
-                    class="flex items-center justify-between"
-                >
-                    <p class="text-gray-700 py-2">Lewis Lloyd</p>
-                    <Verified />
-                </div>
+                <ProfileVouch
+                    v-for="vouch in vouches"
+                    :key="vouch"
+                    :vouch="vouch"
+                />
             </div>
         </div>
     </div>
 </template>
 
 <script>
-import Verified from '~/components/labels/verified'
-
 export default {
-    components: {
-        Verified,
+    props: {
+        vouches: {
+            type: Array,
+            default: () => [],
+        },
     },
 }
 </script>
