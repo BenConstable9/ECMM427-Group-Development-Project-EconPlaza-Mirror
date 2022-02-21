@@ -12,8 +12,8 @@
                         </h1>
                         <span v-if="canVouch">
                             <VouchModalToggle
-                                v-model="showVouchModal"
                                 :id="user.id"
+                                v-model="showVouchModal"
                                 :first-name="user.first_name"
                             />
                         </span>
@@ -45,11 +45,6 @@ export default {
     components: {
         VouchModalToggle,
     },
-    data() {
-        return {
-            showVouchModal: true,
-        }
-    },
     props: {
         user: {
             type: Object,
@@ -60,6 +55,11 @@ export default {
             default: () => [],
         },
         canVouch: { type: Boolean, default: false },
+    },
+    data() {
+        return {
+            showVouchModal: true,
+        }
     },
 }
 </script>

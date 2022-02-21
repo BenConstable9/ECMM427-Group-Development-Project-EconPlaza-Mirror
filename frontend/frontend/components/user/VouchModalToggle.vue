@@ -34,8 +34,8 @@
                 </div>
             </div>
             <VouchModal
-                v-model="showVouchModal"
                 :id="id"
+                v-model="showVouchModal"
                 :first-name="firstName"
             />
         </div>
@@ -56,13 +56,13 @@ export default {
             showVouchModal: false,
         }
     },
+    computed: {
+        ...mapGetters(['isAuthenticated', 'authenticatedUser']),
+    },
     mounted() {
         this.$nuxt.$on('user-vouched', () => {
             this.showVouchModal = false
         })
-    },
-    computed: {
-        ...mapGetters(['isAuthenticated', 'authenticatedUser']),
     },
 }
 </script>

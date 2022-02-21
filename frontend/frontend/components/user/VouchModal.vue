@@ -46,10 +46,10 @@ import { mapGetters, mapActions } from 'vuex'
 import voucher from '~/components/vouch/voucher'
 
 export default {
+    name: 'Dropdown',
     components: {
         voucher,
     },
-    name: 'Dropdown',
     props: {
         id: { type: Number, default: null },
         firstName: { type: String, default: null },
