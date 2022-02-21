@@ -1,57 +1,32 @@
 <template>
     <main>
         <div class="container mx-auto">
-            <div class="bg-gray-50 px-5 mx-auto">
-                <div id="title">
-                    <div class="flex pt-8">
-                        <h1 class="text-xl font-semibold">
-                            {{ user.first_name }} {{ user.last_name }}
-                        </h1>
-                        <staff v-if="user.is_staff" class="sm:ml-2" />
-                        <verified v-if="user.verified" class="sm:ml-2" />
-                    </div>
-                </div>
-                <!-- Leave room for future labels etc -->
-                <div id="content" class="pt-5 pb-8">
+            <div class="bg-gray-100 px-5 mt-5 mb-5 mx-auto">
+                <div id="content" class="space-x-5 pt-5 pb-8">
                     <div
                         class="
-                            grid
-                            sm:grid-cols-2
-                            md:grid-cols-3
-                            lg:grid-cols-4
-                            gap-2
-                            my-6
+                            flex flex-col
+                            md:flex-row
+                            space-x-0
+                            md:space-x-5
+                            space-y-5
+                            md:space-y-0
                         "
                     >
-                        <div>
-                            <ul class="list-none">
-                                <li>
-                                    <span class="font-semibold">Username:</span>
-                                    {{ user.username }}
-                                </li>
-                                <li>
-                                    <span class="font-semibold">Email:</span>
-                                    {{ user.email }}
-                                </li>
-                                <li>
-                                    <span class="font-semibold"
-                                        >Date Joined:</span
-                                    >
-                                    {{
-                                        new Date(user.date_joined).getFullYear()
-                                    }}
-                                </li>
-                            </ul>
+                        <div
+                            id="left-bar"
+                            class="w-full md:w-72 flex-col space-y-5"
+                        >
+                            <ProfileHeader :user="user" />
+                            <ProfileVouches :vouches="vouches" />
+                            <ProfileMemberships />
                         </div>
-                        <voucher
-                            v-if="canVouch"
-                            :id="user.id"
-                            :first-name="user.first_name"
-                        />
-                        <vouch-box
-                            :first-name="user.first_name"
-                            :vouches="vouches"
-                        />
+                        <div
+                            id="right-bar"
+                            class="flex-grow flex-col space-y-5"
+                        >
+                            <ProfileActivity />
+                        </div>
                     </div>
                 </div>
             </div>
@@ -62,18 +37,8 @@
 <script>
 import { mapGetters } from 'vuex'
 import { USERS } from '../../../api-routes'
-import VouchBox from '~/components/vouch/vouch-box'
-import Voucher from '~/components/vouch/voucher'
-import Staff from '~/components/labels/staff'
-import Verified from '~/components/labels/verified'
 
 export default {
-    components: {
-        VouchBox,
-        Staff,
-        Verified,
-        Voucher,
-    },
     async asyncData({ $axios, params, store }) {
         try {
             const user = await $axios.$get(USERS.ONE(params.id))
