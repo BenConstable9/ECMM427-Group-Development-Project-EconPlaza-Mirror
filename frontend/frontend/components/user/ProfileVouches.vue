@@ -73,20 +73,19 @@
                     class="flex items-center justify-between"
                 >
                     <p class="text-gray-700 py-2">Lewis Lloyd</p>
-                    <div
-                        class="
-                            text-sm text-gray-50
-                            font-semibold
-                            bg-green-500
-                            rounded
-                            px-3
-                            py-0.5
-                        "
-                    >
-                        Verified
-                    </div>
+                    <Verified />
                 </div>
             </div>
         </div>
     </div>
 </template>
+
+<script>
+import Verified from '~/components/labels/verified'
+
+export default {
+    components: {
+        Verified,
+    },
+}
+</script>

@@ -24,33 +24,23 @@
                         Member since January 1 2021
                     </p>
                 </div>
-                <div class="flex space-x-1 justify-center mt-3">
-                    <div
-                        class="
-                            text-sm text-gray-50
-                            font-semibold
-                            bg-red-500
-                            rounded
-                            px-3
-                            py-0.5
-                        "
-                    >
-                        Staff
-                    </div>
-                    <div
-                        class="
-                            text-sm text-gray-50
-                            font-semibold
-                            bg-green-500
-                            rounded
-                            px-3
-                            py-0.5
-                        "
-                    >
-                        Verified
-                    </div>
+                <div class="flex items-center space-x-1 justify-center mt-3">
+                    <Staff />
+                    <Verified />
                 </div>
             </div>
         </div>
     </div>
 </template>
+
+<script>
+import Staff from '~/components/labels/staff'
+import Verified from '~/components/labels/verified'
+
+export default {
+    components: {
+        Staff,
+        Verified,
+    },
+}
+</script>
