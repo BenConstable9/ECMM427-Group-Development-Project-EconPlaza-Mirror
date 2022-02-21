@@ -32,6 +32,7 @@
                     </p>
                 </div>
                 <div class="flex items-center space-x-1 justify-center mt-3">
+                    <Member v-if="!user.is_staff" />
                     <Staff v-if="user.is_staff" />
                     <Verified v-if="user.is_verified" />
                 </div>
