@@ -32,5 +32,6 @@ export const USERS = {
     ONE: (id) => `/v1/users/${id}/`,
     VOUCHES: (id) => `/v1/users/${id}/vouches/`,
     PROFILES: (id) => `/v1/users/${id}/profiles/`,
+    MEMBERSHIPS: (id) => `/v1/users/${id}/memberships/`,
     REGISTER: () => `/v1/users/`,
 }

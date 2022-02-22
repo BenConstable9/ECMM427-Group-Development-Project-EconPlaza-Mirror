@@ -9,7 +9,6 @@ from utils import SmallResultsSetPagination
 
 
 class MembershipViewSet(
-    mixins.RetrieveModelMixin,
     mixins.ListModelMixin,
     viewsets.GenericViewSet,
 ):
