@@ -1,4 +1,3 @@
-import { defaultState } from './default.js'
 import { PLAZAS } from '~/api-routes'
 
 export default {
@@ -34,8 +33,5 @@ export default {
                 commit('setCurrentPlaza', plazaSlug)
             })
             .catch(() => {})
-    },
-    resetStore(state) {
-        Object.assign(state, defaultState())
     },
 }
