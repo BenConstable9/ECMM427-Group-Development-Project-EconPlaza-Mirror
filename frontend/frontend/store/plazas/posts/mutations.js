@@ -1,3 +1,5 @@
+import { defaultState } from './default.js'
+
 export default {
     setPosts(state, posts) {
         state.posts = posts
@@ -32,5 +34,8 @@ export default {
     },
     setDesiredPaginationSize(state, size) {
         state.pagination.desiredSize = size
+    },
+    resetStore(state) {
+        Object.assign(state, defaultState())
     },
 }

@@ -1,3 +1,5 @@
+import { defaultState } from './default.js'
+
 export default {
     setComments(state, comments) {
         state.comments = comments
@@ -21,5 +23,8 @@ export default {
     },
     setCurrentPost(state, post) {
         state.currentPost = post
+    },
+    resetStore(state) {
+        Object.assign(state, defaultState())
     },
 }

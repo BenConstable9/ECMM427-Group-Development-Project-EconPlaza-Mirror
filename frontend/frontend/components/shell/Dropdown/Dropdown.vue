@@ -144,13 +144,18 @@ export default {
         }),
     },
     methods: {
-        logout() {
-            this.$auth.logout()
+        async logout() {
+            this.resetStore()
+
+            await this.$auth.logout()
         },
         toggleMenu() {
             this.$emit('input', !this.value)
         },
-        ...mapActions({ getAllPlazas: 'plazas/getAllPlazas' }),
+        ...mapActions({
+            getAllPlazas: 'plazas/getAllPlazas',
+            resetStore: 'resetStore',
+        }),
     },
 }
 </script>

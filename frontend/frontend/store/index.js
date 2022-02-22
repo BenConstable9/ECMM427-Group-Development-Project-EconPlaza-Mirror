@@ -9,12 +9,12 @@ export const getters = {
 }
 
 export const actions = {
-    resetStore({ dispatch }) {
-        dispatch('plazas/resetStore')
-        dispatch('plazas/posts/resetStore')
-        dispatch('plazas/posts/comments/resetStore')
-        dispatch('posts/resetStore')
-        dispatch('profiles/resetStore')
-        dispatch('tags/resetStore')
+    resetStore({ commit }) {
+        commit('plazas/resetStore')
+        commit('plazas/posts/resetStore')
+        commit('plazas/posts/comments/resetStore')
+        commit('posts/resetStore')
+        commit('profiles/resetStore')
+        commit('tags/resetStore')
     },
 }

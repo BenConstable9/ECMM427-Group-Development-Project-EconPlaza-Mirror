@@ -1,3 +1,5 @@
+import { defaultState } from './default.js'
+
 export default {
     setPlazaList(state, plazas) {
         state.allPlazas = plazas
@@ -47,5 +49,8 @@ export default {
     },
     setMyPlazas(state, data) {
         state.myPlazas = data
+    },
+    resetStore(state) {
+        Object.assign(state, defaultState())
     },
 }
