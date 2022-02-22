@@ -1,4 +1,4 @@
-export default () => {
+function defaultState() {
     return {
         posts: undefined,
         pagination: {
@@ -10,4 +10,8 @@ export default () => {
             search: '',
         },
     }
+}
+
+export default () => {
+    defaultState()
 }

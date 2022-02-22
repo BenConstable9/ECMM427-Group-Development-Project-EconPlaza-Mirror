@@ -1,4 +1,4 @@
-export default () => {
+function defaultState() {
     return {
         allPlazas: undefined,
         currentPlaza: undefined,
@@ -14,4 +14,8 @@ export default () => {
             data: [],
         },
     }
+}
+
+export default () => {
+    defaultState()
 }

@@ -1,4 +1,4 @@
-export default () => {
+function defaultState() {
     return {
         posts: undefined,
         tag: undefined,
@@ -11,4 +11,8 @@ export default () => {
             search: '',
         },
     }
+}
+
+export default () => {
+    defaultState()
 }

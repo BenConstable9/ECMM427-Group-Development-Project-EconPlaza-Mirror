@@ -1,4 +1,4 @@
-export default () => {
+function defaultState() {
     return {
         comments: undefined,
         pagination: {
@@ -11,4 +11,8 @@ export default () => {
         currentPost: undefined,
         currentPlaza: undefined,
     }
+}
+
+export default () => {
+    defaultState()
 }
