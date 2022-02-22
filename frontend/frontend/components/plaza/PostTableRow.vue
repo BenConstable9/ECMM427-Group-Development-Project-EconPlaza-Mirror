@@ -14,11 +14,15 @@
                     <span class="text-sm text-gray-700"
                         >By
                         <NuxtLink
-                            :to="authorProfileLink"
+                            v-if="includeAuthorLink"
+                            :to="authorLink"
                             class="font-semibold hover:underline"
                         >
                             {{ author }}
-                        </NuxtLink></span
+                        </NuxtLink>
+                        <span v-else class="font-semibold">{{
+                            author
+                        }}</span></span
                     >
                     <span
                         v-if="includePlazaLink"
@@ -126,8 +130,11 @@ export default {
         author() {
             return this.post ? `${this.post.profile.display_name}` : '...'
         },
-        authorProfileLink() {
-            return this.post ? `/profiles/${this.post.profile.id}` : '#'
+        includeAuthorLink() {
+            return this.post ? !this.post.profile.global_anonymous : false
+        },
+        authorLink() {
+            return this.post ? `/users/${this.post.profile.user}/` : '#'
         },
         plaza() {
             return this.post ? `${this.post.plaza.name}` : '...'
