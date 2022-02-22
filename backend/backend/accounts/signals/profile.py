@@ -14,5 +14,5 @@ def create_profile(sender, instance, created, **kwargs):
 
         # Create an annoymous profile
         Profile.objects.create(
-            user=instance, display_name="Annoymous", global_annoymous=True
+            user=instance, display_name="Anonymous User", global_annoymous=True
         )
