@@ -21,8 +21,8 @@ export default {
             default: 'id',
         },
         options: {
-            type: Object,
-            default: () => {},
+            type: Array,
+            default: () => [],
         },
     },
     data() {
