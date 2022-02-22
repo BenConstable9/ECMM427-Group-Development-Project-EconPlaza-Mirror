@@ -1,5 +1,5 @@
 <template>
-    <div id="Posts" class="bg-gray-50 rounded-lg border overflow-hidden">
+    <div id="Posts" class="rounded-lg border overflow-hidden">
         <div id="activity-details" class="flex flex-col justify-center">
             <div
                 id="activity-heading"
@@ -13,16 +13,39 @@
                     </div>
                 </div>
             </div>
-            <div class="flex-col divide-y px-5">
-                <template v-if="false">
+            <div class="flex-col divide-y">
+                <template v-if="activities.length == 0">
                     <div class="italic text-gray-600 py-3">
                         User has no activity.
                     </div>
                 </template>
                 <template v-else>
-                    <ProfileActivityItem v-for="index in 5" :key="index" />
+                    <ProfileActivityItem
+                        v-for="(activity, index) in activities"
+                        :key="activity.id"
+                        :activity="activity"
+                        :class="{ 'bg-gray-50': index % 2 }"
+                    />
                 </template>
             </div>
         </div>
     </div>
 </template>
+
+<script>
+import { USERS } from '../../api-routes'
+
+export default {
+    data() {
+        return {
+            activities: [],
+        }
+    },
+    async fetch() {
+        const response = await this.$axios.get(
+            USERS.ACTIVITY(this.$route.params.id)
+        )
+        this.activities = response.data
+    },
+}
+</script>
