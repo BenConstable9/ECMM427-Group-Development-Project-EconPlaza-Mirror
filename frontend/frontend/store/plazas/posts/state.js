@@ -1,18 +1,5 @@
-function defaultState() {
-    return {
-        posts: undefined,
-        pagination: {
-            page: undefined,
-            desiredSize: 10,
-            returnedSize: undefined,
-            next: undefined,
-            previous: undefined,
-        },
-        currentPost: undefined,
-        currentPlaza: undefined,
-    }
-}
+import { defaultState } from './default.js'
 
 export default () => {
-    defaultState()
+    return defaultState()
 }
