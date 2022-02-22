@@ -15,7 +15,7 @@
             </div>
             <div class="flex-col divide-y">
                 <template v-if="activities.length == 0">
-                    <div class="italic text-gray-600 py-3">
+                    <div class="italic text-gray-600 py-3 px-5">
                         User has no activity.
                     </div>
                 </template>
