@@ -174,9 +174,16 @@ export default {
             if (this.post === undefined) {
                 return '...'
             }
-            const secondsAgo = Math.floor(
-                (new Date() - new Date(this.post.last_activity)) / 1000
-            )
+            let secondsAgo
+            if (this.post.last_activity == null) {
+                secondsAgo = Math.floor(
+                    (new Date() - new Date(this.post.created_at)) / 1000
+                )
+            } else {
+                secondsAgo = Math.floor(
+                    (new Date() - new Date(this.post.last_activity)) / 1000
+                )
+            }
             let time = secondsAgo
             let unit = 'second'
             if (secondsAgo > 31536000) {
