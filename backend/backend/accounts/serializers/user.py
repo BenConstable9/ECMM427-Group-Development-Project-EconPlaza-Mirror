@@ -21,6 +21,7 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
             "first_name",
             "last_name",
             "date_joined",
+            "institutional_affiliation",
         ]
 
 

@@ -1,6 +1,8 @@
 <template>
     <div id="vouch-container" class="flex items-center justify-between">
-        <p class="text-gray-700 py-2">Lewis Lloyd</p>
+        <p class="text-gray-700 py-2">
+            {{ vouch.first_name }} {{ vouch.last_name }}
+        </p>
         <Verified v-if="vouch.voucher.verified" />
     </div>
 </template>
