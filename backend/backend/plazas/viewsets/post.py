@@ -61,9 +61,7 @@ class PostViewSet(
     filter_backends = [filters.SearchFilter, filters.OrderingFilter]
     search_fields = ["title"]
 
-    ordering_fields = [
-        "id",
-    ]
+    ordering_fields = ["id", "views"]
 
     ordering = ["-id"]
 

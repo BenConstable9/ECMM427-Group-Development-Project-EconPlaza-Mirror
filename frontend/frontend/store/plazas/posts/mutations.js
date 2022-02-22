@@ -25,12 +25,16 @@ export default {
     setPage(state, page) {
         state.pagination.page = page
     },
-    setPagination(state, { next, previous, returnedSize }) {
+    setPagination(state, { next, previous, returnedSize, returnedSort }) {
         state.pagination.next = next
         state.pagination.previous = previous
         state.pagination.returnedSize = returnedSize
+        state.pagination.returnedSort = returnedSort
     },
     setDesiredPaginationSize(state, size) {
         state.pagination.desiredSize = size
+    },
+    setDesiredPaginationSort(state, sort) {
+        state.pagination.desiredSort = sort
     },
 }

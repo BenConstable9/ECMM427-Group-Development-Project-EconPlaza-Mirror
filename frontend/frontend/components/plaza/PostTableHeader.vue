@@ -23,6 +23,10 @@
                     </div>
                 </div>
                 <pagination-size :size="pagination.preferredSize" />
+                <pagination-sort
+                    :sort="pagination.desiredSort"
+                    :options="pagination.sortOptions"
+                />
                 <div
                     v-if="
                         authenticatedUser.verified &&
@@ -103,6 +107,7 @@ import Error from '~/components/messages/Error'
 import Success from '~/components/messages/Success'
 import Tag from '~/components/labels/Tag'
 import PaginationSize from '~/components/helpers/PaginationSize'
+import PaginationSort from '~/components/helpers/PaginationSort'
 
 export default {
     components: {
@@ -110,6 +115,7 @@ export default {
         Success,
         Tag,
         PaginationSize,
+        PaginationSort,
     },
     props: {
         includePlazaActions: { type: Boolean, default: true },
