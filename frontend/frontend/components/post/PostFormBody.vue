@@ -30,6 +30,16 @@
                         />
                     </div>
                     <div>
+                        <Editor
+                            v-model="post.content"
+                            :disabled="post.isDisabled"
+                            placeholder="Type your post here..."
+                        />
+                    </div>
+                    <div>
+                        <Tags v-model="post.tags" :disabled="post.isDisabled" />
+                    </div>
+                    <div>
                         <select
                             :value="profile.id"
                             :disabled="post.isDisabled"
@@ -56,16 +66,6 @@
                                 Posting As: {{ item.display_name }}
                             </option>
                         </select>
-                    </div>
-                    <div>
-                        <Tags v-model="post.tags" :disabled="post.isDisabled" />
-                    </div>
-                    <div>
-                        <Editor
-                            v-model="post.content"
-                            :disabled="post.isDisabled"
-                            placeholder="Type your post here..."
-                        />
                     </div>
                     <div
                         v-if="
