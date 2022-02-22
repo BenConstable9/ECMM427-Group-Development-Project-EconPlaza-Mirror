@@ -14,7 +14,7 @@
                 </div>
             </div>
             <ol class="list-inside">
-                <template v-if="memberships.results.length == 0">
+                <template v-if="memberships.count == 0">
                     <div
                         id="vouch-container"
                         class="flex items-center px-3 py-2"
@@ -44,7 +44,9 @@ import { USERS } from '../../api-routes'
 export default {
     data() {
         return {
-            memberships: [],
+            memberships: {
+                count: 0,
+            },
         }
     },
     async fetch() {
