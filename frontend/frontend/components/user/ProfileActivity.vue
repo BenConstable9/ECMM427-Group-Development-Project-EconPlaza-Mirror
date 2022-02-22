@@ -8,7 +8,7 @@
                 <div id="title" class="flex-1">
                     <div class="flex flex-col space-y-1">
                         <h1 class="text-gray-50 text-lg font-semibold">
-                            Activity
+                            Recent Activity
                         </h1>
                     </div>
                 </div>
