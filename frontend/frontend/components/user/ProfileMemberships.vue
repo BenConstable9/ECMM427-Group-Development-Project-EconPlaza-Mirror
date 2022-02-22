@@ -12,6 +12,10 @@
                         </h1>
                     </div>
                 </div>
+                <HeaderPagiantion
+                    :next="memberships.next"
+                    :previous="memberships.previous"
+                />
             </div>
             <ol class="list-inside">
                 <template v-if="memberships.count == 0">
@@ -33,27 +37,48 @@
                     />
                 </template>
             </ol>
-            {{ memberships }}
         </div>
     </div>
 </template>
 
 <script>
 import { USERS } from '../../api-routes'
+import HeaderPagiantion from '~/components/helpers/HeaderPagiantion'
 
 export default {
+    components: {
+        HeaderPagiantion,
+    },
     data() {
         return {
+            page: 1,
             memberships: {
                 count: 0,
+                next: undefined,
+                previous: undefined,
             },
         }
     },
     async fetch() {
         const response = await this.$axios.get(
-            USERS.MEMBERSHIPS(this.$route.params.id)
+            USERS.MEMBERSHIPS(this.$route.params.id),
+            { params: { page: this.page } }
         )
         this.memberships = response.data
+    },
+    created() {
+        this.$nuxt.$on('header-pagination-next', () => {
+            this.page += 1
+            this.$fetch()
+        })
+        this.$nuxt.$on('header-pagination-previous', () => {
+            this.page -= 1
+            this.$fetch()
+        })
+    },
+    beforeDestroy() {
+        this.$nuxt.$off('header-pagination-next')
+        this.$nuxt.$off('header-pagination-previous')
     },
 }
 </script>
