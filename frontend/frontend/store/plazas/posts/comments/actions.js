@@ -10,7 +10,8 @@ export default {
             state.currentPlaza === plazaSlug &&
             state.currentPost === postID &&
             state.pagination.page === page &&
-            state.pagination.returnedSize === state.pagination.desiredSize
+            state.pagination.returnedSize === state.pagination.desiredSize &&
+            state.pagination.returnedSort === state.pagination.desiredSort
         ) {
             return
         }
@@ -19,6 +20,7 @@ export default {
                 params: {
                     page,
                     page_size: state.pagination.desiredSize,
+                    ordering: state.pagination.desiredSort,
                 },
             })
             .then(({ data }) => {
@@ -26,6 +28,7 @@ export default {
                     next: data.next,
                     previous: data.previous,
                     returnedSize: state.pagination.desiredSize,
+                    returnedSort: state.pagination.desiredSort,
                 })
                 commit('setPage', page)
                 commit('setComments', data.results)

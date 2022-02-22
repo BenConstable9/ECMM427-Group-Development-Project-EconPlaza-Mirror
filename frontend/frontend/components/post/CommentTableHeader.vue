@@ -9,6 +9,10 @@
             </div>
         </div>
         <pagination-size :size="pagination.preferredSize" />
+        <pagination-sort
+            :sort="pagination.desiredSort"
+            :options="pagination.sortOptions"
+        />
         <div id="views">
             <div class="rounded-full bg-gray-50 p-3">
                 <svg
@@ -29,10 +33,12 @@
 <script>
 import { mapGetters, mapActions } from 'vuex'
 import PaginationSize from '~/components/helpers/PaginationSize'
+import PaginationSort from '~/components/helpers/PaginationSort'
 
 export default {
     components: {
         PaginationSize,
+        PaginationSort,
     },
     data() {
         return {
