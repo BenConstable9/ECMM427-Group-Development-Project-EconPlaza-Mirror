@@ -39,19 +39,19 @@
                 'pointer-events-auto opacity-100 scale-100': value,
             }"
         >
-            <voucher :id="id" :first-name="firstName" />
+            <Voucher :id="id" :first-name="firstName" />
         </div>
     </div>
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
-import voucher from '~/components/vouch/voucher'
+import Voucher from '~/components/user/Voucher'
 
 export default {
     name: 'Dropdown',
     components: {
-        voucher,
+        Voucher,
     },
     props: {
         id: { type: Number, default: null },
