@@ -162,27 +162,26 @@ AUTH_PASSWORD_VALIDATORS = [
 
 if CLOUD:
     LOGGING = {
-        'version': 1,
-        'disable_existing_loggers': False,
-        'formatters': {
-            'console': {
-                'format': '%(message)s',
+        "version": 1,
+        "disable_existing_loggers": False,
+        "formatters": {
+            "console": {
+                "format": "%(message)s",
             },
         },
-        'handlers': {
-            'console': {
-                'class': 'logging.StreamHandler',
-                'formatter': 'console',
+        "handlers": {
+            "console": {
+                "class": "logging.StreamHandler",
+                "formatter": "console",
             },
         },
-        'loggers': {
-            'gunicorn': {
-                'level': 'INFO',
-                'handlers': ['console'],
-                'propagate': True,
+        "loggers": {
+            "gunicorn": {
+                "level": "INFO",
+                "handlers": ["console"],
+                "propagate": True,
             },
         },
-
     }
 
 # Internationalization
