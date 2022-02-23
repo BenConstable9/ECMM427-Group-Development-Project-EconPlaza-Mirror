@@ -22,5 +22,10 @@ class Plaza(models.Model):
 
     created_at = models.DateTimeField("Created at timestamp", auto_now_add=True)
 
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=["slug"], name="slugs_must_be_unique"),
+        ]
+
     def __str__(self):
         return f"{self.name}"
