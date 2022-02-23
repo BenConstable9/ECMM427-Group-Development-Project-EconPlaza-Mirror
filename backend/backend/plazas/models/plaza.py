@@ -8,7 +8,7 @@ from . import Tag
 
 class Plaza(models.Model):
 
-    slug = models.SlugField("Plaza's Slug", max_length=32)
+    slug = models.SlugField("Plaza's Slug", max_length=32, unique=True)
 
     name = models.CharField("Plaza's Name", max_length=32)
 
@@ -21,11 +21,6 @@ class Plaza(models.Model):
     tags = GenericRelation(Tag)
 
     created_at = models.DateTimeField("Created at timestamp", auto_now_add=True)
-
-    class Meta:
-        constraints = [
-            models.UniqueConstraint(fields=["slug"], name="slugs_must_be_unique"),
-        ]
 
     def __str__(self):
         return f"{self.name}"
