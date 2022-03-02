@@ -19,7 +19,7 @@ class ActivityViewSet(
         user = get_user_model().objects.get(id=self.kwargs["users_pk"])
         return Post.objects.filter(user=user, profile__global_anonymous=False).order_by(
             "-created_at"
-        )[:15]
+        )[:10]
 
     serializer_class = PostSerializer
     permission_classes = [IsAuthenticated]
