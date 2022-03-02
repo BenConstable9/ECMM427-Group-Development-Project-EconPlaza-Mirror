@@ -10,5 +10,8 @@ export default () => {
             previous: undefined,
             search: '',
         },
+        myPlazas: {
+            data: [],
+        },
     }
 }

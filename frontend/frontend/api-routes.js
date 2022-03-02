@@ -10,7 +10,8 @@ export const PLAZAS = {
     VIEWPOST: (slug, post) => `/v1/plazas/${slug}/posts/${post}/view/`,
     COMMENTS: (slug, post) => `/v1/plazas/${slug}/posts/${post}/comments/`,
     MEMBERSHIP: (slug) => `/v1/plazas/${slug}/membership/`,
-    POPULAR: () => `/v1/plazas/all/popular/`,
+    POPULAR: () => `/v1/plazas/?popular`,
+    MY: () => `/v1/plazas/?my`,
 }
 
 // Posts

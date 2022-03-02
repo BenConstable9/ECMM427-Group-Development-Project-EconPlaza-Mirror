@@ -45,4 +45,7 @@ export default {
             state.currentPlaza.stats.members += 1
         }
     },
+    setMyPlazas(state, data) {
+        state.myPlazas = data
+    },
 }

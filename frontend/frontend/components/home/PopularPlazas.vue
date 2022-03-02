@@ -5,9 +5,9 @@
             <ol class="list-inside">
                 <popular-plazas-row
                     v-for="(plaza, index) in plazas"
-                    :key="plaza.plaza__name"
-                    :name="plaza.plaza__name"
-                    :slug="plaza.plaza__slug"
+                    :key="plaza.id"
+                    :name="plaza.name"
+                    :slug="plaza.slug"
                     :class="{ 'bg-gray-50': index % 2 }"
                 />
             </ol>

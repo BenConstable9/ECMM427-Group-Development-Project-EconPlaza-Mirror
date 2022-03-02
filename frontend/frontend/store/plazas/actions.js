@@ -73,4 +73,22 @@ export default {
             })
             .catch(() => {})
     },
+    async getMyPlazas({ state, commit }) {
+        if (
+            state.myPlazas.last_updated === undefined ||
+            Date.now() - state.myPlazas.last_updated > 60 * 1000
+        ) {
+            // Update date if it is too old (over 1 minute) or if it doesn't exist
+            commit('setMyPlazas', { data: [], last_updated: Date.now() })
+            await this.$axios
+                .get(PLAZAS.MY())
+                .then(({ data }) => {
+                    commit('setMyPlazas', {
+                        data,
+                        last_updated: Date.now(),
+                    })
+                })
+                .catch(() => {})
+        }
+    },
 }

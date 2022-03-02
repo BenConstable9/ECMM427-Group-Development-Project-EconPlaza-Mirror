@@ -101,7 +101,7 @@
                     </DropdownItem>
                 </NuxtLink>
                 <DropdownTitle> Settings </DropdownTitle>
-                <a href="#" @click="$auth.logout()">
+                <a href="#" @click="logout">
                     <DropdownItem @click="toggleMenu">
                         <span
                             ><svg
@@ -144,6 +144,9 @@ export default {
         }),
     },
     methods: {
+        logout() {
+            this.$auth.logout()
+        },
         toggleMenu() {
             this.$emit('input', !this.value)
         },

@@ -10,6 +10,14 @@ export default {
         await this.$axios
             .get(USERS.PROFILES(this.getters.authenticatedUser.id))
             .then(({ data }) => {
+                // Add text to the profile
+                data.forEach((profile) => {
+                    const identity = profile.global_anonymous
+                        ? ' (Identity Hidden)'
+                        : ' (Identity Public)'
+
+                    profile.display_name += identity
+                })
                 // Mutate value
                 commit('setProfilesList', data)
                 commit('setCurrentProfile', data[0])

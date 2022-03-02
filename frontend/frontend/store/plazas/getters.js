@@ -24,4 +24,7 @@ export default {
             }
         )
     },
+    myPlazas(state) {
+        return state.myPlazas.data
+    },
 }
