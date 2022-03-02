@@ -114,7 +114,6 @@
                     >
                 </label>
             </div>
-
             <div class="field">
                 <input id="checkbox" v-model="charter" type="checkbox" />
                 <label class="label" for="checkbox">

@@ -5,6 +5,7 @@ import Home from './pages/index'
 import Login from './pages/login'
 import Register from './pages/register'
 import Charter from './pages/charter'
+import Privacy from './pages/privacy'
 import Posts from './pages/posts'
 import Tag from './pages/tags/_tag'
 import Users from './pages/users/index'
@@ -89,7 +90,14 @@ export function createRouter(
                 path: '/charter',
                 component: Charter,
                 meta: {
-                    breadcrumb: 'Charter',
+                    breadcrumb: 'Community Charter',
+                },
+            },
+            {
+                path: '/privacy',
+                component: Privacy,
+                meta: {
+                    breadcrumb: 'Privacy Policy',
                 },
             },
             {
