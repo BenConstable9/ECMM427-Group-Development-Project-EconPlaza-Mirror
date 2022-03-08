@@ -13,6 +13,7 @@ class CommentSerializer(serializers.ModelSerializer):
         model = Comment
         fields = [
             "id",
+            "parent",
             "profile",
             "content",
             "reactions",

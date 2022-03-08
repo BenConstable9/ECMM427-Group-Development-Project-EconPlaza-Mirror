@@ -21,6 +21,7 @@ class CommentAdmin(admin.ModelAdmin):
         "user",
         "profile",
         "post",
+        "parent",
         "content",
         "reactions",
         "hidden",
