@@ -26,7 +26,7 @@ class CommentViewSet(
     def get_queryset(self):
         plaza = Plaza.objects.get(slug=self.kwargs["plazas_slug"])
         post = Post.objects.get(id=self.kwargs["posts_id"], plaza=plaza.id)
-        return Comment.objects.filter(post=post.id)
+        return Comment.objects.filter(post=post.id, parent=None)
 
     serializer_class = CommentSerializer
 
