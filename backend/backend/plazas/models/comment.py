@@ -11,6 +11,14 @@ class Comment(models.Model):
         verbose_name="Comment's Post",
     )
 
+    parent = models.ForeignKey(
+        "self",
+        on_delete=models.CASCADE,
+        verbose_name="Comment's Parent Comment",
+        blank=True,
+        null=True,
+    )
+
     profile = models.ForeignKey(
         "accounts.Profile",
         on_delete=models.CASCADE,
