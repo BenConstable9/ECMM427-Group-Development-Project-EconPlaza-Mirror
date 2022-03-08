@@ -2,27 +2,6 @@
     <div id="comments" class="flex">
         <ul class="flex flex-col w-full border rounded-lg overflow-hidden">
             <comment-table-header />
-            <comment-table-form
-                v-if="authenticatedUser.verified && plaza.membership.member"
-                class="bg-gray-50"
-            />
-            <div
-                v-else
-                class="
-                    flex
-                    text-gray-500
-                    h-20
-                    justify-center
-                    items-center
-                    bg-gray-50
-                "
-            >
-                {{
-                    authenticatedUser.verified
-                        ? "You can't add comments because you have not joined this plaza."
-                        : "You can't add comments because you have not been verified."
-                }}
-            </div>
             <div v-if="loading">
                 <comment-table-row
                     v-for="i in 4"
@@ -38,6 +17,28 @@
                     :comment="comment"
                     :class="{ 'bg-gray-50': index % 2 }"
                 />
+            </div>
+            <comment-table-form
+                v-if="authenticatedUser.verified && plaza.membership.member"
+                class="bg-gray-50 border-t"
+            />
+            <div
+                v-else
+                class="
+                    border-t
+                    flex
+                    text-gray-500
+                    h-20
+                    justify-center
+                    items-center
+                    bg-gray-50
+                "
+            >
+                {{
+                    authenticatedUser.verified
+                        ? "You can't add comments because you have not joined this plaza."
+                        : "You can't add comments because you have not been verified."
+                }}
             </div>
         </ul>
     </div>

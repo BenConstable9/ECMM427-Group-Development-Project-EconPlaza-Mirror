@@ -8,7 +8,8 @@
                     <Editor
                         v-model="comment.content"
                         :disabled="comment.isDisabled"
-                        placeholder="Type your comment here..."
+                        title="Add Your Reply"
+                        placeholder="Type your reply here..."
                     />
                 </div>
                 <div>
