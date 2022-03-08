@@ -8,7 +8,7 @@ from . import Tag
 
 class Plaza(models.Model):
 
-    slug = models.SlugField("Plaza's Slug", max_length=32)
+    slug = models.SlugField("Plaza's Slug", max_length=32, unique=True)
 
     name = models.CharField("Plaza's Name", max_length=32)
 

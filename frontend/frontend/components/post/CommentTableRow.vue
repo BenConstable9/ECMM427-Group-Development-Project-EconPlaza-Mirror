@@ -6,11 +6,13 @@
                 <span class="text-xs text-gray-700"
                     >By
                     <NuxtLink
-                        :to="authorProfileLink"
+                        v-if="includeAuthorLink"
+                        :to="authorLink"
                         class="font-semibold hover:underline"
                     >
                         {{ author }}
                     </NuxtLink>
+                    <span v-else class="font-semibold">{{ author }}</span>
                 </span>
                 <span class="text-xs text-gray-700 font-semibold"
                     >&middot;</span
@@ -41,8 +43,11 @@ export default {
         author() {
             return this.comment ? `${this.comment.profile.display_name}` : '...'
         },
-        authorProfileLink() {
-            return this.comment ? `/profiles/${this.comment.profile.id}` : '#'
+        includeAuthorLink() {
+            return this.comment ? !this.comment.profile.global_anonymous : false
+        },
+        authorLink() {
+            return this.comment ? `/users/${this.comment.profile.user}/` : '#'
         },
         time() {
             if (this.comment === undefined) {

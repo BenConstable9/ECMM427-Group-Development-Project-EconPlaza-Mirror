@@ -1,7 +1,7 @@
 <template>
     <main>
         <div class="container mx-auto">
-            <div class="bg-gray-100 px-5 mt-5 mb-5 mx-auto">
+            <div class="bg-gray-100 px-5 mb-5 mx-auto">
                 <div id="title">
                     <div class="flex pt-8">
                         <h1
@@ -72,6 +72,9 @@ export default {
     components: {
         Pagination,
     },
+    meta: {
+        title: 'Hello World!!!',
+    },
     async asyncData({ query, store }) {
         let page = Number(query.page)
 
@@ -101,7 +104,7 @@ export default {
     },
     head() {
         return {
-            title: 'All Plazas | EconPlaza',
+            title: 'All Plazas',
         }
     },
     computed: {

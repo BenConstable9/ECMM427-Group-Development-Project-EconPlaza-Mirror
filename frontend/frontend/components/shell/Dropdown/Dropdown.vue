@@ -101,7 +101,7 @@
                     </DropdownItem>
                 </NuxtLink>
                 <DropdownTitle> Settings </DropdownTitle>
-                <a href="#" @click="$auth.logout()">
+                <a href="#" @click="logout">
                     <DropdownItem @click="toggleMenu">
                         <span
                             ><svg
@@ -144,10 +144,18 @@ export default {
         }),
     },
     methods: {
+        async logout() {
+            this.resetStore()
+
+            await this.$auth.logout()
+        },
         toggleMenu() {
             this.$emit('input', !this.value)
         },
-        ...mapActions({ getAllPlazas: 'plazas/getAllPlazas' }),
+        ...mapActions({
+            getAllPlazas: 'plazas/getAllPlazas',
+            resetStore: 'resetStore',
+        }),
     },
 }
 </script>

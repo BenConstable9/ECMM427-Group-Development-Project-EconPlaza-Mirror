@@ -25,8 +25,11 @@
                     <p class="text-sm text-gray-700 text-center">
                         {{ user.email }}
                     </p>
+                    <p class="text-md text-gray-700 text-center mt-2">
+                        Affiliation: {{ user.institutional_affiliation }}
+                    </p>
                     <p class="text-gray-700 text-center mt-2">
-                        Member since
+                        Member Since:
                         {{
                             new Date(user.date_joined).toLocaleDateString(
                                 'en-CA'

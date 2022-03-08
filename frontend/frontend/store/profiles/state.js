@@ -1,6 +1,5 @@
+import { defaultState } from './default.js'
+
 export default () => {
-    return {
-        allProfiles: undefined,
-        currentProfile: undefined,
-    }
+    return defaultState()
 }

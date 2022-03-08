@@ -1,3 +1,5 @@
+import { defaultState } from './default.js'
+
 export default {
     setComments(state, comments) {
         state.comments = comments
@@ -25,5 +27,8 @@ export default {
     },
     setDesiredPaginationSort(state, sort) {
         state.pagination.desiredSort = sort
+    },
+    resetStore(state) {
+        Object.assign(state, defaultState())
     },
 }

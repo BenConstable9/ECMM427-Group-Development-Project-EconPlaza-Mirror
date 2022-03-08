@@ -114,7 +114,7 @@
 import { USERS } from '../../api-routes'
 
 export default {
-    name: 'VouchBox',
+    name: 'Voucher',
     props: {
         id: { type: Number, default: null },
         firstName: { type: String, default: null },

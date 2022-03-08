@@ -80,7 +80,7 @@ export default {
     },
     head() {
         return {
-            title: 'All Users | EconPlaza',
+            title: 'All Users',
         }
     },
     watchQuery: ['page', 'search'],

@@ -109,8 +109,17 @@
                 <input id="checkbox" v-model="privacy" type="checkbox" />
                 <label class="label" for="checkbox">
                     I have read and understood the
-                    <NuxtLink to="#" class="text-blue-600"
+                    <NuxtLink to="/privacy/" class="text-blue-600"
                         >privacy policy</NuxtLink
+                    >
+                </label>
+            </div>
+            <div class="field">
+                <input id="checkbox" v-model="charter" type="checkbox" />
+                <label class="label" for="checkbox">
+                    I have read and understood the
+                    <NuxtLink to="/charter/" class="text-blue-600"
+                        >community charter</NuxtLink
                     >
                 </label>
             </div>
@@ -167,17 +176,22 @@ export default {
             success: null,
             over18: null,
             privacy: null,
+            charter: null,
         }
     },
     head() {
         return {
-            title: 'Register | EconPlaza',
+            title: 'Register',
         }
     },
     auth: 'guest',
     methods: {
         async register() {
-            if (this.over18 === true && this.privacy === true) {
+            if (
+                this.over18 === true &&
+                this.privacy === true &&
+                this.charter === true
+            ) {
                 const token = await this.$recaptcha.getResponse()
 
                 // send token to server alongside your form data

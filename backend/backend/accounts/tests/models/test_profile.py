@@ -9,7 +9,7 @@ class ProfileCreationTest(TestCase):
         """Initialise user instance, which creates a profile instance."""
         User = get_user_model()
         self.user = User.objects.create(username="user1")
-        self.profile = Profile.objects.get(user=self.user)
+        self.profile = Profile.objects.filter(user=self.user)[0]
 
     def test_profile_has_user(self):
         """User and profile correctly reference each other."""
