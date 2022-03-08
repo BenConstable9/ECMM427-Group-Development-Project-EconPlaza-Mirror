@@ -111,6 +111,7 @@
             </div>
             <div v-else>Select relevant tags from the above list to add.</div>
         </div>
+        {{ selected }}
     </div>
 </template>
 
@@ -184,7 +185,7 @@ export default {
 
                         // Push to selected
                         this.selected.push({
-                            id: response.data.id,
+                            id: String(response.data.id),
                             name: response.data.name,
                         })
                     })
