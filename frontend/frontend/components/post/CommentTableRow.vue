@@ -1,5 +1,6 @@
 <template>
     <div id="comment-info" class="flex items-center px-5 py-4">
+        {{ comment }}
         <div class="flex flex-1 flex-col space-y-1">
             <MarkdownViewer :content="content" />
             <div class="flex flex-row border-t py-3 mx-5">
@@ -22,6 +23,10 @@
                 </p>
                 <div class="flex-initial flex space-x-1 mt-1">
                     <div
+                        v-if="
+                            authenticatedUser.verified &&
+                            plaza.membership.member
+                        "
                         class="
                             cursor-pointer
                             rounded
@@ -32,7 +37,7 @@
                             text-xs
                             hover:text-gray-600
                         "
-                        @click="showMarkdownHelp = true"
+                        @click="setReply"
                     >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -55,6 +60,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
     props: {
         comment: {
@@ -68,6 +75,10 @@ export default {
         }
     },
     computed: {
+        ...mapGetters({
+            authenticatedUser: 'authenticatedUser',
+            plaza: 'plazas/currentPlaza',
+        }),
         content() {
             return this.comment ? this.comment.content : '...'
         },
@@ -109,6 +120,11 @@ export default {
                 unit = 'minute'
             }
             return `Posted ${time} ${unit}${time === 1 ? '' : 's'} ago`
+        },
+    },
+    methods: {
+        setReply() {
+            this.$nuxt.$emit('set-comment-reply', this.comment)
         },
     },
 }
