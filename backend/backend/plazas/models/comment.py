@@ -17,7 +17,7 @@ class Comment(models.Model):
         verbose_name="Comment's Parent Comment",
         blank=True,
         null=True,
-        related_name='children'
+        related_name="children",
     )
 
     profile = models.ForeignKey(
