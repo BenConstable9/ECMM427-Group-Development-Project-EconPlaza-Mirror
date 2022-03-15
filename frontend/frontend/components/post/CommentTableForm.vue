@@ -3,7 +3,45 @@
         <Error v-if="error" :message="error" />
         <Success v-if="success" :message="success" />
         <div id="post-heading" class="flex space-x-3 items-center px-5 py-3">
-            <form class="space-y-4 w-full" @submit.prevent="commentNew">
+            <form
+                id="comment-form"
+                class="space-y-4 w-full"
+                @submit.prevent="commentNew"
+            >
+                <div
+                    v-if="comment.reply"
+                    class="
+                        w-full
+                        bg-white
+                        border border-gray-200
+                        rounded-lg
+                        overflow-hidden
+                    "
+                >
+                    <div
+                        class="flex flex-row border-b-2 bg-gray-50 items-center"
+                    >
+                        <div class="py-3 px-4 m-2 mr-0 flex-grow text-l">
+                            Responding to: {{ comment.replyProfile }}
+                        </div>
+                        <div
+                            class="
+                                cursor-pointer
+                                py-3
+                                px-4
+                                mx-2
+                                rounded
+                                transition
+                                bg-primary
+                                text-gray-50
+                            "
+                            @click="comment.reply = null"
+                        >
+                            Remove Response
+                        </div>
+                    </div>
+                    <MarkdownViewer :content="comment.replyContent" />
+                </div>
                 <div>
                     <Editor
                         v-model="comment.content"
@@ -28,7 +66,6 @@
                             disabled:bg-gray-100
                             disabled:text-gray-500
                             disabled:border-gray-400
-                            focus:outline-none
                         "
                         @change="profileSwitch($event)"
                     >
@@ -88,6 +125,9 @@ export default {
     data() {
         return {
             comment: {
+                reply: null,
+                replyContent: '',
+                replyProfile: '',
                 content: '',
                 reactions: '{}',
                 isDisabled: false,
@@ -103,8 +143,21 @@ export default {
             authenticatedUser: 'authenticatedUser',
         }),
     },
+    beforeDestroy() {
+        this.$nuxt.$off('set-comment-reply')
+    },
     async created() {
         await this.getAllProfiles()
+        this.$nuxt.$on('set-comment-reply', (comment) => {
+            this.comment.reply = comment.id
+            this.comment.replyContent = '> ' + comment.content
+            this.comment.replyProfile = comment.profile.display_name
+            // Scroll box into view
+            const el = this.$el.querySelector('#comment-form')
+            if (el) {
+                el.scrollIntoView()
+            }
+        })
     },
     methods: {
         ...mapActions({

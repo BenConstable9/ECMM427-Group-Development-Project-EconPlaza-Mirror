@@ -1,6 +1,5 @@
 <template>
     <div id="comment-info" class="flex items-center px-5 py-4">
-        {{ comment }}
         <div class="flex flex-1 flex-col space-y-1">
             <MarkdownViewer :content="content" />
             <div class="flex flex-row border-t py-3 mx-5">
