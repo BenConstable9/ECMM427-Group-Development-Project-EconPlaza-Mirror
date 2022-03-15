@@ -75,6 +75,8 @@ class CommentSerializerTest(APITestCase):
                     "id",
                     "profile",
                     "content",
+                    "parent",
+                    "children",
                     "reactions",
                     "hidden",
                     "deleted",
