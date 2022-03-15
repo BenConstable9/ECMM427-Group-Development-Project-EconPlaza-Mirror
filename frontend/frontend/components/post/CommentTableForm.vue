@@ -141,6 +141,7 @@ export default {
             profile: 'profiles/currentProfile',
             profiles: 'profiles/allProfiles',
             authenticatedUser: 'authenticatedUser',
+            commentPagination: 'plazas/posts/comments/pagination',
         }),
     },
     beforeDestroy() {
@@ -163,6 +164,9 @@ export default {
         ...mapActions({
             getCurrentProfile: 'profiles/getCurrentProfile',
             getAllProfiles: 'profiles/getAllProfiles',
+            emptyAllPostComments: 'plazas/posts/comments/emptyAllPostComments',
+            getCurrentPostComments:
+                'plazas/posts/comments/getCurrentPostComments',
         }),
         ...mapMutations({
             setCurrentProfile: 'profiles/setCurrentProfile',
@@ -195,11 +199,17 @@ export default {
                         parent: this.comment.reply,
                     }
                 )
-                .then((response) => {
+                .then(() => {
                     this.comment.isDisabled = false
                     this.comment.content = ''
                     this.success = 'Comment posted successfully.'
-                    this.addComment(response.data)
+                    this.emptyAllPostComments()
+                    // Refresh the comment data
+                    this.getCurrentPostComments({
+                        page: this.commentPagination.page,
+                        plazaSlug: this.$route.params.plazas,
+                        postID: this.$route.params.id,
+                    })
                     this.increaseReplyCount()
                 })
                 .catch((response) => {

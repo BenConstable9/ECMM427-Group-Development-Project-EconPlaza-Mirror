@@ -1,6 +1,9 @@
 import { PLAZAS } from '~/api-routes'
 
 export default {
+    emptyAllPostComments({ commit }) {
+        commit('setComments', undefined)
+    },
     async getCurrentPostComments(
         { state, commit },
         { page, plazaSlug, postID }
