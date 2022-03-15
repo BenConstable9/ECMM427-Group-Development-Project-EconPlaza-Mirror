@@ -15,6 +15,9 @@
                                 :id="user.id"
                                 v-model="showVouchModal"
                                 :first-name="user.first_name"
+                                :last-name="user.last_name"
+                                :email="user.email"
+                                :affiliation="user.institutional_affiliation"
                             />
                         </span>
                     </div>

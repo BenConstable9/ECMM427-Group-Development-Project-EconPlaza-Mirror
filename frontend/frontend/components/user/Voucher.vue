@@ -24,8 +24,11 @@
                             :disabled="voucher.isDisabled"
                         />
                         <label
-                            >Are you certain that this name belongs to a real
-                            person who you know?</label
+                            >Are you certain that
+                            <span class="font-semibold"
+                                >{{ firstName }} {{ lastName }}</span
+                            >
+                            is a real person who you know?</label
                         >
                     </div>
                     <div class="flex items-center space-x-5">
@@ -35,8 +38,12 @@
                             :disabled="voucher.isDisabled"
                         />
                         <label
-                            >Are you 100% certain that this email belongs to the
-                            person named above?</label
+                            >Are you 100% certain that
+                            <span class="font-semibold">{{ email }}</span>
+                            belongs to
+                            <span class="font-semibold"
+                                >{{ firstName }} {{ lastName }}</span
+                            >?</label
                         >
                     </div>
                     <div class="flex items-center space-x-5">
@@ -46,34 +53,38 @@
                             :disabled="voucher.isDisabled"
                         />
                         <label
-                            >Are you 100% certain the institutional affiliation
-                            and position of the person named above are
-                            correct?</label
+                            >Are you 100% certain that
+                            <span class="font-semibold"
+                                >{{ firstName }} {{ lastName }}</span
+                            >
+                            belongs to
+                            <span class="font-semibold">{{ affiliation }}</span
+                            >?</label
                         >
                     </div>
                     <div>
                         <p
+                            v-if="
+                                voucher.name &&
+                                voucher.email &&
+                                voucher.institution
+                            "
                             class="
                                 mt-5
                                 disabled:invisible
                                 transition
                                 text-gray-700
                             "
-                            :class="{
-                                'opacity-0':
-                                    !voucher.name ||
-                                    !voucher.email ||
-                                    !voucher.institution,
-                                'opacity-100':
-                                    voucher.name &&
-                                    voucher.email &&
-                                    voucher.institution,
-                            }"
                         >
                             Your vouch will be displayed publicly in this user's
                             profile.
                         </p>
                         <button
+                            v-if="
+                                voucher.name &&
+                                voucher.email &&
+                                voucher.institution
+                            "
                             type="submit"
                             :disabled="
                                 !voucher.name ||
@@ -81,7 +92,7 @@
                                 !voucher.institution
                             "
                             class="
-                                text-gray-100
+                                text-gray-50
                                 font-semibold
                                 rounded
                                 py-1
@@ -89,17 +100,9 @@
                                 mt-3
                                 transition
                                 duration-200
+                                bg-primary
+                                hover:bg-secondary
                             "
-                            :class="{
-                                'bg-primary hover:bg-blue-600 text-gray-50':
-                                    voucher.name &&
-                                    voucher.email &&
-                                    voucher.institution,
-                                'bg-gray-100 text-gray-300 ring-1 ring-gray-300':
-                                    !voucher.name ||
-                                    !voucher.email ||
-                                    !voucher.institution,
-                            }"
                         >
                             Vouch
                         </button>
@@ -118,6 +121,9 @@ export default {
     props: {
         id: { type: Number, default: null },
         firstName: { type: String, default: null },
+        lastName: { type: String, default: null },
+        email: { type: String, default: null },
+        affiliation: { type: String, default: null },
         vouches: { type: Array, default: null },
     },
     data() {
