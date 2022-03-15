@@ -7,13 +7,19 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('plazas', '0007_alter_plaza_slug'),
+        ("plazas", "0007_alter_plaza_slug"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='comment',
-            name='parent',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='plazas.comment', verbose_name="Comment's Parent Comment"),
+            model_name="comment",
+            name="parent",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                to="plazas.comment",
+                verbose_name="Comment's Parent Comment",
+            ),
         ),
     ]
