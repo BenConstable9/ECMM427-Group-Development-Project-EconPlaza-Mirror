@@ -1,6 +1,6 @@
 <template>
     <div id="comment-info" class="flex items-center px-5 py-4">
-        <comment :comment="comment" depth="1" />
+        <comment :comment="comment" :depth="depth" />
     </div>
 </template>
 
@@ -10,6 +10,11 @@ export default {
         comment: {
             type: Object,
             default: undefined,
+        },
+    },
+    computed: {
+        depth() {
+            return 1
         },
     },
 }
