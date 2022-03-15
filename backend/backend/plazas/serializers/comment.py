@@ -8,12 +8,14 @@ from ..models import Comment
 
 class CommentSerializer(serializers.ModelSerializer):
     reactions = serializers.JSONField()
+    children = serializers.SerializerMethodField("get_comment_children")
 
     class Meta:
         model = Comment
         fields = [
             "id",
             "parent",
+            "children",
             "profile",
             "content",
             "reactions",
@@ -22,6 +24,9 @@ class CommentSerializer(serializers.ModelSerializer):
             "deleted",
         ]
         lookup_field = "id"
+
+    def get_comment_children(self, instance):
+        return Comment.objects.filter(parent=instance)
 
     def to_representation(self, instance):
         # Convert Permissions JSON into a dictionary to be combined into the JSON response

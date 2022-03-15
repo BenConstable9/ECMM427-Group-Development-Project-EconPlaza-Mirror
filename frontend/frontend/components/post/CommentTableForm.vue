@@ -192,6 +192,7 @@ export default {
                         user: this.$store.getters.authenticatedUser.id,
                         profile: this.profile.id,
                         reactions: this.comment.reactions,
+                        parent: this.comment.reply,
                     }
                 )
                 .then((response) => {
