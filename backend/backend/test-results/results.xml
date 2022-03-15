@@ -1,0 +1,428 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+	<testsuite name="accounts.tests.models.test_profile.ProfileCreationTest-20220315210412" tests="2" file="accounts/tests/models/test_profile.py" time="0.256" timestamp="2022-03-15T21:04:13" failures="0" errors="0" skipped="0">
+		<testcase classname="accounts.tests.models.test_profile.ProfileCreationTest" name="test_profile_has_str" time="0.209" timestamp="2022-03-15T21:04:13" file="accounts\tests\models\test_profile.py" line="18">
+			<!--Profile has a defined __str__ method.-->
+		</testcase>
+		<testcase classname="accounts.tests.models.test_profile.ProfileCreationTest" name="test_profile_has_user" time="0.048" timestamp="2022-03-15T21:04:13" file="accounts\tests\models\test_profile.py" line="14">
+			<!--User and profile correctly reference each other.-->
+		</testcase>
+	</testsuite>
+	<testsuite name="accounts.tests.models.test_user.UserCreationTest-20220315210412" tests="1" file="accounts/tests/models/test_user.py" time="0.040" timestamp="2022-03-15T21:04:13" failures="0" errors="0" skipped="0">
+		<testcase classname="accounts.tests.models.test_user.UserCreationTest" name="test_user_has_str" time="0.040" timestamp="2022-03-15T21:04:13" file="accounts\tests\models\test_user.py" line="11">
+			<!--User has a defined __str__ method.-->
+		</testcase>
+	</testsuite>
+	<testsuite name="accounts.tests.models.test_vouch.VouchCreationTest-20220315210412" tests="2" file="accounts/tests/models/test_vouch.py" time="0.208" timestamp="2022-03-15T21:04:13" failures="0" errors="0" skipped="0">
+		<testcase classname="accounts.tests.models.test_vouch.VouchCreationTest" name="test_no_duplicate_vouch" time="0.105" timestamp="2022-03-15T21:04:13" file="accounts\tests\models\test_vouch.py" line="25">
+			<!--Check that you can only vouch for a single user once-->
+		</testcase>
+		<testcase classname="accounts.tests.models.test_vouch.VouchCreationTest" name="test_string_representation" time="0.104" timestamp="2022-03-15T21:04:13" file="accounts\tests\models\test_vouch.py" line="19">
+			<!--Test vouch has appropriate string method-->
+		</testcase>
+	</testsuite>
+	<testsuite name="accounts.tests.permissions.test_user.IsVerifiedTest-20220315210412" tests="4" file="accounts/tests/permissions/test_user.py" time="1.569" timestamp="2022-03-15T21:04:14" failures="0" errors="0" skipped="0">
+		<testcase classname="accounts.tests.permissions.test_user.IsVerifiedTest" name="test_non_admin_non_verified_user_returns_false" time="0.415" timestamp="2022-03-15T21:04:13" file="accounts\tests\permissions\test_user.py" line="41">
+			<!--Test that a non verified and non admin will fail the check.-->
+		</testcase>
+		<testcase classname="accounts.tests.permissions.test_user.IsVerifiedTest" name="test_non_admin_non_verified_user_returns_true_on_safe_method" time="0.373" timestamp="2022-03-15T21:04:14" file="accounts\tests\permissions\test_user.py" line="54">
+			<!--Check we can pass on a safe method.-->
+		</testcase>
+		<testcase classname="accounts.tests.permissions.test_user.IsVerifiedTest" name="test_non_admin_verified_user_returns_true" time="0.430" timestamp="2022-03-15T21:04:14" file="accounts\tests\permissions\test_user.py" line="67">
+			<!--Test that a verified user will pass the permissions test.-->
+		</testcase>
+		<testcase classname="accounts.tests.permissions.test_user.IsVerifiedTest" name="test_non_admin_verified_user_returns_true_on_safe_method" time="0.352" timestamp="2022-03-15T21:04:14" file="accounts\tests\permissions\test_user.py" line="84">
+			<!--Check we can pass on a safe method.-->
+		</testcase>
+	</testsuite>
+	<testsuite name="accounts.tests.serializers.test_user.UserPostSerializerTest-20220315210412" tests="2" file="accounts/tests/serializers/test_user.py" time="0.090" timestamp="2022-03-15T21:04:15" failures="0" errors="0" skipped="0">
+		<testcase classname="accounts.tests.serializers.test_user.UserPostSerializerTest" name="test_contains_expected_fields" time="0.044" timestamp="2022-03-15T21:04:15" file="accounts\tests\serializers\test_user.py" line="103">
+			<!--Test the serialiser returns the expected fields.-->
+		</testcase>
+		<testcase classname="accounts.tests.serializers.test_user.UserPostSerializerTest" name="test_equal_data" time="0.046" timestamp="2022-03-15T21:04:15" file="accounts\tests\serializers\test_user.py" line="125">
+			<!--Test the serialiser returns the expected values.-->
+		</testcase>
+	</testsuite>
+	<testsuite name="accounts.tests.serializers.test_user.UserSerializerTest-20220315210412" tests="2" file="accounts/tests/serializers/test_user.py" time="0.095" timestamp="2022-03-15T21:04:15" failures="0" errors="0" skipped="0">
+		<testcase classname="accounts.tests.serializers.test_user.UserSerializerTest" name="test_contains_expected_fields" time="0.047" timestamp="2022-03-15T21:04:15" file="accounts\tests\serializers\test_user.py" line="37">
+			<!--Test the serialiser returns the expected fields.-->
+		</testcase>
+		<testcase classname="accounts.tests.serializers.test_user.UserSerializerTest" name="test_equal_data" time="0.048" timestamp="2022-03-15T21:04:15" file="accounts\tests\serializers\test_user.py" line="63">
+			<!--Test the serialiser returns the expected values.-->
+		</testcase>
+	</testsuite>
+	<testsuite name="accounts.tests.serializers.test_vouch.VouchSerializerTest-20220315210412" tests="2" file="accounts/tests/serializers/test_vouch.py" time="0.220" timestamp="2022-03-15T21:04:15" failures="0" errors="0" skipped="0">
+		<testcase classname="accounts.tests.serializers.test_vouch.VouchSerializerTest" name="test_contains_expected_fields" time="0.109" timestamp="2022-03-15T21:04:15" file="accounts\tests\serializers\test_vouch.py" line="33">
+			<!--Test the serialiser returns the expected fields.-->
+		</testcase>
+		<testcase classname="accounts.tests.serializers.test_vouch.VouchSerializerTest" name="test_equal_data" time="0.111" timestamp="2022-03-15T21:04:15" file="accounts\tests\serializers\test_vouch.py" line="40">
+			<!--Test the serialiser returns the expected values.-->
+		</testcase>
+	</testsuite>
+	<testsuite name="accounts.tests.views.test_user.AuthenticatedUserViewTest-20220315210412" tests="2" file="accounts/tests/views/test_user.py" time="0.607" timestamp="2022-03-15T21:04:16" failures="0" errors="0" skipped="0">
+		<testcase classname="accounts.tests.views.test_user.AuthenticatedUserViewTest" name="test_get_user" time="0.377" timestamp="2022-03-15T21:04:15" file="accounts\tests\views\test_user.py" line="26">
+			<!--Test we get a HTTP 200 response when looking at detailed view.-->
+			<system-err><![CDATA[c:\users\ben-c\downloads\2021-ecmm427-project-02\backend\.env\lib\site-packages\whitenoise\base.py:115: UserWarning: No directory at: C:\Users\ben-c\Downloads\2021-ecmm427-project-02\backend\backend\static\
+  warnings.warn(u"No directory at: {}".format(root))
+]]></system-err>
+		</testcase>
+		<testcase classname="accounts.tests.views.test_user.AuthenticatedUserViewTest" name="test_get_user_unauth" time="0.230" timestamp="2022-03-15T21:04:16" file="accounts\tests\views\test_user.py" line="50">
+			<!--Test we get a HTTP 401 response when looking at the view.-->
+		</testcase>
+	</testsuite>
+	<testsuite name="accounts.tests.viewsets.test_activity.ActivityViewsetTest-20220315210412" tests="8" file="accounts/tests/viewsets/test_activity.py" time="0.611" timestamp="2022-03-15T21:04:16" failures="0" errors="0" skipped="0">
+		<testcase classname="accounts.tests.viewsets.test_activity.ActivityViewsetTest" name="test_delete_activity" time="0.084" timestamp="2022-03-15T21:04:16" file="accounts\tests\viewsets\test_activity.py" line="89">
+			<!--Test we get a HTTP 404 response when attempting to delete data.-->
+		</testcase>
+		<testcase classname="accounts.tests.viewsets.test_activity.ActivityViewsetTest" name="test_delete_activity_unauth" time="0.052" timestamp="2022-03-15T21:04:16" file="accounts\tests\viewsets\test_activity.py" line="100">
+			<!--Test we get a HTTP 404 response when attempting to delete data and we aren't authorised.-->
+		</testcase>
+		<testcase classname="accounts.tests.viewsets.test_activity.ActivityViewsetTest" name="test_get_activity" time="0.203" timestamp="2022-03-15T21:04:16" file="accounts\tests\viewsets\test_activity.py" line="60">
+			<!--Test we get a HTTP 200 response when looking at list view.-->
+		</testcase>
+		<testcase classname="accounts.tests.viewsets.test_activity.ActivityViewsetTest" name="test_get_activity_unauth" time="0.051" timestamp="2022-03-15T21:04:16" file="accounts\tests\viewsets\test_activity.py" line="81">
+			<!--Test we get a HTTP 404 response when looking at list view.-->
+		</testcase>
+		<testcase classname="accounts.tests.viewsets.test_activity.ActivityViewsetTest" name="test_post_activity" time="0.058" timestamp="2022-03-15T21:04:16" file="accounts\tests\viewsets\test_activity.py" line="134">
+			<!--Test we get a HTTP 405 response when attempting to add data.-->
+		</testcase>
+		<testcase classname="accounts.tests.viewsets.test_activity.ActivityViewsetTest" name="test_post_activity_unauth" time="0.057" timestamp="2022-03-15T21:04:16" file="accounts\tests\viewsets\test_activity.py" line="155">
+			<!--Test we get a HTTP 401 response when attempting to add data as we aren't authorised.-->
+		</testcase>
+		<testcase classname="accounts.tests.viewsets.test_activity.ActivityViewsetTest" name="test_put_activity" time="0.056" timestamp="2022-03-15T21:04:16" file="accounts\tests\viewsets\test_activity.py" line="110">
+			<!--Test we get a HTTP 404 response when attempting to update data.-->
+		</testcase>
+		<testcase classname="accounts.tests.viewsets.test_activity.ActivityViewsetTest" name="test_put_activity_unauth" time="0.050" timestamp="2022-03-15T21:04:16" file="accounts\tests\viewsets\test_activity.py" line="123">
+			<!--Test we get a HTTP 404 response when attempting to update data and we aren't authorised.-->
+		</testcase>
+	</testsuite>
+	<testsuite name="accounts.tests.viewsets.test_memberships.MembershipsViewsetTest-20220315210412" tests="8" file="accounts/tests/viewsets/test_memberships.py" time="0.467" timestamp="2022-03-15T21:04:17" failures="0" errors="0" skipped="0">
+		<testcase classname="accounts.tests.viewsets.test_memberships.MembershipsViewsetTest" name="test_delete_member" time="0.049" timestamp="2022-03-15T21:04:16" file="accounts\tests\viewsets\test_memberships.py" line="72">
+			<!--Test we get a HTTP 404 response when attempting to delete data.-->
+		</testcase>
+		<testcase classname="accounts.tests.viewsets.test_memberships.MembershipsViewsetTest" name="test_delete_member_unauth" time="0.048" timestamp="2022-03-15T21:04:16" file="accounts\tests\viewsets\test_memberships.py" line="83">
+			<!--Test we get a HTTP 404 response when attempting to delete data and we aren't authorised.-->
+		</testcase>
+		<testcase classname="accounts.tests.viewsets.test_memberships.MembershipsViewsetTest" name="test_get_members" time="0.122" timestamp="2022-03-15T21:04:16" file="accounts\tests\viewsets\test_memberships.py" line="42">
+			<!--Test we get a HTTP 200 response when looking at list view.-->
+			<system-err><![CDATA[c:\users\ben-c\downloads\2021-ecmm427-project-02\backend\.env\lib\site-packages\rest_framework\pagination.py:200: UnorderedObjectListWarning: Pagination may yield inconsistent results with an unordered object_list: <class 'plazas.models.plaza.Plaza'> QuerySet.
+  paginator = self.django_paginator_class(queryset, page_size)
+]]></system-err>
+		</testcase>
+		<testcase classname="accounts.tests.viewsets.test_memberships.MembershipsViewsetTest" name="test_get_members_unauth" time="0.049" timestamp="2022-03-15T21:04:16" file="accounts\tests\viewsets\test_memberships.py" line="64">
+			<!--Test we get a HTTP 404 response when looking at list view.-->
+		</testcase>
+		<testcase classname="accounts.tests.viewsets.test_memberships.MembershipsViewsetTest" name="test_post_member" time="0.051" timestamp="2022-03-15T21:04:16" file="accounts\tests\viewsets\test_memberships.py" line="117">
+			<!--Test we get a HTTP 405 response when attempting to add data.-->
+		</testcase>
+		<testcase classname="accounts.tests.viewsets.test_memberships.MembershipsViewsetTest" name="test_post_member_unauth" time="0.050" timestamp="2022-03-15T21:04:17" file="accounts\tests\viewsets\test_memberships.py" line="134">
+			<!--Test we get a HTTP 403 response when attempting to add data as we aren't authorised.-->
+		</testcase>
+		<testcase classname="accounts.tests.viewsets.test_memberships.MembershipsViewsetTest" name="test_put_member" time="0.052" timestamp="2022-03-15T21:04:17" file="accounts\tests\viewsets\test_memberships.py" line="93">
+			<!--Test we get a HTTP 404 response when attempting to update data.-->
+		</testcase>
+		<testcase classname="accounts.tests.viewsets.test_memberships.MembershipsViewsetTest" name="test_put_member_unauth" time="0.045" timestamp="2022-03-15T21:04:17" file="accounts\tests\viewsets\test_memberships.py" line="106">
+			<!--Test we get a HTTP 404 response when attempting to update data and we aren't authorised.-->
+		</testcase>
+	</testsuite>
+	<testsuite name="accounts.tests.viewsets.test_user.UserViewsetTest-20220315210412" tests="12" file="accounts/tests/viewsets/test_user.py" time="3.542" timestamp="2022-03-15T21:04:20" failures="0" errors="0" skipped="0">
+		<testcase classname="accounts.tests.viewsets.test_user.UserViewsetTest" name="test_delete_user" time="0.238" timestamp="2022-03-15T21:04:17" file="accounts\tests\viewsets\test_user.py" line="110">
+			<!--Test we get a HTTP 405 response when attempting to delete data.-->
+		</testcase>
+		<testcase classname="accounts.tests.viewsets.test_user.UserViewsetTest" name="test_delete_user_unauth" time="0.232" timestamp="2022-03-15T21:04:17" file="accounts\tests\viewsets\test_user.py" line="119">
+			<!--Test we get a HTTP 401 response when attempting to delete data and we aren't authorised.-->
+		</testcase>
+		<testcase classname="accounts.tests.viewsets.test_user.UserViewsetTest" name="test_get_invalid_user" time="0.226" timestamp="2022-03-15T21:04:17" file="accounts\tests\viewsets\test_user.py" line="177">
+			<!--Test we get a HTTP 404 response when looking at the detailed view.-->
+		</testcase>
+		<testcase classname="accounts.tests.viewsets.test_user.UserViewsetTest" name="test_get_user" time="0.273" timestamp="2022-03-15T21:04:18" file="accounts\tests\viewsets\test_user.py" line="27">
+			<!--Test we get a HTTP 200 response when looking at detailed view.-->
+		</testcase>
+		<testcase classname="accounts.tests.viewsets.test_user.UserViewsetTest" name="test_get_user_unauth" time="0.231" timestamp="2022-03-15T21:04:18" file="accounts\tests\viewsets\test_user.py" line="59">
+			<!--Test we get a HTTP 401 response when looking at list view.-->
+		</testcase>
+		<testcase classname="accounts.tests.viewsets.test_user.UserViewsetTest" name="test_get_users" time="0.251" timestamp="2022-03-15T21:04:18" file="accounts\tests\viewsets\test_user.py" line="67">
+			<!--Test we get a HTTP 200 response when looking at list view.-->
+		</testcase>
+		<testcase classname="accounts.tests.viewsets.test_user.UserViewsetTest" name="test_get_users_invalid_search" time="0.241" timestamp="2022-03-15T21:04:18" file="accounts\tests\viewsets\test_user.py" line="79">
+			<!--Test we get a HTTP 200 response when looking at list view.-->
+		</testcase>
+		<testcase classname="accounts.tests.viewsets.test_user.UserViewsetTest" name="test_get_users_unauth" time="0.238" timestamp="2022-03-15T21:04:19" file="accounts\tests\viewsets\test_user.py" line="51">
+			<!--Test we get a HTTP 401 response when looking at detailed view.-->
+		</testcase>
+		<testcase classname="accounts.tests.viewsets.test_user.UserViewsetTest" name="test_get_users_valid_search" time="0.382" timestamp="2022-03-15T21:04:19" file="accounts\tests\viewsets\test_user.py" line="90">
+			<!--Test we get a HTTP 200 response when looking at list view.-->
+		</testcase>
+		<testcase classname="accounts.tests.viewsets.test_user.UserViewsetTest" name="test_post_user" time="0.748" timestamp="2022-03-15T21:04:20" file="accounts\tests\viewsets\test_user.py" line="145">
+			<!--Test we get a HTTP 201 response when attempting to register a user-->
+		</testcase>
+		<testcase classname="accounts.tests.viewsets.test_user.UserViewsetTest" name="test_put_user" time="0.242" timestamp="2022-03-15T21:04:20" file="accounts\tests\viewsets\test_user.py" line="127">
+			<!--Test we get a HTTP 405 response when attempting to update data.-->
+		</testcase>
+		<testcase classname="accounts.tests.viewsets.test_user.UserViewsetTest" name="test_put_user_unauth" time="0.242" timestamp="2022-03-15T21:04:20" file="accounts\tests\viewsets\test_user.py" line="137">
+			<!--Test we get a HTTP 401 response when attempting to update data and we aren't authorised.-->
+		</testcase>
+	</testsuite>
+	<testsuite name="accounts.tests.viewsets.test_vouch.VouchViewsetTest-20220315210412" tests="8" file="accounts/tests/viewsets/test_vouch.py" time="7.929" timestamp="2022-03-15T21:04:28" failures="0" errors="0" skipped="0">
+		<testcase classname="accounts.tests.viewsets.test_vouch.VouchViewsetTest" name="test_delete_vouch" time="1.024" timestamp="2022-03-15T21:04:21" file="accounts\tests\viewsets\test_vouch.py" line="77">
+			<!--Test we get a HTTP 403 response when attempting to delete data.-->
+		</testcase>
+		<testcase classname="accounts.tests.viewsets.test_vouch.VouchViewsetTest" name="test_delete_vouch_unauth" time="0.964" timestamp="2022-03-15T21:04:22" file="accounts\tests\viewsets\test_vouch.py" line="86">
+			<!--Test we get a HTTP 401 response when attempting to delete data and we aren't authorised.-->
+		</testcase>
+		<testcase classname="accounts.tests.viewsets.test_vouch.VouchViewsetTest" name="test_get_vouch" time="1.003" timestamp="2022-03-15T21:04:23" file="accounts\tests\viewsets\test_vouch.py" line="47">
+			<!--Test we get a HTTP 200 response when looking at detailed view.-->
+		</testcase>
+		<testcase classname="accounts.tests.viewsets.test_vouch.VouchViewsetTest" name="test_get_vouch_unauth" time="0.949" timestamp="2022-03-15T21:04:24" file="accounts\tests\viewsets\test_vouch.py" line="69">
+			<!--Test we get a HTTP 401 response when looking at detailed view.-->
+		</testcase>
+		<testcase classname="accounts.tests.viewsets.test_vouch.VouchViewsetTest" name="test_post_vouch" time="1.029" timestamp="2022-03-15T21:04:25" file="accounts\tests\viewsets\test_vouch.py" line="120">
+			<!--Test we get a HTTP 201 response when attempting to add data.-->
+		</testcase>
+		<testcase classname="accounts.tests.viewsets.test_vouch.VouchViewsetTest" name="test_post_vouch_with_unauth" time="0.966" timestamp="2022-03-15T21:04:26" file="accounts\tests\viewsets\test_vouch.py" line="138">
+			<!--Test we get a HTTP 403 response when attempting to add data as we are not authorised.-->
+		</testcase>
+		<testcase classname="accounts.tests.viewsets.test_vouch.VouchViewsetTest" name="test_put_vouch" time="0.990" timestamp="2022-03-15T21:04:27" file="accounts\tests\viewsets\test_vouch.py" line="94">
+			<!--Test we get a HTTP 403 response when attempting to update data.-->
+		</testcase>
+		<testcase classname="accounts.tests.viewsets.test_vouch.VouchViewsetTest" name="test_put_vouch_unauth" time="1.005" timestamp="2022-03-15T21:04:28" file="accounts\tests\viewsets\test_vouch.py" line="108">
+			<!--Test we get a HTTP 401 response when attempting to update data and we aren't authorised.-->
+		</testcase>
+	</testsuite>
+	<testsuite name="plazas.tests.models.test_availabletag.AvailableTagCreationTest-20220315210412" tests="1" file="plazas/tests/models/test_availabletag.py" time="0.006" timestamp="2022-03-15T21:04:28" failures="0" errors="0" skipped="0">
+		<testcase classname="plazas.tests.models.test_availabletag.AvailableTagCreationTest" name="test_tag_has_str" time="0.006" timestamp="2022-03-15T21:04:28" file="plazas\tests\models\test_availabletag.py" line="13">
+			<!--Comment has a defined __str__ method.-->
+		</testcase>
+	</testsuite>
+	<testsuite name="plazas.tests.models.test_comment.CommentCreationTest-20220315210412" tests="1" file="plazas/tests/models/test_comment.py" time="0.040" timestamp="2022-03-15T21:04:28" failures="0" errors="0" skipped="0">
+		<testcase classname="plazas.tests.models.test_comment.CommentCreationTest" name="test_comment_has_str" time="0.040" timestamp="2022-03-15T21:04:28" file="plazas\tests\models\test_comment.py" line="47">
+			<!--Comment has a defined __str__ method.-->
+		</testcase>
+	</testsuite>
+	<testsuite name="plazas.tests.models.test_post.PostCreationTest-20220315210412" tests="1" file="plazas/tests/models/test_post.py" time="0.030" timestamp="2022-03-15T21:04:28" failures="0" errors="0" skipped="0">
+		<testcase classname="plazas.tests.models.test_post.PostCreationTest" name="test_post_has_str" time="0.030" timestamp="2022-03-15T21:04:28" file="plazas\tests\models\test_post.py" line="39">
+			<!--User has a defined __str__ method.-->
+		</testcase>
+	</testsuite>
+	<testsuite name="plazas.tests.models.test_tag.TagCreationTest-20220315210412" tests="1" file="plazas/tests/models/test_tag.py" time="0.011" timestamp="2022-03-15T21:04:28" failures="0" errors="0" skipped="0">
+		<testcase classname="plazas.tests.models.test_tag.TagCreationTest" name="test_tag_has_str" time="0.011" timestamp="2022-03-15T21:04:28" file="plazas\tests\models\test_tag.py" line="21">
+			<!--Comment has a defined __str__ method.-->
+		</testcase>
+	</testsuite>
+	<testsuite name="plazas.tests.serializers.test_availabletag.AvailableTagSerializerTest-20220315210412" tests="2" file="plazas/tests/serializers/test_availabletag.py" time="0.022" timestamp="2022-03-15T21:04:28" failures="0" errors="0" skipped="0">
+		<testcase classname="plazas.tests.serializers.test_availabletag.AvailableTagSerializerTest" name="test_contains_expected_fields" time="0.011" timestamp="2022-03-15T21:04:28" file="plazas\tests\serializers\test_availabletag.py" line="16">
+			<!--Test the serialiser returns the expected fields.-->
+		</testcase>
+		<testcase classname="plazas.tests.serializers.test_availabletag.AvailableTagSerializerTest" name="test_equal_data" time="0.011" timestamp="2022-03-15T21:04:28" file="plazas\tests\serializers\test_availabletag.py" line="32">
+			<!--Test the serialiser returns the expected values.-->
+		</testcase>
+	</testsuite>
+	<testsuite name="plazas.tests.serializers.test_comment.CommentSerializerTest-20220315210412" tests="2" file="plazas/tests/serializers/test_comment.py" time="0.123" timestamp="2022-03-15T21:04:28" failures="0" errors="0" skipped="0">
+		<testcase classname="plazas.tests.serializers.test_comment.CommentSerializerTest" name="test_contains_expected_fields" time="0.062" timestamp="2022-03-15T21:04:28" file="plazas\tests\serializers\test_comment.py" line="66">
+			<!--Test the serialiser returns the expected fields.-->
+		</testcase>
+		<testcase classname="plazas.tests.serializers.test_comment.CommentSerializerTest" name="test_equal_data" time="0.061" timestamp="2022-03-15T21:04:28" file="plazas\tests\serializers\test_comment.py" line="91">
+			<!--Test the serialiser returns the expected values.-->
+		</testcase>
+	</testsuite>
+	<testsuite name="plazas.tests.serializers.test_post.PostSerializerTest-20220315210412" tests="2" file="plazas/tests/serializers/test_post.py" time="0.171" timestamp="2022-03-15T21:04:29" failures="0" errors="0" skipped="0">
+		<testcase classname="plazas.tests.serializers.test_post.PostSerializerTest" name="test_contains_expected_fields" time="0.085" timestamp="2022-03-15T21:04:29" file="plazas\tests\serializers\test_post.py" line="54">
+			<!--Test the serialiser returns the expected fields.-->
+		</testcase>
+		<testcase classname="plazas.tests.serializers.test_post.PostSerializerTest" name="test_equal_data" time="0.086" timestamp="2022-03-15T21:04:29" file="plazas\tests\serializers\test_post.py" line="83">
+			<!--Test the serialiser returns the expected values.-->
+		</testcase>
+	</testsuite>
+	<testsuite name="plazas.tests.serializers.test_tag.TagSerializerTest-20220315210412" tests="2" file="plazas/tests/serializers/test_tag.py" time="0.030" timestamp="2022-03-15T21:04:29" failures="0" errors="0" skipped="0">
+		<testcase classname="plazas.tests.serializers.test_tag.TagSerializerTest" name="test_contains_expected_fields" time="0.016" timestamp="2022-03-15T21:04:29" file="plazas\tests\serializers\test_tag.py" line="23">
+			<!--Test the serialiser returns the expected fields.-->
+		</testcase>
+		<testcase classname="plazas.tests.serializers.test_tag.TagSerializerTest" name="test_equal_data" time="0.013" timestamp="2022-03-15T21:04:29" file="plazas\tests\serializers\test_tag.py" line="39">
+			<!--Test the serialiser returns the expected values.-->
+		</testcase>
+	</testsuite>
+	<testsuite name="plazas.tests.viewsets.test_availabletag.AvailableTagViewsetTest-20220315210412" tests="11" file="plazas/tests/viewsets/test_availabletag.py" time="0.582" timestamp="2022-03-15T21:04:29" failures="0" errors="0" skipped="0">
+		<testcase classname="plazas.tests.viewsets.test_availabletag.AvailableTagViewsetTest" name="test_delete_tag" time="0.062" timestamp="2022-03-15T21:04:29" file="plazas\tests\viewsets\test_availabletag.py" line="94">
+			<!--Test we get a HTTP 404 response when attempting to delete data.-->
+		</testcase>
+		<testcase classname="plazas.tests.viewsets.test_availabletag.AvailableTagViewsetTest" name="test_delete_tag_unauth" time="0.043" timestamp="2022-03-15T21:04:29" file="plazas\tests\viewsets\test_availabletag.py" line="103">
+			<!--Test we get a HTTP 404 response when attempting to delete data and we aren't authorised.-->
+		</testcase>
+		<testcase classname="plazas.tests.viewsets.test_availabletag.AvailableTagViewsetTest" name="test_get_tag" time="0.064" timestamp="2022-03-15T21:04:29" file="plazas\tests\viewsets\test_availabletag.py" line="57">
+			<!--Test we get a HTTP 200 response when looking at detailed view.-->
+		</testcase>
+		<testcase classname="plazas.tests.viewsets.test_availabletag.AvailableTagViewsetTest" name="test_get_tag_unauth" time="0.044" timestamp="2022-03-15T21:04:29" file="plazas\tests\viewsets\test_availabletag.py" line="86">
+			<!--Test we get a HTTP 404 response when looking at detailed view.-->
+		</testcase>
+		<testcase classname="plazas.tests.viewsets.test_availabletag.AvailableTagViewsetTest" name="test_get_tags" time="0.065" timestamp="2022-03-15T21:04:29" file="plazas\tests\viewsets\test_availabletag.py" line="35">
+			<!--Test we get a HTTP 200 response when looking at list view.-->
+		</testcase>
+		<testcase classname="plazas.tests.viewsets.test_availabletag.AvailableTagViewsetTest" name="test_get_tags_unauth" time="0.044" timestamp="2022-03-15T21:04:29" file="plazas\tests\viewsets\test_availabletag.py" line="78">
+			<!--Test we get a HTTP 404 response when looking at list view.-->
+		</testcase>
+		<testcase classname="plazas.tests.viewsets.test_availabletag.AvailableTagViewsetTest" name="test_post_member_unauth" time="0.051" timestamp="2022-03-15T21:04:29" file="plazas\tests\viewsets\test_availabletag.py" line="153">
+			<!--Test we get a HTTP 403 response when attempting to add data as we aren't authorised.-->
+		</testcase>
+		<testcase classname="plazas.tests.viewsets.test_availabletag.AvailableTagViewsetTest" name="test_post_tag" time="0.059" timestamp="2022-03-15T21:04:29" file="plazas\tests\viewsets\test_availabletag.py" line="135">
+			<!--Test we get a HTTP 201 response when attempting to add data.-->
+		</testcase>
+		<testcase classname="plazas.tests.viewsets.test_availabletag.AvailableTagViewsetTest" name="test_post_tag_spaces" time="0.056" timestamp="2022-03-15T21:04:29" file="plazas\tests\viewsets\test_availabletag.py" line="170">
+			<!--Test we get a HTTP 400 response when attempting to add data as tags cannot have spaces.-->
+		</testcase>
+		<testcase classname="plazas.tests.viewsets.test_availabletag.AvailableTagViewsetTest" name="test_put_tag" time="0.048" timestamp="2022-03-15T21:04:29" file="plazas\tests\viewsets\test_availabletag.py" line="111">
+			<!--Test we get a HTTP 405 response when attempting to update data.-->
+		</testcase>
+		<testcase classname="plazas.tests.viewsets.test_availabletag.AvailableTagViewsetTest" name="test_put_tag_unauth" time="0.046" timestamp="2022-03-15T21:04:29" file="plazas\tests\viewsets\test_availabletag.py" line="124">
+			<!--Test we get a HTTP 401 response when attempting to update data and we aren't authorised.-->
+		</testcase>
+	</testsuite>
+	<testsuite name="plazas.tests.viewsets.test_comment.CommentViewsetTest-20220315210412" tests="12" file="plazas/tests/viewsets/test_comment.py" time="1.467" timestamp="2022-03-15T21:04:31" failures="0" errors="0" skipped="0">
+		<testcase classname="plazas.tests.viewsets.test_comment.CommentViewsetTest" name="test_delete_comment" time="0.107" timestamp="2022-03-15T21:04:29" file="plazas\tests\viewsets\test_comment.py" line="172">
+			<!--Test we get a HTTP 405 response when attempting to delete data.-->
+		</testcase>
+		<testcase classname="plazas.tests.viewsets.test_comment.CommentViewsetTest" name="test_delete_comment_unauth" time="0.088" timestamp="2022-03-15T21:04:29" file="plazas\tests\viewsets\test_comment.py" line="185">
+			<!--Test we get a HTTP 401 response when attempting to delete data and we aren't authorised.-->
+		</testcase>
+		<testcase classname="plazas.tests.viewsets.test_comment.CommentViewsetTest" name="test_get_comment" time="0.154" timestamp="2022-03-15T21:04:30" file="plazas\tests\viewsets\test_comment.py" line="141">
+			<!--Test we get a HTTP 200 response when looking at detailed view.-->
+		</testcase>
+		<testcase classname="plazas.tests.viewsets.test_comment.CommentViewsetTest" name="test_get_comment_count" time="0.164" timestamp="2022-03-15T21:04:30" file="plazas\tests\viewsets\test_comment.py" line="294">
+			<!--Test we get the correct comment count when looking at the Plaza view.-->
+		</testcase>
+		<testcase classname="plazas.tests.viewsets.test_comment.CommentViewsetTest" name="test_get_comment_unauth" time="0.084" timestamp="2022-03-15T21:04:30" file="plazas\tests\viewsets\test_comment.py" line="131">
+			<!--Test we get a HTTP 401 response when looking at detailed view.-->
+		</testcase>
+		<testcase classname="plazas.tests.viewsets.test_comment.CommentViewsetTest" name="test_get_comments" time="0.162" timestamp="2022-03-15T21:04:30" file="plazas\tests\viewsets\test_comment.py" line="94">
+			<!--Test we get a HTTP 200 response when looking at list view.-->
+		</testcase>
+		<testcase classname="plazas.tests.viewsets.test_comment.CommentViewsetTest" name="test_get_comments_unauth" time="0.127" timestamp="2022-03-15T21:04:30" file="plazas\tests\viewsets\test_comment.py" line="121">
+			<!--Test we get a HTTP 401 response when looking at list view.-->
+		</testcase>
+		<testcase classname="plazas.tests.viewsets.test_comment.CommentViewsetTest" name="test_post_comment" time="0.145" timestamp="2022-03-15T21:04:30" file="plazas\tests\viewsets\test_comment.py" line="225">
+			<!--Test we get a HTTP 201 response when attempting to add data.-->
+		</testcase>
+		<testcase classname="plazas.tests.viewsets.test_comment.CommentViewsetTest" name="test_post_comment_unverified" time="0.130" timestamp="2022-03-15T21:04:30" file="plazas\tests\viewsets\test_comment.py" line="251">
+			<!--Test we get a HTTP 403 response when attempting to add data as we aren't verified.-->
+		</testcase>
+		<testcase classname="plazas.tests.viewsets.test_comment.CommentViewsetTest" name="test_post_comment_with_unauth" time="0.101" timestamp="2022-03-15T21:04:31" file="plazas\tests\viewsets\test_comment.py" line="277">
+			<!--Test we get a HTTP 401 response when attempting to add data as we are not authorised.-->
+		</testcase>
+		<testcase classname="plazas.tests.viewsets.test_comment.CommentViewsetTest" name="test_put_comment" time="0.115" timestamp="2022-03-15T21:04:31" file="plazas\tests\viewsets\test_comment.py" line="197">
+			<!--Test we get a HTTP 405 response when attempting to update data.-->
+		</testcase>
+		<testcase classname="plazas.tests.viewsets.test_comment.CommentViewsetTest" name="test_put_comment_unauth" time="0.089" timestamp="2022-03-15T21:04:31" file="plazas\tests\viewsets\test_comment.py" line="212">
+			<!--Test we get a HTTP 401 response when attempting to update data and we aren't authorised.-->
+		</testcase>
+	</testsuite>
+	<testsuite name="plazas.tests.viewsets.test_member.MemberViewsetTest-20220315210412" tests="9" file="plazas/tests/viewsets/test_member.py" time="0.942" timestamp="2022-03-15T21:04:32" failures="0" errors="0" skipped="0">
+		<testcase classname="plazas.tests.viewsets.test_member.MemberViewsetTest" name="test_delete_member" time="0.100" timestamp="2022-03-15T21:04:31" file="plazas\tests\viewsets\test_member.py" line="77">
+			<!--Test we get a HTTP 404 response when attempting to delete data.-->
+		</testcase>
+		<testcase classname="plazas.tests.viewsets.test_member.MemberViewsetTest" name="test_delete_member_unauth" time="0.100" timestamp="2022-03-15T21:04:31" file="plazas\tests\viewsets\test_member.py" line="88">
+			<!--Test we get a HTTP 404 response when attempting to delete data and we aren't authorised.-->
+		</testcase>
+		<testcase classname="plazas.tests.viewsets.test_member.MemberViewsetTest" name="test_get_members" time="0.099" timestamp="2022-03-15T21:04:31" file="plazas\tests\viewsets\test_member.py" line="60">
+			<!--Test we get a HTTP 404 response when looking at list view.-->
+		</testcase>
+		<testcase classname="plazas.tests.viewsets.test_member.MemberViewsetTest" name="test_get_members_unauth" time="0.101" timestamp="2022-03-15T21:04:31" file="plazas\tests\viewsets\test_member.py" line="69">
+			<!--Test we get a HTTP 404 response when looking at list view.-->
+		</testcase>
+		<testcase classname="plazas.tests.viewsets.test_member.MemberViewsetTest" name="test_post_member" time="0.131" timestamp="2022-03-15T21:04:31" file="plazas\tests\viewsets\test_member.py" line="122">
+			<!--Test we get a HTTP 201 response when attempting to add data.-->
+		</testcase>
+		<testcase classname="plazas.tests.viewsets.test_member.MemberViewsetTest" name="test_post_member_duplicate" time="0.101" timestamp="2022-03-15T21:04:31" file="plazas\tests\viewsets\test_member.py" line="167">
+			<!--Test we get a HTTP 401 response when attempting to add data as we are not authorised.-->
+		</testcase>
+		<testcase classname="plazas.tests.viewsets.test_member.MemberViewsetTest" name="test_post_member_unauth" time="0.110" timestamp="2022-03-15T21:04:32" file="plazas\tests\viewsets\test_member.py" line="145">
+			<!--Test we get a HTTP 403 response when attempting to add data as we aren't authorised.-->
+		</testcase>
+		<testcase classname="plazas.tests.viewsets.test_member.MemberViewsetTest" name="test_put_member" time="0.100" timestamp="2022-03-15T21:04:32" file="plazas\tests\viewsets\test_member.py" line="98">
+			<!--Test we get a HTTP 404 response when attempting to update data.-->
+		</testcase>
+		<testcase classname="plazas.tests.viewsets.test_member.MemberViewsetTest" name="test_put_member_unauth" time="0.100" timestamp="2022-03-15T21:04:32" file="plazas\tests\viewsets\test_member.py" line="111">
+			<!--Test we get a HTTP 404 response when attempting to update data and we aren't authorised.-->
+		</testcase>
+	</testsuite>
+	<testsuite name="plazas.tests.viewsets.test_plaza.PlazaViewsetTest-20220315210412" tests="4" file="plazas/tests/viewsets/test_plaza.py" time="0.926" timestamp="2022-03-15T21:04:33" failures="0" errors="0" skipped="0">
+		<testcase classname="plazas.tests.viewsets.test_plaza.PlazaViewsetTest" name="test_get_my_plazas" time="0.200" timestamp="2022-03-15T21:04:32" file="plazas\tests\viewsets\test_plaza.py" line="90">
+			<!--Test we get the plazas user 1 is a member of first-->
+			<system-err><![CDATA[c:\users\ben-c\downloads\2021-ecmm427-project-02\backend\.env\lib\site-packages\django\db\models\fields\__init__.py:1416: RuntimeWarning: DateTimeField (unbound) received a naive datetime (1970-01-01 00:00:00) while time zone support is active.
+  warnings.warn("DateTimeField %s received a naive datetime (%s)"
+]]></system-err>
+		</testcase>
+		<testcase classname="plazas.tests.viewsets.test_plaza.PlazaViewsetTest" name="test_get_my_plazas_is_ordered_by_activity" time="0.289" timestamp="2022-03-15T21:04:32" file="plazas\tests\viewsets\test_plaza.py" line="103">
+			<!--Test that we get plazas ordered by most recent activity-->
+		</testcase>
+		<testcase classname="plazas.tests.viewsets.test_plaza.PlazaViewsetTest" name="test_get_plazas" time="0.161" timestamp="2022-03-15T21:04:32" file="plazas\tests\viewsets\test_plaza.py" line="67">
+			<!--Test we get the correct list of plazas-->
+		</testcase>
+		<testcase classname="plazas.tests.viewsets.test_plaza.PlazaViewsetTest" name="test_get_popular_plazas" time="0.276" timestamp="2022-03-15T21:04:33" file="plazas\tests\viewsets\test_plaza.py" line="153">
+			<!--Test that we can get popular plazas-->
+		</testcase>
+	</testsuite>
+	<testsuite name="plazas.tests.viewsets.test_post.PostViewsetTest-20220315210412" tests="21" file="plazas/tests/viewsets/test_post.py" time="2.260" timestamp="2022-03-15T21:04:35" failures="0" errors="0" skipped="0">
+		<testcase classname="plazas.tests.viewsets.test_post.PostViewsetTest" name="test_delete_post" time="0.082" timestamp="2022-03-15T21:04:33" file="plazas\tests\viewsets\test_post.py" line="192">
+			<!--Test we get a HTTP 405 response when attempting to delete data.-->
+		</testcase>
+		<testcase classname="plazas.tests.viewsets.test_post.PostViewsetTest" name="test_delete_post_unauth" time="0.081" timestamp="2022-03-15T21:04:33" file="plazas\tests\viewsets\test_post.py" line="203">
+			<!--Test we get a HTTP 401 response when attempting to delete data and we aren't authorised.-->
+		</testcase>
+		<testcase classname="plazas.tests.viewsets.test_post.PostViewsetTest" name="test_delete_post_without_plaza" time="0.083" timestamp="2022-03-15T21:04:33" file="plazas\tests\viewsets\test_post.py" line="183">
+			<!--Test we get a HTTP 405 response when attempting to delete data.-->
+		</testcase>
+		<testcase classname="plazas.tests.viewsets.test_post.PostViewsetTest" name="test_get_invalid_post" time="0.092" timestamp="2022-03-15T21:04:33" file="plazas\tests\viewsets\test_post.py" line="346">
+			<!--Test we get a HTTP 404 response when looking at the detailed view.-->
+		</testcase>
+		<testcase classname="plazas.tests.viewsets.test_post.PostViewsetTest" name="test_get_post" time="0.209" timestamp="2022-03-15T21:04:33" file="plazas\tests\viewsets\test_post.py" line="158">
+			<!--Test we get a HTTP 200 response when looking at detailed view.-->
+		</testcase>
+		<testcase classname="plazas.tests.viewsets.test_post.PostViewsetTest" name="test_get_post_unauth" time="0.080" timestamp="2022-03-15T21:04:33" file="plazas\tests\viewsets\test_post.py" line="148">
+			<!--Test we get a HTTP 401 response when looking at detailed view.-->
+		</testcase>
+		<testcase classname="plazas.tests.viewsets.test_post.PostViewsetTest" name="test_get_post_unauth_without_plaza" time="0.081" timestamp="2022-03-15T21:04:33" file="plazas\tests\viewsets\test_post.py" line="140">
+			<!--Test we get a HTTP 403 response when looking at detailed view.-->
+		</testcase>
+		<testcase classname="plazas.tests.viewsets.test_post.PostViewsetTest" name="test_get_post_without_plaza" time="0.079" timestamp="2022-03-15T21:04:34" file="plazas\tests\viewsets\test_post.py" line="131">
+			<!--Test we get a HTTP 403 response when looking at detailed view.-->
+		</testcase>
+		<testcase classname="plazas.tests.viewsets.test_post.PostViewsetTest" name="test_get_posts" time="0.213" timestamp="2022-03-15T21:04:34" file="plazas\tests\viewsets\test_post.py" line="70">
+			<!--Test we get a HTTP 200 response when looking at list view.-->
+		</testcase>
+		<testcase classname="plazas.tests.viewsets.test_post.PostViewsetTest" name="test_get_posts_unauth" time="0.081" timestamp="2022-03-15T21:04:34" file="plazas\tests\viewsets\test_post.py" line="115">
+			<!--Test we get a HTTP 401 response when looking at list view.-->
+		</testcase>
+		<testcase classname="plazas.tests.viewsets.test_post.PostViewsetTest" name="test_get_posts_unauth_without_plaza" time="0.078" timestamp="2022-03-15T21:04:34" file="plazas\tests\viewsets\test_post.py" line="123">
+			<!--Test we get a HTTP 401 response when looking at list view.-->
+		</testcase>
+		<testcase classname="plazas.tests.viewsets.test_post.PostViewsetTest" name="test_get_posts_without_plaza" time="0.207" timestamp="2022-03-15T21:04:34" file="plazas\tests\viewsets\test_post.py" line="93">
+			<!--Test we get a HTTP 200 response when looking at list view.-->
+		</testcase>
+		<testcase classname="plazas.tests.viewsets.test_post.PostViewsetTest" name="test_post_post" time="0.168" timestamp="2022-03-15T21:04:34" file="plazas\tests\viewsets\test_post.py" line="243">
+			<!--Test we get a HTTP 201 response when attempting to add data.-->
+		</testcase>
+		<testcase classname="plazas.tests.viewsets.test_post.PostViewsetTest" name="test_post_post_unverified" time="0.098" timestamp="2022-03-15T21:04:34" file="plazas\tests\viewsets\test_post.py" line="272">
+			<!--Test we get a HTTP 403 response when attempting to add data as we aren't verified.-->
+		</testcase>
+		<testcase classname="plazas.tests.viewsets.test_post.PostViewsetTest" name="test_post_post_with_unauth" time="0.084" timestamp="2022-03-15T21:04:34" file="plazas\tests\viewsets\test_post.py" line="328">
+			<!--Test we get a HTTP 401 response when attempting to add data as we are not authorised.-->
+		</testcase>
+		<testcase classname="plazas.tests.viewsets.test_post.PostViewsetTest" name="test_post_post_without_plaza" time="0.093" timestamp="2022-03-15T21:04:35" file="plazas\tests\viewsets\test_post.py" line="300">
+			<!--Test we get a HTTP 403 response when attempting to add data as we aren't verified.-->
+		</testcase>
+		<testcase classname="plazas.tests.viewsets.test_post.PostViewsetTest" name="test_post_view" time="0.098" timestamp="2022-03-15T21:04:35" file="plazas\tests\viewsets\test_post.py" line="357">
+			<!--Test the post view count increases-->
+		</testcase>
+		<testcase classname="plazas.tests.viewsets.test_post.PostViewsetTest" name="test_post_view_no_spam" time="0.107" timestamp="2022-03-15T21:04:35" file="plazas\tests\viewsets\test_post.py" line="372">
+			<!--Test the post view count doesn't increase multiple times for the same ip-->
+		</testcase>
+		<testcase classname="plazas.tests.viewsets.test_post.PostViewsetTest" name="test_put_post" time="0.081" timestamp="2022-03-15T21:04:35" file="plazas\tests\viewsets\test_post.py" line="213">
+			<!--Test we get a HTTP 405 response when attempting to update data.-->
+		</testcase>
+		<testcase classname="plazas.tests.viewsets.test_post.PostViewsetTest" name="test_put_post_unauth" time="0.082" timestamp="2022-03-15T21:04:35" file="plazas\tests\viewsets\test_post.py" line="233">
+			<!--Test we get a HTTP 401 response when attempting to update data and we aren't authorised.-->
+		</testcase>
+		<testcase classname="plazas.tests.viewsets.test_post.PostViewsetTest" name="test_put_post_without_plaza" time="0.082" timestamp="2022-03-15T21:04:35" file="plazas\tests\viewsets\test_post.py" line="225">
+			<!--Test we get a HTTP 401 response when attempting to update data and we aren't authorised.-->
+		</testcase>
+	</testsuite>
+</testsuites>
