@@ -39,7 +39,13 @@
                 'pointer-events-auto opacity-100 scale-100': value,
             }"
         >
-            <Voucher :id="id" :first-name="firstName" />
+            <Voucher
+                :id="id"
+                :first-name="firstName"
+                :last-name="lastName"
+                :email="email"
+                :affiliation="affiliation"
+            />
         </div>
     </div>
 </template>
@@ -56,6 +62,9 @@ export default {
     props: {
         id: { type: Number, default: null },
         firstName: { type: String, default: null },
+        lastName: { type: String, default: null },
+        email: { type: String, default: null },
+        affiliation: { type: String, default: null },
         value: {
             type: Boolean,
             default: false,
