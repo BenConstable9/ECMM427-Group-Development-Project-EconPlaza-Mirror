@@ -37,6 +37,9 @@
                 :id="id"
                 v-model="showVouchModal"
                 :first-name="firstName"
+                :last-name="lastName"
+                :email="email"
+                :affiliation="affiliation"
             />
         </div>
     </div>
@@ -50,6 +53,9 @@ export default {
     props: {
         id: { type: Number, default: null },
         firstName: { type: String, default: null },
+        lastName: { type: String, default: null },
+        email: { type: String, default: null },
+        affiliation: { type: String, default: null },
     },
     data() {
         return {
