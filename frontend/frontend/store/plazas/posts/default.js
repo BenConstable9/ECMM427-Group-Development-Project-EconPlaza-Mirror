@@ -10,10 +10,9 @@ export const defaultState = () => {
             next: undefined,
             previous: undefined,
             sortOptions: [
-                { key: '-id', name: 'Newest' },
-                { key: 'id', name: 'Oldest' },
-                { key: '-last_activity', name: 'Newest Activity' },
-                { key: 'last_activity', name: 'Oldest Activity' },
+                { key: '-id', name: 'Latest Post' },
+                { key: 'id', name: 'Oldest Post' },
+                { key: '-last_activity', name: 'Most Recent Activity' },
                 { key: '-views', name: 'Most Views' },
                 { key: 'views', name: 'Least Views' },
                 { key: '-replies', name: 'Most Replies' },

@@ -10,8 +10,8 @@ export const defaultState = () => {
             next: undefined,
             previous: undefined,
             sortOptions: [
-                { key: '-id', name: 'Newest' },
-                { key: 'id', name: 'Oldest' },
+                { key: '-id', name: 'Latest Comment' },
+                { key: 'id', name: 'Oldest Comment' },
             ],
         },
         currentPost: undefined,

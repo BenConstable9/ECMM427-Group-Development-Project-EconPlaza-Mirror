@@ -27,7 +27,7 @@ export default {
     },
     data() {
         return {
-            selected: this.size,
+            selected: this.sort,
         }
     },
 }
