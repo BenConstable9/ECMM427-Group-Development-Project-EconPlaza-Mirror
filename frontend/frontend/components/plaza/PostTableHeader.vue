@@ -71,7 +71,7 @@
                         </button>
                     </form>
                 </div>
-                <div id="views">
+                <!-- For Future Dropdown <div id="views">
                     <div class="rounded-full bg-gray-50 p-3">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -84,7 +84,7 @@
                             />
                         </svg>
                     </div>
-                </div>
+                </div> -->
             </div>
             <div v-if="includePlazaActions" class="flex flex-wrap mt-2">
                 <Tag
