@@ -31,9 +31,6 @@ class CommentSerializer(serializers.ModelSerializer):
         ]
         lookup_field = "id"
 
-    def get_comment_children(self, instance):
-        return Comment.objects.filter(parent=instance)
-
     def to_representation(self, instance):
         # Convert Permissions JSON into a dictionary to be combined into the JSON response
         representation = super(CommentSerializer, self).to_representation(instance)
