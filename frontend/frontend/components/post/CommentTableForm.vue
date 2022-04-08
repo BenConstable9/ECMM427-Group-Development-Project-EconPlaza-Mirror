@@ -211,6 +211,10 @@ export default {
                         postID: this.$route.params.id,
                     })
                     this.increaseReplyCount()
+                    // Make sure we wipe the stored reply
+                    this.comment.reply = null
+                    this.comment.replyContent = ''
+                    this.comment.replyProfile = ''
                 })
                 .catch((response) => {
                     if (
