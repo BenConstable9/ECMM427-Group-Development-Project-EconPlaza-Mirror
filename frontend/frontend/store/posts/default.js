@@ -11,8 +11,8 @@ export const defaultState = () => {
             previous: undefined,
             search: '',
             sortOptions: [
-                { key: '-id', name: 'Latest Post' },
-                { key: 'id', name: 'Oldest Post' },
+                { key: '-id', name: 'Latest Posts' },
+                { key: 'id', name: 'Oldest Posts' },
                 { key: '-last_activity', name: 'Most Recent Activity' },
                 { key: '-views', name: 'Most Views' },
                 { key: 'views', name: 'Least Views' },
