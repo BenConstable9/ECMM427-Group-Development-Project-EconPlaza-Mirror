@@ -7,7 +7,8 @@ export default {
             state.posts !== undefined &&
             state.pagination.page === page &&
             state.pagination.returnedSize === state.pagination.desiredSize &&
-            state.pagination.search === search
+            state.pagination.search === search &&
+            state.pagination.returnedSort === state.pagination.desiredSort
         ) {
             return
         }
@@ -18,6 +19,7 @@ export default {
                     page,
                     page_size: state.pagination.desiredSize,
                     search,
+                    ordering: state.pagination.desiredSort,
                 },
             })
             .then(({ data }) => {
@@ -27,6 +29,7 @@ export default {
                     previous: data.previous,
                     returnedSize: state.pagination.desiredSize,
                     search,
+                    returnedSort: state.pagination.desiredSort,
                 })
                 commit('setPage', page)
                 commit('setPosts', data.results)

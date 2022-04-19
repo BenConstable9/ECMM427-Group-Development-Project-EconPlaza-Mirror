@@ -71,6 +71,7 @@ export default {
         this.$nuxt.$off('pagination-next')
         this.$nuxt.$off('pagination-previous')
         this.$nuxt.$off('pagination-size')
+        this.$nuxt.$off('pagination-sort')
     },
     created() {
         this.$nuxt.$on('pagination-next', () => {
@@ -102,10 +103,26 @@ export default {
                 })
             }
         })
+        this.$nuxt.$on('pagination-sort', (sort) => {
+            // Store this size
+            this.setDesiredPaginationSort(sort)
+
+            // If we are already on page 1 then refresh otherwise change page
+            if (this.page === 1) {
+                this.$nuxt.refresh()
+            } else {
+                this.page = 1
+                this.$router.replace({
+                    path: this.$route.path,
+                    query: { ...this.$route.query, page: this.page },
+                })
+            }
+        })
     },
     methods: {
         ...mapMutations({
             setDesiredPaginationSize: 'tags/setDesiredPaginationSize',
+            setDesiredPaginationSort: 'tags/setDesiredPaginationSort',
         }),
     },
 }

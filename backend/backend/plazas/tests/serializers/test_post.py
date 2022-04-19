@@ -61,7 +61,6 @@ class PostSerializerTest(APITestCase):
             set(
                 [
                     "id",
-                    "replies",
                     "profile",
                     "plaza",
                     "title",
@@ -71,7 +70,6 @@ class PostSerializerTest(APITestCase):
                     "hidden",
                     "views",
                     "created_at",
-                    "last_activity",
                     "tags",
                 ]
             ),
@@ -86,7 +84,6 @@ class PostSerializerTest(APITestCase):
         data = self.serializer.data
 
         self.assertEqual(data["id"], self.post.id)
-        self.assertEqual(data["replies"], 0)
         self.assertEqual(data["profile"]["id"], self.profile_1.id)
         self.assertEqual(data["title"], self.post.title)
         self.assertEqual(data["content"], self.post.content)

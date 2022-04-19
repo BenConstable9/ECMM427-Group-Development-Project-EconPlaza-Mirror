@@ -13,8 +13,9 @@ from ..serializers import TagSerializer, PlazaSerializer
 class PostSerializer(serializers.ModelSerializer):
     permissions = serializers.JSONField()
     reactions = serializers.JSONField()
-    replies = serializers.SerializerMethodField("get_comments_count")
-    last_activity = serializers.SerializerMethodField()
+
+    replies = serializers.IntegerField(read_only=True)
+    last_activity = serializers.DateTimeField(read_only=True)
 
     tags = TagSerializer(many=True)
     plaza = PlazaSerializer(many=False, read_only=True)
@@ -49,9 +50,6 @@ class PostSerializer(serializers.ModelSerializer):
             Tag.objects.create(content_object=post, tag=tag_data)
 
         return post
-
-    def get_comments_count(self, instance):
-        return Comment.objects.filter(post=instance).count()
 
     def get_last_activity(self, instance):
         # Get the last comment on the post

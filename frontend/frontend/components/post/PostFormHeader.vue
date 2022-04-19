@@ -13,7 +13,7 @@
                 </h2>
             </div>
         </div>
-        <div id="controls">
+        <!-- For Future Dropdown <div id="controls">
             <div class="rounded-full bg-gray-50 p-3">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -26,7 +26,7 @@
                     />
                 </svg>
             </div>
-        </div>
+        </div> -->
     </div>
 </template>
 

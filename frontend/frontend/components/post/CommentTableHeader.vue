@@ -9,7 +9,11 @@
             </div>
         </div>
         <pagination-size :size="pagination.preferredSize" />
-        <div id="views">
+        <pagination-sort
+            :sort="pagination.desiredSort"
+            :options="pagination.sortOptions"
+        />
+        <!-- For Future Dropdown <div id="views">
             <div class="rounded-full bg-gray-50 p-3">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -22,17 +26,19 @@
                     />
                 </svg>
             </div>
-        </div>
+        </div> -->
     </div>
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
 import PaginationSize from '~/components/helpers/PaginationSize'
+import PaginationSort from '~/components/helpers/PaginationSort'
 
 export default {
     components: {
         PaginationSize,
+        PaginationSort,
     },
     data() {
         return {

@@ -7,6 +7,8 @@ from django.shortcuts import get_object_or_404
 from django.core.cache import cache
 from plazas.models.availabletag import AvailableTag
 
+from django.db.models import Count, Max
+
 from utils import ActionBasedPermission
 from utils import (
     ContainsPlazaURLVerified,
@@ -33,8 +35,14 @@ class PostViewSet(
     def get_queryset(self):
         available_tag_param = self.request.query_params.get("tag", None)
 
-        # See if we have a ?tag= query
-        posts = Post.objects.all()
+        # Need to annotate so that we can use replies in ordering
+        # https://stackoverflow.com/questions/30041948/django-rest-framework-ordering-on-a-serializermethodfield
+        posts = (
+            Post.objects.annotate(replies=Count("comment__post"))
+            .annotate(last_activity=Max("comment__created_at"))
+            .all()
+        )
+
         if available_tag_param:
             available_tag = get_object_or_404(AvailableTag, name=available_tag_param)
             posts = posts.filter(tags__tag=available_tag)
@@ -61,9 +69,7 @@ class PostViewSet(
     filter_backends = [filters.SearchFilter, filters.OrderingFilter]
     search_fields = ["title"]
 
-    ordering_fields = [
-        "id",
-    ]
+    ordering_fields = ["id", "views", "replies", "last_activity"]
 
     ordering = ["-id"]
 

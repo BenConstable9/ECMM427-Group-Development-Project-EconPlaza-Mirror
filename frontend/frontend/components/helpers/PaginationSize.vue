@@ -1,8 +1,8 @@
 <template>
     <div class="flex justify-end">
         <select
-            v-model="selected"
-            class="rounded-full bg-gray-50 p-3"
+            :value="size"
+            class="rounded-full bg-gray-50 p-3 text-primary"
             @change="$nuxt.$emit('pagination-size', $event.target.value)"
         >
             <option value="5">5</option>

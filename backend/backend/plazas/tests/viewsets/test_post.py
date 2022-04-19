@@ -65,6 +65,10 @@ class PostViewsetTest(APITestCase):
             reactions="{}",
         )
 
+        # Needed to force the serializer to return these fields. Added in the viewset annotations
+        self.post.replies = 0
+        self.post.last_activity = None
+
         self.client = APIClient()
 
     def test_get_posts(self):
