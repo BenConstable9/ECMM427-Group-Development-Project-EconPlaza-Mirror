@@ -100,12 +100,6 @@
             <label class="text-gray-800 mt-5"></label>
 
             <div class="field">
-                <input id="checkbox" v-model="over18" type="checkbox" />
-                <label class="label" for="checkbox">
-                    I certify that I am least 18 years of age
-                </label>
-            </div>
-            <div class="field">
                 <input id="checkbox" v-model="privacy" type="checkbox" />
                 <label class="label" for="checkbox">
                     I have read and understood the
@@ -174,7 +168,6 @@ export default {
             password: '',
             error: null,
             success: null,
-            over18: null,
             privacy: null,
             charter: null,
         }
@@ -187,11 +180,7 @@ export default {
     auth: 'guest',
     methods: {
         async register() {
-            if (
-                this.over18 === true &&
-                this.privacy === true &&
-                this.charter === true
-            ) {
+            if (this.privacy === true && this.charter === true) {
                 const token = await this.$recaptcha.getResponse()
 
                 // send token to server alongside your form data
@@ -214,10 +203,7 @@ export default {
                                 password: this.password,
                             },
                         })
-                        this.$router.push('/', {
-                            username: this.username,
-                            password: this.password,
-                        })
+                        this.$router.push('/')
                     })
                     .catch((err) => {
                         // If there is an error set the error message to
