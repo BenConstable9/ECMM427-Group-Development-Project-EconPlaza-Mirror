@@ -1,15 +1,40 @@
 # Econ Plaza Frontend
 
-The Econ Plaza frontend will be written using VueJS
-and will dynamically make calls to the API to load
-content.
+The Econ Plaza frontend is written using Nuxt and will dynamically make calls to the API to load content.
 
-## Setup
+## Structure
 
-_TODO_
+This directory contains the frontend system of EconPlaza.
 
-## How To Run
+* **frontend** contains all the source code.
 
-_TODO_
+## Getting Started
 
+Make sure you have NodeJS 16.15.0 LTS installed and configured on the system.
 
+Install and set up YARN. You can find a guide to enable it with Corepack here: [https://yarnpkg.com/getting-started/install]
+
+Navigate to the source code directory with:
+
+```bash
+$ cd frontend
+```
+
+Install the required packages with Yarn.
+
+```bash
+$ yarn install
+```
+
+You can start the development server with:
+
+```bash
+$ yarn dev
+```
+
+If using in production, you can start without dev mode with:
+
+```bash
+$ yarn build
+$ yarn start
+```
