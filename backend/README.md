@@ -37,6 +37,12 @@ Navigate to the project directory, where `manage.py` is located.
 $ cd backend
 ```
 
+Set environmental variable to true.
+
+```bash
+$ $env:DEVELOPMENT="True"           # Windows Powershell
+```
+
 Set up your local database by running migrations:
 
 ```bash
