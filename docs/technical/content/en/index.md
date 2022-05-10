@@ -12,7 +12,7 @@ EconPlaza is a discussion platform for, and by, economists.
 
 This technical documentation describes the structure of the frontend and backend and some key technical parts.
 
-This is a brief set of documentation, the code is documented with comments, doc strings and README.md files throughout to make it easy to extend. This documentation is not meant to replicate these comments - please refer to the source code to see additional documentation. Additionally, industry standard programming practices are used which aids understanding.
+This is a brief set of documentation; the code is documented with comments, doc strings and README.md files throughout to make it easy to extend. This documentation is not meant to replicate these comments - please refer to the source code to see additional documentation. Additionally, industry standard programming practices are used which aids understanding.
 
 <alert type="info">
 
