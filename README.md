@@ -8,4 +8,8 @@
 * Client:     Alejandro Robinson Cortes and Climent Quintana-Domeque
 * Department: Department of Economics/Business School
 
-In recent years, economists have retorted to using soci
+This repository is split into 3 sections:
+
+* **frontend** All the code to build the frontend of EconPlaza
+* **backend** All the code to build the API that powers EconPlaza
+* **docs** Documentation for both the product and technical.
