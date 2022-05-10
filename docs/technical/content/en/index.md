@@ -11,7 +11,7 @@ features:
 
 EconPlaza is a discussion platform for, and by, economists.
 
-This technical documentation describes usage of the platform by users and administrators.
+This technical documentation describes the structure of the frontend and backend and some key technical parts.
 
 <alert type="info">
 
