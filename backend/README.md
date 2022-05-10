@@ -5,6 +5,8 @@
 
 ## Getting started
 
+Make sure you have Python 3.9 installed and configured on your system.
+
 Set up and activate a virtual environment:
 
 ```bash
@@ -31,6 +33,12 @@ Set up your local database by running migrations:
 ```bash
 $ python manage.py migrate
 $ python manage.py createcachetable
+```
+
+Create a superuser for admin control of the database
+
+```bash
+$ python manage.py createsuperuser
 ```
 
 Finally, run the server:
