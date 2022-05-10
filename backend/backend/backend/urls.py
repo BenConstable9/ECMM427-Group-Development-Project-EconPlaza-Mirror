@@ -27,19 +27,25 @@ from rest_framework_simplejwt.views import (
 )
 
 schema_view = get_schema_view(
-   openapi.Info(
-      title="EconPlaza API",
-      default_version='v1',
-      description="This is the documentation for the EconPlaza API",
-      license=openapi.License(name="MIT License"),
-   ),
-   public=True,
-   permission_classes=[permissions.AllowAny],
+    openapi.Info(
+        title="EconPlaza API",
+        default_version="v1",
+        description="This is the documentation for the EconPlaza API",
+        license=openapi.License(name="MIT License"),
+    ),
+    public=True,
+    permission_classes=[permissions.AllowAny],
 )
 
 urlpatterns = [
-    re_path(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
-    re_path(r'^docs/$', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
+    re_path(
+        r"^swagger(?P<format>\.json|\.yaml)$",
+        schema_view.without_ui(cache_timeout=0),
+        name="schema-json",
+    ),
+    re_path(
+        r"^docs/$", schema_view.with_ui("redoc", cache_timeout=0), name="schema-redoc"
+    ),
     path("v1/users/", include("accounts.urls")),
     path("admin/", admin.site.urls),
     path("v1/auth/login/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
