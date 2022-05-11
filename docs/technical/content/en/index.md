@@ -4,8 +4,8 @@ description: ''
 position: 100
 category: ''
 features:
-  - Frontend Documentation
-  - Backend Documentation
+  - Frontend documentation
+  - Backend documentation
 ---
 
 EconPlaza is a discussion platform for, and by, economists.
