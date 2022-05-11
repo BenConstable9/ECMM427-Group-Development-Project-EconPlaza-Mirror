@@ -12,6 +12,6 @@ A complete entity relationship diagram can be found at: [https://git.exeter.ac.u
 All database models can be found in each application directory within the subsequent **models** folder. After changing a model, run:
 
 ```bash
-$ python manage.py createmigrations
+$ python manage.py makemigrations
 $ python manage.py migrate
 ```
