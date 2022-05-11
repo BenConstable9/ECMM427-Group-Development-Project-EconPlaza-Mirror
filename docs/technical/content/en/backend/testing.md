@@ -7,7 +7,26 @@ category: Backend
 
 API Testing is performed using Django's built in Test Manager. The current test coverage is 88%.
 
-To run tests, start up your repository by following the steps in running.md and execute the testing section.
+To run tests, start up your repository by following the steps in running.md and execute the testing section:
+
+Install testing dependencies:
+
+```bash
+$ pip install -r requirements-test.txt
+```
+
+Use [Coverage.py](https://coverage.readthedocs.io/en/6.0.2/) to run the test suite:
+
+```bash
+$ coverage run manage.py test
+```
+
+You can print a report of the results to your console:
+
+```bash
+$ coverage report -m
+```
+
 
 ## Testing Structure
 
