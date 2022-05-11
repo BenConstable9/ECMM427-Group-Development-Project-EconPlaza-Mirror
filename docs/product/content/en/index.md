@@ -4,9 +4,8 @@ description: ''
 position: 100
 category: ''
 features:
-  - Feature 1
-  - Feature 2
-  - Feature 3
+  - User guide
+  - Admin guide
 ---
 
 EconPlaza is a discussion platform for, and by, economists.
