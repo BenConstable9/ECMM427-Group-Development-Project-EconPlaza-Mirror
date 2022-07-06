@@ -1,2 +1,2 @@
 unittest-xml-reporting==3.2.0
-lxml==4.7.1
+lxml==4.9.1
